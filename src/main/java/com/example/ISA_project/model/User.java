@@ -27,6 +27,7 @@ public class User {
     private String address;
     private String state;
     private String town;
+    private String phone;
     private Gender gender;
 
 }
