@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
 import { AppRoutingModule } from './app-routing.module';
+import { HomePageUserComponent } from './pages/home-page-user/home-page-user.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 registerLocaleData(en);
 
@@ -20,7 +22,9 @@ registerLocaleData(en);
   declarations: [
     AppComponent,
     LoginPageComponent,
-    RegistrationPageComponent
+    RegistrationPageComponent,
+    HomePageUserComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,31 @@
+<nz-layout>
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+      <div class="logo"></div>
+      <ul nz-menu nzTheme="dark" nzMode="inline">
+        <li nz-menu-item>
+            <i nz-icon nzType="user"></i>
+            <span>Profile</span>
+        </li>
+        <li nz-menu-item >
+            <i nz-icon nzType="team"></i>
+            <span>blabla</span>
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="file"></i>
+          <span>File</span>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout>
+      <nz-header>
+        <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></i>
+      </nz-header>
+      <nz-content>
+        <div class="inner-content">
+          <app-user-profile></app-user-profile>
+        </div>
+      </nz-content>
+     
+    </nz-layout>
+  </nz-layout>
+ 
