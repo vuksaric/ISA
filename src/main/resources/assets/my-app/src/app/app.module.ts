@@ -15,8 +15,11 @@ import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HomePageUserComponent } from './pages/home-page-user/home-page-user.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { HomePagePharmacistComponent } from './pages/home-page-pharmacist/home-page-pharmacist.component';
+import { ProfilePharmacistComponent } from './pages/profile-pharmacist/profile-pharmacist.component';
 
 registerLocaleData(en);
+
 
 @NgModule({
   declarations: [
@@ -24,7 +27,9 @@ registerLocaleData(en);
     LoginPageComponent,
     RegistrationPageComponent,
     HomePageUserComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    HomePagePharmacistComponent,
+    ProfilePharmacistComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,7 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     DemoNgZorroAntdModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

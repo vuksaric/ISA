@@ -21,11 +21,13 @@ public class Medicine {
     private String name;
     private String type;
     private String shape;
-    @ElementCollection
-    private List<String> ingredients;
+    @OneToMany(fetch=FetchType.LAZY)
+    @JoinColumn(name="Medicine_ID")
+    private List<Ingredient> ingredients;
     private String manifacturer;
     private IssuingMode issuingMode;
-    @ElementCollection
-    private List<Integer> replacementIds;
+    @OneToMany(fetch=FetchType.LAZY)
+    @JoinColumn(name="Medicine_ID")
+    private List<Medicine> replacements;
     private String notes;
 }

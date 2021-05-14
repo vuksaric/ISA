@@ -21,7 +21,9 @@ public class WorkdayDermatologist {
     @OneToOne(fetch=FetchType.LAZY)
     private Period period;
     @OneToMany(fetch=FetchType.LAZY)
+    @JoinColumn(name="WorkdayDermatologist_ID")
     private List<Examination> examinations;
     @OneToMany(fetch=FetchType.LAZY)
+    @JoinColumn(name="WorkdayDermatologist_ID")
     private List<Period> freeTerms;
 }

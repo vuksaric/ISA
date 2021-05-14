@@ -13,8 +13,16 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Pharmacist extends User{
+public class Pharmacist{
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @OneToOne(fetch=FetchType.LAZY)
+    private User user;
     private float mark;
     @OneToMany(fetch=FetchType.LAZY)
+    @JoinColumn(name="Pharmacist_ID")
     private List<WorkdayPharmacist> workdays;
 }
