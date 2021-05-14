@@ -2,11 +2,15 @@ import { RegistrationPageComponent } from './pages/registration-page/registratio
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { HomePagePharmacistComponent } from './pages/home-page-pharmacist/home-page-pharmacist.component';
+import { ProfilePharmacistComponent } from './pages/profile-pharmacist/profile-pharmacist.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo:'login'},
     { path: 'login', component:LoginPageComponent},
-    { path: 'registration', component:RegistrationPageComponent}
+    { path: 'registration', component:RegistrationPageComponent},
+    { path: 'homePagePharmacist', component:HomePagePharmacistComponent},
+    { path: 'profilePharmacist', component:ProfilePharmacistComponent}
 ];
 
 @NgModule({

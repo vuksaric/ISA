@@ -13,7 +13,15 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Patient extends User{
+public class Patient{
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @OneToOne(fetch=FetchType.LAZY)
+    private User user;
     @OneToMany(fetch=FetchType.LAZY)
+    @JoinColumn(name="Patient_ID")
     private List<Allergy> allergies;
 }

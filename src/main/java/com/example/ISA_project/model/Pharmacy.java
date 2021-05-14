@@ -19,13 +19,16 @@ public class Pharmacy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToMany(fetch=FetchType.LAZY)
+    @JoinColumn(name="Pharmacy_ID")
     private List<Dermatologist> dermatologist;
     @OneToMany(fetch=FetchType.LAZY)
+    @JoinColumn(name="Pharmacy_ID")
     private List<Pharmacist> pharmacists;
     private String name;
     private String address;
     private String description;
     @OneToMany(fetch=FetchType.LAZY)
+    @JoinColumn(name="Pharmacy_ID")
     private List<Medicine> medicines;
     private float mark;
 }
