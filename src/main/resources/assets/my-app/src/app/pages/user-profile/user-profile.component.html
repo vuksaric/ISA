@@ -10,14 +10,14 @@
                 <input nz-input formControlName="email" id="email"/>
               </nz-form-control>
             </nz-form-item>
-          
+        
             
             <nz-form-item>
-              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name"  >
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name_user">
                 <span>Name</span>
               </nz-form-label>
               <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your name!">
-                <input nz-input id="name" formControlName="name" />
+                <input nz-input id="name_user" formControlName="name_user" />
               </nz-form-control>
             </nz-form-item>
         
@@ -31,7 +31,7 @@
                 </nz-form-control>
             </nz-form-item>
 
-            <!--surname-->
+            <!--address-->
             <nz-form-item>
               <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="address"  >
                 <span>Address</span>
@@ -40,23 +40,41 @@
                 <input nz-input id="address" formControlName="address" />
               </nz-form-control>
             </nz-form-item>
+
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="town"  >
+                <span>Town</span>
+              </nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your town!">
+                <input nz-input id="town" formControlName="town" />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="state"  >
+                <span>State</span>
+              </nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your state!">
+                <input nz-input id="state" formControlName="state" />
+              </nz-form-control>
+            </nz-form-item>
+
             <!--gender-->
            
             
-            <nz-form-item>
+           <!-- <nz-form-item>
                 <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="gender"  >
                   <span>Gender</span>
                 </nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24"  [nzValidateStatus]="validateForm.controls['gender']"
                 nzErrorTip="Please input your gender!">
-                    <nz-select ngModel="gender">
+                    <nz-select ngModel="gender" formControlName="gender">
                         <nz-option nzValue="female" nzLabel="Female"></nz-option>
                         <nz-option nzValue="male" nzLabel="Male"></nz-option>
                     </nz-select>
                 </nz-form-control>
-            </nz-form-item>
+            </nz-form-item>-->
         
-            <nz-form-item>
+            <!--<nz-form-item>
               <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" >Phone Number</nz-form-label>
               <nz-form-control
                 [nzSm]="14"
@@ -75,7 +93,17 @@
                 </nz-input-group>
               </nz-form-control>
             </nz-form-item>
-          
+          -->
+
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber"  >
+              <span>Phone Number</span>
+            </nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your phone number!">
+              <input nz-input id="phoneNumber" formControlName="phoneNumber" />
+            </nz-form-control>
+          </nz-form-item>
+
             <nz-form-item nz-row class="register-area">
               <nz-form-control [nzSpan]="14" [nzOffset]="6">
                 <button nz-button nzType="primary">Submit</button>
