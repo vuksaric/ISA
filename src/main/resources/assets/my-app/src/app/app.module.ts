@@ -15,6 +15,7 @@ import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HomePagePharmacistComponent } from './pages/home-page-pharmacist/home-page-pharmacist.component';
 import { ProfilePharmacistComponent } from './pages/profile-pharmacist/profile-pharmacist.component';
+import { WorkScheduleComponent } from './pages/work-schedule/work-schedule.component';
 
 registerLocaleData(en);
 
@@ -25,7 +26,8 @@ registerLocaleData(en);
     LoginPageComponent,
     RegistrationPageComponent,
     HomePagePharmacistComponent,
-    ProfilePharmacistComponent
+    ProfilePharmacistComponent,
+    WorkScheduleComponent
   ],
   imports: [
     BrowserModule,
