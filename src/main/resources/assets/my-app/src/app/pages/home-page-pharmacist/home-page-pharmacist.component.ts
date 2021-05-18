@@ -22,6 +22,11 @@ export class HomePagePharmacistComponent implements OnInit {
   {
     this.router.navigate(['workSchedule']);
   }
+
+  previousConsultations()
+  {
+    this.router.navigate(['previousConsultations']);
+  }
 }
 
 

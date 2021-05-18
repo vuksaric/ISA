@@ -22,4 +22,6 @@ public class Examination {
     private float price;
     @OneToOne(fetch=FetchType.LAZY)
     private Dermatologist dermatologist;
+    @OneToOne(fetch=FetchType.LAZY)
+    private Patient patient;
 }

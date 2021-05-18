@@ -23,4 +23,9 @@ public class Consultation {
     @OneToOne(fetch=FetchType.LAZY)
     private Pharmacy pharmacy;
     private float price;
+    @OneToOne(fetch=FetchType.LAZY)
+    private Pharmacist pharmacist;
+    @OneToOne(fetch=FetchType.LAZY)
+    private Patient patient;
+
 }

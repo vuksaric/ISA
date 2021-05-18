@@ -1,6 +1,9 @@
 export class Consultation
 {
-    public start : Date;
-    public end : Date;
-    public pharmacy : string;
+    
+    name: string;
+    surname: string;
+    address: string;
+    date: Date;
+    pharmacy: string
 }

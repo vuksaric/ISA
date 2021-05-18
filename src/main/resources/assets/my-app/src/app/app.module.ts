@@ -16,6 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomePagePharmacistComponent } from './pages/home-page-pharmacist/home-page-pharmacist.component';
 import { ProfilePharmacistComponent } from './pages/profile-pharmacist/profile-pharmacist.component';
 import { WorkScheduleComponent } from './pages/work-schedule/work-schedule.component';
+import { PreviousConsultationsComponent } from './pages/previous-consultations/previous-consultations.component';
 
 registerLocaleData(en);
 
@@ -27,7 +28,8 @@ registerLocaleData(en);
     RegistrationPageComponent,
     HomePagePharmacistComponent,
     ProfilePharmacistComponent,
-    WorkScheduleComponent
+    WorkScheduleComponent,
+    PreviousConsultationsComponent
   ],
   imports: [
     BrowserModule,

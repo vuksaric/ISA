@@ -32,4 +32,9 @@ public class User {
     private LocalDate dateOfBirth;
     private UserType userType;
 
+    public String getFullAdress()
+    {
+        return address + ", " + town + ", " + state;
+    }
+
 }

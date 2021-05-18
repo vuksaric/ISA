@@ -1,11 +1,13 @@
 package com.example.ISA_project.service.implementation;
 
 import com.example.ISA_project.model.Consultation;
+import com.example.ISA_project.model.Patient;
 import com.example.ISA_project.model.Pharmacist;
 import com.example.ISA_project.model.WorkdayPharmacist;
 import com.example.ISA_project.model.dto.ConsultationDTO;
 import com.example.ISA_project.model.dto.ProfileDTO;
 import com.example.ISA_project.model.dto.WorkDayPharmacistDTO;
+import com.example.ISA_project.repository.ConsultationRepository;
 import com.example.ISA_project.repository.PharmacistRepository;
 import com.example.ISA_project.service.IPharmacistService;
 import org.springframework.stereotype.Service;
@@ -20,10 +22,12 @@ import java.util.List;
 public class PharmacistService implements IPharmacistService {
 
     private final PharmacistRepository pharmacistRepository;
+    private final ConsultationRepository consultationRepository;
 
-    public PharmacistService(PharmacistRepository pharmacistRepository)
+    public PharmacistService(PharmacistRepository pharmacistRepository, ConsultationRepository consultationRepository)
     {
         this.pharmacistRepository = pharmacistRepository;
+        this.consultationRepository = consultationRepository;
     }
 
     public ProfileDTO getProfile(int id)
@@ -49,7 +53,4 @@ public class PharmacistService implements IPharmacistService {
         return result;
     }
 
-    public Date convertToDateViaSqlTimestamp(LocalDateTime dateToConvert) {
-        return java.sql.Timestamp.valueOf(dateToConvert);
-    }
 }

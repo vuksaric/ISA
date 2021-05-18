@@ -1,0 +1,101 @@
+<nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed">
+    <thead>
+      <tr>
+        <th nzCustomFilter>
+          Name
+          <nz-filter-trigger [(nzVisible)]="visibleName" [nzActive]="searchValueName.length > 0" [nzDropdownMenu]="menuName">
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+        </th>
+        <th nzCustomFilter>
+            Surname
+            <nz-filter-trigger [(nzVisible)]="visibleSurname" [nzActive]="searchValueSurname.length > 0" [nzDropdownMenu]="menuSurname">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+          </th>
+          <th nzCustomFilter>
+            Address
+            <nz-filter-trigger [(nzVisible)]="visibleAddress" [nzActive]="searchValueAddress.length > 0" [nzDropdownMenu]="menuAddress">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+          </th>
+          <th nzCustomFilter>
+            Date of consultation
+            <nz-filter-trigger [(nzVisible)]="visibleDate" [nzActive]="searchValueDate.length > 0" [nzDropdownMenu]="menuDate">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+          </th>
+          <th nzCustomFilter>
+            Pharmacy name
+            <nz-filter-trigger [(nzVisible)]="visiblePharmacy" [nzActive]="searchValuePharmacy.length > 0" [nzDropdownMenu]="menuPharmacy">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+          </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let consultation of listOfDisplayData">
+        <td>{{ consultation.name }}</td>
+        <td>{{ consultation.surname }}</td>
+        <td>{{ consultation.address }}</td>
+        <td>{{ consultation.date[2]}}.{{consultation.date[1]}}.{{consultation.date[0]}}</td>
+        <td>{{ consultation.pharmacyName }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <nz-dropdown-menu #menuName="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValueName" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchName()" class="search-button">
+          Search
+        </button>
+        <button nz-button nzSize="small" (click)="resetName()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #menuSurname="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search surname" [(ngModel)]="searchValueSurname" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchSurname()" class="search-button">
+          Search
+        </button>
+        <button nz-button nzSize="small" (click)="resetSurname()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #menuAddress="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search address" [(ngModel)]="searchValueAddress" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchAddress()" class="search-button">
+          Search
+        </button>
+        <button nz-button nzSize="small" (click)="resetAddress()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #menuDate="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search date" [(ngModel)]="searchValueDate" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchDate()" class="search-button">
+          Search
+        </button>
+        <button nz-button nzSize="small" (click)="resetDate()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #menuPharmacy="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search pharmacy name" [(ngModel)]="searchValuePharmacy" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchPharmacy()" class="search-button">
+          Search
+        </button>
+        <button nz-button nzSize="small" (click)="resetPharmacy()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+
