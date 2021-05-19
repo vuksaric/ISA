@@ -13,16 +13,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
 import { AppRoutingModule } from './app-routing.module';
+
 import { SystemAdminHomePageComponent } from './pages/system-admin-home-page/system-admin-home-page.component';
+import { HomePagePharmacistComponent } from './pages/home-page-pharmacist/home-page-pharmacist.component';
+import { ProfilePharmacistComponent } from './pages/profile-pharmacist/profile-pharmacist.component';
 
 registerLocaleData(en);
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
     RegistrationPageComponent,
-    SystemAdminHomePageComponent
+    SystemAdminHomePageComponent,
+    HomePagePharmacistComponent,
+    ProfilePharmacistComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +37,7 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     DemoNgZorroAntdModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

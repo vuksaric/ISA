@@ -21,5 +21,6 @@ public class WorkdayPharmacist {
     @OneToOne(fetch=FetchType.LAZY)
     private Period period;
     @OneToMany(fetch=FetchType.LAZY)
+    @JoinColumn(name="WorkdayPharmacist_ID")
     private List<Consultation> consultations;
 }
