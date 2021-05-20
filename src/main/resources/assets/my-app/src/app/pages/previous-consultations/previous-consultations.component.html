@@ -1,3 +1,4 @@
+<h1>Previous consultations</h1>
 <nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed">
     <thead>
       <tr>
@@ -31,6 +32,7 @@
               <i nz-icon nzType="search"></i>
             </nz-filter-trigger>
           </th>
+          <th>View profile</th>
       </tr>
     </thead>
     <tbody>
@@ -40,6 +42,7 @@
         <td>{{ consultation.address }}</td>
         <td>{{ consultation.date[2]}}.{{consultation.date[1]}}.{{consultation.date[0]}}</td>
         <td>{{ consultation.pharmacyName }}</td>
+        <td><button nz-button nzType="dashed" (click)="viewProfile(consultation.user_id)" nzBlock>View profile</button></td>
       </tr>
     </tbody>
   </nz-table>

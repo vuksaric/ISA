@@ -20,4 +20,8 @@ const pharmacist_url = environment.pharmacist_url;
     public getWorkdays(id): Observable<any>{
       return this.http.get(pharmacist_url + `/getWorkdays/${id}`);
     }
+
+ 
+
+
   }

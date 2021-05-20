@@ -17,6 +17,8 @@ import { HomePagePharmacistComponent } from './pages/home-page-pharmacist/home-p
 import { ProfilePharmacistComponent } from './pages/profile-pharmacist/profile-pharmacist.component';
 import { WorkScheduleComponent } from './pages/work-schedule/work-schedule.component';
 import { PreviousConsultationsComponent } from './pages/previous-consultations/previous-consultations.component';
+import { VacationRequestComponent } from './pages/vacation-request/vacation-request.component';
+import { HomePageDermatologistComponent } from './pages/home-page-dermatologist/home-page-dermatologist.component';
 
 registerLocaleData(en);
 
@@ -29,7 +31,9 @@ registerLocaleData(en);
     HomePagePharmacistComponent,
     ProfilePharmacistComponent,
     WorkScheduleComponent,
-    PreviousConsultationsComponent
+    PreviousConsultationsComponent,
+    VacationRequestComponent,
+    HomePageDermatologistComponent,
   ],
   imports: [
     BrowserModule,

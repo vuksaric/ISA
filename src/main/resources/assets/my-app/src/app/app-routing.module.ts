@@ -6,6 +6,7 @@ import { HomePagePharmacistComponent } from './pages/home-page-pharmacist/home-p
 import { ProfilePharmacistComponent } from './pages/profile-pharmacist/profile-pharmacist.component';
 import { WorkScheduleComponent } from './pages/work-schedule/work-schedule.component';
 import { PreviousConsultationsComponent } from './pages/previous-consultations/previous-consultations.component';
+import { VacationRequestComponent } from './pages/vacation-request/vacation-request.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo:'login'},
@@ -15,6 +16,7 @@ const routes: Routes = [
     { path: 'profilePharmacist', component:ProfilePharmacistComponent},
     { path: 'workSchedule', component:WorkScheduleComponent},
     { path: 'previousConsultations', component:PreviousConsultationsComponent},
+    { path: 'vacationRequest', component:VacationRequestComponent},
 ];
 
 @NgModule({

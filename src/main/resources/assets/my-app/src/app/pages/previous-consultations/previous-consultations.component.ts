@@ -2,13 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Consultation } from 'src/app/models/consultation';
 import { ConsultationService } from 'src/app/services/consultation.service';
 
-interface DataItem1 {
-  name: string;
-  age: number;
-  address: string;
-}
+
 
 interface DataItem {
+  id : number;
   name: string;
   surname: string;
   address: string;
@@ -98,6 +95,11 @@ export class PreviousConsultationsComponent implements OnInit {
   searchPharmacy(): void {
     this.visiblePharmacy = false;
     this.listOfDisplayData = this.consultations.filter((item: DataItem) => item.pharmacy.toLowerCase().indexOf(this.searchValuePharmacy.toLowerCase()) !== -1);
+  }
+
+  viewProfile(id : number) : void
+  {
+    alert(id);
   }
 
 }

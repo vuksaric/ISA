@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PreviousConsultationDTO {
 
+    private int user_id;
     private String name;
     private String surname;
     private String address;

@@ -1,5 +1,6 @@
 package com.example.ISA_project.model;
 
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,15 +13,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Prescription {
+public class VacationRequest {
+
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
-    private int quantity;
-    @OneToOne(fetch=FetchType.LAZY)
-    private Patient patient;
-    @OneToOne(fetch=FetchType.LAZY)
-    private Pharmacist pharmacist;
+    private LocalDateTime start_date;
+    private LocalDateTime end_date;
+    private UserType user_type;
+    private int user_id;
+
 }

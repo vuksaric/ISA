@@ -29,7 +29,7 @@ public class ConsultationService implements IConsultationService {
         LocalDateTime today = LocalDateTime.now();
         for(Consultation consultation : consultations) {
             if (consultation.getPharmacist().getId() == id && consultation.getPeriod().getEnd_date().isBefore(today))
-                result.add(new PreviousConsultationDTO(consultation.getPatient().getUser().getName(), consultation.getPatient().getUser().getSurname(),
+                result.add(new PreviousConsultationDTO(consultation.getPatient().getUser().getId(),consultation.getPatient().getUser().getName(), consultation.getPatient().getUser().getSurname(),
                         consultation.getPatient().getUser().getFullAdress(), consultation.getPeriod().getStart_date(), consultation.getPharmacy().getName()));
         }
         return result;
