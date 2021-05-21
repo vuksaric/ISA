@@ -6,25 +6,22 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Consultation {
-    //@ManyToOne()
+public class Reservation {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne(fetch=FetchType.LAZY)
-    private Period period;
-    @OneToOne(fetch=FetchType.LAZY)
+    private String serialNumber;
+    private LocalDateTime dueDate;
+    @OneToOne(fetch= FetchType.LAZY)
+    private Medicine medicine;
+    @OneToOne(fetch= FetchType.LAZY)
     private Pharmacy pharmacy;
-    private float price;
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name="Consultation_ID")
-    private List<Medicine> therapy;
 }

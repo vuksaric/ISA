@@ -17,6 +17,9 @@ import { HomePageUserComponent } from './pages/home-page-user/home-page-user.com
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { HomePagePharmacistComponent } from './pages/home-page-pharmacist/home-page-pharmacist.component';
 import { ProfilePharmacistComponent } from './pages/profile-pharmacist/profile-pharmacist.component';
+import { UnregisteredUserPageComponent } from './pages/unregistered-user-page/unregistered-user-page.component';
+import { ViewPharmaciesComponent } from './pages/view-pharmacies/view-pharmacies.component';
+import { SearchFilterPipe } from './pages/view-pharmacies/search-filter.pipe';
 
 registerLocaleData(en);
 
@@ -29,7 +32,10 @@ registerLocaleData(en);
     HomePageUserComponent,
     UserProfileComponent,
     HomePagePharmacistComponent,
-    ProfilePharmacistComponent
+    ProfilePharmacistComponent,
+    UnregisteredUserPageComponent,
+    ViewPharmaciesComponent,
+    SearchFilterPipe,
   ],
   imports: [
     BrowserModule,
