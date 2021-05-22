@@ -11,6 +11,9 @@ export const environment = {
   consultation_url: 'http://localhost:8080/consultation',
   vacationRequest_url: 'http://localhost:8080/vacationRequest',
   dermatologist_url: 'http://localhost:8080/dermatologist',
+  patient_url: 'http://localhost:8080/patient',
+  userProfile_url: 'http://localhost:8080/user',
+  pharmacy_url: 'http://localhost:8080/pharmacy'
 };
 
 /*

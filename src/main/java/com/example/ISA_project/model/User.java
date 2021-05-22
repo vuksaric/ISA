@@ -24,9 +24,12 @@ public class User {
     private String name;
     private String surname;
     private String email;
+    /*
     private String address;
     private String state;
-    private String town;
+    private String town;*/
+    @OneToOne(fetch = FetchType.LAZY)
+    private Address address;
     private String phone;
     private Gender gender;
     private LocalDate dateOfBirth;

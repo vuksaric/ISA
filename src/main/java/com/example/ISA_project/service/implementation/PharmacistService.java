@@ -17,21 +17,19 @@ public class PharmacistService implements IPharmacistService {
 
     private final PharmacistRepository pharmacistRepository;
     private final ConsultationRepository consultationRepository;
+    private final UserService userService;
 
 
-    public PharmacistService(PharmacistRepository pharmacistRepository, ConsultationRepository consultationRepository)
-    {
+    public PharmacistService(PharmacistRepository pharmacistRepository, ConsultationRepository consultationRepository, UserService userService) {
         this.pharmacistRepository = pharmacistRepository;
         this.consultationRepository = consultationRepository;
+        this.userService = userService;
     }
+    
 
     public ProfileDTO getProfile(int id)
     {
-        Pharmacist pharmacist = pharmacistRepository.findOneById(id);
-        ProfileDTO profile = new ProfileDTO(pharmacist.getUser().getUsername(),pharmacist.getUser().getName(), pharmacist.getUser().getSurname(),
-                pharmacist.getUser().getEmail(), pharmacist.getUser().getAddress(), pharmacist.getUser().getState(),
-                pharmacist.getUser().getTown(), pharmacist.getUser().getPhone());
-        return profile;
+        return userService.getProfile(id);
     }
 
     public List<WorkDayDTO> getWorkdays(int id)

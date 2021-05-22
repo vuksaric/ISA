@@ -25,5 +25,9 @@ public class Examination {
     private Dermatologist dermatologist;
     @OneToOne(fetch=FetchType.LAZY)
     private Patient patient;
+    private String diagnosis;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="Examination_ID")
     private List<Medicine> therapy;
+    private boolean free;
 }

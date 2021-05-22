@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -27,5 +28,7 @@ public class Consultation {
     private Pharmacist pharmacist;
     @OneToOne(fetch=FetchType.LAZY)
     private Patient patient;
-
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="Consultation_ID")
+    private List<Medicine> therapy;
 }

@@ -7,13 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProfileDTO {
-    private String username;
+public class PharmacyDTO {
     private String name;
-    private String surname;
-    private String email;
-    private String address;
-    private String state;
+    private float mark;
+    private String street;
     private String town;
-    private String phone;
 }
