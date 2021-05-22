@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -24,4 +25,5 @@ public class Examination {
     private Dermatologist dermatologist;
     @OneToOne(fetch=FetchType.LAZY)
     private Patient patient;
+    private List<Medicine> therapy;
 }

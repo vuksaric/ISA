@@ -13,7 +13,7 @@
         <ng-container *ngFor="let workday of workdays">
             <ng-container *ngIf = "compareMonth(month,workday.date)">
                 <li *ngFor="let consultation of workday.consultations">
-                    <nz-badge nzStatus="blue" [nzText]="ispismesec(consultation)"></nz-badge>
+                    <nz-badge nzStatus="blue" [nzText]="ispis(consultation)"></nz-badge>
                 </li>
             </ng-container>
         </ng-container>

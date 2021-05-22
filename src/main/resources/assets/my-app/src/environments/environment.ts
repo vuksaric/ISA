@@ -10,6 +10,7 @@ export const environment = {
   pharmacist_url: 'http://localhost:8080/pharmacist',
   consultation_url: 'http://localhost:8080/consultation',
   vacationRequest_url: 'http://localhost:8080/vacationRequest',
+  dermatologist_url: 'http://localhost:8080/dermatologist',
 };
 
 /*
