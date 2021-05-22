@@ -14,9 +14,6 @@ export class HomePagePharmacyAdministratorComponent implements OnInit {
   }
 
   pharmacyProfile() {
-    //this.router.navigate([{outlets: {'primary': '/pharmacyAdmin/pharmacy-profile' ,'pharmacy-admin-content': '/pharmacyAdmin/pharmacy-profile'}}]);
-    //this.router.navigate(['/pharmacyAdmin/pharmacy-profile(pharmacy-admin-content:pharmacyAdmin/pharmacy-profile)']);
-    console.log("UHVATIO")
     this.router.navigate(['pharmacyAdmin/pharmacy-profile']);
   }
   pharmacyReport() {
