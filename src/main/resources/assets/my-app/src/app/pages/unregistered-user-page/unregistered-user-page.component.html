@@ -1,0 +1,41 @@
+<h1>Welcome!</h1>
+<div class="container">
+   <div nz-row [nzGutter]="20">
+      <div class="view_card" nz-col [nzSpan]="12"  >
+        <nz-card nzTitle="Not our user yet?" [nzHoverable]="true"[nzExtra]="registration" >
+            <button nz-button routerLink="/registration" nzType="primary" nzBlock>Register here!</button>
+        </nz-card>
+      </div>
+      <ng-template #registration>
+        <i nz-icon nzType="user-add" nzTheme="outline"></i>
+      </ng-template>
+      <div nz-col [nzSpan]="12">
+        <nz-card nzTitle="Already have an account?" [nzHoverable]="true" [nzExtra]="login">
+            <button routerLink="/login" nz-button nzType="primary" nzBlock> Login here!</button>
+        </nz-card>
+      </div>
+      <ng-template #login>
+        <i nz-icon nzType="login" nzTheme="outline"></i>
+      </ng-template>
+      <div nz-col [nzSpan]="12">
+        <nz-card nzTitle="Drugs and medications" [nzHoverable]="true" [nzExtra]="medicine">
+            <button  nz-button nzType="primary" nzBlock>View medications</button>
+        </nz-card>
+      </div>
+      <ng-template #medicine>
+        <i nz-icon nzType="medicine-box" nzTheme="outline"></i>
+      </ng-template>
+      <div nz-col [nzSpan]="12">
+        <nz-card nzTitle="Find a pharmacy" [nzHoverable]="true" [nzExtra]="pharmacy">
+            <button  routerLink="/viewPharmacies" nz-button nzType="primary" nzBlock >View pharmacies</button>
+        </nz-card>
+      </div>
+      <ng-template #pharmacy>
+        <i nz-icon nzType="heart" nzTheme="outline"></i>
+      </ng-template>
+    </div>
+
+
+
+
+</div>

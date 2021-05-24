@@ -16,4 +16,12 @@ const pharmacist_url = environment.pharmacist_url;
     public getProfile(id): Observable<Profile> {
     return this.http.get<Profile>(pharmacist_url + `/getProfile/${id}`);
     }
+
+    public getWorkdays(id): Observable<any>{
+      return this.http.get(pharmacist_url + `/getWorkdays/${id}`);
+    }
+
+ 
+
+
   }

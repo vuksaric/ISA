@@ -1,0 +1,39 @@
+[nz-form] {
+    max-width: 600px;
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .phone-select {
+    width: 70px;
+  }
+
+  .register-are {
+    margin-bottom: 8px;
+  }
+
+  :host {
+    text-align: center;
+  }
+
+  nz-header{
+    background: rgb(255, 255, 255);
+    text-align: center;
+    color:rgb(101, 190, 253);
+    font-size: xx-large;
+    
+  }
+
+  nz-content {
+    background: #ffffff;
+    min-height: 100%;
+  }
+
+  nz-layout {
+    margin-bottom: 48px;
+  }
+
+  nz-layout:last-child {
+    margin: 0;
+  }

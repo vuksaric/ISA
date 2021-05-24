@@ -1,0 +1,21 @@
+<nz-calendar>
+    <ul *nzDateCell="let date" class="events">
+      <ng-container *ngFor = "let workday of workdays">
+        <ng-container  *ngIf = "compareDate(date,workday.date)">
+          <li *ngFor="let consultation of workday.consultations">
+            <nz-badge nzStatus='blue' [nzText]='ispis(consultation)'></nz-badge>
+          </li>
+        </ng-container>
+      </ng-container>
+    </ul>
+
+    <ul *nzMonthCell="let month" class="events">
+        <ng-container *ngFor="let workday of workdays">
+            <ng-container *ngIf = "compareMonth(month,workday.date)">
+                <li *ngFor="let consultation of workday.consultations">
+                    <nz-badge nzStatus="blue" [nzText]="ispis(consultation)"></nz-badge>
+                </li>
+            </ng-container>
+        </ng-container>
+     </ul>
+  </nz-calendar>

@@ -15,8 +15,18 @@ import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
 import { AppRoutingModule } from './app-routing.module';
 
 import { SystemAdminHomePageComponent } from './pages/system-admin-home-page/system-admin-home-page.component';
+import { HomePageUserComponent } from './pages/home-page-user/home-page-user.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { HomePagePharmacistComponent } from './pages/home-page-pharmacist/home-page-pharmacist.component';
 import { ProfilePharmacistComponent } from './pages/profile-pharmacist/profile-pharmacist.component';
+import { WorkScheduleComponent } from './pages/work-schedule/work-schedule.component';
+import { PreviousConsultationsComponent } from './pages/previous-consultations/previous-consultations.component';
+import { VacationRequestComponent } from './pages/vacation-request/vacation-request.component';
+import { HomePageDermatologistComponent } from './pages/home-page-dermatologist/home-page-dermatologist.component';
+import { UnregisteredUserPageComponent } from './pages/unregistered-user-page/unregistered-user-page.component';
+import { ViewPharmaciesComponent } from './pages/view-pharmacies/view-pharmacies.component';
+import { SearchFilterPipe } from './pages/view-pharmacies/search-filter.pipe';
+
 
 registerLocaleData(en);
 
@@ -27,8 +37,17 @@ registerLocaleData(en);
     LoginPageComponent,
     RegistrationPageComponent,
     SystemAdminHomePageComponent,
+    HomePageUserComponent,
+    UserProfileComponent,
     HomePagePharmacistComponent,
-    ProfilePharmacistComponent
+    ProfilePharmacistComponent,
+    WorkScheduleComponent,
+    PreviousConsultationsComponent,
+    VacationRequestComponent,
+    HomePageDermatologistComponent,
+    UnregisteredUserPageComponent,
+    ViewPharmaciesComponent,
+    SearchFilterPipe,
   ],
   imports: [
     BrowserModule,

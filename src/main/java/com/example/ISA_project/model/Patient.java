@@ -21,7 +21,6 @@ public class Patient{
     private int id;
     @OneToOne(fetch=FetchType.LAZY)
     private User user;
-    @OneToMany(fetch=FetchType.LAZY)
-    @JoinColumn(name="Patient_ID")
-    private List<Allergy> allergies;
+    @OneToOne(fetch=FetchType.LAZY)
+    private PatientChart patientChart;
 }

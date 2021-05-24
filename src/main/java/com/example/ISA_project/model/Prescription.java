@@ -19,4 +19,8 @@ public class Prescription {
     private int id;
     private String name;
     private int quantity;
+    @OneToOne(fetch=FetchType.LAZY)
+    private Patient patient;
+    @OneToOne(fetch=FetchType.LAZY)
+    private Pharmacist pharmacist;
 }
