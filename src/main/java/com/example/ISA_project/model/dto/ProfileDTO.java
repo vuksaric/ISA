@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProfileDTO {
-    private String username;
+    //private String username;
     private String name;
     private String surname;
     private String email;

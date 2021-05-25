@@ -14,11 +14,11 @@ export class SystemAdminHomePageComponent implements OnInit {
   }
 
   regPhClick = function(){
-    this.router.navigate(['login']);
+    this.router.navigate(['registrationPharmacy']);
   }
 
   regPhAdminClick = function(){
-    this.router.navigate(['login']);
+    this.router.navigate(['registrationAdmin']);
   }
 
 }

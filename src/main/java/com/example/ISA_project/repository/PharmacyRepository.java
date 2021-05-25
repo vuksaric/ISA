@@ -10,4 +10,5 @@ import java.util.List;
 public interface PharmacyRepository extends JpaRepository<Pharmacy, Integer> {
     @Override
     List<Pharmacy> findAll();
+    Pharmacy save(Pharmacy pharmacy);
 }

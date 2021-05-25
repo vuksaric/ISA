@@ -19,16 +19,16 @@ public class Consultation {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Period period;
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Pharmacy pharmacy;
     private float price;
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Pharmacist pharmacist;
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Patient patient;
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name="Consultation_ID")
-    private List<Medicine> therapy;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Therapy therapy;
+    private boolean done;
 }

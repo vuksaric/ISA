@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserResponse {
     private int id;
-    private String username;
-    //private String token;
-    //private int tokenExpiresIn;
-    //private String userRoles;
+    //private String username;
+    private String token;
+    private int tokenExpiresIn;
+    private String userRoles;
 }

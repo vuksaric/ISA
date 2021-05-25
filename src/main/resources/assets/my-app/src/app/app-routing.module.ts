@@ -13,6 +13,8 @@ import { VacationRequestComponent } from './pages/vacation-request/vacation-requ
 import { HomePageDermatologistComponent } from './pages/home-page-dermatologist/home-page-dermatologist.component';
 import { UnregisteredUserPageComponent } from './pages/unregistered-user-page/unregistered-user-page.component';
 import { ViewPharmaciesComponent } from './pages/view-pharmacies/view-pharmacies.component';
+import { RegistrationPharmacyComponent } from './pages/registration-pharmacy/registration-pharmacy.component';
+import { RegistrationAdminComponent } from './pages/registration-admin/registration-admin.component';
 
 const routes: Routes = [
     //{ path: '', pathMatch: 'full', redirectTo:'login'},
@@ -29,6 +31,8 @@ const routes: Routes = [
     { path: 'vacationRequest', component:VacationRequestComponent},
     { path: 'homePageDermatologist', component:HomePageDermatologistComponent},
     { path: 'viewPharmacies', component:ViewPharmaciesComponent},
+    { path: 'registrationPharmacy', component:RegistrationPharmacyComponent},
+    { path: 'registrationAdmin', component:RegistrationAdminComponent},
 ];
 
 @NgModule({

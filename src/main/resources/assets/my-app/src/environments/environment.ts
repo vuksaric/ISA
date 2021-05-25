@@ -8,13 +8,15 @@ export const environment = {
   auth_url: 'http://localhost:8080/auth',
   user_url: 'http://localhost:8080/isa/user',
   pharmacist_url: 'http://localhost:8080/pharmacist',
-  sysadmin_url: 'http://localhost:8080/',
+  sysadmin_url: 'http://localhost:8080/sysadmin',
   consultation_url: 'http://localhost:8080/consultation',
   vacationRequest_url: 'http://localhost:8080/vacationRequest',
   dermatologist_url: 'http://localhost:8080/dermatologist',
   patient_url: 'http://localhost:8080/patient',
   userProfile_url: 'http://localhost:8080/user',
-  pharmacy_url: 'http://localhost:8080/pharmacy'
+  pharmacy_url: 'http://localhost:8080/pharmacy',
+  address_url: 'http://localhost:8080/address',
+  admin_url : 'http://localhost:8080/admin'
 };
 
 /*

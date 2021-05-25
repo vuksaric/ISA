@@ -26,6 +26,8 @@ import { HomePageDermatologistComponent } from './pages/home-page-dermatologist/
 import { UnregisteredUserPageComponent } from './pages/unregistered-user-page/unregistered-user-page.component';
 import { ViewPharmaciesComponent } from './pages/view-pharmacies/view-pharmacies.component';
 import { SearchFilterPipe } from './pages/view-pharmacies/search-filter.pipe';
+import { RegistrationPharmacyComponent } from './pages/registration-pharmacy/registration-pharmacy.component';
+import { RegistrationAdminComponent } from './pages/registration-admin/registration-admin.component';
 
 
 registerLocaleData(en);
@@ -48,6 +50,8 @@ registerLocaleData(en);
     UnregisteredUserPageComponent,
     ViewPharmaciesComponent,
     SearchFilterPipe,
+    RegistrationPharmacyComponent,
+    RegistrationAdminComponent,
   ],
   imports: [
     BrowserModule,

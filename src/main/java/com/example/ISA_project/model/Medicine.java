@@ -21,13 +21,15 @@ public class Medicine {
     private String name;
     private String type;
     private String shape;
-    @OneToMany(fetch=FetchType.LAZY)
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="Medicine_ID")
     private List<Ingredient> ingredients;
     private String manifacturer;
     private IssuingMode issuingMode;
-    @OneToMany(fetch=FetchType.LAZY)
-    @JoinColumn(name="Medicine_ID")
-    private List<Medicine> replacements;
+    //@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @ElementCollection
+    @CollectionTable(name="replacements", joinColumns=@JoinColumn(name="medicine_id"))
+    @Column(name="replacement")
+    private List<Integer> replacements; //int predstavlja sifru leka
     private String notes;
 }
