@@ -25,7 +25,8 @@ public class Pharmacy {
     @JoinColumn(name="Pharmacy_ID")
     private List<Pharmacist> pharmacists;
     private String name;
-    private String address;
+    @OneToOne(fetch=FetchType.LAZY)
+    private Address address;
     private String description;
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name="Pharmacy_ID")

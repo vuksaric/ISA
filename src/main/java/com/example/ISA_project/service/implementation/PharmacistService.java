@@ -10,18 +10,16 @@ import org.springframework.stereotype.Service;
 public class PharmacistService implements IPharmacistService {
 
     private final PharmacistRepository pharmacistRepository;
+    private final UserService userService;
 
-    public PharmacistService(PharmacistRepository pharmacistRepository)
+    public PharmacistService(PharmacistRepository pharmacistRepository, UserService userService)
     {
         this.pharmacistRepository = pharmacistRepository;
+        this.userService = userService;
     }
 
     public ProfileDTO getProfile(int id)
     {
-        Pharmacist pharmacist = pharmacistRepository.findOneById(id);
-        ProfileDTO profile = new ProfileDTO(pharmacist.getUser().getUsername(),pharmacist.getUser().getName(), pharmacist.getUser().getSurname(),
-                pharmacist.getUser().getEmail(), pharmacist.getUser().getAddress(), pharmacist.getUser().getState(),
-                pharmacist.getUser().getTown(), pharmacist.getUser().getPhone());
-        return profile;
+        return userService.getProfile(id);
     }
 }

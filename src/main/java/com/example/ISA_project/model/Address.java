@@ -6,23 +6,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class WorkdayPharmacist {
+public class Address {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne(fetch=FetchType.LAZY)
-    private Period period;
-    @OneToMany(fetch=FetchType.LAZY)
-    @JoinColumn(name="WorkdayPharmacist_ID")
-    private List<Consultation> consultations;
-    @OneToOne
-    private WorkingHours workingHours;
+    private String street;
+    private String town;
+    private String state;
 }

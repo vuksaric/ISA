@@ -6,26 +6,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Examination {
+public class PharmacyAdmin {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToOne(fetch=FetchType.LAZY)
-    private Period date;
-    private float price;
+    private User user;
     @OneToOne(fetch=FetchType.LAZY)
-    private Dermatologist dermatologist;
-    private String diagnosis;
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name="Examination_ID")
-    private List<Medicine> therapy;
-    private boolean free;
+    private Pharmacy pharmacy;
 }
