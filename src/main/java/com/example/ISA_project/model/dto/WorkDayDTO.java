@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class WorkDayDTO {
 
+    private int id;
     private LocalDateTime date;
     private List<AppointmentDTO> consultations;
 

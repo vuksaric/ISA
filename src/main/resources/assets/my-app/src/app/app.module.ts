@@ -24,6 +24,10 @@ import { HomePageDermatologistComponent } from './pages/home-page-dermatologist/
 import { UnregisteredUserPageComponent } from './pages/unregistered-user-page/unregistered-user-page.component';
 import { ViewPharmaciesComponent } from './pages/view-pharmacies/view-pharmacies.component';
 import { SearchFilterPipe } from './pages/view-pharmacies/search-filter.pipe';
+import { IssuingMedicineComponent } from './pages/issuing-medicine/issuing-medicine.component';
+import { ConsultationFrontpageComponent } from './pages/consultation-frontpage/consultation-frontpage.component';
+import { ConsultationReportComponent } from './pages/consultation-report/consultation-report.component';
+import { SerachPatientsComponent } from './pages/serach-patients/serach-patients.component';
 
 
 registerLocaleData(en);
@@ -45,6 +49,10 @@ registerLocaleData(en);
     UnregisteredUserPageComponent,
     ViewPharmaciesComponent,
     SearchFilterPipe,
+    IssuingMedicineComponent,
+    ConsultationFrontpageComponent,
+    ConsultationReportComponent,
+    SerachPatientsComponent,
   ],
   imports: [
     BrowserModule,

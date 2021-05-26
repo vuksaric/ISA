@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -32,12 +33,10 @@ public class User {
     private Address address;
     private String phone;
     private Gender gender;
-    private LocalDate dateOfBirth;
+    private LocalDateTime dateOfBirth;
     private UserType userType;
 
-    public String getFullAdress()
-    {
-        return address + ", " + town + ", " + state;
-    }
+
+    public String getFullName() { return name + " " + surname;}
 
 }

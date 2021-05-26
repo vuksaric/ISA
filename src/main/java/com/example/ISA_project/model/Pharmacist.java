@@ -25,4 +25,6 @@ public class Pharmacist{
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name="Pharmacist_ID")
     private List<WorkdayPharmacist> workdays;
+    @OneToOne(fetch=FetchType.LAZY)
+    private Pharmacy pharmacy;
 }

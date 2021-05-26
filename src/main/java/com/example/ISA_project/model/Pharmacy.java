@@ -22,7 +22,7 @@ public class Pharmacy {
     @JoinColumn(name="Pharmacy_ID")
     private List<Dermatologist> dermatologist;
     @OneToMany(fetch=FetchType.LAZY)
-    @JoinColumn(name="Pharmacy_ID")
+    @JoinColumn(name="PharmacyList_ID")
     private List<Pharmacist> pharmacists;
     private String name;
     @OneToOne(fetch=FetchType.LAZY)

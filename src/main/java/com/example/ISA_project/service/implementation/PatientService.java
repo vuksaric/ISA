@@ -1,9 +1,13 @@
 package com.example.ISA_project.service.implementation;
 
+import com.example.ISA_project.model.Patient;
 import com.example.ISA_project.model.dto.ProfileDTO;
 import com.example.ISA_project.repository.PatientRepository;
 import com.example.ISA_project.service.IPatientService;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PatientService implements IPatientService {
@@ -19,6 +23,17 @@ public class PatientService implements IPatientService {
 
     public ProfileDTO getPatientInfo(int id){
         return userService.getProfile(id);
+    }
+
+    @Override
+    public List<String> getPatientNames() {
+
+        List<Patient> patients = patientRepository.findAll();
+        List<String> names = new ArrayList<>();
+        for (Patient patient : patients)
+            names.add(patient.getUser().getFullName());
+
+        return names;
     }
 
 

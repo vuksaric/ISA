@@ -27,6 +27,11 @@ export class HomePagePharmacistComponent implements OnInit {
   {
     this.router.navigate(['previousConsultations']);
   }
+
+  patientSearch()
+  {
+    this.router.navigate(['searchPatients']);
+  }
 }
 
 

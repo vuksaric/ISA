@@ -24,7 +24,7 @@ public class Medicine {
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name="Medicine_ID")
     private List<Ingredient> ingredients;
-    private String manifacturer;
+    private String manufacturer;
     private IssuingMode issuingMode;
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name="Medicine_ID")

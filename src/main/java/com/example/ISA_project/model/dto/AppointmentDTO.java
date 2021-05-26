@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AppointmentDTO {
+    private int id;
     private LocalDateTime start;
     private LocalDateTime end;
     private String pharmacyName;
+    private String fullName;
 }

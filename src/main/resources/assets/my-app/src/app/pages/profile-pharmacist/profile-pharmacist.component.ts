@@ -20,14 +20,14 @@ export class ProfilePharmacistComponent implements OnInit {
 
     this.pharmacistService.getProfile(1).subscribe(data => { console.log(data); 
       this.data1 = [
-      { title: 'Username', description: data.username },
       { title: 'Email', description: data.email },
       { title: 'Full name', description: data.name + ' ' + data.surname},
+      { title: 'Date of birth', description: data.date[2] + '.' + data.date[1] + '.' + data.date[0]},
       { title: 'Adress', description: data.address + ', ' + data.town + ', ' + data.state },
       { title: 'Phone number', description: data.phone }
     ] });
     
-
+    
      
   
   }

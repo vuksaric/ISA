@@ -8,6 +8,7 @@ nz-date-picker {
     margin-top: 200px;
   }
   button{
-    margin-left: 800px;
+    margin: auto;
+    display: block;
     width: 300px;
   }

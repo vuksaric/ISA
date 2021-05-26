@@ -12,6 +12,10 @@ import { VacationRequestComponent } from './pages/vacation-request/vacation-requ
 import { HomePageDermatologistComponent } from './pages/home-page-dermatologist/home-page-dermatologist.component';
 import { UnregisteredUserPageComponent } from './pages/unregistered-user-page/unregistered-user-page.component';
 import { ViewPharmaciesComponent } from './pages/view-pharmacies/view-pharmacies.component';
+import { IssuingMedicineComponent } from './pages/issuing-medicine/issuing-medicine.component';
+import { ConsultationFrontpageComponent } from './pages/consultation-frontpage/consultation-frontpage.component';
+import { ConsultationReportComponent } from './pages/consultation-report/consultation-report.component';
+import { SerachPatientsComponent } from './pages/serach-patients/serach-patients.component';
 
 const routes: Routes = [
     //{ path: '', pathMatch: 'full', redirectTo:'login'},
@@ -27,6 +31,10 @@ const routes: Routes = [
     { path: 'vacationRequest', component:VacationRequestComponent},
     { path: 'homePageDermatologist', component:HomePageDermatologistComponent},
     { path: 'viewPharmacies', component:ViewPharmaciesComponent},
+    { path: 'issuingMedicine', component:IssuingMedicineComponent},
+    { path: 'consultationFrontpage/:id', component:ConsultationFrontpageComponent},
+    { path: 'consultationReport/:id', component:ConsultationReportComponent},
+    { path: 'searchPatients', component:SerachPatientsComponent},
 ];
 
 @NgModule({

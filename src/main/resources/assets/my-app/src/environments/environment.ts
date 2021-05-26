@@ -13,7 +13,9 @@ export const environment = {
   dermatologist_url: 'http://localhost:8080/dermatologist',
   patient_url: 'http://localhost:8080/patient',
   userProfile_url: 'http://localhost:8080/user',
-  pharmacy_url: 'http://localhost:8080/pharmacy'
+  pharmacy_url: 'http://localhost:8080/pharmacy',
+  reservation_url: 'http://localhost:8080/reservation',
+  workdayPharmacist_url: 'http://localhost:8080/workdayPharmacist'
 };
 
 /*

@@ -21,7 +21,9 @@ const pharmacist_url = environment.pharmacist_url;
       return this.http.get(pharmacist_url + `/getWorkdays/${id}`);
     }
 
- 
+    public getReservations(id): Observable<any>{
+      return this.http.get(pharmacist_url + `/getReservations/${id}`);
+    }
 
 
   }

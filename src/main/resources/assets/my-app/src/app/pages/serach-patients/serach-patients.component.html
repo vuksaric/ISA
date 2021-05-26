@@ -1,0 +1,20 @@
+<h1>User search</h1>
+<nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+    <input type="text" nz-input placeholder="input full name" [(ngModel)]="searchValue" />
+  </nz-input-group>
+  <ng-template #suffixButton>
+    <button nz-button nzType="default" (click)="search()" nzSize="small"  class="search-button" nzSearch>Search</button>
+  </ng-template>
+
+  <nz-table #basicTable [nzData]="['']">
+    <thead>
+      <tr>
+        <th colspan="2">Patient name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of listOfDisplayData">
+        <td>{{ data }}</td>
+      </tr>
+    </tbody>
+  </nz-table>

@@ -1,6 +1,8 @@
 package com.example.ISA_project.service.implementation;
 
 import com.example.ISA_project.model.Consultation;
+import com.example.ISA_project.model.Patient;
+import com.example.ISA_project.model.Pharmacist;
 import com.example.ISA_project.model.dto.PreviousConsultationDTO;
 import com.example.ISA_project.repository.ConsultationRepository;
 import com.example.ISA_project.repository.PharmacistRepository;
@@ -30,8 +32,12 @@ public class ConsultationService implements IConsultationService {
         for(Consultation consultation : consultations) {
             if (consultation.getPharmacist().getId() == id && consultation.getPeriod().getEnd_date().isBefore(today))
                 result.add(new PreviousConsultationDTO(consultation.getPatient().getUser().getId(),consultation.getPatient().getUser().getName(), consultation.getPatient().getUser().getSurname(),
-                        consultation.getPatient().getUser().getFullAdress(), consultation.getPeriod().getStart_date(), consultation.getPharmacy().getName()));
+                        consultation.getPatient().getUser().getAddress().getFullAdress(), consultation.getPeriod().getStart_date(), consultation.getPharmacy().getName()));
         }
         return result;
     }
+
+
+
 }
+

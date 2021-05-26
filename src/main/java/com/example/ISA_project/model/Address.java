@@ -20,4 +20,6 @@ public class Address {
     private String street;
     private String town;
     private String state;
+
+    public String getFullAdress() { return street + ", " + town + ", " + state;}
 }
