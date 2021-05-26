@@ -32,19 +32,17 @@ public class PatientChartService implements IPatientChartService {
         for(Medicine allergy : patientChart.getAllergies()){
             allergies.add(new MedicineAllergyDTO(allergy));
         }
-        //return allergies;
-
         Set<MedicineAllergyDTO> uniqueAllergies = new HashSet<MedicineAllergyDTO>(allergies);
         return uniqueAllergies;
     }
 
    @Override
     public Set<MedicineAllergyDTO> addPatientAllergy(MedicineAllergyDTO medicineAllergyDTO, int id) {
-        List<Medicine> medicines = medicineRepository.getAllByName(medicineAllergyDTO.getName());
+            List<Medicine> medicines = medicineRepository.getAllByName(medicineAllergyDTO.getName());
 
-        PatientChart patientChart = patientChartRepository.findOneById(id);
-        patientChart.getAllergies().addAll(medicines);
-        patientChartRepository.save(patientChart);
+            PatientChart patientChart = patientChartRepository.findOneById(id);
+            patientChart.getAllergies().addAll(medicines);
+            patientChartRepository.save(patientChart);
 
         return getPatientsAllergies(id);
     }

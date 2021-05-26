@@ -15,6 +15,9 @@ public interface ExaminationRepository extends JpaRepository<Examination, Intege
     @Query("select e from Examination e where e.free = true")
     List<Examination> findAllFree();
 
+    @Query("select e from Examination e where e.date.start_date > current_date and e.patient.id = ?1")
+    List<Examination> findAllFutureByPatient(int id);
+
     Examination save(Examination examination);
 
     Examination findExaminationById(int id);

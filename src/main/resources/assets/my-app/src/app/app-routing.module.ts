@@ -27,6 +27,7 @@ import { ConsultationReportComponent } from './pages/consultation-report/consult
 import { SerachPatientsComponent } from './pages/serach-patients/serach-patients.component';
 import { RegistrationPharmacyComponent } from './pages/registration-pharmacy/registration-pharmacy.component';
 import { RegistrationAdminComponent } from './pages/registration-admin/registration-admin.component';
+import { ViewFutureExaminationsComponent } from './pages/view-future-examinations/view-future-examinations.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'pharmacyAdmin' },
@@ -43,6 +44,7 @@ const routes: Routes = [
     { path: 'homePageDermatologist', component:HomePageDermatologistComponent},
     { path: 'viewPharmacies', component:ViewPharmaciesComponent},
     { path: 'viewMadeExaminations', component: ViewMadeExaminationsComponent},
+    { path: 'viewFutureExaminations', component: ViewFutureExaminationsComponent},
     { path: 'patientProfile', component: PatientProfileComponent},
     { path: 'issuingMedicine', component:IssuingMedicineComponent},
     { path: 'consultationFrontpage/:id', component:ConsultationFrontpageComponent},

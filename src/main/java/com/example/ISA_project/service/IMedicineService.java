@@ -14,5 +14,6 @@ public interface IMedicineService {
     List<MedicineDTO> getAllMedicine();
     void deleteMedicine(int id);
 
+    List<MedicineAllergyDTO> findMedicines(int id);
 
 }

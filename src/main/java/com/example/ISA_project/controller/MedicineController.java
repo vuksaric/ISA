@@ -59,4 +59,10 @@ public class MedicineController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/similar/{id}")
+    public ResponseEntity<List<MedicineAllergyDTO>> getSimilarName(@PathVariable String id) {
+        Integer medicineId = Integer.parseInt(id);
+        return new ResponseEntity<>(medicineService.findMedicines(medicineId), HttpStatus.OK);
+    }
 }

@@ -69,4 +69,15 @@ public class MedicineService implements IMedicineService {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public List<MedicineAllergyDTO> findMedicines(int id) {
+        List<MedicineAllergyDTO> allergies = new ArrayList<MedicineAllergyDTO>();
+        for (String medicine : medicineRepository.findMedicines(id)) {
+            allergies.add(new MedicineAllergyDTO(medicine));
+        }
+        return allergies;
+    }
+
+
 }

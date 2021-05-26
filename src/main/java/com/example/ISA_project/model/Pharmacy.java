@@ -37,7 +37,7 @@ public class Pharmacy {
     private List<Action> actions;
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="Pharmacy_ID")
-    private List<User> subscribers;
+    private List<Patient> subscribers;
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="Pharmacy_ID")
     private List<MedicinePoints> points;

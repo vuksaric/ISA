@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Examination } from 'src/app/models/examination';
 import { ExaminationService } from 'src/app/services/examination.service';
 
 @Component({
-  selector: 'app-view-made-examinations',
-  templateUrl: './view-made-examinations.component.html',
-  styleUrls: ['./view-made-examinations.component.css']
+  selector: 'app-view-future-examinations',
+  templateUrl: './view-future-examinations.component.html',
+  styleUrls: ['./view-future-examinations.component.css']
 })
-export class ViewMadeExaminationsComponent implements OnInit {
-  
+export class ViewFutureExaminationsComponent implements OnInit {
+
   listOfData : Examination[] = [];
   listOfColumn = [
     {
@@ -26,17 +27,17 @@ export class ViewMadeExaminationsComponent implements OnInit {
   constructor( private examinationService : ExaminationService) { }
 
   ngOnInit(): void {
-    this.examinationService.getFreeExaminations().subscribe((examinations: Examination[]) => {
-      this.listOfData = examinations;});
+    this.examinationService.getFutureExaminationsByPatient(1).subscribe((examinations: Examination[]) => {
+      this.listOfData = examinations; console.log(examinations)});
   }
 
-  reserve(event): void{
+  cancel(event): void{
     var idAttr = event.currentTarget.id;
-    var patient = 1;
-    this.examinationService.reserveExamination(idAttr, patient).subscribe(data => { console.log(data) });
+    this.examinationService.cancelExamination(idAttr).subscribe(data => { console.log(data) });
     location.reload();
   }
+
  
-   
+ 
 
 }

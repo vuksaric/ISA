@@ -16,4 +16,7 @@ export class MedicineService {
   public getDistinctMedicine(): Observable<Allergy[]> {
     return this.http.get<Allergy[]>(medicine_url + `/distinct`);
   }
+  public getMedicines(id): Observable<Allergy[]> {
+    return this.http.get<Allergy[]>(medicine_url + `/similar/${id}`);
+  }
 }

@@ -5,6 +5,7 @@ import com.example.ISA_project.model.dto.ProfileDTO;
 import com.example.ISA_project.repository.PatientRepository;
 import com.example.ISA_project.service.IPatientService;
 import com.example.ISA_project.service.IUserService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,6 +36,11 @@ public class PatientService implements IPatientService {
             names.add(patient.getUser().getFullName());
 
         return names;
+    }
+
+    @Override
+    public Patient findOneById(int id) {
+        return patientRepository.findOneById(id);
     }
 
 
