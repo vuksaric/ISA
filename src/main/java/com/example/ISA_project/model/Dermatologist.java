@@ -26,4 +26,8 @@ public class Dermatologist{
     @JoinColumn(name="Dermatologist_ID")
     private List<WorkdayDermatologist> workdays;
     private float mark;
+
+    public String getFullName(){
+        return user.getName() + " "+ user.getSurname();
+    }
 }

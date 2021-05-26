@@ -3,15 +3,16 @@ package com.example.ISA_project.service.implementation;
 import com.example.ISA_project.model.dto.ProfileDTO;
 import com.example.ISA_project.repository.PatientRepository;
 import com.example.ISA_project.service.IPatientService;
+import com.example.ISA_project.service.IUserService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PatientService implements IPatientService {
 
     private final PatientRepository patientRepository;
-    private final UserService userService;
+    private final IUserService userService;
 
-    public PatientService(PatientRepository patientRepository, UserService userService){
+    public PatientService(PatientRepository patientRepository, IUserService userService){
 
         this.patientRepository=patientRepository;
         this.userService = userService;

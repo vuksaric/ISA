@@ -16,4 +16,5 @@ public class ProfileDTO {
     private String state;
     private String town;
     private String phone;
+    private String type;
 }

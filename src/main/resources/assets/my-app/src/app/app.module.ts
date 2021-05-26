@@ -20,6 +20,8 @@ import { ProfilePharmacistComponent } from './pages/profile-pharmacist/profile-p
 import { UnregisteredUserPageComponent } from './pages/unregistered-user-page/unregistered-user-page.component';
 import { ViewPharmaciesComponent } from './pages/view-pharmacies/view-pharmacies.component';
 import { SearchFilterPipe } from './pages/view-pharmacies/search-filter.pipe';
+import { ViewMadeExaminationsComponent } from './pages/view-made-examinations/view-made-examinations.component';
+import { PatientProfileComponent } from './pages/patient-profile/patient-profile.component';
 
 registerLocaleData(en);
 
@@ -36,6 +38,8 @@ registerLocaleData(en);
     UnregisteredUserPageComponent,
     ViewPharmaciesComponent,
     SearchFilterPipe,
+    ViewMadeExaminationsComponent,
+    PatientProfileComponent,
   ],
   imports: [
     BrowserModule,

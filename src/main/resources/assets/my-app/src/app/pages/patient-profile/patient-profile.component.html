@@ -1,0 +1,53 @@
+<nz-card style="width:400px;" nzTitle="Profile" [nzCover]="coverTemplate" [nzActions]="[actionAdd, actionEdit]">
+    <ng-container *ngFor="let data of data1">
+    <nz-card-meta nzTitle="{{data.title}}" nzDescription="{{data.description}}"></nz-card-meta>
+    <br>
+    </ng-container>
+    <ng-container *ngFor="let data of allergies">
+        <nz-card-meta nzTitle="{{data.title}}" nzDescription="{{data.description}}"></nz-card-meta>
+        <br>
+    </ng-container>
+  </nz-card>
+  <ng-template #avatarTemplate>
+    <nz-avatar nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+  </ng-template>
+  <ng-template #coverTemplate>
+    <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
+  </ng-template>
+  <ng-template #actionAdd>
+    <div (click)="add()" class="action-wrapper" nz-tooltip nzTooltipTitle="Add allergy" nzTooltipPlacement="top">
+        <i nz-icon  nzType="plus-circle" nzTheme="outline"></i>
+    </div>
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="Add allergy" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+      <ng-container *nzModalContent>
+        <!--<div class="search">
+          <nz-input-group [nzSuffix]="suffixIconSearch" >
+            <input type="text" nz-input placeholder="input pharmacy name or town " [(ngModel)]="searchValue"/>
+          </nz-input-group>
+          <ng-template #suffixIconSearch>
+            <i nz-icon nzType="search"></i>
+          </ng-template>
+        </div>
+        <nz-table #basicTable nzBordered nzTitle="List of medidines" [nzData]="listOfData">
+          <thead>
+            <tr>
+              <th>Check</th>
+              <th>Medicine name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of basicTable.data">
+              <label nz-checkbox checked="false"></label>
+              <td>{{data.name}}</td>
+            </tr>
+          </tbody>
+        </nz-table>-->
+      </ng-container>
+    </nz-modal>
+  </ng-template>
+  <ng-template #actionEdit>
+    <div (click)="edit()" class="action-wrapper" nz-tooltip nzTooltipTitle="Edit profile" nzTooltipPlacement="top">
+    <i nz-icon  nzType="edit"></i>
+    </div>
+  </ng-template>
+

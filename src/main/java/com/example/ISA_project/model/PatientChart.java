@@ -19,7 +19,7 @@ public class PatientChart {
     private int id;
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name="PatientChart_ID")
-    private List<Allergy> allergies;
+    private List<Medicine> allergies;
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name="PatientChart_ID")
     private List<Examination> previousExaminations;
@@ -29,6 +29,4 @@ public class PatientChart {
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name="PatientChart_ID")
     private List<Reservation> reservations;
-
-
 }

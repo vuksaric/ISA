@@ -36,7 +36,7 @@ public class UserService implements IUserService {
         User user = userRepository.findOneById(id);
         ProfileDTO profile = new ProfileDTO(user.getUsername(),user.getName(), user.getSurname(),
                 user.getEmail(), user.getAddress().getStreet(), user.getAddress().getState(),
-                user.getAddress().getTown(), user.getPhone());
+                user.getAddress().getTown(), user.getPhone(), user.getUserType().toString());
         return profile;
     }
 }

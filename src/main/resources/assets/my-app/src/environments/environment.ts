@@ -10,7 +10,10 @@ export const environment = {
   pharmacist_url: 'http://localhost:8080/pharmacist',
   patient_url: 'http://localhost:8080/patient',
   userProfile_url: 'http://localhost:8080/user',
-  pharmacy_url: 'http://localhost:8080/pharmacy'
+  pharmacy_url: 'http://localhost:8080/pharmacy',
+  examination_url: 'http://localhost:8080/examination',
+  patientChart_url : 'http://localhost:8080/patientChart',
+  medicine_url: 'http://localhost:8080/medicine'
 };
 
 /*

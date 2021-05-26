@@ -8,6 +8,8 @@ import { HomePagePharmacistComponent } from './pages/home-page-pharmacist/home-p
 import { ProfilePharmacistComponent } from './pages/profile-pharmacist/profile-pharmacist.component';
 import { UnregisteredUserPageComponent } from './pages/unregistered-user-page/unregistered-user-page.component';
 import { ViewPharmaciesComponent } from './pages/view-pharmacies/view-pharmacies.component';
+import { ViewMadeExaminationsComponent } from './pages/view-made-examinations/view-made-examinations.component';
+import { PatientProfileComponent } from './pages/patient-profile/patient-profile.component';
 
 const routes: Routes = [
     //{ path: '', pathMatch: 'full', redirectTo:'login'},
@@ -19,6 +21,8 @@ const routes: Routes = [
     { path: 'homePagePharmacist', component:HomePagePharmacistComponent},
     { path: 'profilePharmacist', component:ProfilePharmacistComponent},
     { path: 'viewPharmacies', component:ViewPharmaciesComponent},
+    { path: 'viewMadeExaminations', component: ViewMadeExaminationsComponent},
+    { path: 'patientProfile', component: PatientProfileComponent}
 ];
 
 @NgModule({

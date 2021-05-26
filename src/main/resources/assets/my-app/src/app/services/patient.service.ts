@@ -19,6 +19,6 @@ export class PatientService {
   }
   
   public editProfile(body): Observable<Profile>{
-    return this.http.post<Profile>(user_url, body);
+    return this.http.put<Profile>(user_url, body);
   }
 }

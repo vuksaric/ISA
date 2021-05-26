@@ -14,7 +14,6 @@ import java.util.List;
 @Getter
 @Setter
 public class Pharmacist{
-
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
