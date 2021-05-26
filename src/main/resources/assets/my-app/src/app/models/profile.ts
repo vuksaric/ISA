@@ -7,5 +7,9 @@ export class Profile {
     public  state : string;
     public  town : string;
     public  phone : string;
+<<<<<<< HEAD
     public type : string;
+=======
+    public date : Date;
+>>>>>>> eb437795a028978b87c4e2c984655d8bf9756c4c
 }

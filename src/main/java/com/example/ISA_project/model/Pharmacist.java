@@ -18,10 +18,12 @@ public class Pharmacist{
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private User user;
     private float mark;
-    @OneToMany(fetch=FetchType.LAZY)
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="Pharmacist_ID")
     private List<WorkdayPharmacist> workdays;
+    @OneToOne(fetch=FetchType.LAZY)
+    private Pharmacy pharmacy;
 }

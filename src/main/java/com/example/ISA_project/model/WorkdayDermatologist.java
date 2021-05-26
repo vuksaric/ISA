@@ -18,12 +18,15 @@ public class WorkdayDermatologist {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Period period;
-    @OneToMany(fetch=FetchType.LAZY)
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="WorkdayDermatologist_ID")
     private List<Examination> examinations;
-    @OneToMany(fetch=FetchType.LAZY)
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="WorkdayDermatologist_ID")
     private List<Period> freeTerms;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="Dermatologist_ID")
+    private List<WorkingHours> workingHours;
 }

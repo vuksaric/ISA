@@ -1,5 +1,13 @@
 nz-card
 {
-    margin-left: 730px;
+    margin: auto;
+    display: block;
     width: 200px;
+}
+
+button{
+
+    margin: auto;
+    display: block;
+    width: 400px;
 }

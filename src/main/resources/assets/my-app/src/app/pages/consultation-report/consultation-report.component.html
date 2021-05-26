@@ -1,0 +1,61 @@
+<h1>Report</h1>
+<textarea
+nz-input
+placeholder="Pharmacist's notes" 
+></textarea>
+<h2>Prescribe medicine</h2>
+
+<input type="number" nz-input placeholder="therapy days" [(ngModel)]="days" />
+<nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+    <input type="text" nz-input placeholder="medicine name" [(ngModel)]="searchValue" />
+  </nz-input-group>
+  <ng-template #suffixButton>
+    <button nz-button nzType="default" (click)="search()" nzSize="small"  class="search-button" nzSearch>Search</button>
+  </ng-template>
+<nz-table #basicTable [nzData]="['']">
+    <thead>
+      <tr visible = false>
+        <th>Medicine name</th>
+        <th>Manufacturer</th>
+        <th>Specification</th>
+        <th>Prescribe</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of medicines">
+        <td>{{ data.medicine }}</td>
+        <td>{{ data.manufacturer}}</td>
+        <td><button nz-button nzType="dashed" (click)="specification(data)" nzBlock>View specification</button></td>
+        <td><button nz-button nzType="dashed" (click)="presribe(data)" nzBlock>Prescribe medicine</button></td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+<h2>Alternatives for medicine</h2>
+  <nz-table #basicTable [nzData]="['']">
+    <thead>
+      <tr>
+        <th>Medicine name</th>
+        <th>Manufacturer</th>
+        <th>Specification</th>
+        <th>Prescribe</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of alternatives">
+        <td>{{ data.medicine }}</td>
+        <td>{{ data.manufacturer}}</td>
+        <td><button nz-button nzType="dashed" (click)="specification(data)" nzBlock>View specification</button></td>
+        <td><button nz-button nzType="dashed" (click)="presribe(data)" nzBlock>Prescribe medicine</button></td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <button class = "button" nz-button nzType="default">Schedule follow up</button>
+  <button class = "button" nz-button nzType="default">Finish consultation</button>
+  
+
+ 
+

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/patient")
 public class PatientController {
@@ -19,5 +21,11 @@ public class PatientController {
     public ProfileDTO getPatientInfo(@PathVariable String id){
         Integer profileId = Integer.parseInt(id);
         return patientService.getPatientInfo(profileId);
+    }
+
+    @GetMapping(value="/getNames")
+    public List<String> getPatientNames()
+    {
+        return patientService.getPatientNames();
     }
 }

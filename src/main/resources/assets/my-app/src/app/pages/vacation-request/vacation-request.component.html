@@ -1,0 +1,6 @@
+<h2>Vacation request</h2>
+<nz-date-picker [(ngModel)]="dateStart" (ngModelChange)="onChangeStart($event)"></nz-date-picker>
+<br />
+<nz-date-picker [(ngModel)]="dateEnd" (ngModelChange)="onChangeEnd($event)"></nz-date-picker>
+<br>
+<button nz-button nzType="default" (click)="submit()" nzBlock>Send request</button>

@@ -1,0 +1,29 @@
+<nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+    <input type="text" nz-input placeholder="input serial number" [(ngModel)]="searchValue" />
+  </nz-input-group>
+  <ng-template #suffixButton>
+    <button nz-button nzType="default" (click)="search()" nzSize="small"  class="search-button" nzSearch>Search</button>
+  </ng-template>
+
+  <nz-table #basicTable [nzData]="listOfData">
+    <thead>
+      <tr>
+        <th>Serial number</th>
+        <th>Due date</th>
+        <th>Medicine name</th>
+        <th>Patient name</th>
+        <th>Issue</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of listOfDisplayData">
+        <td>{{ data.serial_number }}</td>
+        <td>{{ data.due_date[2]}}.{{data.due_date[1]}}.{{data.due_date[0]}}</td>
+        <td>{{ data.medicine }}</td>
+        <td>{{ data.patient }}</td>
+        <td><button nz-button nzType="dashed" (click)="issue(data.serial_number)" nzBlock>Issue medicine</button></td>
+      </tr>
+    </tbody>
+  </nz-table>
+

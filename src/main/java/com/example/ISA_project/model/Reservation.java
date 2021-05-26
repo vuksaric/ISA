@@ -1,5 +1,6 @@
 package com.example.ISA_project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,8 +21,11 @@ public class Reservation {
     private int id;
     private String serialNumber;
     private LocalDateTime dueDate;
-    @OneToOne(fetch= FetchType.LAZY)
+    @OneToOne(fetch= FetchType.LAZY, cascade = CascadeType.ALL)
     private Medicine medicine;
-    @OneToOne(fetch= FetchType.LAZY)
+    @OneToOne(fetch= FetchType.LAZY, cascade = CascadeType.ALL)
     private Pharmacy pharmacy;
+    @OneToOne(fetch= FetchType.LAZY)
+    private Patient patient;
+    private boolean issued;
 }

@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProfileDTO {
-    private String username;
+    //private String username;
     private String name;
     private String surname;
     private String email;
@@ -17,4 +19,6 @@ public class ProfileDTO {
     private String town;
     private String phone;
     private String type;
+    private LocalDateTime date;
+
 }

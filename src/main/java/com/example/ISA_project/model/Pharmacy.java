@@ -18,18 +18,27 @@ public class Pharmacy {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToMany(fetch=FetchType.LAZY)
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="Pharmacy_ID")
     private List<Dermatologist> dermatologist;
     @OneToMany(fetch=FetchType.LAZY)
-    @JoinColumn(name="Pharmacy_ID")
+    @JoinColumn(name="PharmacyList_ID")
     private List<Pharmacist> pharmacists;
     private String name;
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Address address;
     private String description;
-    @OneToMany(fetch=FetchType.LAZY)
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="Pharmacy_ID")
-    private List<Medicine> medicines;
+    private List<MedicineQuantity> medicines; // lekovi koji su bazi apoteke
     private float mark;
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="Pharmacy_ID")
+    private List<Action> actions;
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="Pharmacy_ID")
+    private List<User> subscribers;
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="Pharmacy_ID")
+    private List<MedicinePoints> points;
 }

@@ -21,4 +21,8 @@ export class PatientService {
   public editProfile(body): Observable<Profile>{
     return this.http.put<Profile>(user_url, body);
   }
+
+  public getNames(): Observable<any> {
+    return this.http.get(patient_url + `/getNames`);
+  }
 }

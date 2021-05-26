@@ -1,0 +1,50 @@
+<nz-layout>
+  <nz-header>
+    <div class="logo"></div>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
+      <li nz-menu-item >Profile <i nz-icon nzType="user" nzTheme="outline"></i></li>
+    </ul>
+  </nz-header>
+  <nz-layout>
+    <nz-sider nzWidth="200px" nzTheme="light">
+      <ul nz-menu nzMode="inline" class="sider-menu">
+        <li nz-submenu nzIcon="shop" nzTitle="Pharmacy">
+          <!--nzOpen-->
+          <ul>
+            <li nz-menu-item (click)="pharmacyProfile()">Pharmacy profile <i nz-icon nzType="user" nzTheme="outline"></i></li>
+            <li nz-menu-item (click)="pharmacyReport()">Pharmacy report <i nz-icon nzType="file-text" nzTheme="outline"></i></li>
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="Medicine" nzIcon="medicine-box">
+          <ul>
+            <li nz-menu-item (click)="medicine()">Medicine <i nz-icon nzType="experiment" nzTheme="outline"></i></li>
+            <li nz-menu-item (click)="medicineOrder()">Medicine order</li>
+            <li nz-menu-item (click)="medicineAllOrders()">Medicine all orders</li>
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="Pharmacist" nzIcon="experiment">
+          <ul>
+            <li nz-menu-item (click)="pharmacist()">Pharmacist <i nz-icon nzType="user" nzTheme="outline"></i></li>
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="Dermatologist" nzIcon="fork">
+          <ul>
+            <li nz-menu-item >Dermatologist</li>
+            <li nz-menu-item >Dermatologist free appointments</li>
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="Actions and promotions" nzIcon="file-search">
+          <ul>
+            <li nz-menu-item>Actions</li>
+            <li nz-menu-item>Promotions</li>
+          </ul>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout class="inner-layout">
+      <nz-breadcrumb>
+      </nz-breadcrumb>
+      <router-outlet></router-outlet>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>

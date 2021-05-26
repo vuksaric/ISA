@@ -18,4 +18,8 @@ export class PharmacyService {
   public getPharmacies(): Observable<Pharmacy[]> {
     return this.http.get<Pharmacy[]>(pharmacy_url+'/all');
   }
+
+  public registerPharmacy(body): Observable<any> {
+    return this.http.post(pharmacy_url+'/register',body);
+  }
 }
