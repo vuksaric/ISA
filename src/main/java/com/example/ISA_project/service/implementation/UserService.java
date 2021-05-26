@@ -19,7 +19,7 @@ public class UserService implements IUserService {
     }
 
     public ProfileDTO editUser(ProfileDTO profile) {
-       User user = userRepository.findOneByUsername(profile.getUsername());
+       User user = userRepository.findOneByEmail(profile.getEmail());
        Address address= user.getAddress(); //clean code??
         address.setStreet(profile.getAddress());
         address.setState(profile.getState());
@@ -34,9 +34,13 @@ public class UserService implements IUserService {
     @Override
     public ProfileDTO getProfile(int id) {
         User user = userRepository.findOneById(id);
-        ProfileDTO profile = new ProfileDTO(user.getUsername(),user.getName(), user.getSurname(),
+        ProfileDTO profile = new ProfileDTO(user.getName(), user.getSurname(),
                 user.getEmail(), user.getAddress().getStreet(), user.getAddress().getState(),
                 user.getAddress().getTown(), user.getPhone(),user.getDateOfBirth());
         return profile;
+    }
+
+    public User findUserByEmail(String email){
+        return userRepository.findOneByEmail(email);
     }
 }

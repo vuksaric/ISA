@@ -12,15 +12,13 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Prescription {
+public class Therapy {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;// STAVITI MEDICINE
-    private int quantity;
-    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    private Patient patient;
-    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    private Pharmacist pharmacist;
+    @OneToOne(fetch= FetchType.LAZY, cascade = CascadeType.ALL)
+    private Medicine medicine;
+    private int duration;
 }

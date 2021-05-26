@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
 import { AppRoutingModule } from './app-routing.module';
+
+import { SystemAdminHomePageComponent } from './pages/system-admin-home-page/system-admin-home-page.component';
 import { HomePageUserComponent } from './pages/home-page-user/home-page-user.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { HomePagePharmacistComponent } from './pages/home-page-pharmacist/home-page-pharmacist.component';
@@ -28,6 +30,8 @@ import { IssuingMedicineComponent } from './pages/issuing-medicine/issuing-medic
 import { ConsultationFrontpageComponent } from './pages/consultation-frontpage/consultation-frontpage.component';
 import { ConsultationReportComponent } from './pages/consultation-report/consultation-report.component';
 import { SerachPatientsComponent } from './pages/serach-patients/serach-patients.component';
+import { RegistrationPharmacyComponent } from './pages/registration-pharmacy/registration-pharmacy.component';
+import { RegistrationAdminComponent } from './pages/registration-admin/registration-admin.component';
 
 
 registerLocaleData(en);
@@ -38,6 +42,7 @@ registerLocaleData(en);
     AppComponent,
     LoginPageComponent,
     RegistrationPageComponent,
+    SystemAdminHomePageComponent,
     HomePageUserComponent,
     UserProfileComponent,
     HomePagePharmacistComponent,
@@ -53,6 +58,8 @@ registerLocaleData(en);
     ConsultationFrontpageComponent,
     ConsultationReportComponent,
     SerachPatientsComponent,
+    RegistrationPharmacyComponent,
+    RegistrationAdminComponent,
   ],
   imports: [
     BrowserModule,

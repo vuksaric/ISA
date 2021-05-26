@@ -6,25 +6,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Pharmacist{
+public class MedicinePoints {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    private User user;
-    private float mark;
-    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="Pharmacist_ID")
-    private List<WorkdayPharmacist> workdays;
-    @OneToOne(fetch=FetchType.LAZY)
-    private Pharmacy pharmacy;
+    private Medicine medicine;
+    private int points;
 }

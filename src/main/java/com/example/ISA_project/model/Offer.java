@@ -6,21 +6,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Prescription {
+public class Offer {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;// STAVITI MEDICINE
-    private int quantity;
-    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    private Patient patient;
-    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    private Pharmacist pharmacist;
+    private float price;
+    private LocalDateTime dueDate;
 }

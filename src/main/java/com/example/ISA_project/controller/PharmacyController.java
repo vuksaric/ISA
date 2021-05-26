@@ -1,10 +1,10 @@
 package com.example.ISA_project.controller;
 
+import com.example.ISA_project.model.Pharmacy;
+import com.example.ISA_project.model.VacationRequest;
 import com.example.ISA_project.model.dto.PharmacyDTO;
 import com.example.ISA_project.service.IPharmacyService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,5 +20,10 @@ public class PharmacyController {
     @GetMapping(value="/all")
     public List<PharmacyDTO> getPatientInfo(){
         return pharmacyService.findAll();
+    }
+
+    @PostMapping(value = "/register")
+    public Boolean registerPharmacy(@RequestBody Pharmacy pharmacy){
+        return pharmacyService.registerPharmacy(pharmacy);
     }
 }

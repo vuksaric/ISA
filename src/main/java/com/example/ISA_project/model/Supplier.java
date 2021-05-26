@@ -13,18 +13,15 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Pharmacist{
+public class Supplier {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch= FetchType.LAZY, cascade = CascadeType.ALL)
     private User user;
-    private float mark;
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="Pharmacist_ID")
-    private List<WorkdayPharmacist> workdays;
-    @OneToOne(fetch=FetchType.LAZY)
-    private Pharmacy pharmacy;
+    @JoinColumn(name="Supplier_ID")
+    private List<MedicineQuantity> medicines;
 }

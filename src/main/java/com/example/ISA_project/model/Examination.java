@@ -18,16 +18,16 @@ public class Examination {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Period date;
     private float price;
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Dermatologist dermatologist;
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Patient patient;
     private String diagnosis;
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name="Examination_ID")
-    private List<Medicine> therapy;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Therapy therapy;
     private boolean free;
+    private boolean done;
 }

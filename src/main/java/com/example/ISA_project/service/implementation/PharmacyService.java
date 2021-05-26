@@ -25,4 +25,12 @@ public class PharmacyService implements IPharmacyService {
         }
         return pharmacies;
     }
+
+    public Boolean registerPharmacy(Pharmacy pharmacy){
+        Pharmacy ph = pharmacyRepository.save(pharmacy);
+        if (ph != null)
+            return true;
+        else
+            return false;
+    }
 }
