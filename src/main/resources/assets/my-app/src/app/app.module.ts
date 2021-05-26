@@ -1,3 +1,9 @@
+import { PharmacistListComponent } from './pages/home-page-pharmacy-administrator/pharmacist-list/pharmacist-list.component';
+import { MedicineListComponent } from './pages/home-page-pharmacy-administrator/medicine-list/medicine-list.component';
+import { MedicineOrderComponent } from './pages/home-page-pharmacy-administrator/medicine-order/medicine-order.component';
+import { PharmacyReportComponent } from './pages/home-page-pharmacy-administrator/pharmacy-report/pharmacy-report.component';
+import { PharmacyProfileComponent } from './pages/home-page-pharmacy-administrator/pharmacy-profile/pharmacy-profile.component';
+import { HomePagePharmacyAdministratorComponent } from './pages/home-page-pharmacy-administrator/home-page-pharmacy-administrator.component';
 import { RegistrationPageComponent } from './pages/registration-page/registration-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { NgModule } from '@angular/core';
@@ -33,6 +39,7 @@ import { SerachPatientsComponent } from './pages/serach-patients/serach-patients
 import { RegistrationPharmacyComponent } from './pages/registration-pharmacy/registration-pharmacy.component';
 import { RegistrationAdminComponent } from './pages/registration-admin/registration-admin.component';
 
+import { NzTableModule } from 'ng-zorro-antd/table';
 
 registerLocaleData(en);
 
@@ -51,6 +58,12 @@ registerLocaleData(en);
     PreviousConsultationsComponent,
     VacationRequestComponent,
     HomePageDermatologistComponent,
+    HomePagePharmacyAdministratorComponent,
+    PharmacyProfileComponent,
+    PharmacyReportComponent,
+    MedicineOrderComponent,
+    MedicineListComponent,
+    PharmacistListComponent,
     UnregisteredUserPageComponent,
     ViewPharmaciesComponent,
     SearchFilterPipe,
@@ -69,6 +82,7 @@ registerLocaleData(en);
     DemoNgZorroAntdModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    NzTableModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

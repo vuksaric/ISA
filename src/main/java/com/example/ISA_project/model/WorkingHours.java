@@ -6,23 +6,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.time.LocalTime;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class WorkdayPharmacist {
+public class WorkingHours {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    private Period period;
-    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="WorkdayPharmacist_ID")
-    private List<Consultation> consultations;
-    @OneToOne
-    private WorkingHours workingHours;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    @OneToOne(fetch= FetchType.LAZY)
+    private Pharmacy pharmacy;
 }
