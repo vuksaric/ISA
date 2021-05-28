@@ -37,7 +37,7 @@ export class UserProfileComponent implements OnInit {
       this.town = this.validateForm.value.town;
       this.state = this.validateForm.value.state;
       this.phone = this.validateForm.value.phoneNumber;
-      this.email = this.validateForm.value.email;
+      
 
       const body = {
         name: this.name,
@@ -48,17 +48,21 @@ export class UserProfileComponent implements OnInit {
         phone: this.phone,
         email: this.email
       }
-  
-      this.patientService.editProfile(body).subscribe(data => { console.log(data) })
-    
+      console.log(body);
+
+      if(this.validateForm.valid){
+        this.patientService.editProfile(body).subscribe(data => { console.log(data) })
+
+      }
   }
 
   ngOnInit(): void {
     
     this.patientService.getProfile(1).subscribe(data => { console.log(data);
+      this.email = data.email;
     
      this.validateForm = this.fb.group({
-        //email:[data.email, [Validators.email, Validators.required]], 
+        email:[{value :data.email,  disabled: true }], 
         name_user: [data.name, [Validators.required]],
         surname: [data.surname, [Validators.required]],
         //phoneNumberPrefix: ['+381'],
@@ -67,7 +71,7 @@ export class UserProfileComponent implements OnInit {
         town: [data.town, [Validators.required]],
         state: [data.state, [Validators.required]],
         //gender: [null, [Validators.required]] //zasto bi neko menjao pol?
-      })}
-    )
+      })
+    });
   }
 }

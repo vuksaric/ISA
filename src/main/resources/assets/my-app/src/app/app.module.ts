@@ -44,6 +44,9 @@ import { RegistrationAdminComponent } from './pages/registration-admin/registrat
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { FilterAllergiesPipe } from './pages/patient-profile/filter-allergies.pipe';
 import { ViewFutureExaminationsComponent } from './pages/view-future-examinations/view-future-examinations.component';
+import { MedicineReservationComponent } from './pages/medicine-reservation/medicine-reservation.component';
+
+import { DatePipe } from '@angular/common'
 
 registerLocaleData(en);
 
@@ -81,6 +84,7 @@ registerLocaleData(en);
     RegistrationAdminComponent,
     FilterAllergiesPipe,
     ViewFutureExaminationsComponent,
+    MedicineReservationComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,7 +96,7 @@ registerLocaleData(en);
     ReactiveFormsModule,
     NzTableModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [{ provide: NZ_I18N, useValue: en_US }, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

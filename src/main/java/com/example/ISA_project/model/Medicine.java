@@ -26,7 +26,6 @@ public class Medicine {
     private List<Ingredient> ingredients;
     private String manufacturer;
     private IssuingMode issuingMode;
-    //@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @ElementCollection
     @CollectionTable(name="replacements", joinColumns=@JoinColumn(name="medicine_id"))
     @Column(name="replacement")

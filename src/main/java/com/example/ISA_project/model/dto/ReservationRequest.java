@@ -9,9 +9,10 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReservationDTO {
-    private String serial_number;
-    private LocalDateTime due_date;
-    private String medicine;
-    private String patient;
+public class ReservationRequest {
+    private String serialNumber;
+    private LocalDateTime dueDate;
+    private int idPatient;
+    private int idMedicine;
+    private int idPharmacy;
 }

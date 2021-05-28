@@ -16,7 +16,7 @@ export class PatientProfileComponent implements OnInit {
 
   listOfData : Allergy[] = [];
   listOfOptions : Allergy[] =[];
-  //body: any[]=[];
+ 
   
   profile: Profile;
   data1: any;
@@ -41,7 +41,7 @@ export class PatientProfileComponent implements OnInit {
 
 
 
-    this.medicineService.getMedicines(1).subscribe(data => { console.log(data); this.listOfOptions=data; });
+    this.medicineService.getMedicines().subscribe(data => { console.log(data); this.listOfOptions=data; });
 
 
     this.patientChartService.getPatientAllergy(1).subscribe(data => {console.log(data); 
@@ -77,7 +77,7 @@ export class PatientProfileComponent implements OnInit {
       name : item.name
     }
     this.patientChartService.addPatientAllergy(body, 1).subscribe(data => { console.log(data);
-      this.medicineService.getMedicines(1).subscribe(data => { console.log(data); this.listOfOptions=data; });
+      this.medicineService.getMedicines().subscribe(data => { console.log(data); this.listOfOptions=data; });
     });
   }
 

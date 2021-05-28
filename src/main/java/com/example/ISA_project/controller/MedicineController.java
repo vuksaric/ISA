@@ -60,9 +60,8 @@ public class MedicineController {
         }
     }
 
-    @GetMapping("/similar/{id}")
-    public ResponseEntity<List<MedicineAllergyDTO>> getSimilarName(@PathVariable String id) {
-        Integer medicineId = Integer.parseInt(id);
-        return new ResponseEntity<>(medicineService.findMedicines(medicineId), HttpStatus.OK);
+    @GetMapping("/find")
+    public ResponseEntity<List<MedicineAllergyDTO>> getSimilarName() {
+        return new ResponseEntity<>(medicineService.findMedicines(), HttpStatus.OK);
     }
 }

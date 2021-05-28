@@ -1,5 +1,6 @@
 package com.example.ISA_project.service;
 
+import com.example.ISA_project.model.Medicine;
 import com.example.ISA_project.model.dto.MedicineAllergyDTO;
 import com.example.ISA_project.model.dto.MedicineDTO;
 
@@ -14,6 +15,8 @@ public interface IMedicineService {
     List<MedicineDTO> getAllMedicine();
     void deleteMedicine(int id);
 
-    List<MedicineAllergyDTO> findMedicines(int id);
+    Medicine findOneById(int id);
+
+    List<MedicineAllergyDTO> findMedicines();
 
 }

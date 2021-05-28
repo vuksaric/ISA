@@ -22,5 +22,5 @@ public interface MedicineRepository extends JpaRepository<Medicine, Integer> {
     List<Medicine> search(String name);
 
     @Query(nativeQuery = true, value="select distinct m.name from Medicine m where m.patient_chart_id is null")
-    List<String> findMedicines(int id);
+    List<String> findMedicines();
 }

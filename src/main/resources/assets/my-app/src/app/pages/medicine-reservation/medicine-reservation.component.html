@@ -1,0 +1,70 @@
+
+<div class="search">
+    <nz-input-group [nzSuffix]="suffixIconSearch" >
+      <input type="text" nz-input placeholder="input medicine name" [(ngModel)]="searchValue"/>
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+    </div>
+    <div class="center">
+    <nz-table #basicTable nzBordered nzTitle="List of medicines" [nzData]="listOfData">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Manufacturer</th>
+            <th>Type</th>
+            <th>Shape</th>
+            <th>IssuingMode</th>
+            <th>Reserve</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data"> <!--| searchFilter: searchValue">-->
+            <td>{{data.name}}</td>
+            <td>{{data.manufacturer}}</td>
+            <td>{{data.type}}</td>
+            <td>{{data.shape}}</td>
+            <td>{{data.issuingMode}}</td>
+            <td >
+              <button nz-button nzType="primary" id={{data.id}} (click)="reserve($event)">Reserve medicine</button>
+            </td>
+          </tr>
+        </tbody>
+    </nz-table>
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="Pick pharmacy and date" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+      <ng-container *nzModalContent>
+        <form nz-form [formGroup]="validateForm" (ngSubmit)="handleOk()" >
+          <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="pharmacy" >Pharmacy</nz-form-label>
+              <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Please select one pharmacy!">
+                <nz-select [(ngModel)]="singleValue" [nzSize]="large" nzShowSearch formControlName="pharmacy" id="pharmacy">
+                  <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+                </nz-select>
+              </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="date" >Date</nz-form-label>
+            <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Please pick a date!">
+              <nz-date-picker nzInline [(ngModel)]="date" 
+              (ngModelChange)="onChange($event)" formControlName="date" id="dates"
+              [nzDisabledDate]="disabledDate"></nz-date-picker>
+            </nz-form-control>
+        </nz-form-item>
+        </form>
+
+      <!--<label>Pharmacy:</label>
+          <br>
+          <nz-select [(ngModel)]="singleValue" [nzSize]="large" nzShowSearch>
+            <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+          </nz-select>
+          <br><br>
+          <label>Date:</label>
+          <br>
+          <div class="center">
+            <nz-date-picker nzInline [(ngModel)]="date" (ngModelChange)="onChange($event)" [nzDisabledDate]="disabledDate"></nz-date-picker>
+          </div>-->
+        
+      </ng-container>
+    </nz-modal>
+    </div>

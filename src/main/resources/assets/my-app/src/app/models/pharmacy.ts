@@ -3,4 +3,5 @@ export class Pharmacy{
     public mark : number;
     public street : string;
     public town : string;
+    public id : number;
 }
