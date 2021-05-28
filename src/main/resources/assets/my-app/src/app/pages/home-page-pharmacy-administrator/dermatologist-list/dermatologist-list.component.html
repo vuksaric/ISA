@@ -1,6 +1,6 @@
 <div nz-row>
     <div nz-col>
-        <h3> Medicine </h3>
+        <h3> Dermatologist </h3>
     </div>
     <div nz-col style="margin-left: 10px;">
         <button nz-button nzType="primary" nzShape="circle" (click)="showModal()"><i nz-icon nzType="plus"
@@ -14,7 +14,7 @@
             <input type="text" nz-input placeholder="Search" nzSize="default" [(ngModel)]="search" />
         </nz-input-group>
         <ng-template #suffixIconSearch>
-            <button style="background-color: white; border: none; " (click)="searchMedicine()"><i nz-icon
+            <button style="background-color: white; border: none; " (click)="searchDermatologist()"><i nz-icon
                     nzType="search"></i></button>
         </ng-template>
     </div>
@@ -25,37 +25,40 @@
 </div>
 <br>
 
-<nz-modal [(nzVisible)]="isVisible" nzTitle="New pharmacist" (nzOnCancel)="handleCancel()">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="New dermatologist" (nzOnCancel)="handleCancel()">
     <ng-container *nzModalContent>
        
     </ng-container>
 </nz-modal>
 
-<nz-table #basicTable [nzData]="medicineList">
+<nz-table #basicTable [nzData]="dermatologistList">
     <thead>
         <tr>
             <th>Name</th>
-            <th>Type</th>
-            <th>Shape</th>
-            <th>Manufacturer</th>
-            <th>Issuing mode</th>
-            <th>Notes</th>
-            <th>Ingredients</th>
-            <th>Replacements</th>
+            <th>Surname</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Gender</th>
+            <th>Date of birth</th>
+            <th>Mark</th>
+            <th>Workdays</th>
+            <th>Shift</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let data of basicTable.data">
             <td>{{ data.name }}</td>
-            <td>{{ data.type }}</td>
-            <td>{{ data.shape }}</td>
-            <td>{{ data.manufacturer }}</td>
-            <td>{{data.mode }}</td>
-            <td>{{data.note}}</td>
+            <td>{{ data.surname }}</td>
+            <td>{{ data.email }}</td>
+            <td>{{ data.phone }}</td>
+            <td>{{data.gender }}</td>
+            <td>{{data.birthday}}</td>
+            <td></td>
             <td></td>
             <td></td>
             <td><button nz-button nzType="dashed" (click)="showDeleteConfirm()">Remove</button></td>
         </tr>
     </tbody>
 </nz-table>
+

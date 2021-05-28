@@ -5,29 +5,28 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 interface Person {
   key: string;
   name: string;
-  type: string;
-  shape: string;
-  manufacturer: string;
-  mode: string;
-  note: string;
+  surname: string;
+  phone: string;
+  gender: string;
+  birthday: string;
 }
 
 @Component({
-  selector: 'app-medicine-list',
-  templateUrl: './medicine-list.component.html',
-  styleUrls: ['./medicine-list.component.css']
+  selector: 'app-dermatologist-list',
+  templateUrl: './dermatologist-list.component.html',
+  styleUrls: ['./dermatologist-list.component.css']
 })
-export class MedicineListComponent implements OnInit {
+export class DermatologistListComponent implements OnInit {
 
   isVisible = false;
-  search : string;
+  search: string;
 
-  constructor(private modal: NzModalService,private toastr: ToastrService) { }
+  constructor(private modal: NzModalService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
 
-  searchMedicine(){
+  searchMedicine() {
 
   }
 
@@ -55,34 +54,30 @@ export class MedicineListComponent implements OnInit {
     });
   }
 
-
-  medicineList: Person[] = [
+  dermatologistList: Person[] = [
     {
       key: '1',
       name: 'John Brown',
-      type: '32',
-      shape: 'New York No. 1 Lake Park',
-      manufacturer: 'proba',
-      mode:'proba',
-      note:'proba'
+      surname: '32',
+      phone: 'New York No. 1 Lake Park',
+      gender: 'proba',
+      birthday: 'proba'
     },
     {
       key: '2',
       name: 'Jim Green',
-      type: '42',
-      shape: 'London No. 1 Lake Park',
-      manufacturer: 'proba',
-      mode:'proba',
-      note:'proba'
+      surname: '42',
+      phone: 'London No. 1 Lake Park',
+      gender: 'proba',
+      birthday: 'proba'
     },
     {
       key: '3',
       name: 'Joe Black',
-      type: '32',
-      shape: 'Sidney No. 1 Lake Park',
-      manufacturer: 'proba',
-      mode:'proba',
-      note:'proba'
+      surname: '32',
+      phone: 'Sidney No. 1 Lake Park',
+      gender: 'proba',
+      birthday: 'proba'
     }
   ];
 

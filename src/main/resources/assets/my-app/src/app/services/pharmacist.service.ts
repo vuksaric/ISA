@@ -25,5 +25,17 @@ const pharmacist_url = environment.pharmacist_url;
       return this.http.get(pharmacist_url + `/getReservations/${id}`);
     }
 
+    public newPharmacist(body): Observable<any>{
+      return this.http.post(pharmacist_url + `/newPharmacist`, body);
+    }
+
+    public getAll(): Observable<any>{
+      return this.http.get(pharmacist_url + `/all`);
+    }
+
+    public search(search : string): Observable<any>{
+      return this.http.get(pharmacist_url + `/search/` + search);
+    }
+
 
   }

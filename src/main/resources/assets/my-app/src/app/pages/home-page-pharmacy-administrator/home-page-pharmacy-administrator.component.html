@@ -1,25 +1,27 @@
 <nz-layout>
   <nz-header>
-    <div class="logo"></div>
+    <div class="logo"> </div>
     <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
-      <li nz-menu-item >Profile <i nz-icon nzType="user" nzTheme="outline"></i></li>
+      <li nz-menu-item (click)="adminProfile()" >Profile <i nz-icon nzType="user" nzTheme="outline"></i></li>
     </ul>
   </nz-header>
   <nz-layout>
-    <nz-sider nzWidth="200px" nzTheme="light">
+    <nz-sider nzWidth="230px" nzTheme="light">
       <ul nz-menu nzMode="inline" class="sider-menu">
         <li nz-submenu nzIcon="shop" nzTitle="Pharmacy">
           <!--nzOpen-->
           <ul>
             <li nz-menu-item (click)="pharmacyProfile()">Pharmacy profile <i nz-icon nzType="user" nzTheme="outline"></i></li>
             <li nz-menu-item (click)="pharmacyReport()">Pharmacy report <i nz-icon nzType="file-text" nzTheme="outline"></i></li>
+            <li nz-menu-item (click)="pharmacyPricelist()">Pricelist <i nz-icon nzType="euro" nzTheme="outline"></i></li>
+            <li nz-menu-item (click)="pharmacyVacations()">Vacation request <i nz-icon nzType="calendar" nzTheme="outline"></i></li>
           </ul>
         </li>
         <li nz-submenu nzTitle="Medicine" nzIcon="medicine-box">
           <ul>
             <li nz-menu-item (click)="medicine()">Medicine <i nz-icon nzType="experiment" nzTheme="outline"></i></li>
-            <li nz-menu-item (click)="medicineOrder()">Medicine order</li>
-            <li nz-menu-item (click)="medicineAllOrders()">Medicine all orders</li>
+            <li nz-menu-item (click)="medicineOrder()">Medicine order <i nz-icon nzType="shopping-cart" nzTheme="outline"></i></li>
+            <li nz-menu-item (click)="medicineAllOrders()">Missing drugs <i nz-icon nzType="sync" nzTheme="outline"></i></li>
           </ul>
         </li>
         <li nz-submenu nzTitle="Pharmacist" nzIcon="experiment">
@@ -29,14 +31,13 @@
         </li>
         <li nz-submenu nzTitle="Dermatologist" nzIcon="fork">
           <ul>
-            <li nz-menu-item >Dermatologist</li>
-            <li nz-menu-item >Dermatologist free appointments</li>
+            <li nz-menu-item (click)="dermatologist()" >Dermatologist <i nz-icon nzType="user" nzTheme="outline"></i></li>
+            <li nz-menu-item >Free appointments <i nz-icon nzType="schedule" nzTheme="outline"></i></li>
           </ul>
         </li>
         <li nz-submenu nzTitle="Actions and promotions" nzIcon="file-search">
           <ul>
-            <li nz-menu-item>Actions</li>
-            <li nz-menu-item>Promotions</li>
+            <li nz-menu-item>Actions & Promotions <i nz-icon nzType="gift" nzTheme="outline"></i></li>
           </ul>
         </li>
       </ul>
