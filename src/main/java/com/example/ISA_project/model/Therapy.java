@@ -21,4 +21,10 @@ public class Therapy {
     @OneToOne(fetch= FetchType.LAZY, cascade = CascadeType.ALL)
     private Medicine medicine;
     private int duration;
+
+    public Therapy(Medicine medicine, int duration)
+    {
+        this.medicine = medicine;
+        this.duration = duration;
+    }
 }

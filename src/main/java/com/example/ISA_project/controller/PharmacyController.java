@@ -26,4 +26,6 @@ public class PharmacyController {
     public Boolean registerPharmacy(@RequestBody Pharmacy pharmacy){
         return pharmacyService.registerPharmacy(pharmacy);
     }
+
+
 }

@@ -32,7 +32,8 @@ public class PharmacistService implements IPharmacistService {
 
     public ProfileDTO getProfile(int id)
     {
-        return userService.getProfile(id);
+        Pharmacist pharmacist = pharmacistRepository.findOneById(id);
+        return userService.getProfile(pharmacist.getUser().getId());
     }
 
     public List<WorkDayDTO> getWorkdays(int id)
@@ -43,7 +44,7 @@ public class PharmacistService implements IPharmacistService {
         {
             List<AppointmentDTO> consultationDTOS = new ArrayList<>();
             for(Consultation consultation : workday.getConsultations())
-                consultationDTOS.add(new AppointmentDTO(consultation.getId(),consultation.getPeriod().getStart_date(),consultation.getPeriod().getEnd_date(),consultation.getPharmacy().getName(),consultation.getPatient().getUser().getFullName()));
+                consultationDTOS.add(new AppointmentDTO(consultation));
             result.add(new WorkDayDTO(workday.getId(),workday.getPeriod().getStart_date(),consultationDTOS));
         }
         return result;

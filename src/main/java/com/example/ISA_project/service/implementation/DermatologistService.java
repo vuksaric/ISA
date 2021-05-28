@@ -28,7 +28,7 @@ public class DermatologistService implements IDermatologistService {
         {
             List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
             for(Examination examination : workday.getExaminations())
-                appointmentDTOS.add(new AppointmentDTO(examination.getId(),examination.getDate().getStart_date(),examination.getDate().getEnd_date(),null,examination.getPatient().getUser().getFullName()));
+                appointmentDTOS.add(new AppointmentDTO(examination));
             result.add(new WorkDayDTO(workday.getId(),workday.getPeriod().getStart_date(),appointmentDTOS));
         }
         return result;

@@ -27,8 +27,7 @@ public class WorkdayPharmacistService implements IWorkdayPharmacistService {
 
         for(Consultation consultation : workday.getConsultations())
         {
-            result.add(new AppointmentDTO(consultation.getId(),consultation.getPeriod().getStart_date(),consultation.getPeriod().getEnd_date(),
-                    consultation.getPharmacy().getName(),consultation.getPatient().getUser().getFullName()));
+            result.add(new AppointmentDTO(consultation));
         }
         return result;
     }

@@ -57,6 +57,7 @@ export class UserProfileComponent implements OnInit {
     
     this.patientService.getProfile(1).subscribe(data => { console.log(data);
     
+      console.log(data);
      this.validateForm = this.fb.group({
         //email:[data.email, [Validators.email, Validators.required]], 
         name_user: [data.name, [Validators.required]],

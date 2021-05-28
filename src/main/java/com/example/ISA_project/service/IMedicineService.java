@@ -1,9 +1,11 @@
 package com.example.ISA_project.service;
 
+import com.example.ISA_project.model.Medicine;
 import com.example.ISA_project.model.dto.MedicineAllergyDTO;
 import com.example.ISA_project.model.dto.MedicineDTO;
 
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public interface IMedicineService {
@@ -13,6 +15,10 @@ public interface IMedicineService {
     MedicineDTO getMedicineById(int id);
     List<MedicineDTO> getAllMedicine();
     void deleteMedicine(int id);
+    List<MedicineDTO> getAllByName(String name);
+    List<Integer> getReplacementIds(int id);
+    Medicine getById(int id);
+
 
 
 }

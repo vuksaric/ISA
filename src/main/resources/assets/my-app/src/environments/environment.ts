@@ -20,8 +20,10 @@ export const environment = {
   medicine_url: 'http://localhost:8080/medicine',
   reservation_url: 'http://localhost:8080/reservation',
   workdayPharmacist_url: 'http://localhost:8080/workdayPharmacist',
+  workdayDermatologist_url: 'http://localhost:8080/workdayDermatologist',
   address_url: 'http://localhost:8080/address',
-  admin_url : 'http://localhost:8080/admin'
+  admin_url : 'http://localhost:8080/admin',
+  report_url : 'http://localhost:8080/report'
 };
 
 /*

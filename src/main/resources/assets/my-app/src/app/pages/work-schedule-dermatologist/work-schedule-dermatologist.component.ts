@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { WorkdayPharmacist } from 'src/app/models/workday-pharmacist';
 import { DermatologistService } from 'src/app/services/dermatologist.service';
-import { PharmacistService } from 'src/app/services/pharmacist.service';
+import { WorkdayDermatologistService } from 'src/app/services/workday-dermatologist.service';
 import { WorkdayPharmacistService } from 'src/app/services/workday-pharmacist.service';
 
 @Component({
-  selector: 'app-work-schedule',
-  templateUrl: './work-schedule.component.html',
-  styleUrls: ['./work-schedule.component.css']
+  selector: 'app-work-schedule-dermatologist',
+  templateUrl: './work-schedule-dermatologist.component.html',
+  styleUrls: ['./work-schedule-dermatologist.component.css']
 })
-export class WorkScheduleComponent implements OnInit {
+export class WorkScheduleDermatologistComponent implements OnInit {
 
   workdays = [] as any;
   result : String;
@@ -19,12 +18,11 @@ export class WorkScheduleComponent implements OnInit {
   visible = false;
   displayData = [] as any;
 
-  constructor(private pharmacistService: PharmacistService, private dermatologistService: DermatologistService, 
-    private workdayPharmacistService : WorkdayPharmacistService, private router: Router ) { }
+  constructor(private dermatologistService: DermatologistService, private workdayDermatologistService : WorkdayDermatologistService, private router: Router ) { }
 
   ngOnInit(): void {
 
-    this.pharmacistService.getWorkdays(1).subscribe(data => { console.log(data); 
+    this.dermatologistService.getWorkdays(1).subscribe(data => { console.log(data); 
       this.workdays = data;
     });
   
@@ -45,7 +43,7 @@ export class WorkScheduleComponent implements OnInit {
   ispis(consultation) : String
   {
       //console.log(consultation);
-      this.result = consultation.start[3]+":" + consultation.start[4] + '-' + consultation.end[3]+":" + consultation.end[4] +  ' ' + consultation.fullName;
+      this.result = consultation.start[3]+":" + consultation.start[4] + '-' + consultation.end[3]+":" + consultation.end[4] +  ' ' + consultation.fullName + ', ' + consultation.pharmacyName;
 
       return this.result;
   }
@@ -53,7 +51,7 @@ export class WorkScheduleComponent implements OnInit {
   ispisMesec(consultation) : String
   {
       //console.log(consultation);
-      this.result =  consultation.start[2]+ ": " + consultation.start[3]+":" + consultation.start[4] + '-' + consultation.end[3]+":" + consultation.end[4] +  ' ' + consultation.fullName;
+      this.result =  consultation.start[2]+ ": " + consultation.start[3]+":" + consultation.start[4] + '-' + consultation.end[3]+":" + consultation.end[4] +  ' ' + consultation.fullName + ', ' + consultation.pharmacyName;
 
       return this.result;
   }
@@ -62,11 +60,10 @@ export class WorkScheduleComponent implements OnInit {
     this.workdays.forEach(element => {
       if(this.compareDate(select,element.date))
       {
-        this.workdayPharmacistService.getConsultations(element.id).subscribe(data => { console.log(data); 
+        this.workdayDermatologistService.getExaminations(element.id).subscribe(data => { console.log(data); 
           this.consultations = data;
         });
-        if(this.consultations.length != 0)
-          this.visible = true;
+        
       }
       else
       this.consultations = [];
@@ -77,5 +74,4 @@ export class WorkScheduleComponent implements OnInit {
   consultation(id : number): void {
     this.router.navigate(['consultationFrontpage/' + id]);
   }
-
 }

@@ -11,4 +11,5 @@ public interface PharmacyRepository extends JpaRepository<Pharmacy, Integer> {
     @Override
     List<Pharmacy> findAll();
     Pharmacy save(Pharmacy pharmacy);
+    Pharmacy findOneById(int id);
 }

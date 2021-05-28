@@ -16,11 +16,13 @@ public class ReservationService implements IReservationService {
 
     private final ReservationRepository reservationRepository;
     private final IEmailService emailService;
+    private final PharmacyService pharmacyService;
 
-    public ReservationService(ReservationRepository reservationRepository, IEmailService emailService)
+    public ReservationService(ReservationRepository reservationRepository, IEmailService emailService, PharmacyService pharmacyService)
     {
         this.reservationRepository = reservationRepository;
         this.emailService = emailService;
+        this.pharmacyService = pharmacyService;
     }
 
     @Override
@@ -42,6 +44,7 @@ public class ReservationService implements IReservationService {
         Reservation reservation = reservationRepository.findBySerialNumber(serial_number);
         reservation.setIssued(true);
         emailService.issueReservationEmail(reservation.getPatient());
+        pharmacyService.prescribeMedicine(reservation.getPharmacy().getId(),reservation.getMedicine().getId());
         return reservationRepository.save(reservation);
     }
 }

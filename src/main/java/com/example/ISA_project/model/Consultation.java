@@ -29,6 +29,6 @@ public class Consultation {
     @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Patient patient;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Therapy therapy;
+    private Report report;
     private boolean done;
 }

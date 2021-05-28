@@ -10,5 +10,6 @@ import java.util.List;
 public interface ConsultationRepository extends JpaRepository<Consultation, Integer> {
 
     List<Consultation> findAll();
+    Consultation findOneById(int id);
 
 }

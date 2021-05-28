@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Profile } from 'src/app/models/profile';
 import { PharmacistService } from 'src/app/services/pharmacist.service';
@@ -14,7 +15,7 @@ export class ProfilePharmacistComponent implements OnInit {
   data1: any;
   data: any
 
-  constructor(private pharmacistService: PharmacistService ) {}
+  constructor(private pharmacistService: PharmacistService, private router: Router ) {}
 
   ngOnInit(): void {
 
@@ -27,14 +28,14 @@ export class ProfilePharmacistComponent implements OnInit {
       { title: 'Phone number', description: data.phone }
     ] });
     
-    
+
      
   
   }
 
   
   edit() {
-    alert("jej");
+    this.router.navigate(['userProfile']);
   }
 
 }
