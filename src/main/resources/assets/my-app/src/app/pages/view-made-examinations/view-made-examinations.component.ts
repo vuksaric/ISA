@@ -32,7 +32,8 @@ export class ViewMadeExaminationsComponent implements OnInit {
 
   reserve(event): void{
     var idAttr = event.currentTarget.id;
-    this.examinationService.reserveExamination(idAttr).subscribe(data => { console.log(data) });
+    var patient = 1;
+    this.examinationService.reserveExamination(idAttr, patient).subscribe(data => { console.log(data) });
     location.reload();
   }
  

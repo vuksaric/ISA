@@ -26,10 +26,13 @@ public class Medicine {
     private List<Ingredient> ingredients;
     private String manufacturer;
     private IssuingMode issuingMode;
-    //@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @ElementCollection
     @CollectionTable(name="replacements", joinColumns=@JoinColumn(name="medicine_id"))
     @Column(name="replacement")
     private List<Integer> replacements; //int predstavlja sifru leka
     private String notes;
+
+    public String getMedicineInformation(){
+        return name + "; " + type +"; " + shape;
+    }
 }

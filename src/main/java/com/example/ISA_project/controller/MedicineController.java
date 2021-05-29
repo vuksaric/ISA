@@ -18,7 +18,8 @@ import java.util.List;
 public class MedicineController {
 
     private final IMedicineService medicineService;
-    public MedicineController(IMedicineService medicineService){
+
+    public MedicineController(IMedicineService medicineService) {
         this.medicineService = medicineService;
     }
 
@@ -30,46 +31,53 @@ public class MedicineController {
 
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping(value="/{id}")
-    public ResponseEntity getMedicine(@PathVariable String id){
-        try{
+    @GetMapping(value = "/{id}")
+    public ResponseEntity getMedicine(@PathVariable String id) {
+        try {
             Integer medicineId = Integer.parseInt(id);
             MedicineDTO retVal = medicineService.getMedicineById(medicineId);
             return new ResponseEntity<>(retVal, HttpStatus.OK);
-        }catch(Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
 
     @GetMapping("/getAll")
-    public ResponseEntity getAll(){
-        try{
+    public ResponseEntity getAll() {
+        try {
             List<MedicineDTO> retVal = medicineService.getAllMedicine();
             return new ResponseEntity<>(retVal, HttpStatus.OK);
-        }catch(Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PutMapping(value="/delete/{id}")
-    public ResponseEntity delete(@PathVariable String id){
-        try{
+    @PutMapping(value = "/delete/{id}")
+    public ResponseEntity delete(@PathVariable String id) {
+        try {
             Integer medicineId = Integer.parseInt(id);
             medicineService.deleteMedicine(medicineId);
             return new ResponseEntity<>(HttpStatus.OK);
-        }catch(Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+
     @GetMapping("/getAllByName/{name}")
-    public ResponseEntity getAllByName(@PathVariable String name){
-        try{
+    public ResponseEntity getAllByName(@PathVariable String name) {
+        try {
             List<MedicineDTO> retVal = medicineService.getAllByName(name);
             return new ResponseEntity<>(retVal, HttpStatus.OK);
-        }catch(Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/find")
+    public ResponseEntity<List<MedicineAllergyDTO>> getSimilarName() {
+        return new ResponseEntity<>(medicineService.findMedicines(), HttpStatus.OK);
+    }
 }
+

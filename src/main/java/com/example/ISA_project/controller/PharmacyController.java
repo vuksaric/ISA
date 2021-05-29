@@ -27,5 +27,14 @@ public class PharmacyController {
         return pharmacyService.registerPharmacy(pharmacy);
     }
 
-
+    @GetMapping(value="/all/{id}")
+    public List<PharmacyDTO> findPharmacyByMedicineQuantity(@PathVariable String id){
+        int idMedicine = Integer.parseInt(id);
+        return pharmacyService.findPharmacyByMedicineQuantity(idMedicine);
+    }
+    @GetMapping(value="/subscribed/{id}")
+    public List<PharmacyDTO> subscribedPharmacies(@PathVariable String id){
+        int idPatient = Integer.parseInt(id);
+        return pharmacyService.subscribedPharmacies(idPatient);
+    }
 }

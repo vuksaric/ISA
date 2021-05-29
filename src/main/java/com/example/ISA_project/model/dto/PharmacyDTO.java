@@ -1,5 +1,6 @@
 package com.example.ISA_project.model.dto;
 
+import com.example.ISA_project.model.Pharmacy;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,4 +13,14 @@ public class PharmacyDTO {
     private float mark;
     private String street;
     private String town;
+    private int id;
+    private int price;
+
+    public PharmacyDTO(Pharmacy pharmacy){
+        this.name = pharmacy.getName();
+        this.street = pharmacy.getAddress().getStreet();
+        this.town = pharmacy.getAddress().getTown();
+        this.mark = pharmacy.getMark();
+        this.id = pharmacy.getId();
+    }
 }

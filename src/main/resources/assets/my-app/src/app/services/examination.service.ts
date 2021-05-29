@@ -17,8 +17,16 @@ export class ExaminationService {
     return this.http.get<Examination[]>(examination_url+'/getFree');
   }
 
-  public reserveExamination(id): Observable<Examination>{
-    return this.http.put<Examination>(examination_url+'/reserve'+`/${id}`, null);
+  public reserveExamination(id, patient): Observable<Examination>{
+    return this.http.put<Examination>(examination_url+'/reserve'+`/${id}/${patient}`, null);
+  }
+
+  public getFutureExaminationsByPatient(id): Observable<Examination[]> {
+    return this.http.get<Examination[]>(examination_url+'/getFuture'+`/${id}`);
+  }
+
+  public cancelExamination(id): Observable<Examination>{
+    return this.http.put<Examination>(examination_url+'/cancel'+`/${id}`, null);
   }
 
   public getMedicines(id): Observable<any>{

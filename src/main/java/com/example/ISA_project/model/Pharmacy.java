@@ -18,8 +18,10 @@ public class Pharmacy {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="Pharmacy_ID")
+    @ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+    @JoinTable(name = "Pharmacy_Dermatologist",
+            joinColumns = { @JoinColumn(name = "Pharmacy_ID") },
+            inverseJoinColumns = { @JoinColumn(name = "Dermatologist_ID") })
     private List<Dermatologist> dermatologist;
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name="PharmacyList_ID")
@@ -35,10 +37,13 @@ public class Pharmacy {
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="Pharmacy_ID")
     private List<Action> actions;
-    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="Pharmacy_ID")
-    private List<User> subscribers;
+    @ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+    @JoinTable(name = "Pharmacy_Patient",
+            joinColumns = { @JoinColumn(name = "Pharmacy_ID") },
+            inverseJoinColumns = { @JoinColumn(name = "Patient_ID") })
+    private List<Patient> subscribers;
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="Pharmacy_ID")
     private List<MedicinePoints> points;
+    private float consultationPrice;
 }

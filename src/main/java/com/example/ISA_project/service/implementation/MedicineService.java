@@ -91,8 +91,19 @@ public class MedicineService implements IMedicineService {
         return medicine.getReplacements();
     }
 
-    @Override
-    public Medicine getById(int id) {
-        return medicineRepository.findOneById(id);
+
+    public Medicine findOneById(int id) {
+       return medicineRepository.findOneById(id);
     }
+
+    @Override
+    public List<MedicineAllergyDTO> findMedicines() {
+        List<MedicineAllergyDTO> allergies = new ArrayList<MedicineAllergyDTO>();
+        for (String medicine : medicineRepository.findMedicines()) {
+            allergies.add(new MedicineAllergyDTO(medicine));
+        }
+        return allergies;
+    }
+
+
 }

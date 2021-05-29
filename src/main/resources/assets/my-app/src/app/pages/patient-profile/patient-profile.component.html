@@ -20,30 +20,20 @@
     </div>
     <nz-modal [(nzVisible)]="isVisible" nzTitle="Add allergy" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
       <ng-container *nzModalContent>
-        <!--<div class="search">
-          <nz-input-group [nzSuffix]="suffixIconSearch" >
-            <input type="text" nz-input placeholder="input pharmacy name or town " [(ngModel)]="searchValue"/>
-          </nz-input-group>
-          <ng-template #suffixIconSearch>
-            <i nz-icon nzType="search"></i>
-          </ng-template>
-        </div>
-        <nz-table #basicTable nzBordered nzTitle="List of medidines" [nzData]="listOfData">
-          <thead>
-            <tr>
-              <th>Check</th>
-              <th>Medicine name</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let data of basicTable.data">
-              <label nz-checkbox checked="false"></label>
-              <td>{{data.name}}</td>
-            </tr>
-          </tbody>
-        </nz-table>-->
+        <input nz-input placeholder="Basic usage" [(ngModel)]="value"/>
+        <ul nz-list [nzDataSource]="data" nzBordered nzSize="small" >
+          <li nz-list-item *ngFor="let item of listOfOptions | filterAllergies:value" nzNoFlex >
+            <ul nz-list-item-actions>
+              <nz-list-item-action>
+                <a (click)="addAllergy(item)">Add</a>
+              </nz-list-item-action>
+            </ul>
+            {{ item.name }}
+          </li>
+        </ul>
       </ng-container>
     </nz-modal>
+     
   </ng-template>
   <ng-template #actionEdit>
     <div (click)="edit()" class="action-wrapper" nz-tooltip nzTooltipTitle="Edit profile" nzTooltipPlacement="top">

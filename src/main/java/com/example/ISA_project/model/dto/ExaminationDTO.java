@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Data
@@ -17,6 +18,7 @@ public class ExaminationDTO {
     private float mark;
     private float price;
     private float id;
+    private boolean canBeCanceled;
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("HH:mm"); //h:mm a
@@ -29,5 +31,12 @@ public class ExaminationDTO {
        this.mark = examination.getDermatologist().getMark();
        this.price = examination.getPrice();
        this.id = examination.getId();
+
+       if(examination.getDate().getStart_date().isAfter(LocalDateTime.now().plusDays(1))){
+           this.canBeCanceled= true;
+        }
+       else{
+           this.canBeCanceled=false;
+       }
     }
 }

@@ -21,4 +21,7 @@ public interface MedicineRepository extends JpaRepository<Medicine, Integer> {
 
     @Query(nativeQuery = true, value="select * from Medicine m where m.name = LIKE concat('%', ?1, '%')")
     List<Medicine> search(String name);
+
+    @Query(nativeQuery = true, value="select distinct m.name from Medicine m where m.patient_chart_id is null")
+    List<String> findMedicines();
 }

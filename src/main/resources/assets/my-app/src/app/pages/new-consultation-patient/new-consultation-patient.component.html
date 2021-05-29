@@ -1,0 +1,33 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="handleSubmit()" >
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="date" >Date</nz-form-label>
+      <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Please pick a date!">
+        <nz-date-picker nzInline  
+        formControlName="date" id="dates"
+        [nzDisabledDate]="disabledDate"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="time" >Time</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Please pick a time!">
+            <nz-time-picker  nzFormat="HH:mm" formControlName="time"
+            [nzDisabledHours]="disabledHours"
+            [nzMinuteStep]="15"></nz-time-picker>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="time" >Duration</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Please pick duration!" >
+            <nz-radio-group  formControlName="duration">
+                <label nz-radio nzValue="60">1 hour</label>
+                <label nz-radio nzValue="45">45 minutes</label>
+                <label nz-radio nzValue="30">30 minutes</label>
+              </nz-radio-group>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row class="submit-area">
+        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+          <button nz-button nzType="primary">Submit</button>
+        </nz-form-control>
+    </nz-form-item>
+</form>

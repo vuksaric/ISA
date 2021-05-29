@@ -20,4 +20,12 @@ export class PatientChartService {
   public addPatientAllergy(body, id): Observable<Allergy[]> {
     return this.http.post<Allergy[]>(patientChart_url + `/addAllergy/${id}`, body);
   }
+
+  public getFutureReservations(id) : any{
+    return this.http.get(patientChart_url + `/futureReservations/${id}`);
+  }
+
+  public removeReservation(id, serialNumber): any{
+   return this.http.put(patientChart_url+`/${id}/remove/${serialNumber}`, null);
+  }
 }

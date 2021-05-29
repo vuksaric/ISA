@@ -26,4 +26,7 @@ public class Pharmacist{
     private List<WorkdayPharmacist> workdays;
     @OneToOne(fetch=FetchType.LAZY)
     private Pharmacy pharmacy;
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="PharmacistVacation_ID")
+    private List<Period> vacation;
 }

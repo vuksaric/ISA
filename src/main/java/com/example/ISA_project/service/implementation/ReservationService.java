@@ -1,10 +1,10 @@
 package com.example.ISA_project.service.implementation;
 
-import com.example.ISA_project.model.Reservation;
+import com.example.ISA_project.model.*;
 import com.example.ISA_project.model.dto.ReservationDTO;
+import com.example.ISA_project.model.dto.ReservationRequest;
 import com.example.ISA_project.repository.ReservationRepository;
-import com.example.ISA_project.service.IEmailService;
-import com.example.ISA_project.service.IReservationService;
+import com.example.ISA_project.service.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,13 +16,19 @@ public class ReservationService implements IReservationService {
 
     private final ReservationRepository reservationRepository;
     private final IEmailService emailService;
-    private final PharmacyService pharmacyService;
+    private final IPharmacyService pharmacyService;
+    private final IPatientService patientService;
+    private final IMedicineService medicineService;
 
-    public ReservationService(ReservationRepository reservationRepository, IEmailService emailService, PharmacyService pharmacyService)
+    public ReservationService(ReservationRepository reservationRepository,
+                              IEmailService emailService, IPharmacyService pharmacyService,
+                              IPatientService patientService, IMedicineService medicineService)
     {
         this.reservationRepository = reservationRepository;
         this.emailService = emailService;
         this.pharmacyService = pharmacyService;
+        this.patientService = patientService;
+        this.medicineService = medicineService;
     }
 
     @Override
@@ -47,4 +53,33 @@ public class ReservationService implements IReservationService {
         pharmacyService.prescribeMedicine(reservation.getPharmacy().getId(),reservation.getMedicine().getId());
         return reservationRepository.save(reservation);
     }
+
+    @Override
+    public void makeReservation(ReservationRequest reservationRequest) {
+        Medicine medicine = medicineService.findOneById(reservationRequest.getIdMedicine());
+        Patient patient = patientService.findOneById(reservationRequest.getIdPatient());
+
+        Pharmacy pharmacy = pharmacyService.subtractMedicineQuantity(reservationRequest.getIdMedicine(),reservationRequest.getIdPharmacy());
+
+        Reservation reservation = new Reservation(reservationRequest.getSerialNumber(), reservationRequest.getDueDate(),
+                medicine, pharmacy, patient);
+        reservationRepository.save(reservation);
+        patientService.addReservation(reservationRequest.getIdPatient(), reservation);
+    }
+
+    @Override
+    public Boolean cancelReservation(String serialNumber) {
+        Reservation reservation = reservationRepository.findBySerialNumber(serialNumber);
+        if(reservation !=null){
+            reservation.setCanceled(true);
+            reservationRepository.save(reservation);
+            Pharmacy pharmacy = pharmacyService.addMedicineQuantity(reservation.getMedicine().getId(), reservation.getPharmacy().getId());
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
 }

@@ -17,8 +17,7 @@ public interface IMedicineService {
     void deleteMedicine(int id);
     List<MedicineDTO> getAllByName(String name);
     List<Integer> getReplacementIds(int id);
-    Medicine getById(int id);
-
-
+    Medicine findOneById(int id);
+    List<MedicineAllergyDTO> findMedicines();
 
 }

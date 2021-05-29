@@ -26,7 +26,7 @@ public class ReportService implements IReportService {
 
         //Therapy therapy = new Therapy(medicine,duration);
         //Report report = new Report(information,therapy);
-        Medicine medicine = medicineService.getById(request.getMedicine().getId());
+        Medicine medicine = medicineService.findOneById(request.getMedicine().getId());
         Therapy therapy = new Therapy(medicine, request.getDuration());
         Report report = new Report(request.getInformation(), therapy);
         return reportRepository.save(report);

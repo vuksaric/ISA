@@ -46,6 +46,14 @@ import { WorkScheduleDermatologistComponent } from './pages/work-schedule-dermat
 import { ExaminationFrontpageComponent } from './pages/examination-frontpage/examination-frontpage.component';
 import { ExaminationReportComponent } from './pages/examination-report/examination-report.component';
 import { NewConsultationPharmacistComponent } from './pages/new-consultation-pharmacist/new-consultation-pharmacist.component';
+import { FilterAllergiesPipe } from './pages/patient-profile/filter-allergies.pipe';
+import { ViewFutureExaminationsComponent } from './pages/view-future-examinations/view-future-examinations.component';
+import { MedicineReservationComponent } from './pages/medicine-reservation/medicine-reservation.component';
+
+import { DatePipe } from '@angular/common';
+import { ViewReservationsComponent } from './pages/view-reservations/view-reservations.component';
+import { NewConsultationPatientComponent } from './pages/new-consultation-patient/new-consultation-patient.component';
+import { ViewSubscribedPharmaciesComponent } from './pages/view-subscribed-pharmacies/view-subscribed-pharmacies.component'
 
 registerLocaleData(en);
 
@@ -85,6 +93,12 @@ registerLocaleData(en);
     ExaminationFrontpageComponent,
     ExaminationReportComponent,
     NewConsultationPharmacistComponent,
+    FilterAllergiesPipe,
+    ViewFutureExaminationsComponent,
+    MedicineReservationComponent,
+    ViewReservationsComponent,
+    NewConsultationPatientComponent,
+    ViewSubscribedPharmaciesComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,7 +110,7 @@ registerLocaleData(en);
     ReactiveFormsModule,
     NzTableModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [{ provide: NZ_I18N, useValue: en_US }, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

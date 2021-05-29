@@ -2,6 +2,7 @@ package com.example.ISA_project.service.implementation;
 
 import com.example.ISA_project.model.Medicine;
 import com.example.ISA_project.model.MedicineQuantity;
+import com.example.ISA_project.model.Patient;
 import com.example.ISA_project.model.Pharmacy;
 import com.example.ISA_project.model.dto.MedicineDTO;
 import com.example.ISA_project.model.dto.PharmacyDTO;
@@ -26,8 +27,7 @@ public class PharmacyService implements IPharmacyService {
     public List<PharmacyDTO> findAll() {
         List<PharmacyDTO> pharmacies = new ArrayList<PharmacyDTO>();
         for (Pharmacy pharmacy: pharmacyRepository.findAll()) {
-            pharmacies.add(new PharmacyDTO(pharmacy.getName(), pharmacy.getMark(),
-                    pharmacy.getAddress().getStreet(), pharmacy.getAddress().getTown()));
+            pharmacies.add(new PharmacyDTO(pharmacy));
         }
         return pharmacies;
     }
@@ -78,17 +78,67 @@ public class PharmacyService implements IPharmacyService {
     @Override
     public boolean checkQuantity(int idPharmacy, int idMedicine) {
         Pharmacy pharmacy = pharmacyRepository.findOneById(idPharmacy);
-        for(MedicineQuantity medicine : pharmacy.getMedicines())
-        {
-            if(medicine.getMedicine().getId() == idMedicine)
-            {
-                if(medicine.getQuantity() > 0)
-                {
+        for (MedicineQuantity medicine : pharmacy.getMedicines()) {
+            if (medicine.getMedicine().getId() == idMedicine) {
+                if (medicine.getQuantity() > 0) {
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    public Pharmacy findOneById(int id) {
+        return pharmacyRepository.findOneById(id);
+    }
+
+    @Override
+    public List<PharmacyDTO> findPharmacyByMedicineQuantity(int id) {
+        List<PharmacyDTO> pharmacies = new ArrayList<PharmacyDTO>();
+        for(Pharmacy pharmacy : pharmacyRepository.findAll()){
+            for(MedicineQuantity medicineQuantity : pharmacy.getMedicines()){
+                if(medicineQuantity.getMedicine().getId()==id && medicineQuantity.getQuantity()>0){
+                    pharmacies.add(new PharmacyDTO(pharmacy));
+                }
+            }
+        }
+        return pharmacies;
+    }
+    @Override
+    public Pharmacy subtractMedicineQuantity(int idMedicine, int idPharmacy){
+        Pharmacy pharmacy = findOneById(idPharmacy);
+        for(MedicineQuantity medicineQuantity : pharmacy.getMedicines()){
+            if(medicineQuantity.getMedicine().getId()==idMedicine){
+                medicineQuantity.setQuantity(medicineQuantity.getQuantity()-1);
+            }
+        }
+        pharmacyRepository.save(pharmacy);
+        return pharmacy;
+    }
+
+    @Override
+    public Pharmacy addMedicineQuantity(int idMedicine, int idPharmacy) {
+        Pharmacy pharmacy = findOneById(idPharmacy);
+        for(MedicineQuantity medicineQuantity : pharmacy.getMedicines()){
+            if(medicineQuantity.getMedicine().getId()==idMedicine){
+                medicineQuantity.setQuantity(medicineQuantity.getQuantity()+1);
+            }
+        }
+        pharmacyRepository.save(pharmacy);
+        return pharmacy;
+    }
+
+    @Override
+    public List<PharmacyDTO> subscribedPharmacies(int idPatient) {
+        List<PharmacyDTO> pharmacies = new ArrayList<>();
+        for(Pharmacy pharmacy : pharmacyRepository.findAll()){
+            for(Patient patient : pharmacy.getSubscribers()){
+                if(patient.getId()==idPatient){
+                    pharmacies.add(new PharmacyDTO(pharmacy));
+                }
+            }
+        }
+        return pharmacies;
     }
 
 

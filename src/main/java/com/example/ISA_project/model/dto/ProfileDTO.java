@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProfileDTO {
-    //private String username;
     private String name;
     private String surname;
     private String email;

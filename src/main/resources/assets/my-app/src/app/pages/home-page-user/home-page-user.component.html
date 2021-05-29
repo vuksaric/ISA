@@ -2,17 +2,89 @@
     <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
       <div class="logo"></div>
       <ul nz-menu nzTheme="dark" nzMode="inline">
-        <li nz-menu-item>
+        <li nz-menu-item (click)="patientProfile()">
             <i nz-icon nzType="user"></i>
             <span>Profile</span>
         </li>
-        <li nz-menu-item >
-            <i nz-icon nzType="team"></i>
-            <span>blabla</span>
+        <li nz-submenu nzTitle="Dermatologist" nzIcon="user">
+          <ul>
+            <li nz-menu-item (click)="newExamination()">
+              <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+              <span>New examination</span>
+          </li>
+          </ul>
+          <ul>
+            <li nz-menu-item (click)="upcomingExamination()">
+              <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
+              <span>Upcoming examination</span>
+          </li>
+          </ul>
+          <ul>
+            <li nz-menu-item>
+              <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
+              <span>Previous examination</span>
+          </li>
+          </ul>
         </li>
-        <li nz-menu-item>
-          <i nz-icon nzType="file"></i>
-          <span>File</span>
+        <li nz-submenu nzTitle="Pharmacist" nzIcon="user">
+          <ul>
+            <li nz-menu-item (click)="newConsultation()">
+              <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+              <span>New consultation</span>
+          </li>
+          </ul>
+          <ul>
+            <li nz-menu-item>
+              <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
+              <span>Upcoming consultation</span>
+          </li>
+          </ul>
+          <ul>
+            <li nz-menu-item>
+              <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
+              <span>Previous consultation</span>
+          </li>
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="Pharmacy" nzIcon="home">
+          <ul>
+            <li nz-menu-item (click)="searchPharmacies()">
+              <i nz-icon nzType="search" nzTheme="outline"></i>
+              <span>Search Pharmacies</span>
+          </li>
+          </ul>
+          <ul>
+            <li nz-menu-item (click)="subsribedPharmacies()">
+              <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
+              <span>Subscribed Pharmacies</span>
+          </li>
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="Medicine" nzIcon="medicine-box">
+          <ul>
+            <li nz-menu-item (click)="newReservation()">
+              <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+              <span>New Reservation</span>
+          </li>
+          </ul>
+          <ul>
+            <li nz-menu-item (click)="reservedMedicine()">
+              <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
+              <span>Reserved Medicine</span>
+          </li>
+          </ul>
+          <ul>
+            <li nz-menu-item>
+              <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
+              <span>ERecipe</span>
+          </li>
+          </ul>
+          <ul>
+            <li nz-menu-item>
+              <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
+              <span>ERecipe Medicine</span>
+          </li>
+          </ul>
         </li>
       </ul>
     </nz-sider>
@@ -22,7 +94,9 @@
       </nz-header>
       <nz-content>
         <div class="inner-content">
-          <app-user-profile></app-user-profile>
+          <nz-breadcrumb>
+          </nz-breadcrumb>
+          <router-outlet></router-outlet>
         </div>
       </nz-content>
     </nz-layout>
