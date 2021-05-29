@@ -18,7 +18,7 @@ public class MedicineDTO {
     private String type;
     private String shape;
     private List<Ingredient> ingredients;
-    private String manifacturer;
+    private String manufacturer;
     private IssuingMode issuingMode;
     private List<Integer> replacements;
     private String notes;
@@ -29,7 +29,7 @@ public class MedicineDTO {
         this.type = m.getType();
         this.shape = m.getShape();
         this.ingredients = m.getIngredients();
-        this.manifacturer = m.getManufacturer();
+        this.manufacturer = m.getManufacturer();
         this.issuingMode = m.getIssuingMode();
         this.replacements = m.getReplacements();
         this.notes = m.getNotes();

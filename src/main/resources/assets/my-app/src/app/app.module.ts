@@ -36,6 +36,8 @@ import { HomePageDermatologistComponent } from './pages/home-page-dermatologist/
 import { UnregisteredUserPageComponent } from './pages/unregistered-user-page/unregistered-user-page.component';
 import { ViewPharmaciesComponent } from './pages/view-pharmacies/view-pharmacies.component';
 import { SearchFilterPipe } from './pages/view-pharmacies/search-filter.pipe';
+import { ViewMadeExaminationsComponent } from './pages/view-made-examinations/view-made-examinations.component';
+import { PatientProfileComponent } from './pages/patient-profile/patient-profile.component';
 import { IssuingMedicineComponent } from './pages/issuing-medicine/issuing-medicine.component';
 import { ConsultationFrontpageComponent } from './pages/consultation-frontpage/consultation-frontpage.component';
 import { ConsultationReportComponent } from './pages/consultation-report/consultation-report.component';
@@ -44,6 +46,14 @@ import { RegistrationPharmacyComponent } from './pages/registration-pharmacy/reg
 import { RegistrationAdminComponent } from './pages/registration-admin/registration-admin.component';
 
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { FilterAllergiesPipe } from './pages/patient-profile/filter-allergies.pipe';
+import { ViewFutureExaminationsComponent } from './pages/view-future-examinations/view-future-examinations.component';
+import { MedicineReservationComponent } from './pages/medicine-reservation/medicine-reservation.component';
+
+import { DatePipe } from '@angular/common';
+import { ViewReservationsComponent } from './pages/view-reservations/view-reservations.component';
+import { NewConsultationPatientComponent } from './pages/new-consultation-patient/new-consultation-patient.component';
+import { ViewSubscribedPharmaciesComponent } from './pages/view-subscribed-pharmacies/view-subscribed-pharmacies.component'
 
 registerLocaleData(en);
 
@@ -71,6 +81,8 @@ registerLocaleData(en);
     UnregisteredUserPageComponent,
     ViewPharmaciesComponent,
     SearchFilterPipe,
+    ViewMadeExaminationsComponent,
+    PatientProfileComponent,
     IssuingMedicineComponent,
     ConsultationFrontpageComponent,
     ConsultationReportComponent,
@@ -79,7 +91,13 @@ registerLocaleData(en);
     RegistrationAdminComponent,
     DermatologistListComponent,
     PricelistComponent,
-    AdminProfileComponent
+    AdminProfileComponent,
+    FilterAllergiesPipe,
+    ViewFutureExaminationsComponent,
+    MedicineReservationComponent,
+    ViewReservationsComponent,
+    NewConsultationPatientComponent,
+    ViewSubscribedPharmaciesComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,7 +110,7 @@ registerLocaleData(en);
     NzTableModule,
     ToastrModule.forRoot(),
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [{ provide: NZ_I18N, useValue: en_US }, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

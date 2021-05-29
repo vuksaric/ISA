@@ -6,5 +6,5 @@ public enum UserType {
     SystemAdministrator,
     PharmacyAdministrator,
     Patient,
-    Supplier
+    Supplier;
 }

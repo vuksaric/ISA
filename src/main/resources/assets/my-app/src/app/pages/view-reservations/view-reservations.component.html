@@ -1,0 +1,27 @@
+<div class="center">
+    <nz-table #basicTable nzBordered nzTitle="List of medicine reservations" [nzData]="listOfData">
+        <thead>
+          <tr>
+            <th>Serial number</th>
+            <th>Medicine</th>
+            <th>Pick up date</th>
+            <th>Pharmacy</th>
+            <th>Cancel reservation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td>{{data.serialNumber}}</td>
+            <td>{{data.medicine}}</td>
+            <td>{{data.date}}</td>
+            <td>{{data.pharmacy}}</td>
+            <td >
+                <button *ngIf="data.canBeCanceled" nz-button nzType="primary" (click)="cancel(data)">Cancel examintaion</button>
+                <p *ngIf="!(data.canBeCanceled)">Can't cancel reservation, less than 24h from pick up date.</p>
+            </td>
+          </tr>
+        </tbody>
+    </nz-table>
+    </div>
+    
+

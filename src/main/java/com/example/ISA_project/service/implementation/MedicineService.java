@@ -1,9 +1,13 @@
 package com.example.ISA_project.service.implementation;
 
 import com.example.ISA_project.model.Medicine;
-import com.example.ISA_project.model.dto.MedicineDTO;
+
+import com.example.ISA_project.model.dto.MedicineAllergyDTO;
 import com.example.ISA_project.repository.MedicineRepository;
-import com.example.ISA_project.repository.PatientRepository;
+
+import com.example.ISA_project.model.dto.MedicineDTO;
+
+
 import com.example.ISA_project.service.IMedicineService;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +18,21 @@ import java.util.List;
 public class MedicineService implements IMedicineService {
 
     private final MedicineRepository medicineRepository;
-
-    public MedicineService(MedicineRepository medicineRepository) {
+    public MedicineService(MedicineRepository medicineRepository){
         this.medicineRepository = medicineRepository;
     }
+
+
+    @Override
+    public List<MedicineAllergyDTO> getDistinctMedicine() {
+        List<MedicineAllergyDTO> allergies = new ArrayList<MedicineAllergyDTO>();
+        for (String medicine : medicineRepository.getDistinctName()) {
+            allergies.add(new MedicineAllergyDTO(medicine));
+        }
+        return allergies;
+    }
+
+
 
     @Override
     public MedicineDTO getMedicineById(int id) {
@@ -54,4 +69,20 @@ public class MedicineService implements IMedicineService {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public Medicine findOneById(int id) {
+       return medicineRepository.findOneById(id);
+    }
+
+    @Override
+    public List<MedicineAllergyDTO> findMedicines() {
+        List<MedicineAllergyDTO> allergies = new ArrayList<MedicineAllergyDTO>();
+        for (String medicine : medicineRepository.findMedicines()) {
+            allergies.add(new MedicineAllergyDTO(medicine));
+        }
+        return allergies;
+    }
+
+
 }

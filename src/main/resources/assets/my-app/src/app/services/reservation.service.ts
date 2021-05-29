@@ -15,4 +15,12 @@ export class ReservationService {
   public issue(body): any{
     return this.http.put(reservation_url + `/issue`, body);
   }
+
+  public makeReservation(body) : any{
+    return this.http.post(reservation_url, body);
+  }
+
+  public cancelReservation(serialNumber) : any{
+    return this.http.delete(reservation_url+`/delete/${serialNumber}`);
+  }
 }

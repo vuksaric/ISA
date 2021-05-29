@@ -1,9 +1,13 @@
 package com.example.ISA_project.service.implementation;
 
 import com.example.ISA_project.model.Patient;
+import com.example.ISA_project.model.PatientChart;
+import com.example.ISA_project.model.Reservation;
 import com.example.ISA_project.model.dto.ProfileDTO;
 import com.example.ISA_project.repository.PatientRepository;
 import com.example.ISA_project.service.IPatientService;
+import com.example.ISA_project.service.IUserService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,16 +17,17 @@ import java.util.List;
 public class PatientService implements IPatientService {
 
     private final PatientRepository patientRepository;
-    private final UserService userService;
+    private final IUserService userService;
 
-    public PatientService(PatientRepository patientRepository, UserService userService){
+    public PatientService(PatientRepository patientRepository, IUserService userService){
 
         this.patientRepository=patientRepository;
         this.userService = userService;
     }
 
     public ProfileDTO getPatientInfo(int id){
-        return userService.getProfile(id);
+        int idUser = patientRepository.findOneById(id).getUser().getId();
+        return userService.getProfile(idUser);
     }
 
     @Override
@@ -34,6 +39,20 @@ public class PatientService implements IPatientService {
             names.add(patient.getUser().getFullName());
 
         return names;
+    }
+
+    @Override
+    public Patient findOneById(int id) {
+        return patientRepository.findOneById(id);
+    }
+
+    @Override
+    public void addReservation(int id, Reservation reservation){
+        Patient patient = patientRepository.findOneById(id);
+        PatientChart patientChart = patient.getPatientChart();
+        patientChart.getReservations().add(reservation);
+        patient.setPatientChart(patientChart);
+        patientRepository.save(patient);
     }
 
 

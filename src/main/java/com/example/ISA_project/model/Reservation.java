@@ -28,4 +28,14 @@ public class Reservation {
     @OneToOne(fetch= FetchType.LAZY)
     private Patient patient;
     private boolean issued;
+    private boolean canceled;
+
+    public Reservation(String serialNumber, LocalDateTime dueDate, Medicine medicine, Pharmacy pharmacy, Patient patient){
+        this.serialNumber = serialNumber;
+        this.dueDate=dueDate;
+        this.medicine=medicine;
+        this.pharmacy=pharmacy;
+        this.patient=patient;
+    }
+
 }

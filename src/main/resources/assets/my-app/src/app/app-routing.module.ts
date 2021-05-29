@@ -22,27 +22,43 @@ import { VacationRequestComponent } from './pages/vacation-request/vacation-requ
 import { HomePageDermatologistComponent } from './pages/home-page-dermatologist/home-page-dermatologist.component';
 import { UnregisteredUserPageComponent } from './pages/unregistered-user-page/unregistered-user-page.component';
 import { ViewPharmaciesComponent } from './pages/view-pharmacies/view-pharmacies.component';
+import { ViewMadeExaminationsComponent } from './pages/view-made-examinations/view-made-examinations.component';
+import { PatientProfileComponent } from './pages/patient-profile/patient-profile.component';
 import { IssuingMedicineComponent } from './pages/issuing-medicine/issuing-medicine.component';
 import { ConsultationFrontpageComponent } from './pages/consultation-frontpage/consultation-frontpage.component';
 import { ConsultationReportComponent } from './pages/consultation-report/consultation-report.component';
 import { SerachPatientsComponent } from './pages/serach-patients/serach-patients.component';
 import { RegistrationPharmacyComponent } from './pages/registration-pharmacy/registration-pharmacy.component';
 import { RegistrationAdminComponent } from './pages/registration-admin/registration-admin.component';
+import { ViewFutureExaminationsComponent } from './pages/view-future-examinations/view-future-examinations.component';
+import { MedicineReservationComponent } from './pages/medicine-reservation/medicine-reservation.component';
+import { ViewReservationsComponent } from './pages/view-reservations/view-reservations.component';
+import { NewConsultationPatientComponent } from './pages/new-consultation-patient/new-consultation-patient.component';
+import { ViewSubscribedPharmaciesComponent } from './pages/view-subscribed-pharmacies/view-subscribed-pharmacies.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'pharmacyAdmin' },
     { path: 'login', component: LoginPageComponent },
     { path: 'registration', component: RegistrationPageComponent },
     { path: 'sysadminhome', component:SystemAdminHomePageComponent},
-    { path: 'homepage', component: HomePageUserComponent},
-    { path: 'userProfile', component:UserProfileComponent},
+    { path: 'homepage', component: HomePageUserComponent, children:[
+        { path: 'userProfile', component:UserProfileComponent},
+        { path: 'patientProfile', component: PatientProfileComponent},
+        { path: 'viewMadeExaminations', component: ViewMadeExaminationsComponent},
+        { path: 'viewFutureExaminations', component: ViewFutureExaminationsComponent},
+        { path: 'viewPharmacies', component:ViewPharmaciesComponent},
+        { path: 'viewSubsribedPharmacies', component:ViewSubscribedPharmaciesComponent},
+        { path: 'viewReservations', component: ViewReservationsComponent},
+        { path: 'reserveMedicine', component: MedicineReservationComponent},
+        { path: 'newConsultationPatient', component: NewConsultationPatientComponent}
+
+    ]},
     { path: 'homePagePharmacist', component: HomePagePharmacistComponent },
     { path: 'profilePharmacist', component: ProfilePharmacistComponent },
     { path: 'workSchedule', component:WorkScheduleComponent},
     { path: 'previousConsultations', component:PreviousConsultationsComponent},
     { path: 'vacationRequest', component:VacationRequestComponent},
     { path: 'homePageDermatologist', component:HomePageDermatologistComponent},
-    { path: 'viewPharmacies', component:ViewPharmaciesComponent},
     { path: 'issuingMedicine', component:IssuingMedicineComponent},
     { path: 'consultationFrontpage/:id', component:ConsultationFrontpageComponent},
     { path: 'consultationReport/:id', component:ConsultationReportComponent},
