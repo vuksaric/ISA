@@ -17,4 +17,5 @@ public interface IConsultationService {
     List<MedicineDTO> getReplacements(int idConsultation, int idMedicine);
     Consultation finish(ReportRequest request);
     List<Period> freePeriods(int id, LocalDate date);
+    List<Period> freePeriodsPatient(List<Period> periods, int id);
 }

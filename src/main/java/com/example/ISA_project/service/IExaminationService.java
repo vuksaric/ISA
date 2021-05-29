@@ -1,6 +1,7 @@
 package com.example.ISA_project.service;
 
 
+import com.example.ISA_project.model.Period;
 import com.example.ISA_project.model.dto.ExaminationDTO;
 import com.example.ISA_project.model.dto.MedicineDTO;
 import com.example.ISA_project.model.dto.ReportRequest;
@@ -14,5 +15,6 @@ public interface IExaminationService {
     boolean prescribeMedicine(int idConsultation, int idMedicine);
     List<MedicineDTO> getReplacements(int idConsultation, int idMedicine);
     ExaminationDTO finish(ReportRequest request);
+    List<Period> freePeriodsPatient(List<Period> periods, int id);
 
 }

@@ -93,4 +93,22 @@ public class ExaminationService implements IExaminationService {
         examination.setDone(true);
         return new ExaminationDTO(examinationRepository.save(examination));
     }
+
+    @Override
+    public List<Period> freePeriodsPatient(List<Period> periods, int id) {
+        List<Examination> examinations = examinationRepository.findAllFutureByPatient(id);
+        for(Examination examination : examinations)
+        {
+            for(Period period : periods)
+            {
+                if(examination.getDate().getStart_date().equals(period.getStart_date())) {
+                    periods.remove(period);
+                    break;
+                }
+            }
+        }
+
+        return periods;
+    }
+
 }

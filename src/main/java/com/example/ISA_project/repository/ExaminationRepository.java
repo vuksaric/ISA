@@ -18,4 +18,7 @@ public interface ExaminationRepository extends JpaRepository<Examination, Intege
     Examination save(Examination examination);
 
     Examination findExaminationById(int id);
+
+    @Query("select e from Examination e where e.date.start_date > current_date and e.patient.id = ?1")
+    List<Examination> findAllFutureByPatient(int id);
 }

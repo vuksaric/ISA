@@ -24,9 +24,11 @@ public class ConsultationService implements IConsultationService {
     private final IMedicineService medicineService;
     private final IPatientService patientService;
     private final IPharmacistService pharmacistService;
+    private final IExaminationService examinationService;
 
     public ConsultationService(ConsultationRepository consultationRepository, IPharmacyService pharmacyService, IReportService reportService,
-                               IMedicineService medicineService,IPatientService patientService, IPharmacistService pharmacistService)
+                               IMedicineService medicineService,IPatientService patientService, IPharmacistService pharmacistService,
+                               IExaminationService examinationService)
     {
         this.consultationRepository = consultationRepository;
         this.pharmacyService = pharmacyService;
@@ -34,6 +36,7 @@ public class ConsultationService implements IConsultationService {
         this.medicineService = medicineService;
         this.patientService = patientService;
         this.pharmacistService = pharmacistService;
+        this.examinationService = examinationService;
     }
 
     @Override
@@ -97,9 +100,29 @@ public class ConsultationService implements IConsultationService {
     }
 
     @Override
+    public List<Period> freePeriodsPatient(List<Period> periods, int id) {
+        List<Consultation> consultations = consultationRepository.findAllFutureByPatient(id);
+        for(Consultation consultation : consultations)
+        {
+            for(Period period : periods)
+            {
+                if(consultation.getPeriod().getStart_date().equals(period.getStart_date())) {
+                    periods.remove(period);
+                    break;
+                }
+            }
+        }
+
+        return periods;
+    }
+
+    @Override
     public List<Period> freePeriods(int id, LocalDate date) {
         Consultation consultation = consultationRepository.findOneById(id);
-        return pharmacistService.freePeriods(consultation.getPharmacist().getId(),date);
+        List<Period> periods = pharmacistService.freePeriods(consultation.getPharmacist().getId(),date);
+        periods = freePeriodsPatient(periods,consultation.getPatient().getId());
+        periods = examinationService.freePeriodsPatient(periods,consultation.getPatient().getId());
+        return periods;
     }
 
 
