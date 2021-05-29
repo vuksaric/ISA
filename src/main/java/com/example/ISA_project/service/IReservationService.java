@@ -11,4 +11,6 @@ public interface IReservationService {
     List<ReservationDTO> getByPharmacy(String pharmacy);
     Reservation issue(String serial_number);
     void makeReservation(ReservationRequest reservationRequest);
+    Boolean cancelReservation(String serialNumber);
+
 }

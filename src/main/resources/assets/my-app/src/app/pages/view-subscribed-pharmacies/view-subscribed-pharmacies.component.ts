@@ -2,14 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Pharmacy } from 'src/app/models/pharmacy';
 import { PharmacyService } from 'src/app/services/pharmacy.service';
 
-
 @Component({
-  selector: 'app-view-pharmacies',
-  templateUrl: './view-pharmacies.component.html',
-  styleUrls: ['./view-pharmacies.component.css']
+  selector: 'app-view-subscribed-pharmacies',
+  templateUrl: './view-subscribed-pharmacies.component.html',
+  styleUrls: ['./view-subscribed-pharmacies.component.css']
 })
-
-export class ViewPharmaciesComponent implements OnInit {
+export class ViewSubscribedPharmaciesComponent implements OnInit {
   searchValue: string;
   listOfData : Pharmacy[] = [];
   listOfColumn = [
@@ -58,23 +56,7 @@ export class ViewPharmaciesComponent implements OnInit {
   constructor( private pharmacyService: PharmacyService) { }
 
   loadPharmacies(): void{
-    
-     
-      this.pharmacyService.getPharmacies().subscribe((pharmacies: Pharmacy[]) => {
-        this.listOfData = pharmacies;
-        /*pharmacies.forEach(element => {
-          var num = this.listOfFilterTown.push({text:element.town, value:element.town});
-          console.log(num);
-          const found = this.listOfColumn.find(item=> item.title=="Town");
-          console.log(found);
-          found.listOfFilter=this.listOfFilterTown;
-          console.log(this.listOfColumn);
-        });*/
-      });
-     
-    
-    
-      //this.pharmacyService.subscribedPharmacies(1).subscribe((pharmacies: Pharmacy[])=>{console.log(pharmacies)}); //promeniti view 
+      this.pharmacyService.subscribedPharmacies(1).subscribe((pharmacies: Pharmacy[])=>{this.listOfData=pharmacies});  
   }
 
   ngOnInit(): void {
@@ -82,5 +64,6 @@ export class ViewPharmaciesComponent implements OnInit {
     
    this.loadPharmacies();
   }
+
 
 }

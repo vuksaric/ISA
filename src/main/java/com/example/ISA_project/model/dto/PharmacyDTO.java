@@ -14,6 +14,7 @@ public class PharmacyDTO {
     private String street;
     private String town;
     private int id;
+    private int price;
 
     public PharmacyDTO(Pharmacy pharmacy){
         this.name = pharmacy.getName();

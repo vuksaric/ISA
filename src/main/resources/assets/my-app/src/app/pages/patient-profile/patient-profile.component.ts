@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { Allergy } from 'src/app/models/allergy';
 import { Profile } from 'src/app/models/profile';
@@ -26,7 +27,7 @@ export class PatientProfileComponent implements OnInit {
   value : String;
   
   constructor(private patientService: PatientService, private patientChartService: PatientChartService,
-    private medicineService : MedicineService, private modal: NzModalService) { }
+    private medicineService : MedicineService, private modal: NzModalService, private router: Router) { }
 
   ngOnInit(): void {
     
@@ -88,7 +89,7 @@ export class PatientProfileComponent implements OnInit {
   }
 
   edit(){
-    alert("izmeni profil");
+    this.router.navigate(['homepage/userProfile']);
   }
 
 }

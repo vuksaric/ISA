@@ -1,6 +1,8 @@
 package com.example.ISA_project.service;
 
 
+import com.example.ISA_project.model.Medicine;
+import com.example.ISA_project.model.MedicineQuantity;
 import com.example.ISA_project.model.Pharmacy;
 import com.example.ISA_project.model.dto.PharmacyDTO;
 
@@ -12,4 +14,6 @@ public interface IPharmacyService {
     Pharmacy findOneById(int id);
     List<PharmacyDTO> findPharmacyByMedicineQuantity(int id);
     Pharmacy subtractMedicineQuantity(int idMedicine, int idPharmacy);
+    Pharmacy addMedicineQuantity(int idMedicine, int idPharmacy);
+    List<PharmacyDTO> subscribedPharmacies(int idPatient);
 }

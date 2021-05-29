@@ -32,4 +32,9 @@ public class PharmacyController {
         int idMedicine = Integer.parseInt(id);
         return pharmacyService.findPharmacyByMedicineQuantity(idMedicine);
     }
+    @GetMapping(value="/subscribed/{id}")
+    public List<PharmacyDTO> subscribedPharmacies(@PathVariable String id){
+        int idPatient = Integer.parseInt(id);
+        return pharmacyService.subscribedPharmacies(idPatient);
+    }
 }

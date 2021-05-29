@@ -23,7 +23,7 @@ public class Consultation {
     private Period period;
     @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Pharmacy pharmacy;
-    private float price;
+    // float price;
     @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Pharmacist pharmacist;
     @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)

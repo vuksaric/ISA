@@ -27,4 +27,8 @@ export class PharmacyService {
     return this.http.get<Pharmacy[]>(pharmacy_url+`/all/${id}`);
   }
 
+  public subscribedPharmacies(id): Observable<Pharmacy[]> {
+    return this.http.get<Pharmacy[]>(pharmacy_url+`/subscribed/${id}`);
+  }
+
 }

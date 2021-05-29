@@ -46,7 +46,10 @@ import { FilterAllergiesPipe } from './pages/patient-profile/filter-allergies.pi
 import { ViewFutureExaminationsComponent } from './pages/view-future-examinations/view-future-examinations.component';
 import { MedicineReservationComponent } from './pages/medicine-reservation/medicine-reservation.component';
 
-import { DatePipe } from '@angular/common'
+import { DatePipe } from '@angular/common';
+import { ViewReservationsComponent } from './pages/view-reservations/view-reservations.component';
+import { NewConsultationPatientComponent } from './pages/new-consultation-patient/new-consultation-patient.component';
+import { ViewSubscribedPharmaciesComponent } from './pages/view-subscribed-pharmacies/view-subscribed-pharmacies.component'
 
 registerLocaleData(en);
 
@@ -85,6 +88,9 @@ registerLocaleData(en);
     FilterAllergiesPipe,
     ViewFutureExaminationsComponent,
     MedicineReservationComponent,
+    ViewReservationsComponent,
+    NewConsultationPatientComponent,
+    ViewSubscribedPharmaciesComponent,
   ],
   imports: [
     BrowserModule,

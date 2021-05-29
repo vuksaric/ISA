@@ -66,5 +66,19 @@ public class ReservationService implements IReservationService {
         patientService.addReservation(reservationRequest.getIdPatient(), reservation);
     }
 
+    @Override
+    public Boolean cancelReservation(String serialNumber) {
+        Reservation reservation = reservationRepository.findBySerialNumber(serialNumber);
+        if(reservation !=null){
+            reservation.setCanceled(true);
+            reservationRepository.save(reservation);
+            Pharmacy pharmacy = pharmacyService.addMedicineQuantity(reservation.getMedicine().getId(), reservation.getPharmacy().getId());
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 
 }
