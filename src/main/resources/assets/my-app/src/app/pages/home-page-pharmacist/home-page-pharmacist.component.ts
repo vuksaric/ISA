@@ -32,6 +32,11 @@ export class HomePagePharmacistComponent implements OnInit {
   {
     this.router.navigate(['searchPatients']);
   }
+
+  vacation()
+  {
+    this.router.navigate(['vacationRequest']);
+  }
 }
 
 

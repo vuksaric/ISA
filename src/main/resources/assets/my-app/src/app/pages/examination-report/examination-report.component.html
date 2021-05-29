@@ -1,0 +1,101 @@
+<h1>Report</h1>
+<form nz-form [formGroup]="validateForm" (ngSubmit)="finish()">
+<nz-form-control>
+<textarea
+nz-input
+placeholder="Dermatologists's notes" 
+[(ngModel)]="information"
+formControlName="information"
+></textarea>
+</nz-form-control>
+
+<nz-form-control>
+<textarea
+nz-input
+placeholder="Dermatologists's diagnosis" 
+[(ngModel)]="diagnosis"
+formControlName="diagnosis"
+></textarea>
+</nz-form-control>
+<h2>Prescribe medicine</h2>
+<nz-form-control>
+<input formControlName="days" type="number" min = "0" nz-input placeholder="therapy days" [(ngModel)]="days" />
+</nz-form-control>
+</form>
+
+<nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+    <input type="text" nz-input placeholder="medicine name" [(ngModel)]="searchValue" />
+  </nz-input-group>
+  <ng-template #suffixButton>
+    <button nz-button nzType="default" (click)="search()" nzSize="small"  class="search-button" nzSearch>Search</button>
+  </ng-template>
+<nz-table #basicTable [nzData]="['']">
+    <thead>
+      <tr visible = false>
+        <th>Medicine name</th>
+        <th>Manufacturer</th>
+        <th>Specification</th>
+        <th>Prescribe</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of displayMedicine">
+        <td>{{ data.name }}</td>
+        <td>{{ data.manufacturer}}</td>
+        <td><button nz-button  nzType="dashed" (click)="specification(data.id)" nzBlock>View specification</button></td>
+        <td><button nz-button disabled = {{prescribed}} nzType="dashed" (click)="prescribe(data)" nzBlock>Prescribe medicine</button></td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+<h2>Alternatives for medicine</h2>
+  <nz-table #basicTable [nzData]="['']">
+    <thead>
+      <tr>
+        <th>Medicine name</th>
+        <th>Manufacturer</th>
+        <th>Specification</th>
+        <th>Prescribe</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of alternatives">
+        <td>{{ data.name }}</td>
+        <td>{{ data.manufacturer}}</td>
+        <td><button nz-button nzType="dashed" (click)="specification(data.id)" nzBlock>View specification</button></td>
+        <td><button nz-button disabled = {{prescribed}} nzType="dashed" (click)="prescribe(data)" nzBlock>Prescribe medicine</button></td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="Medicine specification"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter">
+  <ng-template #modalContent>
+        <label>Name: {{ medicineSpecification.name }}</label>
+        <br>
+        <label>Type: {{ medicineSpecification.type }} </label>
+        <br>
+        <label>Shape: {{ medicineSpecification.shape }}</label>
+        <br>
+        <label>Ingredients: </label>
+          <ul style="list-style-type:circle;">
+           <li *ngFor="let data of medicineSpecification.ingredients" >{{data.name}}</li>
+          </ul>
+        <br>
+        <label>Manufacturer: {{ medicineSpecification.manufacturer }}</label>
+        <br>
+        <label>Issuing mode: {{ medicineSpecification.issuingMode }}</label>
+        <br>
+        <label>Notes: {{ medicineSpecification.notes }}</label>
+  </ng-template>
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="handleOk()">Close</button>
+  </ng-template>
+  </nz-modal>
+
+  <button nz-button class = "button"  nzType="default">Schedule follow up</button>
+  <button nz-button class = "button" (click)="finish()"  nzType="default">Finish consultation</button>
+  <button nz-button class = "button" (click)="return()"  nzType="default">Go back</button>

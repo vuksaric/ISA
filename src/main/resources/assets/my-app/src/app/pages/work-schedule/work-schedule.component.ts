@@ -17,8 +17,10 @@ export class WorkScheduleComponent implements OnInit {
   selectedValue : any;
   consultations = [] as any;
   visible = false;
+  displayData = [] as any;
 
-  constructor(private pharmacistService: PharmacistService, private dermatologistService: DermatologistService, private workdayPharmacistSrvice : WorkdayPharmacistService, private router: Router ) { }
+  constructor(private pharmacistService: PharmacistService, private dermatologistService: DermatologistService, 
+    private workdayPharmacistService : WorkdayPharmacistService, private router: Router ) { }
 
   ngOnInit(): void {
 
@@ -58,15 +60,16 @@ export class WorkScheduleComponent implements OnInit {
 
   selectChange(select: Date): void {
     this.workdays.forEach(element => {
-      alert(element.date);
       if(this.compareDate(select,element.date))
       {
-        this.workdayPharmacistSrvice.getConsultations(element.id).subscribe(data => { console.log(data); 
+        this.workdayPharmacistService.getConsultations(element.id).subscribe(data => { console.log(data); 
           this.consultations = data;
         });
         if(this.consultations.length != 0)
           this.visible = true;
       }
+      else
+      this.consultations = [];
     });
 
   }

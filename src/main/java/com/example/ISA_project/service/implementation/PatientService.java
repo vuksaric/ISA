@@ -1,5 +1,7 @@
 package com.example.ISA_project.service.implementation;
 
+import com.example.ISA_project.model.Consultation;
+import com.example.ISA_project.model.Examination;
 import com.example.ISA_project.model.Patient;
 import com.example.ISA_project.model.PatientChart;
 import com.example.ISA_project.model.Reservation;
@@ -42,6 +44,18 @@ public class PatientService implements IPatientService {
     }
 
     @Override
+    public void saveConsultation(Consultation consultation) {
+        Patient patient = patientRepository.findOneById(consultation.getPatient().getId());
+        patient.getPatientChart().getPreviousConsultations().add(consultation);
+        patientRepository.save(patient);
+    }
+
+    @Override
+    public void saveExamination(Examination examination) {
+        Patient patient = patientRepository.findOneById(examination.getPatient().getId());
+        patient.getPatientChart().getPreviousExaminations().add(examination);
+    }
+
     public Patient findOneById(int id) {
         return patientRepository.findOneById(id);
     }

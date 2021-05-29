@@ -20,4 +20,10 @@ public class Period {
     private int id;
     private LocalDateTime start_date;
     private LocalDateTime end_date;
+
+    public Period(LocalDateTime start, LocalDateTime end)
+    {
+        start_date = start;
+        end_date = end;
+    }
 }

@@ -46,6 +46,10 @@ import { RegistrationPharmacyComponent } from './pages/registration-pharmacy/reg
 import { RegistrationAdminComponent } from './pages/registration-admin/registration-admin.component';
 
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { WorkScheduleDermatologistComponent } from './pages/work-schedule-dermatologist/work-schedule-dermatologist.component';
+import { ExaminationFrontpageComponent } from './pages/examination-frontpage/examination-frontpage.component';
+import { ExaminationReportComponent } from './pages/examination-report/examination-report.component';
+import { NewConsultationPharmacistComponent } from './pages/new-consultation-pharmacist/new-consultation-pharmacist.component';
 import { FilterAllergiesPipe } from './pages/patient-profile/filter-allergies.pipe';
 import { ViewFutureExaminationsComponent } from './pages/view-future-examinations/view-future-examinations.component';
 import { MedicineReservationComponent } from './pages/medicine-reservation/medicine-reservation.component';
@@ -92,6 +96,10 @@ registerLocaleData(en);
     DermatologistListComponent,
     PricelistComponent,
     AdminProfileComponent,
+    WorkScheduleDermatologistComponent,
+    ExaminationFrontpageComponent,
+    ExaminationReportComponent,
+    NewConsultationPharmacistComponent,
     FilterAllergiesPipe,
     ViewFutureExaminationsComponent,
     MedicineReservationComponent,

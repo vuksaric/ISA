@@ -1,6 +1,6 @@
 nz-date-picker {
-    margin: 0 8px 12px 0;
-    margin-left: 800px;
+    margin: auto;
+    display: block;
     width: 300px;
   }
   h2{

@@ -46,6 +46,8 @@ public class MedicineService implements IMedicineService {
         return retVal;
     }
 
+
+
     @Override
     public List<MedicineDTO> getAllMedicine() {
         List<MedicineDTO> retVal = new ArrayList<>();
@@ -71,6 +73,25 @@ public class MedicineService implements IMedicineService {
     }
 
     @Override
+    public List<MedicineDTO> getAllByName(String name) {
+        List<Medicine> medicines = medicineRepository.search(name);
+        List<MedicineDTO> result = new ArrayList<>();
+        for(Medicine medicine : medicines)
+        {
+            result.add(new MedicineDTO(medicine));
+
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<Integer> getReplacementIds(int id) {
+        Medicine medicine = medicineRepository.findOneById(id);
+        return medicine.getReplacements();
+    }
+
+
     public Medicine findOneById(int id) {
        return medicineRepository.findOneById(id);
     }

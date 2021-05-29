@@ -15,4 +15,21 @@ export class ConsultationService {
   public getPreviousByPharmacist(id): Observable<any>{
     return this.http.get(consultation_url + `/getPreviousByPharmacist/${id}`);
   }
+
+  public getMedicines(id): Observable<any>{
+    return this.http.get(consultation_url + `/getMedicines/${id}`);
+  }
+
+  public prescribeMedicine(body) : Observable<any>{
+    return this.http.put(consultation_url + `/prescribe`,body);
+  }
+
+  public getReplacements(body): Observable<any>{
+    return this.http.post(consultation_url + `/replacements`,body);
+  } 
+
+  public finish(body): Observable<any>{
+    return this.http.post(consultation_url + `/finish`,body);
+  }
+
 }
