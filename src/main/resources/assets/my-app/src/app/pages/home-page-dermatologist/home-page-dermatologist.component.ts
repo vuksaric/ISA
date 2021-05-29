@@ -20,12 +20,22 @@ export class HomePageDermatologistComponent implements OnInit {
 
   workSchedule()
   {
-    this.router.navigate(['workSchedule']);
+    this.router.navigate(['workScheduleDermatologist']);
   }
 
   previousConsultations()
   {
     this.router.navigate(['previousConsultations']);
+  }
+
+  vacation()
+  {
+    this.router.navigate(['vacationRequest']);
+  }
+
+  patientSearch()
+  {
+    this.router.navigate(['searchPatients']);
   }
 
 }

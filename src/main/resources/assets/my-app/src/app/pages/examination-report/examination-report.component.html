@@ -3,16 +3,26 @@
 <nz-form-control>
 <textarea
 nz-input
-placeholder="Pharmacist's notes" 
+placeholder="Dermatologists's notes" 
 [(ngModel)]="information"
 formControlName="information"
 ></textarea>
 </nz-form-control>
+
+<nz-form-control>
+<textarea
+nz-input
+placeholder="Dermatologists's diagnosis" 
+[(ngModel)]="diagnosis"
+formControlName="diagnosis"
+></textarea>
+</nz-form-control>
 <h2>Prescribe medicine</h2>
 <nz-form-control>
-<input type="number" formControlName="days" min = "0" nz-input placeholder="therapy days" [(ngModel)]="days" />
+<input formControlName="days" type="number" min = "0" nz-input placeholder="therapy days" [(ngModel)]="days" />
 </nz-form-control>
 </form>
+
 <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
     <input type="text" nz-input placeholder="medicine name" [(ngModel)]="searchValue" />
   </nz-input-group>
@@ -89,7 +99,3 @@ formControlName="information"
   <button nz-button class = "button"  nzType="default">Schedule follow up</button>
   <button nz-button class = "button" (click)="finish()"  nzType="default">Finish consultation</button>
   <button nz-button class = "button" (click)="return()"  nzType="default">Go back</button>
-  
-
- 
-

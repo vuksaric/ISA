@@ -6,13 +6,11 @@ import com.example.ISA_project.model.dto.PreviousConsultationDTO;
 import com.example.ISA_project.model.dto.ReportRequest;
 import com.example.ISA_project.repository.ConsultationRepository;
 import com.example.ISA_project.repository.PharmacistRepository;
-import com.example.ISA_project.service.IConsultationService;
-import com.example.ISA_project.service.IMedicineService;
-import com.example.ISA_project.service.IPharmacyService;
+import com.example.ISA_project.service.*;
 //import com.example.ISA_project.service.IReportService;
-import com.example.ISA_project.service.IReportService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +22,18 @@ public class ConsultationService implements IConsultationService {
     private final IPharmacyService pharmacyService;
     private final IReportService reportService;
     private final IMedicineService medicineService;
+    private final IPatientService patientService;
+    private final IPharmacistService pharmacistService;
 
-    public ConsultationService(ConsultationRepository consultationRepository, IPharmacyService pharmacyService, IReportService reportService, IMedicineService medicineService)
+    public ConsultationService(ConsultationRepository consultationRepository, IPharmacyService pharmacyService, IReportService reportService,
+                               IMedicineService medicineService,IPatientService patientService, IPharmacistService pharmacistService)
     {
         this.consultationRepository = consultationRepository;
         this.pharmacyService = pharmacyService;
         this.reportService = reportService;
         this.medicineService = medicineService;
+        this.patientService = patientService;
+        this.pharmacistService = pharmacistService;
     }
 
     @Override
@@ -71,7 +74,7 @@ public class ConsultationService implements IConsultationService {
     }
 
     @Override
-    public boolean PrescribeMedicine(int idConsultation, int idMedicine) {
+    public boolean prescribeMedicine(int idConsultation, int idMedicine) {
         Consultation consultation = consultationRepository.findOneById(idConsultation);
         return pharmacyService.checkQuantity(consultation.getPharmacy().getId(),idMedicine);
     }
@@ -85,14 +88,18 @@ public class ConsultationService implements IConsultationService {
     @Override
     public Consultation finish(ReportRequest request) {
         Consultation consultation = consultationRepository.findOneById(Integer.parseInt(request.getId()));
-        //Medicine medicine = medicineService.getById(request.getMedicine().getId());
-        //Therapy therapy = new Therapy(medicine, request.getDuration());
-        //Report report = new Report(request.getInformation(), therapy);
         pharmacyService.prescribeMedicine(consultation.getPharmacy().getId(),request.getMedicine().getId());
         Report report = reportService.newReport(request);
+        patientService.saveConsultation(consultation);
         consultation.setReport(report);
         consultation.setDone(true);
         return consultationRepository.save(consultation);
+    }
+
+    @Override
+    public List<Period> freePeriods(int id, LocalDate date) {
+        Consultation consultation = consultationRepository.findOneById(id);
+        return pharmacistService.freePeriods(consultation.getPharmacist().getId(),date);
     }
 
 

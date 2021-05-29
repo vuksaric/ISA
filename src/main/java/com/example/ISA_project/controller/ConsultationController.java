@@ -36,11 +36,11 @@ public class ConsultationController {
 
         int idConsultation= Integer.parseInt(request.getIdConsultation());
         int idMedicine = Integer.parseInt(request.getIdMedicine());
-        return consultationService.PrescribeMedicine(idConsultation,idMedicine);
+        return consultationService.prescribeMedicine(idConsultation,idMedicine);
     }
 
     @PostMapping("/replacements")
-    public List<MedicineDTO> login(@RequestBody PrescribeRequest request){
+    public List<MedicineDTO> getReplacements(@RequestBody PrescribeRequest request){
         int idConsultation = Integer.parseInt(request.getIdConsultation());
         int idMedicine = Integer.parseInt(request.getIdMedicine());
         return consultationService.getReplacements(idConsultation,idMedicine);

@@ -28,6 +28,8 @@ import { SerachPatientsComponent } from './pages/serach-patients/serach-patients
 import { RegistrationPharmacyComponent } from './pages/registration-pharmacy/registration-pharmacy.component';
 import { RegistrationAdminComponent } from './pages/registration-admin/registration-admin.component';
 import { WorkScheduleDermatologistComponent } from './pages/work-schedule-dermatologist/work-schedule-dermatologist.component';
+import { ExaminationFrontpageComponent } from './pages/examination-frontpage/examination-frontpage.component';
+import { ExaminationReportComponent } from './pages/examination-report/examination-report.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'pharmacyAdmin' },
@@ -48,7 +50,9 @@ const routes: Routes = [
     { path: 'patientProfile', component: PatientProfileComponent},
     { path: 'issuingMedicine', component:IssuingMedicineComponent},
     { path: 'consultationFrontpage/:id', component:ConsultationFrontpageComponent},
+    { path: 'examinationFrontpage/:id', component:ExaminationFrontpageComponent},
     { path: 'consultationReport/:id', component:ConsultationReportComponent},
+    { path: 'examinationReport/:id', component:ExaminationReportComponent},
     { path: 'searchPatients', component:SerachPatientsComponent},
     { path: 'registrationPharmacy', component:RegistrationPharmacyComponent},
     { path: 'registrationAdmin', component:RegistrationAdminComponent},

@@ -1,6 +1,10 @@
 package com.example.ISA_project.controller;
 
+import com.example.ISA_project.model.Consultation;
 import com.example.ISA_project.model.dto.ExaminationDTO;
+import com.example.ISA_project.model.dto.MedicineDTO;
+import com.example.ISA_project.model.dto.PrescribeRequest;
+import com.example.ISA_project.model.dto.ReportRequest;
 import com.example.ISA_project.service.IExaminationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -23,5 +27,32 @@ public class ExaminationController {
     public ResponseEntity<ExaminationDTO> reserveExamination(@PathVariable String id){
         int idExamination= Integer.parseInt(id);
         return new ResponseEntity<>(examinationService.reserveExamination(idExamination), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getMedicines/{id}")
+    public List<MedicineDTO> geMedicines(@PathVariable String id){
+        int idPharmacist= Integer.parseInt(id);
+        return examinationService.getMedicines(idPharmacist);
+    }
+
+    @PutMapping(value = "/prescribe")
+    public boolean prescribeMedicine(@RequestBody PrescribeRequest request){
+
+        int idExamination= Integer.parseInt(request.getIdConsultation());
+        int idMedicine = Integer.parseInt(request.getIdMedicine());
+        return examinationService.prescribeMedicine(idExamination,idMedicine);
+    }
+
+    @PostMapping("/replacements")
+    public List<MedicineDTO> getReplacements(@RequestBody PrescribeRequest request){
+        int idExamination = Integer.parseInt(request.getIdConsultation());
+        int idMedicine = Integer.parseInt(request.getIdMedicine());
+        return examinationService.getReplacements(idExamination,idMedicine);
+    }
+
+    @PostMapping("/finish")
+    public ExaminationDTO finish(@RequestBody ReportRequest request){
+
+        return examinationService.finish(request);
     }
 }

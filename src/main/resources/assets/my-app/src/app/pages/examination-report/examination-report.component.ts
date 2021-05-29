@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConsultationService } from 'src/app/services/consultation.service';
+import { ExaminationService } from 'src/app/services/examination.service';
 import { MedicineService } from 'src/app/services/medicine.service';
 import { ReportService } from 'src/app/services/report.service';
 
-
 @Component({
-  selector: 'app-consultation-report',
-  templateUrl: './consultation-report.component.html',
-  styleUrls: ['./consultation-report.component.css']
+  selector: 'app-examination-report',
+  templateUrl: './examination-report.component.html',
+  styleUrls: ['./examination-report.component.css']
 })
-export class ConsultationReportComponent implements OnInit {
+export class ExaminationReportComponent implements OnInit {
 
   medicines : any[];
   displayMedicine: any[];
@@ -26,21 +25,22 @@ export class ConsultationReportComponent implements OnInit {
   medicineId : number;
   information : String;
   prescribedMedicine : any;
+  diagnosis : String;
   validateForm: FormGroup;
 
-  constructor(private activatedRoute: ActivatedRoute,private medicineService: MedicineService,private consultationService: ConsultationService, 
+
+  constructor(private activatedRoute: ActivatedRoute,private medicineService: MedicineService,private examinationService: ExaminationService, 
     private reportService : ReportService, private router: Router, private fb: FormBuilder) { 
 
       this.validateForm = this.fb.group({
         information: ['', [Validators.required]],
-        diagnosis: ['', [Validators.required]],
         days: ['', [Validators.required]]
       })
     }
 
   ngOnInit(): void {
     this.id= this.activatedRoute.snapshot.paramMap.get('id');
-    this.consultationService.getMedicines(this.id).subscribe(data => { console.log(data); 
+    this.examinationService.getMedicines(this.id).subscribe(data => { console.log(data); 
       this.medicines = data;
     });
     this.days = 0;
@@ -65,14 +65,14 @@ export class ConsultationReportComponent implements OnInit {
         idMedicine : medicine.id
     }
 
-    this.consultationService.prescribeMedicine(this.body).subscribe(data => { console.log(data); 
+    this.examinationService.prescribeMedicine(this.body).subscribe(data => { console.log(data); 
       this.prescribed = data;
       console.log( "Prepisan je prvi: " + data);
 
       if(!this.prescribed)
       {
         alert("Medicine is currently out of stock, see replacements below");
-        this.consultationService.getReplacements(this.body).subscribe(data => { console.log(data); 
+        this.examinationService.getReplacements(this.body).subscribe(data => { console.log(data); 
           this.alternatives = data;
           console.log("Lista novih: " + data);
         });
@@ -94,7 +94,7 @@ export class ConsultationReportComponent implements OnInit {
       idMedicine : medicine.id
     }
 
-    this.consultationService.prescribeMedicine(this.body).subscribe(data => { console.log(data); 
+    this.examinationService.prescribeMedicine(this.body).subscribe(data => { console.log(data); 
       this.prescribed = data;
       console.log(data);
       this.prescribedMedicine = medicine
@@ -110,7 +110,8 @@ export class ConsultationReportComponent implements OnInit {
       id : this.id,
       information : this.information,
       medicine : this.prescribedMedicine,
-      duration : this.days
+      duration : this.days,
+      diagnosis : this.diagnosis
     }
 
     for (const key in this.validateForm.controls) {
@@ -120,8 +121,8 @@ export class ConsultationReportComponent implements OnInit {
 
     if(this.validateForm.valid)
     {
-      this.consultationService.finish(this.body).subscribe(data => { console.log(data) });
-      this.router.navigate(['homePagePharmacist']);
+      this.examinationService.finish(this.body).subscribe(data => { console.log(data) });
+      this.router.navigate(['homePageDermatologist']);
     }
     else
       alert("All fields are required");
@@ -139,4 +140,5 @@ export class ConsultationReportComponent implements OnInit {
     console.log('Button ok clicked!');
     this.isVisible = false;
   }
+
 }

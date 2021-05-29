@@ -14,5 +14,8 @@ public class ReportRequest {
     private String information;
     private Medicine medicine;
     private int duration;
+    private String diagnosis;
+
 
 }
+

@@ -1,5 +1,7 @@
 package com.example.ISA_project.service.implementation;
 
+import com.example.ISA_project.model.Consultation;
+import com.example.ISA_project.model.Examination;
 import com.example.ISA_project.model.Patient;
 import com.example.ISA_project.model.dto.ProfileDTO;
 import com.example.ISA_project.repository.PatientRepository;
@@ -35,6 +37,20 @@ public class PatientService implements IPatientService {
             names.add(patient.getUser().getFullName());
 
         return names;
+    }
+
+    @Override
+    public void saveConsultation(Consultation consultation) {
+        Patient patient = patientRepository.findOneById(consultation.getPatient().getId());
+        patient.getPatientChart().getPreviousConsultations().add(consultation);
+        patientRepository.save(patient);
+    }
+
+    @Override
+    public void saveExamination(Examination examination) {
+        Patient patient = patientRepository.findOneById(examination.getPatient().getId());
+        patient.getPatientChart().getPreviousExaminations().add(examination);
+        patientRepository.save(patient);
     }
 
 
