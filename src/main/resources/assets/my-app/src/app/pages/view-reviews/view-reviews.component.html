@@ -1,0 +1,61 @@
+<nz-tabset>
+    <nz-tab nzTitle="Doctor">
+      <ul nz-list [nzDataSource]="listOfDoctors" nzBordered nzSize="small">
+        <nz-list-header>List of doctors that can be reviewed</nz-list-header>
+        <li nz-list-item *ngFor="let item of listOfDoctors" nzNoFlex>
+          <ul nz-list-item-actions>
+            <nz-list-item-action>
+              <a (click)="viewGradeDoctor(item)">View grade</a>
+              <nz-modal [(nzVisible)]="isVisible" nzTitle="Dermatologist Grade" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+                <ng-container *nzModalContent>
+                  <nz-rate [(ngModel)]="mark" [nzCount]="10"></nz-rate>
+                </ng-container>
+              </nz-modal>
+            </nz-list-item-action>
+          </ul>
+          {{ item.description }}
+        </li>
+        
+      </ul>
+    </nz-tab>
+    <nz-tab nzTitle="Pharmacist">
+      <ul nz-list [nzDataSource]="listOfPharmacist" nzBordered nzSize="small">
+        <nz-list-header>List of pharmacists that can be reviewed</nz-list-header>
+        <li nz-list-item *ngFor="let item of listOfPharmacist" nzNoFlex>
+          <ul nz-list-item-actions>
+            <nz-list-item-action>
+              <a (click)="viewGradePharmacist(item)">View grade</a>
+              <nz-modal [(nzVisible)]="isVisible" nzTitle="Pharmacist Grade" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+                <ng-container *nzModalContent>
+                  <nz-rate [(ngModel)]="mark" [nzCount]="10"></nz-rate>
+                </ng-container>
+              </nz-modal>
+            </nz-list-item-action>
+          </ul>
+          {{ item.description }}
+        </li>
+        
+      </ul>
+    </nz-tab>
+    <nz-tab nzTitle="Medicine">
+      <ul nz-list [nzDataSource]="listOfMedicine" nzBordered nzSize="small">
+        <nz-list-header>List of medicines that can be reviewed</nz-list-header>
+        <li nz-list-item *ngFor="let item of listOfMedicine" nzNoFlex>
+          <ul nz-list-item-actions>
+            <nz-list-item-action>
+              <a (click)="viewGradeMedicine(item)">View grade</a>
+              <nz-modal [(nzVisible)]="isVisible" nzTitle="Medicine Grade" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+                <ng-container *nzModalContent>
+                  <nz-rate [(ngModel)]="mark" [nzCount]="10"></nz-rate>
+                </ng-container>
+              </nz-modal>
+            </nz-list-item-action>
+          </ul>
+          {{ item.description }}
+        </li>
+      </ul>
+    </nz-tab>
+    <nz-tab nzTitle="Pharmacy">
+        Content of Tab Pane 3
+    </nz-tab>
+</nz-tabset>

@@ -32,6 +32,7 @@ import { MedicineReservationComponent } from './pages/medicine-reservation/medic
 import { ViewReservationsComponent } from './pages/view-reservations/view-reservations.component';
 import { NewConsultationPatientComponent } from './pages/new-consultation-patient/new-consultation-patient.component';
 import { ViewSubscribedPharmaciesComponent } from './pages/view-subscribed-pharmacies/view-subscribed-pharmacies.component';
+import { ViewReviewsComponent } from './pages/view-reviews/view-reviews.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'pharmacyAdmin' },
@@ -47,8 +48,8 @@ const routes: Routes = [
         { path: 'viewSubsribedPharmacies', component:ViewSubscribedPharmaciesComponent},
         { path: 'viewReservations', component: ViewReservationsComponent},
         { path: 'reserveMedicine', component: MedicineReservationComponent},
-        { path: 'newConsultationPatient', component: NewConsultationPatientComponent}
-
+        { path: 'newConsultationPatient', component: NewConsultationPatientComponent},
+        { path: 'viewReviews', component: ViewReviewsComponent}
     ]},
     //{ path: 'userProfile', component:UserProfileComponent},
     { path: 'homePagePharmacist', component: HomePagePharmacistComponent },

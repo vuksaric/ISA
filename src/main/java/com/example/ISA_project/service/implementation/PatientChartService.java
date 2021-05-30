@@ -1,10 +1,9 @@
 package com.example.ISA_project.service.implementation;
 
-import com.example.ISA_project.model.Medicine;
-import com.example.ISA_project.model.PatientChart;
-import com.example.ISA_project.model.Reservation;
+import com.example.ISA_project.model.*;
 import com.example.ISA_project.model.dto.FutureReservationDTO;
 import com.example.ISA_project.model.dto.MedicineAllergyDTO;
+import com.example.ISA_project.model.dto.ReviewObjectDTO;
 import com.example.ISA_project.repository.MedicineRepository;
 import com.example.ISA_project.repository.PatientChartRepository;
 import com.example.ISA_project.service.IPatientChartService;
@@ -82,4 +81,47 @@ public class PatientChartService implements IPatientChartService {
         }
         return reservations;
     }
+
+    @Override
+    public List<ReviewObjectDTO> getPatientDermatologist(int idPatient) {
+        List<ReviewObjectDTO> reviewObjectDTOS = new ArrayList<>();
+        PatientChart patientChart = patientChartRepository.findOneById(findPatientChartId(idPatient));
+        for(Examination examination : patientChart.getPreviousExaminations()){
+            ReviewObjectDTO r = new ReviewObjectDTO(examination.getDermatologist().getId(),
+                    examination.getDermatologist().getFullName());
+            if(!reviewObjectDTOS.contains(r))
+                reviewObjectDTOS.add(r);
+        }
+        return reviewObjectDTOS;
+    }
+
+    @Override
+    public List<ReviewObjectDTO> getPatientPharmacist(int idPatient) {
+        List<ReviewObjectDTO> reviewObjectDTOS = new ArrayList<>();
+        PatientChart patientChart = patientChartRepository.findOneById(findPatientChartId(idPatient));
+        for(Consultation consultation : patientChart.getPreviousConsultations()){
+            ReviewObjectDTO r = new ReviewObjectDTO(consultation.getPharmacist().getId(),
+                    consultation.getPharmacist().getFullName());
+            if(!reviewObjectDTOS.contains(r))
+                reviewObjectDTOS.add(r);
+        }
+        return reviewObjectDTOS;
+    }
+
+    @Override
+    public List<ReviewObjectDTO> getPatientMedicine(int idPatient) {
+        List<ReviewObjectDTO> reviewObjectDTOS = new ArrayList<>();
+        PatientChart patientChart = patientChartRepository.findOneById(findPatientChartId(idPatient));
+        for(Reservation reservation : patientChart.getReservations()){
+            if(reservation.isIssued()){
+                ReviewObjectDTO r = new ReviewObjectDTO(reservation.getMedicine().getId(),
+                        reservation.getMedicine().getMedicineInformation());
+                if(!reviewObjectDTOS.contains(r))
+                    reviewObjectDTOS.add(r);
+            }
+
+        }
+        return reviewObjectDTOS;
+    }
+
 }

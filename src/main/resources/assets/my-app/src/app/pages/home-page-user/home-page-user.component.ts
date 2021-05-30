@@ -43,5 +43,8 @@ export class HomePageUserComponent implements OnInit {
   newConsultation(){
     this.router.navigate(['homepage/newConsultationPatient']);
   }
+  viewReservation(){
+    this.router.navigate(['homepage/viewReviews']);
+  }
 }
 

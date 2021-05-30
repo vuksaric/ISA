@@ -28,4 +28,16 @@ export class PatientChartService {
   public removeReservation(id, serialNumber): any{
    return this.http.put(patientChart_url+`/${id}/remove/${serialNumber}`, null);
   }
+
+  public getPatientDoctors(id) : any{
+    return this.http.get(patientChart_url + `/doctors/${id}`);
+  }
+
+  public getPatientPharmacist(id) : any{
+    return this.http.get(patientChart_url + `/pharmacist/${id}`);
+  }
+  public getPatientMedicine(id) : any{
+    return this.http.get(patientChart_url + `/medicine/${id}`);
+  }
+
 }
