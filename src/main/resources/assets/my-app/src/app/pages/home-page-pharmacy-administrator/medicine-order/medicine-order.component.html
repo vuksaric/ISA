@@ -1,1 +1,38 @@
-<p>medicine-order works!</p>
+<div nz-row>
+    <div nz-col>
+        <h3> Orders </h3>
+    </div>
+    <div nz-col style="margin-left: 10px;">
+        <button nz-button nzType="primary" nzShape="circle" (click)="showModal()"><i nz-icon nzType="plus"
+                nzTheme="outline"></i></button>
+    </div>
+</div>
+<br>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="New order" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+    nzOkText="Register">
+    <ng-container *nzModalContent>
+    
+    </ng-container>
+</nz-modal>
+
+<br>
+
+<nz-table #basicTable [nzData]="listOfData">
+    <thead>
+        <tr>
+            <th>Medicine</th>
+            <th>Quantity</th>
+            <th>Due date</th>
+            <th>Offers</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+            <td>{{ data.medicine }}</td>
+            <td>{{ data.quantity }}</td>
+            <td>{{ data.dueDate }}</td>
+            <td></td>
+        </tr>
+    </tbody>
+</nz-table>

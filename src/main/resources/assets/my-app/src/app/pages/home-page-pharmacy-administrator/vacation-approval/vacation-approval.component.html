@@ -1,0 +1,54 @@
+<div nz-row>
+    <div nz-col>
+        <h3> Vacation requests </h3>
+    </div>
+</div>
+
+<br>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Reason for rejection" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+    nzOkText="Send">
+    <ng-container *nzModalContent>
+        <form nz-form [formGroup]="validateForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="text">Reason</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl">
+                    <input nz-input id="text" formControlName="text" (ngModelChange)="updateTextValidator()"
+                        style="margin-left:15px;" />
+                    <ng-template #errorTpl let-control>
+                        <ng-container *ngIf="validateForm.controls['text'].errors?.required">
+                            <div style="margin-left:15px;">
+                                Text field can not be empty.
+                            </div>
+                        </ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </ng-container>
+</nz-modal>
+
+<nz-table #basicTable [nzData]="listOfData">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Doctor type</th>
+            <th>Start</th>
+            <th>End</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+            <td>{{ data.name }}</td>
+            <td>{{ data.surname }}</td>
+            <td>{{ data.type }}</td>
+            <td>{{ data.start }}</td>
+            <td>{{ data.end }}</td>
+            <td> <button nz-button nzType="primary" (click)="approve()">Accept</button></td>
+            <td><button nz-button nzType="default" (click)="showModal()" nzDanger>Reject</button></td>
+        </tr>
+    </tbody>
+</nz-table>

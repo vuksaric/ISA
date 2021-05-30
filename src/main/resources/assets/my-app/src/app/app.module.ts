@@ -1,3 +1,5 @@
+import { VacationApprovalComponent } from './pages/home-page-pharmacy-administrator/vacation-approval/vacation-approval.component';
+import { PromotionsComponent } from './pages/home-page-pharmacy-administrator/promotions/promotions.component';
 import { AdminProfileComponent } from './pages/home-page-pharmacy-administrator/admin-profile/admin-profile.component';
 import { PricelistComponent } from './pages/home-page-pharmacy-administrator/pricelist/pricelist.component';
 import { DermatologistListComponent } from './pages/home-page-pharmacy-administrator/dermatologist-list/dermatologist-list.component';
@@ -106,6 +108,8 @@ registerLocaleData(en);
     ViewReservationsComponent,
     NewConsultationPatientComponent,
     ViewSubscribedPharmaciesComponent,
+    PromotionsComponent,
+    VacationApprovalComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,64 @@
+<div nz-row>
+    <div nz-col>
+        <h3> Promotions </h3>
+    </div>
+    <div nz-col style="margin-left: 10px;">
+        <button nz-button nzType="primary" nzShape="circle" (click)="showModal()"><i nz-icon nzType="plus"
+                nzTheme="outline"></i></button>
+    </div>
+</div>
+<br>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="New promotion" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+    nzOkText="Register">
+    <ng-container *nzModalContent>
+        <form nz-form [formGroup]="validateForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="text">Promotion text</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl">
+                    <input nz-input id="text" formControlName="text" (ngModelChange)="updateTextValidator()"
+                        style="margin-left:15px;" />
+                    <ng-template #errorTpl let-control>
+                        <ng-container *ngIf="validateForm.controls['text'].errors?.required">
+                            <div style="margin-left:15px;">
+                                Text field can not be empty.
+                            </div>
+                        </ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="text">Duration</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorDate">
+                    <nz-range-picker  formControlName="duration" (ngModelChange)="onChange($event)" style="margin-left:15px;"></nz-range-picker>
+                    <ng-template #errorDate let-control>
+                        <ng-container *ngIf="validateForm.controls['duration'].errors?.required">
+                            <div style="margin-left:15px;">
+                                Start and end date can not be empty.
+                            </div>
+                        </ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </ng-container>
+</nz-modal>
+
+<br>
+
+<nz-table #basicTable [nzData]="listOfData">
+    <thead>
+        <tr>
+            <th>Note</th>
+            <th>Start</th>
+            <th>End</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+            <td>{{ data.note }}</td>
+            <td>{{ data.start }}</td>
+            <td>{{ data.end }}</td>
+        </tr>
+    </tbody>
+</nz-table>

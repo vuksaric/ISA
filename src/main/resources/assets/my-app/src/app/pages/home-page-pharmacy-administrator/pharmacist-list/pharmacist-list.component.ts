@@ -124,11 +124,11 @@ export class PharmacistListComponent implements OnInit {
       }
 
       this.pharmacistService.newPharmacist(body).subscribe(data => {
-        this.toastr.success("Successfully registered!");
+        this.toastr.success('Successfully registered!');
         this.getAllPharmacist();
         this.isVisible = false;
       }, error => {
-        this.toastr.error("Failed to register");
+        this.toastr.error('Failed to register');
       })
     }
 

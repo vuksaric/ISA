@@ -15,5 +15,13 @@ export class VacationRequestService {
 
   public sendVacationRequest(body): Observable<any> {
     return this.http.post(vacationRequest_url + `/vacationRequestPharmacist`, body);
- }
+  }
+
+  public approveVacation(body): Observable<any>{
+    return this.http.post(vacationRequest_url + `/approval`, body);
+  }
+
+  public rejectVacation(body): Observable<any>{
+    return this.http.post(vacationRequest_url + `/rejection`, body);
+  }
 }

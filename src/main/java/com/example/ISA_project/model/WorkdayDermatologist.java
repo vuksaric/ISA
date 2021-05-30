@@ -19,13 +19,13 @@ public class WorkdayDermatologist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    private Period period;
+    private Period period;  // brisanje
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="WorkdayDermatologist_ID")
     private List<Examination> examinations;
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="WorkdayDermatologist_ID")
-    private List<Period> freeTerms;
+    private List<Period> freeTerms; // brisanje
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name="Dermatologist_ID")
     private List<WorkingHours> workingHours;

@@ -24,7 +24,7 @@ export class HomePagePharmacyAdministratorComponent implements OnInit {
     this.router.navigate(['/pharmacyAdmin/pricelist']);
   }
   pharmacyVacations(){
-
+    this.router.navigate(['/pharmacyAdmin/vacation-approval']);
   }
   medicine() {
     this.router.navigate(['pharmacyAdmin/medicine-list']);
@@ -46,6 +46,9 @@ export class HomePagePharmacyAdministratorComponent implements OnInit {
   }
   adminProfile(){
     this.router.navigate(['/pharmacyAdmin/admin-profile']);
+  }
+  promotions(){
+    this.router.navigate(['/pharmacyAdmin/promotions']);
   }
 
 

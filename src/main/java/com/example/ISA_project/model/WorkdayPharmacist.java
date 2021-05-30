@@ -19,7 +19,7 @@ public class WorkdayPharmacist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    private Period period;
+    private Period period;  // brisanje
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="WorkdayPharmacist_ID")
     private List<Consultation> consultations;
