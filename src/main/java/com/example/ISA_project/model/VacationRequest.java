@@ -17,10 +17,12 @@ public class VacationRequest {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private LocalDateTime start_date;
     private LocalDateTime end_date;
     private UserType user_type;
+    private int pharmacy_int;
     private int user_id;
 
 }

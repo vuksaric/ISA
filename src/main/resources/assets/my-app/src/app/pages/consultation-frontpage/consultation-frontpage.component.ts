@@ -19,4 +19,8 @@ export class ConsultationFrontpageComponent implements OnInit {
     this.router.navigate(['consultationReport/' + this.id]);
   }
 
+  return() : void{
+    this.router.navigate(['workSchedule']);
+  }
+
 }

@@ -29,4 +29,20 @@ export class ExaminationService {
     return this.http.put<Examination>(examination_url+'/cancel'+`/${id}`, null);
   }
 
+  public getMedicines(id): Observable<any>{
+    return this.http.get(examination_url + `/getMedicines/${id}`);
+  }
+
+  public prescribeMedicine(body) : Observable<any>{
+    return this.http.put(examination_url + `/prescribe`,body);
+  }
+
+  public getReplacements(body): Observable<any>{
+    return this.http.post(examination_url + `/replacements`,body);
+  } 
+
+  public finish(body): Observable<any>{
+    return this.http.post(examination_url + `/finish`,body);
+  }
+
 }

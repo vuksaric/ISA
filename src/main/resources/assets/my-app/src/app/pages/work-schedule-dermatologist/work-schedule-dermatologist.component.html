@@ -1,0 +1,40 @@
+<nz-calendar [(ngModel)]="selectedValue" (nzSelectChange)="selectChange($event)">
+    <ul *nzDateCell="let date" class="events">
+      <ng-container *ngFor = "let workday of workdays">
+        <ng-container  *ngIf = "compareDate(date,workday.date)">
+          <li *ngFor="let consultation of workday.consultations">
+            <nz-badge nzStatus='blue' [nzText]='ispis(consultation)'></nz-badge>
+          </li>
+        </ng-container>
+      </ng-container>
+    </ul>
+
+    <ul *nzMonthCell="let month" class="events">
+        <ng-container *ngFor="let workday of workdays">
+            <ng-container *ngIf = "compareMonth(month,workday.date)">
+                <li *ngFor="let consultation of workday.consultations">
+                    <nz-badge nzStatus="blue" [nzText]="ispisMesec(consultation)"></nz-badge>
+                </li>
+            </ng-container>
+        </ng-container>
+     </ul>
+  </nz-calendar>
+
+  <nz-table  [nzData]="['']">
+    <thead>
+      <tr>
+        <th>Patient name</th>
+        <th>Time</th>
+        <th>Pharmacy</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of consultations">
+        <td>{{ data.fullName }}</td>
+        <td>{{data.start[3]}}:{{data.start[4]}}-{{data.end[3]}}:{{data.end[4]}}</td>
+        <td>{{ data.pharmacyName }}</td>
+        <td><button nz-button nzType="dashed" disabled = "{{data.done}}" (click)="examination(data.id)" nzBlock>Examination</button></td>
+      </tr>
+    </tbody>
+  </nz-table>

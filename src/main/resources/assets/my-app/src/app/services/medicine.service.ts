@@ -17,6 +17,20 @@ export class MedicineService {
   public getDistinctMedicine(): Observable<Allergy[]> {
     return this.http.get<Allergy[]>(medicine_url + `/distinct`);
   }
+
+  public getAllByName(name): Observable<any> {
+    return this.http.get(medicine_url + `/getAllByName/${name}`);
+  }
+
+  public getAll(): Observable<any> {
+    return this.http.get(medicine_url + `/getAll`);
+  }
+
+  public getById(id : number): Observable<any> {
+    return this.http.get(medicine_url + `/${id}`);
+  }
+
+
   public getMedicines(): Observable<Allergy[]> {
     return this.http.get<Allergy[]>(medicine_url + `/find`);
   }

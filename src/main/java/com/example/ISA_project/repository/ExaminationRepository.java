@@ -21,4 +21,5 @@ public interface ExaminationRepository extends JpaRepository<Examination, Intege
     Examination save(Examination examination);
 
     Examination findExaminationById(int id);
+
 }

@@ -27,6 +27,9 @@ import { ConsultationReportComponent } from './pages/consultation-report/consult
 import { SerachPatientsComponent } from './pages/serach-patients/serach-patients.component';
 import { RegistrationPharmacyComponent } from './pages/registration-pharmacy/registration-pharmacy.component';
 import { RegistrationAdminComponent } from './pages/registration-admin/registration-admin.component';
+import { WorkScheduleDermatologistComponent } from './pages/work-schedule-dermatologist/work-schedule-dermatologist.component';
+import { ExaminationFrontpageComponent } from './pages/examination-frontpage/examination-frontpage.component';
+import { ExaminationReportComponent } from './pages/examination-report/examination-report.component';
 import { ViewFutureExaminationsComponent } from './pages/view-future-examinations/view-future-examinations.component';
 import { MedicineReservationComponent } from './pages/medicine-reservation/medicine-reservation.component';
 import { ViewReservationsComponent } from './pages/view-reservations/view-reservations.component';
@@ -51,22 +54,18 @@ const routes: Routes = [
         { path: 'newConsultationPatient', component: NewConsultationPatientComponent},
         { path: 'viewReviews', component: ViewReviewsComponent}
     ]},
-    //{ path: 'userProfile', component:UserProfileComponent},
     { path: 'homePagePharmacist', component: HomePagePharmacistComponent },
     { path: 'profilePharmacist', component: ProfilePharmacistComponent },
     { path: 'workSchedule', component:WorkScheduleComponent},
+    { path: 'workScheduleDermatologist', component:WorkScheduleDermatologistComponent},
     { path: 'previousConsultations', component:PreviousConsultationsComponent},
     { path: 'vacationRequest', component:VacationRequestComponent},
     { path: 'homePageDermatologist', component:HomePageDermatologistComponent},
-    //{ path: 'viewPharmacies', component:ViewPharmaciesComponent},
-    //{ path: 'viewMadeExaminations', component: ViewMadeExaminationsComponent},
-    //{ path: 'viewFutureExaminations', component: ViewFutureExaminationsComponent},
-    //{ path: 'viewReservations', component: ViewReservationsComponent},
-    //{ path: 'patientProfile', component: PatientProfileComponent},
-    //{ path: 'reserveMedicine', component: MedicineReservationComponent},
     { path: 'issuingMedicine', component:IssuingMedicineComponent},
     { path: 'consultationFrontpage/:id', component:ConsultationFrontpageComponent},
+    { path: 'examinationFrontpage/:id', component:ExaminationFrontpageComponent},
     { path: 'consultationReport/:id', component:ConsultationReportComponent},
+    { path: 'examinationReport/:id', component:ExaminationReportComponent},
     { path: 'searchPatients', component:SerachPatientsComponent},
     { path: 'registrationPharmacy', component:RegistrationPharmacyComponent},
     { path: 'registrationAdmin', component:RegistrationAdminComponent},

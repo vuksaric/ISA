@@ -18,6 +18,7 @@ public interface MedicineRepository extends JpaRepository<Medicine, Integer> {
     Medicine findOneById(int id);
     void delete(Medicine m);
 
+
     @Query(nativeQuery = true, value="select * from Medicine m where m.name = LIKE concat('%', ?1, '%')")
     List<Medicine> search(String name);
 
