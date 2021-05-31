@@ -12,6 +12,7 @@ export class ViewReviewsComponent implements OnInit {
   listOfDoctors = [];
   listOfPharmacist=[];
   listOfMedicine=[];
+  listOfPharmacy=[];
   isVisible = false;
   
   review : any;
@@ -23,7 +24,7 @@ export class ViewReviewsComponent implements OnInit {
     this.patientChartService.getPatientDoctors(1).subscribe(data=>{this.listOfDoctors=data; console.log(data)});
     this.patientChartService.getPatientPharmacist(1).subscribe(data=>{this.listOfPharmacist=data; console.log(data)});
     this.patientChartService.getPatientMedicine(1).subscribe(data=>{this.listOfMedicine=data; console.log(data)});
-
+    this.patientChartService.getPatientPharmacy(1).subscribe(data=>{this.listOfPharmacy=data; console.log(data)})
   }
 
   viewGradeDoctor(item){
@@ -45,6 +46,14 @@ export class ViewReviewsComponent implements OnInit {
   viewGradeMedicine(item){
     this.isVisible = true;
     this.reviewService.findReview(1, item.idObject, 'Medicine').subscribe(data=>{
+      this.review=data;
+      console.log(data);
+     this.mark = data.mark;
+    });
+  }
+  viewGradePharmacy(item){
+    this.isVisible = true;
+    this.reviewService.findReview(1, item.idObject, 'Pharmacy').subscribe(data=>{
       this.review=data;
       console.log(data);
      this.mark = data.mark;

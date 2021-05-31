@@ -28,6 +28,9 @@ export class HomePageUserComponent implements OnInit {
   upcomingExamination(){
     this.router.navigate(['homepage/viewFutureExaminations']);
   }
+  previousExamination(){
+    this.router.navigate(['homepage/viewPreviousExaminations']);
+  }
   searchPharmacies(){
     this.router.navigate(['homepage/viewPharmacies']);
   }

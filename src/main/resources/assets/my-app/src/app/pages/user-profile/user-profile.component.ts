@@ -70,7 +70,6 @@ export class UserProfileComponent implements OnInit {
         address: [data.address, [Validators.required]],
         town: [data.town, [Validators.required]],
         state: [data.state, [Validators.required]],
-       
       })
     });
   }

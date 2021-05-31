@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from "../../environments/environment";
 import { Allergy } from '../models/allergy';
+import { Examination } from '../models/examination';
 
 const patientChart_url = environment.patientChart_url;
 
@@ -39,5 +40,14 @@ export class PatientChartService {
   public getPatientMedicine(id) : any{
     return this.http.get(patientChart_url + `/medicine/${id}`);
   }
+
+  public getPatientPharmacy(id) : any{
+    return this.http.get(patientChart_url + `/pharmacy/${id}`);
+  }
+ 
+  public getPreviousExaminationsByPatient(id): Observable<Examination[]> {
+    return this.http.get<Examination[]>(patientChart_url+'/previousExaminations'+`/${id}`);
+  }
+
 
 }

@@ -24,11 +24,13 @@ public class Pharmacist{
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="Pharmacist_ID")
     private List<WorkdayPharmacist> workdays;
-    @OneToOne(fetch=FetchType.LAZY)
+    @OneToOne(fetch=FetchType.LAZY,  cascade = CascadeType.ALL)
     private Pharmacy pharmacy;
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="PharmacistVacation_ID")
     private List<Period> vacation;
+    @OneToOne(fetch=FetchType.LAZY,  cascade = CascadeType.ALL)
+    private WorkingHours workingHours;
 
     public String getFullName(){
         return user.getName() + " "+ user.getSurname();

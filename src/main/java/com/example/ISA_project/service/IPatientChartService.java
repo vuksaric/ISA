@@ -1,9 +1,6 @@
 package com.example.ISA_project.service;
 
-import com.example.ISA_project.model.dto.FutureReservationDTO;
-import com.example.ISA_project.model.dto.MedicineAllergyDTO;
-import com.example.ISA_project.model.dto.ReviewDTO;
-import com.example.ISA_project.model.dto.ReviewObjectDTO;
+import com.example.ISA_project.model.dto.*;
 
 import java.util.List;
 import java.util.Set;
@@ -17,5 +14,6 @@ public interface IPatientChartService {
     List<ReviewObjectDTO> getPatientDermatologist(int idPatient);
     List<ReviewObjectDTO> getPatientPharmacist(int idPatient);
     List<ReviewObjectDTO> getPatientMedicine(int idPatient);
-
+    Set<ReviewObjectDTO> getPatientPharmacy(int idPatient);
+    List<ExaminationDTO> getPatientPreviousExaminations(int id);
 }

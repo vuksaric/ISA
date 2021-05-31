@@ -24,4 +24,6 @@ public class Patient{
     @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private PatientChart patientChart;
     private int penaltyPoints;
+    private int loyaltyPoints;
+    private PatientCategory patientCategory;
 }

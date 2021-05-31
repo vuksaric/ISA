@@ -56,6 +56,21 @@
       </ul>
     </nz-tab>
     <nz-tab nzTitle="Pharmacy">
-        Content of Tab Pane 3
+      <ul nz-list [nzDataSource]="listOfPharmacy" nzBordered nzSize="small">
+        <nz-list-header>List of pharmacies that can be reviewed</nz-list-header>
+        <li nz-list-item *ngFor="let item of listOfPharmacy" nzNoFlex>
+          <ul nz-list-item-actions>
+            <nz-list-item-action>
+              <a (click)="viewGradePharmacy(item)">View grade</a>
+              <nz-modal [(nzVisible)]="isVisible" nzTitle="Pharmacy Grade" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+                <ng-container *nzModalContent>
+                  <nz-rate [(ngModel)]="mark" [nzCount]="10"></nz-rate>
+                </ng-container>
+              </nz-modal>
+            </nz-list-item-action>
+          </ul>
+          {{ item.description }}
+        </li>
+      </ul>
     </nz-tab>
 </nz-tabset>

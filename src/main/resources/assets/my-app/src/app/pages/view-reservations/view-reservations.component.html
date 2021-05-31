@@ -16,7 +16,7 @@
             <td>{{data.date}}</td>
             <td>{{data.pharmacy}}</td>
             <td >
-                <button *ngIf="data.canBeCanceled" nz-button nzType="primary" (click)="cancel(data)">Cancel examintaion</button>
+                <button *ngIf="data.canBeCanceled" nz-button nzType="primary" (click)="cancel(data)">Cancel reservation</button>
                 <p *ngIf="!(data.canBeCanceled)">Can't cancel reservation, less than 24h from pick up date.</p>
             </td>
           </tr>

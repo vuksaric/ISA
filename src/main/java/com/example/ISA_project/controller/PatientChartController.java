@@ -1,5 +1,6 @@
 package com.example.ISA_project.controller;
 
+import com.example.ISA_project.model.dto.ExaminationDTO;
 import com.example.ISA_project.model.dto.FutureReservationDTO;
 import com.example.ISA_project.model.dto.MedicineAllergyDTO;
 import com.example.ISA_project.model.dto.ReviewObjectDTO;
@@ -58,5 +59,17 @@ public class PatientChartController {
     public ResponseEntity<List<ReviewObjectDTO>> getPatientMedicine(@PathVariable String id){
         int idPatient = Integer.parseInt(id);
         return new ResponseEntity<>(patientChartService.getPatientMedicine(idPatient), HttpStatus.OK);
+    }
+
+    @GetMapping(value="/pharmacy/{id}")
+    public ResponseEntity<Set<ReviewObjectDTO>> getPatientPharmacy(@PathVariable String id){
+        int idPatient = Integer.parseInt(id);
+        return new ResponseEntity<>(patientChartService.getPatientPharmacy(idPatient), HttpStatus.OK);
+    }
+
+    @GetMapping(value="/previousExaminations/{id}")
+    public ResponseEntity<List<ExaminationDTO>> getPatientsPreviousExaminations(@PathVariable String id){
+        int patientId = Integer.parseInt(id);
+        return new ResponseEntity<>(patientChartService.getPatientPreviousExaminations(patientId), HttpStatus.OK);
     }
 }
