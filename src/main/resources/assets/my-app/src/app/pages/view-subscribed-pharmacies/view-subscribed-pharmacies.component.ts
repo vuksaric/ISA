@@ -65,5 +65,4 @@ export class ViewSubscribedPharmaciesComponent implements OnInit {
    this.loadPharmacies();
   }
 
-
 }

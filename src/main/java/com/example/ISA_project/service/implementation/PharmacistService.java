@@ -45,7 +45,7 @@ public class PharmacistService implements IPharmacistService {
             List<AppointmentDTO> consultationDTOS = new ArrayList<>();
             for(Consultation consultation : workday.getConsultations())
                 consultationDTOS.add(new AppointmentDTO(consultation));
-            result.add(new WorkDayDTO(workday.getId(),workday.getPeriod().getStart_date(),consultationDTOS));
+            result.add(new WorkDayDTO(workday.getId(),workday.getDate(),consultationDTOS));
         }
         return result;
     }
@@ -113,16 +113,18 @@ public class PharmacistService implements IPharmacistService {
         return pharmacistDTOS;
     }
 
-    public List<Period> getPeriods(WorkdayPharmacist workday)
+    public List<Period> getPeriods(WorkdayPharmacist workday, WorkingHours workingHours)
     {
         boolean check = false;
         List<Period> periods = new ArrayList<>();
-        LocalDateTime start = workday.getPeriod().getStart_date();
-        LocalDateTime end = workday.getPeriod().getEnd_date();
+        LocalDateTime start = LocalDateTime.of(workday.getDate(), workingHours.getStartTime());
+        LocalDateTime end = LocalDateTime.of(workday.getDate(), workingHours.getEndTime());
+        LocalDateTime end_period = start.plusMinutes(30);
         while(!check)
         {
             periods.add(new Period(start,start.plusMinutes(30)));
-            start.plusMinutes(30);
+            start = start.plusMinutes(30);
+            end_period = end_period.plusMinutes(30);
             check = end.isEqual(start);
         }
         return periods;
@@ -135,11 +137,11 @@ public class PharmacistService implements IPharmacistService {
 
         for(WorkdayPharmacist workdayPharmacist : pharmacist.getWorkdays())
         {
-            if(workdayPharmacist.getPeriod().getStart_date().toLocalDate().equals(date))
+            if(workdayPharmacist.getDate().equals(date))
                 workday = workdayPharmacist;
         }
 
-        List<Period> periods = getPeriods(workday);
+        List<Period> periods = getPeriods(workday,pharmacist.getWorkingHours());
 
         for(Consultation consultation : workday.getConsultations())
         {

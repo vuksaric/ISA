@@ -4,11 +4,9 @@
           <tr>
             
             <th>Dermatologist</th>
-            <th>Examination date</th>
-            <th>Examination time</th>
             <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" 
             [nzSortPriority]="column.priority" >{{ column.title }}</th>
-            <th>Reserve</th>
+            
 
           </tr>
         </thead>
@@ -19,11 +17,7 @@
             <td>{{data.time}}</td>
             <td>{{data.mark}}</td>
             <td>{{data.price}}</td>
-            <td >
-                <button nz-button nzType="primary" id={{data.id}} (click)="reserve($event)">Reserve examintaion</button>
-            </td>
           </tr>
         </tbody>
     </nz-table>
     </div>
-    

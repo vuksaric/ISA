@@ -28,6 +28,9 @@ export class HomePageUserComponent implements OnInit {
   upcomingExamination(){
     this.router.navigate(['homepage/viewFutureExaminations']);
   }
+  previousExamination(){
+    this.router.navigate(['homepage/viewPreviousExaminations']);
+  }
   searchPharmacies(){
     this.router.navigate(['homepage/viewPharmacies']);
   }
@@ -42,6 +45,9 @@ export class HomePageUserComponent implements OnInit {
   }
   newConsultation(){
     this.router.navigate(['homepage/newConsultationPatient']);
+  }
+  viewReservation(){
+    this.router.navigate(['homepage/viewReviews']);
   }
 }
 

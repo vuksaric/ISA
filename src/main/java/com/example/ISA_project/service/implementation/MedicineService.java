@@ -85,6 +85,8 @@ public class MedicineService implements IMedicineService {
         return result;
     }
 
+
+
     @Override
     public List<Integer> getReplacementIds(int id) {
         Medicine medicine = medicineRepository.findOneById(id);
@@ -103,6 +105,11 @@ public class MedicineService implements IMedicineService {
             allergies.add(new MedicineAllergyDTO(medicine));
         }
         return allergies;
+    }
+
+    @Override
+    public List<Medicine> findMedicinesByName(String name) {
+        return medicineRepository.getAllByName(name);
     }
 
 

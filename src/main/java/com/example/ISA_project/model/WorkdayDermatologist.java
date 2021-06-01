@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -18,8 +19,6 @@ public class WorkdayDermatologist {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    private Period period;  // brisanje
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="WorkdayDermatologist_ID")
     private List<Examination> examinations;
@@ -29,4 +28,6 @@ public class WorkdayDermatologist {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name="Dermatologist_ID")
     private List<WorkingHours> workingHours;
+    private LocalDate date;
+
 }
