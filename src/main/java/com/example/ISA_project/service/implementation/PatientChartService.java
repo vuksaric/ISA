@@ -1,12 +1,13 @@
 package com.example.ISA_project.service.implementation;
 
-import com.example.ISA_project.model.Medicine;
-import com.example.ISA_project.model.PatientChart;
-import com.example.ISA_project.model.Reservation;
+import com.example.ISA_project.model.*;
+import com.example.ISA_project.model.dto.ExaminationDTO;
 import com.example.ISA_project.model.dto.FutureReservationDTO;
 import com.example.ISA_project.model.dto.MedicineAllergyDTO;
+import com.example.ISA_project.model.dto.ReviewObjectDTO;
 import com.example.ISA_project.repository.MedicineRepository;
 import com.example.ISA_project.repository.PatientChartRepository;
+import com.example.ISA_project.service.IMedicineService;
 import com.example.ISA_project.service.IPatientChartService;
 import com.example.ISA_project.service.IPatientService;
 import org.springframework.stereotype.Service;
@@ -21,12 +22,12 @@ import java.util.Set;
 public class PatientChartService implements IPatientChartService {
 
     private final PatientChartRepository patientChartRepository;
-    private final MedicineRepository medicineRepository;
+    private final IMedicineService medicineService;
     private final IPatientService patientService;
 
-    public PatientChartService(PatientChartRepository patientChartRepository, MedicineRepository medicineRepository, IPatientService patientService){
+    public PatientChartService(PatientChartRepository patientChartRepository, IMedicineService medicineService, IPatientService patientService){
         this.patientChartRepository = patientChartRepository;
-        this.medicineRepository = medicineRepository;
+        this.medicineService = medicineService;
         this.patientService = patientService;
     }
 
@@ -37,13 +38,13 @@ public class PatientChartService implements IPatientChartService {
         for(Medicine allergy : patientChart.getAllergies()){
             allergies.add(new MedicineAllergyDTO(allergy));
         }
-        Set<MedicineAllergyDTO> uniqueAllergies = new HashSet<MedicineAllergyDTO>(allergies);
-        return uniqueAllergies;
+
+        return  new HashSet<MedicineAllergyDTO>(allergies);
     }
 
    @Override
     public Set<MedicineAllergyDTO> addPatientAllergy(MedicineAllergyDTO medicineAllergyDTO, int id) {
-            List<Medicine> medicines = medicineRepository.getAllByName(medicineAllergyDTO.getName());
+            List<Medicine> medicines = medicineService.findMedicinesByName(medicineAllergyDTO.getName());
 
             PatientChart patientChart = patientChartRepository.findOneById(findPatientChartId(id));
             patientChart.getAllergies().addAll(medicines);
@@ -82,4 +83,103 @@ public class PatientChartService implements IPatientChartService {
         }
         return reservations;
     }
+
+    @Override
+    public List<ReviewObjectDTO> getPatientDermatologist(int idPatient) {
+        List<ReviewObjectDTO> reviewObjectDTOS = new ArrayList<>();
+        PatientChart patientChart = patientChartRepository.findOneById(findPatientChartId(idPatient));
+        for(Examination examination : patientChart.getPreviousExaminations()){
+            ReviewObjectDTO r = new ReviewObjectDTO(examination.getDermatologist().getId(),
+                    examination.getDermatologist().getFullName());
+            if(!reviewObjectDTOS.contains(r))
+                reviewObjectDTOS.add(r);
+        }
+        return reviewObjectDTOS;
+    }
+
+    @Override
+    public List<ReviewObjectDTO> getPatientPharmacist(int idPatient) {
+        List<ReviewObjectDTO> reviewObjectDTOS = new ArrayList<>();
+        PatientChart patientChart = patientChartRepository.findOneById(findPatientChartId(idPatient));
+        for(Consultation consultation : patientChart.getPreviousConsultations()){
+            ReviewObjectDTO r = new ReviewObjectDTO(consultation.getPharmacist().getId(),
+                    consultation.getPharmacist().getFullName());
+            if(!reviewObjectDTOS.contains(r))
+                reviewObjectDTOS.add(r);
+        }
+        return reviewObjectDTOS;
+    }
+
+    @Override
+    public List<ReviewObjectDTO> getPatientMedicine(int idPatient) {
+        List<ReviewObjectDTO> reviewObjectDTOS = new ArrayList<>();
+        PatientChart patientChart = patientChartRepository.findOneById(findPatientChartId(idPatient));
+        for(Reservation reservation : patientChart.getReservations()){
+            if(reservation.isIssued()){
+                ReviewObjectDTO r = new ReviewObjectDTO(reservation.getMedicine().getId(),
+                        reservation.getMedicine().getMedicineInformation());
+                if(!reviewObjectDTOS.contains(r))
+                    reviewObjectDTOS.add(r);
+            }
+
+        }
+        return reviewObjectDTOS;
+    }
+
+    @Override
+    public Set<ReviewObjectDTO> getPatientPharmacy(int idPatient) {
+        List<ReviewObjectDTO> reviewObjectDTOS = new ArrayList<>();
+        PatientChart patientChart = patientChartRepository.findOneById(findPatientChartId(idPatient));
+
+        reviewObjectDTOS.addAll(findReservationPharmacy(patientChart.getReservations()));
+        reviewObjectDTOS.addAll(findExaminationPharmacy(patientChart.getPreviousExaminations()));
+        reviewObjectDTOS.addAll(findConsultationPharmacy(patientChart.getPreviousConsultations()));
+
+        return new HashSet<>(reviewObjectDTOS);
+    }
+
+    @Override
+    public List<ExaminationDTO> getPatientPreviousExaminations(int id) {
+        List<ExaminationDTO> examinationDTOS = new ArrayList<>();
+        PatientChart patientChart = patientChartRepository.findOneById(findPatientChartId(id));
+
+        for(Examination examination : patientChart.getPreviousExaminations()){
+            examinationDTOS.add(new ExaminationDTO(examination));
+        }
+
+        return examinationDTOS;
+    }
+
+    private Set<ReviewObjectDTO> findReservationPharmacy(List<Reservation> reservations){
+        List<ReviewObjectDTO> reviewObjectDTOS = new ArrayList<>();
+        for(Reservation reservation : reservations){
+            if(reservation.isIssued()){
+                ReviewObjectDTO r = new ReviewObjectDTO(reservation.getPharmacy().getId(),
+                        reservation.getPharmacy().getName() + "; " + reservation.getPharmacy().getAddress().getFullAdress());
+                reviewObjectDTOS.add(r);
+            }
+        }
+        return new HashSet<>(reviewObjectDTOS);
+    }
+
+    private Set<ReviewObjectDTO> findExaminationPharmacy(List<Examination> examinations){
+        List<ReviewObjectDTO> reviewObjectDTOS = new ArrayList<>();
+        for(Examination examination : examinations){
+            ReviewObjectDTO r = new ReviewObjectDTO(examination.getPharmacy().getId(),
+                    examination.getPharmacy().getName() + "; " + examination.getPharmacy().getAddress().getFullAdress());
+            reviewObjectDTOS.add(r);
+        }
+        return new HashSet<>(reviewObjectDTOS);
+    }
+
+    private Set<ReviewObjectDTO> findConsultationPharmacy(List<Consultation> consultations){
+        List<ReviewObjectDTO> reviewObjectDTOS = new ArrayList<>();
+        for(Consultation consultation : consultations){
+            ReviewObjectDTO r = new ReviewObjectDTO(consultation.getPharmacy().getId(),
+                    consultation.getPharmacy().getName() + "; " + consultation.getPharmacy().getAddress().getFullAdress());
+            reviewObjectDTOS.add(r);
+        }
+        return new HashSet<>(reviewObjectDTOS);
+    }
+
 }

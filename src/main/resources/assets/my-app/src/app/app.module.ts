@@ -55,6 +55,8 @@ import { ViewReservationsComponent } from './pages/view-reservations/view-reserv
 import { NewConsultationPatientComponent } from './pages/new-consultation-patient/new-consultation-patient.component';
 import { ViewSubscribedPharmaciesComponent } from './pages/view-subscribed-pharmacies/view-subscribed-pharmacies.component';
 import { PreviousExaminationsComponent } from './pages/previous-examinations/previous-examinations.component';
+import { ViewReviewsComponent } from './pages/view-reviews/view-reviews.component';
+import { ViewPreviousExaminationsComponent } from './pages/view-previous-examinations/view-previous-examinations.component'
 
 registerLocaleData(en);
 
@@ -102,6 +104,8 @@ registerLocaleData(en);
     ViewSubscribedPharmaciesComponent,
     PreviousExaminationsComponent,
 
+    ViewReviewsComponent,
+    ViewPreviousExaminationsComponent,
   ],
   imports: [
     BrowserModule,

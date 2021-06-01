@@ -32,22 +32,19 @@ public class PharmacistService implements IPharmacistService {
     }
 
 
-    public ProfileDTO getProfile(int id)
-    {
+    public ProfileDTO getProfile(int id) {
         Pharmacist pharmacist = pharmacistRepository.findOneById(id);
         return userService.getProfile(pharmacist.getUser().getId());
     }
 
-    public List<WorkDayDTO> getWorkdays(int id)
-    {
+    public List<WorkDayDTO> getWorkdays(int id) {
         Pharmacist pharmacist = pharmacistRepository.findOneById(id);
         List<WorkDayDTO> result = new ArrayList<>();
-        for(WorkdayPharmacist workday : pharmacist.getWorkdays())
-        {
+        for (WorkdayPharmacist workday : pharmacist.getWorkdays()) {
             List<AppointmentDTO> consultationDTOS = new ArrayList<>();
-            for(Consultation consultation : workday.getConsultations())
+            for (Consultation consultation : workday.getConsultations())
                 consultationDTOS.add(new AppointmentDTO(consultation));
-            result.add(new WorkDayDTO(workday.getId(),workday.getPeriod().getStart_date(),consultationDTOS));
+            result.add(new WorkDayDTO(workday.getId(), workday.getDate(), consultationDTOS));
         }
         return result;
     }
@@ -59,17 +56,16 @@ public class PharmacistService implements IPharmacistService {
         return reservationService.getByPharmacy(pharmacist.getPharmacy().getName());
     }
 
-    public List<Period> getPeriods(WorkdayPharmacist workday)
-    {
+    public List<Period> getPeriods(WorkdayPharmacist workday, WorkingHours workingHours) {
         boolean check = false;
         List<Period> periods = new ArrayList<>();
-        LocalDateTime start = workday.getPeriod().getStart_date();
-        LocalDateTime end = workday.getPeriod().getEnd_date();
+
+        LocalDateTime start = LocalDateTime.of(workday.getDate(), workingHours.getStartTime());
+        LocalDateTime end = LocalDateTime.of(workday.getDate(), workingHours.getEndTime());
         LocalDateTime end_period = start.plusMinutes(30);
-        while(!check)
-        {
-            periods.add(new Period(start,end_period));
-             start = start.plusMinutes(30);
+        while (!check) {
+            periods.add(new Period(start, start.plusMinutes(30)));
+            start = start.plusMinutes(30);
             end_period = end_period.plusMinutes(30);
             check = end.isEqual(start);
         }
@@ -82,34 +78,29 @@ public class PharmacistService implements IPharmacistService {
         WorkdayPharmacist workday = null;
         List<Period> periods = new ArrayList<>();
 
-        for(WorkdayPharmacist workdayPharmacist : pharmacist.getWorkdays())
-        {
-            if(workdayPharmacist.getPeriod().getStart_date().toLocalDate().equals(date))
-            {
+        for (WorkdayPharmacist workdayPharmacist : pharmacist.getWorkdays()) {
+            if (workdayPharmacist.getDate().equals(date)) {
                 workday = workdayPharmacist;
                 break;
             }
-
         }
 
-        if(workday == null)
-        {
-            return periods;
-        }
+            if (workday == null) {
+                return periods;
+            }
 
-         periods = getPeriods(workday);
+            periods = getPeriods(workday, pharmacist.getWorkingHours());
 
-        for(Consultation consultation : workday.getConsultations())
-        {
-            for(Period period : periods)
-            {
-                if(consultation.getPeriod().getStart_date().equals(period.getStart_date())) {
-                    periods.remove(period);
-                    break;
+            for (Consultation consultation : workday.getConsultations()) {
+                for (Period period : periods) {
+                    if (consultation.getPeriod().getStart_date().equals(period.getStart_date())) {
+                        periods.remove(period);
+                        break;
+                    }
                 }
             }
-        }
+
+
         return periods;
     }
-
 }

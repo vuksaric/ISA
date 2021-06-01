@@ -14,7 +14,6 @@ import java.util.List;
 @Getter
 @Setter
 public class Consultation {
-    //@ManyToOne()
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +22,6 @@ public class Consultation {
     private Period period;
     @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Pharmacy pharmacy;
-    // float price;
     @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Pharmacist pharmacist;
     @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)

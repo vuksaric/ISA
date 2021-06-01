@@ -66,12 +66,10 @@ export class UserProfileComponent implements OnInit {
         email:[{value :data.email,  disabled: true }], 
         name_user: [data.name, [Validators.required]],
         surname: [data.surname, [Validators.required]],
-        //phoneNumberPrefix: ['+381'],
         phoneNumber: [data.phone, [Validators.required]],
         address: [data.address, [Validators.required]],
         town: [data.town, [Validators.required]],
         state: [data.state, [Validators.required]],
-        //gender: [null, [Validators.required]] //zasto bi neko menjao pol?
       })
     });
   }

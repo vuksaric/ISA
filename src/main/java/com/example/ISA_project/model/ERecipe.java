@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -20,8 +21,13 @@ public class ERecipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    private User user;
+    private Patient patient;
     private LocalDate date;
     @OneToOne(fetch=FetchType.LAZY)
-    private Prescription prescription;
+    private Pharmacy pharmacy;
+    private ERecipeStatus eRecipeStatus;
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="ERecipe_ID")
+    List<MedicineQuantity> medicines;
+
 }

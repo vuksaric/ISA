@@ -20,7 +20,7 @@
           </li>
           </ul>
           <ul>
-            <li nz-menu-item>
+            <li nz-menu-item (click)="previousExamination()">
               <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
               <span>Previous examination</span>
           </li>
@@ -83,6 +83,20 @@
             <li nz-menu-item>
               <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
               <span>ERecipe Medicine</span>
+          </li>
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="Reviews" nzIcon="file">
+          <ul>
+            <li nz-menu-item (click)="viewReservation()">
+              <i nz-icon nzType="file-text" nzTheme="outline"></i>
+              <span>View Reviews</span>
+          </li>
+          </ul>
+          <ul>
+            <li nz-menu-item >
+              <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+              <span>New Complaint</span>
           </li>
           </ul>
         </li>

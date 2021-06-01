@@ -37,6 +37,8 @@ import { NewConsultationPatientComponent } from './pages/new-consultation-patien
 import { ViewSubscribedPharmaciesComponent } from './pages/view-subscribed-pharmacies/view-subscribed-pharmacies.component';
 import { NewConsultationPharmacistComponent } from './pages/new-consultation-pharmacist/new-consultation-pharmacist.component';
 import { PreviousExaminationsComponent } from './pages/previous-examinations/previous-examinations.component';
+import { ViewReviewsComponent } from './pages/view-reviews/view-reviews.component';
+import { ViewPreviousExaminationsComponent } from './pages/view-previous-examinations/view-previous-examinations.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'pharmacyAdmin' },
@@ -48,12 +50,13 @@ const routes: Routes = [
         { path: 'patientProfile', component: PatientProfileComponent},
         { path: 'viewMadeExaminations', component: ViewMadeExaminationsComponent},
         { path: 'viewFutureExaminations', component: ViewFutureExaminationsComponent},
+        { path: 'viewPreviousExaminations', component: ViewPreviousExaminationsComponent},
         { path: 'viewPharmacies', component:ViewPharmaciesComponent},
         { path: 'viewSubsribedPharmacies', component:ViewSubscribedPharmaciesComponent},
         { path: 'viewReservations', component: ViewReservationsComponent},
         { path: 'reserveMedicine', component: MedicineReservationComponent},
-        { path: 'newConsultationPatient', component: NewConsultationPatientComponent}
-
+        { path: 'newConsultationPatient', component: NewConsultationPatientComponent},
+        { path: 'viewReviews', component: ViewReviewsComponent}
     ]},
     { path: 'homePagePharmacist', component: HomePagePharmacistComponent },
     { path: 'profilePharmacist', component: ProfilePharmacistComponent },

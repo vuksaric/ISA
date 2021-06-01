@@ -20,4 +20,6 @@ public interface IMedicineService {
     Medicine findOneById(int id);
     List<MedicineAllergyDTO> findMedicines();
 
+    List<Medicine> findMedicinesByName(String  name);
+
 }

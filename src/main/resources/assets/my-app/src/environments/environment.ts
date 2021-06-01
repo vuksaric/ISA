@@ -23,6 +23,7 @@ export const environment = {
   workdayDermatologist_url: 'http://localhost:8080/workdayDermatologist',
   address_url: 'http://localhost:8080/address',
   admin_url : 'http://localhost:8080/admin',
+  review_url : 'http://localhost:8080/review',
   report_url : 'http://localhost:8080/report'
 };
 
