@@ -28,7 +28,7 @@
     </ng-container>
 </nz-modal>
 
-<nz-table #basicTable [nzData]="listOfData">
+<nz-table #basicTable [nzData]="vacationRequests">
     <thead>
         <tr>
             <th>Name</th>
@@ -42,13 +42,13 @@
     </thead>
     <tbody>
         <tr *ngFor="let data of basicTable.data">
-            <td>{{ data.name }}</td>
-            <td>{{ data.surname }}</td>
-            <td>{{ data.type }}</td>
-            <td>{{ data.start }}</td>
-            <td>{{ data.end }}</td>
+            <td>{{ data.id }}</td>
+            <td>{{ data.start_date }}</td>
+            <td>{{ data.end_date }}</td>
+            <td>{{ data.pharmacy_int }}</td>
+            <td>{{ data.user_id }}</td>
             <td> <button nz-button nzType="primary" (click)="approve(data)">Accept</button></td>
-            <td><button nz-button nzType="default" (click)="showModal()" nzDanger>Reject</button></td>
+            <td><button nz-button nzType="default" (click)="showModal(data)" nzDanger>Reject</button></td>
         </tr>
     </tbody>
 </nz-table>

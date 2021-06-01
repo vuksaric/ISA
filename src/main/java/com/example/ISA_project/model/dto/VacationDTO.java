@@ -16,6 +16,6 @@ public class VacationDTO {
     private LocalDateTime end_date;
     private UserType user_type;
     private int pharmacy_id;    // iz local storage-a
-    private int user_id;
+    private int user_id;        // pharmacist ili dermatologist id
     private String rejectionNote;
 }

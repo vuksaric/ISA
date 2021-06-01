@@ -24,4 +24,8 @@ export class VacationRequestService {
   public rejectVacation(body): Observable<any>{
     return this.http.post(vacationRequest_url + `/rejection`, body);
   }
+
+  public getAllRequests(): Observable<any>{
+    return this.http.get(vacationRequest_url + `/allRequests`);
+  }
 }

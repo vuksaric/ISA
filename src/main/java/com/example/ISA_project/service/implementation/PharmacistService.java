@@ -5,7 +5,6 @@ import com.example.ISA_project.model.dto.*;
 import com.example.ISA_project.repository.ConsultationRepository;
 import com.example.ISA_project.repository.PharmacistRepository;
 import com.example.ISA_project.service.IPharmacistService;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -99,13 +98,23 @@ public class PharmacistService implements IPharmacistService {
 
     @Override
     public List<PharmacistDTO> search(String input) {
-        ArrayList<Pharmacist> pharmacists = new ArrayList<>();
+        List<Pharmacist> pharmacists = new ArrayList<>();
         ArrayList<PharmacistDTO> pharmacistDTOS = new ArrayList<>();
         try {
-            pharmacists = (ArrayList<Pharmacist>) pharmacistRepository.search(input);
-            for (Pharmacist p : pharmacists) {
-                pharmacistDTOS.add(new PharmacistDTO(p));
+            if(input.contains(" ")){
+                String[] inputs = input.split(" ");
+                if(inputs.length == 1){
+                    pharmacists = (ArrayList<Pharmacist>) pharmacistRepository.search(inputs[0]);
+
+                }else{
+                    pharmacists = (ArrayList<Pharmacist>) pharmacistRepository.search(inputs[0], inputs[1]);
+                }
+            }else {
+                pharmacists = (ArrayList<Pharmacist>) pharmacistRepository.search(input);
             }
+                for (Pharmacist p : pharmacists) {
+                    pharmacistDTOS.add(new PharmacistDTO(p));
+                }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -155,5 +164,20 @@ public class PharmacistService implements IPharmacistService {
         }
         return periods;
     }
+
+    @Override
+    public void addVacation(Vacation vacation) {
+        Pharmacist pharmacist = pharmacistRepository.getOne(vacation.getUser_id());
+        List<Vacation> vacations = pharmacist.getVacation();
+        vacations.add(vacation);
+        pharmacist.setVacation(vacations);
+        pharmacistRepository.save(pharmacist);
+    }
+
+    @Override
+    public Pharmacist getById(int id){
+        return pharmacistRepository.findOneById(id);
+    }
+
 
 }

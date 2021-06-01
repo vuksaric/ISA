@@ -1,6 +1,7 @@
 package com.example.ISA_project.service;
 
 import com.example.ISA_project.model.Pharmacist;
+import com.example.ISA_project.model.Vacation;
 import com.example.ISA_project.model.dto.*;
 import com.example.ISA_project.model.Period;
 import com.example.ISA_project.model.dto.ProfileDTO;
@@ -19,5 +20,6 @@ public interface IPharmacistService {
         List<PharmacistDTO> getAll();
         List<PharmacistDTO> search(String input);
         List<Period> freePeriods(int id, LocalDate date);
-
+        void addVacation(Vacation vacation);
+        Pharmacist getById(int id);
 }

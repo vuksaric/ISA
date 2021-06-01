@@ -33,4 +33,18 @@ public class DermatologistService implements IDermatologistService {
         }
         return result;
     }
+
+    @Override
+    public void addVacation(Vacation vacation) {
+        Dermatologist dermatologist = dermatologistRepository.getOne(vacation.getUser_id());
+        List<Vacation> vacations = dermatologist.getVacation();
+        vacations.add(vacation);
+        dermatologist.setVacation(vacations);
+        dermatologistRepository.save(dermatologist);
+    }
+
+    @Override
+    public Dermatologist getById(int id){
+        return dermatologistRepository.findOneById(id);
+    }
 }

@@ -24,4 +24,12 @@ public class Vacation {
     private UserType user_type;
     private int pharmacy_id;
     private int user_id;
+
+    public Vacation(LocalDateTime start_date, LocalDateTime end_date, UserType user_type, int pharmacy_id, int user_id) {
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.user_type = user_type;
+        this.pharmacy_id = pharmacy_id;
+        this.user_id = user_id;
+    }
 }
