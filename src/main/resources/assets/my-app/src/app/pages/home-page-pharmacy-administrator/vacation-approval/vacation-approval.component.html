@@ -47,7 +47,7 @@
             <td>{{ data.type }}</td>
             <td>{{ data.start }}</td>
             <td>{{ data.end }}</td>
-            <td> <button nz-button nzType="primary" (click)="approve()">Accept</button></td>
+            <td> <button nz-button nzType="primary" (click)="approve(data)">Accept</button></td>
             <td><button nz-button nzType="default" (click)="showModal()" nzDanger>Reject</button></td>
         </tr>
     </tbody>

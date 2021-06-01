@@ -28,5 +28,5 @@ public class Pharmacist{
     private Pharmacy pharmacy;
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="PharmacistVacation_ID")
-    private List<Period> vacation;
+    private List<Vacation> vacation;
 }

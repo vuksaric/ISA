@@ -195,7 +195,32 @@
 
 <br>
 
-<nz-table #basicTable [nzData]="pharmacistList">
+<nz-table #filterTable [nzData]="listOfData" nzTableLayout="fixed">
+    <thead>
+      <tr>
+        <th
+          *ngFor="let column of listOfColumns"
+          [nzSortOrder]="column.sortOrder"
+          [nzSortFn]="column.sortFn"
+          [nzSortDirections]="column.sortDirections"
+          [nzFilterMultiple]="column.filterMultiple"
+          [nzFilters]="column.listOfFilter"
+          [nzFilterFn]="column.filterFn"
+        >
+          {{ column.name }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of filterTable.data">
+        <td>{{ data.name }}</td>
+        <td>{{ data.mark }}</td>
+        <td>{{ data.pharmacy }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+
+<!-- <nz-table #basicTable [nzData]="pharmacistList">
     <thead>
         <tr>
             <th>Name</th>
@@ -224,4 +249,4 @@
             <td><button nz-button nzType="dashed" (click)="showDeleteConfirm()">Remove</button></td>
         </tr>
     </tbody>
-</nz-table>
+</nz-table> -->

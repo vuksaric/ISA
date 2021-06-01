@@ -45,7 +45,8 @@ export class VacationApprovalComponent implements OnInit {
     }
   }
 
-  approve() {
+  approve(data) {
+    console.log(data);
     const body = {
 
     }

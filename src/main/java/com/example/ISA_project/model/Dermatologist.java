@@ -26,6 +26,9 @@ public class Dermatologist{
     @JoinColumn(name="Dermatologist_ID")
     private List<WorkdayDermatologist> workdays;
     private float mark;
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="DermatologistVacation_ID")
+    private List<Vacation> vacation;
 
     public String getFullName(){
         return user.getName() + " "+ user.getSurname();

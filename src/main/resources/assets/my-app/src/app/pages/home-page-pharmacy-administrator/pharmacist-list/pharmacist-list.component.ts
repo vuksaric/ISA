@@ -5,13 +5,29 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { differenceInCalendarDays } from 'date-fns';
 import { ToastrService } from 'ngx-toastr';
-
+import { NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder } from 'ng-zorro-antd/table';
 
 interface Person {
   key: string;
   name: string;
   age: number;
   address: string;
+}
+
+interface DataItem {
+  name: string;
+  mark: number;
+  pharmacy: string;
+}
+
+interface ColumnItem {
+  name: string;
+  sortOrder: NzTableSortOrder | null;
+  sortFn: NzTableSortFn | null;
+  listOfFilter: NzTableFilterList;
+  filterFn: NzTableFilterFn | null;
+  filterMultiple: boolean;
+  sortDirections: NzTableSortOrder[];
 }
 
 @Component({
@@ -27,7 +43,7 @@ export class PharmacistListComponent implements OnInit {
   today = new Date();
   validateForm!: FormGroup;
   pharmacistList: Pharmaist[];
-  search : string;
+  search: string;
 
   constructor(private modal: NzModalService, private fb: FormBuilder, private pharmacistService: PharmacistService, private toastr: ToastrService) { }
 
@@ -49,14 +65,14 @@ export class PharmacistListComponent implements OnInit {
     });
   }
 
-  getAllPharmacist(){
+  getAllPharmacist() {
     this.pharmacistService.getAll().subscribe(result => { this.pharmacistList = result }, () => { this.toastr.error("An error has occurred") });
   }
 
-  searchPharmacist(){
-    if(this.search === '' || this.search === null || this.search === undefined){
+  searchPharmacist() {
+    if (this.search === '' || this.search === null || this.search === undefined) {
       this.toastr.error("Please input search field");
-    }else{
+    } else {
       this.pharmacistService.search(this.search).subscribe(result => {
         this.toastr.success("GREAT SUCCESS");
         this.pharmacistList = result;
@@ -64,7 +80,7 @@ export class PharmacistListComponent implements OnInit {
     }
   }
 
-  clearSearch(){
+  clearSearch() {
     this.search = '';
     this.getAllPharmacist();
   }
@@ -200,7 +216,7 @@ export class PharmacistListComponent implements OnInit {
     });
   }
 
-  listOfData: Person[] = [
+  /*listOfData: Person[] = [
     {
       key: '1',
       name: 'John Brown',
@@ -218,6 +234,68 @@ export class PharmacistListComponent implements OnInit {
       name: 'Joe Black',
       age: 32,
       address: 'Sidney No. 1 Lake Park'
+    }
+  ];*/
+
+  listOfColumns: ColumnItem[] = [
+    {
+      name: 'Name',
+      sortOrder: null,
+      sortFn: (a: DataItem, b: DataItem) => a.name.localeCompare(b.name),
+      sortDirections: ['ascend', 'descend', null],
+      filterMultiple: true,
+      listOfFilter: [
+        { text: 'Joe', value: 'Joe' },
+        { text: 'Jim', value: 'Jim' }
+      ],
+      filterFn: (list: string[], item: DataItem) => list.some(name => item.name.indexOf(name) !== -1)
+    },
+    {
+      name: 'Mark',
+      sortOrder: 'descend',
+      sortFn: (a: DataItem, b: DataItem) => {console.log("EVO GA: " + a.mark + ' ' + b.mark);return a.mark - b.mark;},
+      sortDirections: ['ascend','descend', null],
+      filterMultiple: true,
+      listOfFilter: [
+        {text: '20-30', value: 30},
+        {text: '31-40', value: 40},
+        {text: '41-50', value: 50}
+      ],
+      filterFn: (list: number[], item: DataItem) => list.some(mark => Number(item.mark) < mark && Number(item.mark) > mark - 10 ),
+    },
+    {
+      name: 'Pharmacy',
+      sortOrder: null,
+      sortDirections: ['ascend', 'descend', null],
+      sortFn: (a: DataItem, b: DataItem) => a.pharmacy.length - b.pharmacy.length,
+      filterMultiple: false,
+      listOfFilter: [
+        { text: 'London', value: 'London' },
+        { text: 'Sidney', value: 'Sidney' }
+      ],
+      filterFn: (address: string, item: DataItem) => item.pharmacy.indexOf(address) !== -1
+    }
+  ];
+  listOfData: DataItem[] = [
+    {
+      name: 'John Brown',
+      mark: 32,
+      pharmacy: 'New York No. 1 Lake Park'
+    },
+    {
+      name: 'Jim Green',
+      mark: 42,
+      pharmacy: 'London No. 1 Lake Park'
+    },
+    {
+      name: 'Joe Black',
+      mark: 33,
+      pharmacy: 'Sidney No. 1 Lake Park'
+    },
+    {
+      name: 'Jim Red',
+      mark: 34,
+      pharmacy: 'London No. 2 Lake Park'
     }
   ];
 
