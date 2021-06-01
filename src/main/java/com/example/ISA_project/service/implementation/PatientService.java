@@ -5,6 +5,7 @@ import com.example.ISA_project.model.Examination;
 import com.example.ISA_project.model.Patient;
 import com.example.ISA_project.model.PatientChart;
 import com.example.ISA_project.model.Reservation;
+import com.example.ISA_project.model.dto.PatientSearchDTO;
 import com.example.ISA_project.model.dto.ProfileDTO;
 import com.example.ISA_project.repository.PatientRepository;
 import com.example.ISA_project.service.IPatientService;
@@ -33,12 +34,12 @@ public class PatientService implements IPatientService {
     }
 
     @Override
-    public List<String> getPatientNames() {
+    public List<PatientSearchDTO> getPatientNames() {
 
         List<Patient> patients = patientRepository.findAll();
-        List<String> names = new ArrayList<>();
+        List<PatientSearchDTO> names = new ArrayList<>();
         for (Patient patient : patients)
-            names.add(patient.getUser().getFullName());
+            names.add(new PatientSearchDTO(patient.getUser().getFullName(),patient.getId()));
 
         return names;
     }

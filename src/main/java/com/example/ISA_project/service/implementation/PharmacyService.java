@@ -141,5 +141,10 @@ public class PharmacyService implements IPharmacyService {
         return pharmacies;
     }
 
+    @Override
+    public Pharmacy getByName(String name) {
+        return pharmacyRepository.findOneByName(name);
+    }
+
 
 }

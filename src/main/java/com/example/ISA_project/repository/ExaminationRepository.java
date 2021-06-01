@@ -22,4 +22,7 @@ public interface ExaminationRepository extends JpaRepository<Examination, Intege
 
     Examination findExaminationById(int id);
 
+    @Query("select e from Examination e where e.date.start_date < current_date and e.dermatologist.id = ?1")
+    List<Examination> findAllPreviousByDermatologist(int id);
+
 }

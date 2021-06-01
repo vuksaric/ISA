@@ -9,12 +9,40 @@
   <nz-table #basicTable [nzData]="['']">
     <thead>
       <tr>
-        <th colspan="2">Patient name</th>
+        <th >Patient name</th>
+        <th>Consultations</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of listOfDisplayData">
-        <td>{{ data }}</td>
+        <td>{{ data.fullName }}</td>
+        <td><button nz-button  nzType="dashed" (click)="consultations(data.id)" nzBlock>{{appointmentType()}}</button></td>
       </tr>
     </tbody>
   </nz-table>
+
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="{{appointmentType()}}"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter">
+  <ng-template #modalContent>
+    <nz-table #basicTable [nzData]="['']">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Time</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let consultation of listConsultations">
+          <td>{{ consultation.start[2]}}.{{consultation.start[1]}}.{{consultation.start[0]}}</td>
+          <td>{{ consultation.start[3]}}:{{consultation.start[4]}}-{{consultation.end[3]}}:{{consultation.end[4]}}</td>
+          <td><button nz-button nzType="dashed" disabled = "{{consultation.done}}" (click)="startConsultation(consultation.id)" nzBlock>Start</button></td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </ng-template>
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="handleOk()">Close</button>
+  </ng-template>
+  </nz-modal>

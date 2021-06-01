@@ -1,7 +1,7 @@
 package com.example.ISA_project.controller;
 
 import com.example.ISA_project.model.Consultation;
-import com.example.ISA_project.model.Reservation;
+import com.example.ISA_project.model.Period;
 import com.example.ISA_project.model.dto.*;
 import com.example.ISA_project.service.IConsultationService;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ public class ConsultationController {
     }
 
     @GetMapping(value = "/getPreviousByPharmacist/{id}")
-    public List<PreviousConsultationDTO> getPreviousByPharmacist(@PathVariable String id){
+    public List<PreviousAppointmentDTO> getPreviousByPharmacist(@PathVariable String id){
         int idPharmacist= Integer.parseInt(id);
         return consultationService.getPreviousByPharmacist(idPharmacist);
     }
@@ -48,6 +48,19 @@ public class ConsultationController {
 
     @PostMapping("/finish")
     public Consultation finish(@RequestBody ReportRequest request){
+
         return consultationService.finish(request);
+    }
+
+    @PostMapping("/freePeriods")
+    public List<Period> freePeriods(@RequestBody PeriodsRequest request){
+        int idConsultation = Integer.parseInt(request.getId());
+        return consultationService.freePeriods(idConsultation, request.getDate());
+    }
+
+    @GetMapping(value = "/getFutureByPatient/{id}")
+    public List<AppointmentDTO> getFutureByPatient(@PathVariable String id){
+        int idPharmacist= Integer.parseInt(id);
+        return consultationService.getFutureByPatient(idPharmacist);
     }
 }

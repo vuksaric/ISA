@@ -14,6 +14,8 @@ export class VacationRequestComponent implements OnInit {
 
   validateForm: FormGroup;
   today = new Date();
+  name : String;
+  type : String;
   disabledStartDate = (current: Date): boolean => {
     // Can not select days before today and today
     return differenceInCalendarDays(current, this.today) <= 0;
@@ -28,12 +30,13 @@ export class VacationRequestComponent implements OnInit {
     this.validateForm = this.fb.group({
       dateStart: ['', [Validators.required]],
       dateEnd: ['', [Validators.required]],
+      name: ['', [Validators.required]],
     })
   }
 
   ngOnInit(): void {
 
-
+    this.type = "pharmacist";
 
   }
 
@@ -68,7 +71,8 @@ export class VacationRequestComponent implements OnInit {
     const body = {
       start_date: this.dateStart,
       end_date: this.dateEnd,
-      user_id: 1
+      user_id: 1,
+      pharmacy_name : this.name
     }
 
     console.log(body);
@@ -77,6 +81,17 @@ export class VacationRequestComponent implements OnInit {
     else
       alert("All fields are required");
     
+  }
+
+  visibility() : String
+  {
+    if(this.type.toLowerCase() == "pharmacist")
+    {
+      return "hidden";
+    }
+      
+    else
+      return "text";
   }
  
 

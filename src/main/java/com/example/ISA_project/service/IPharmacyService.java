@@ -20,4 +20,5 @@ public interface IPharmacyService {
     Pharmacy subtractMedicineQuantity(int idMedicine, int idPharmacy);
     Pharmacy addMedicineQuantity(int idMedicine, int idPharmacy);
     List<PharmacyDTO> subscribedPharmacies(int idPatient);
+    Pharmacy getByName(String name);
 }

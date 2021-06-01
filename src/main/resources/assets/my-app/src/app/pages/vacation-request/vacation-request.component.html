@@ -1,6 +1,10 @@
 <h2>Vacation request</h2>
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submit()">
     <nz-form-control>
+        <input formControlName="name" type="{{visibility()}}"  nz-input placeholder="Pharmacy name" [(ngModel)]="name" />
+    </nz-form-control>
+    <br>
+    <nz-form-control>
         <nz-date-picker [nzDisabledDate]="disabledStartDate" formControlName="dateStart" [(ngModel)]="dateStart" (ngModelChange)="onChangeStart($event)"></nz-date-picker>
     </nz-form-control>
     <br />

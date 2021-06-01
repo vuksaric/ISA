@@ -4,9 +4,7 @@ package com.example.ISA_project.service.implementation;
 import com.example.ISA_project.model.*;
 import com.example.ISA_project.model.Examination;
 import com.example.ISA_project.model.Patient;
-import com.example.ISA_project.model.dto.ExaminationDTO;
-import com.example.ISA_project.model.dto.MedicineDTO;
-import com.example.ISA_project.model.dto.ReportRequest;
+import com.example.ISA_project.model.dto.*;
 import com.example.ISA_project.repository.ExaminationRepository;
 import com.example.ISA_project.service.*;
 import com.example.ISA_project.service.IExaminationService;
@@ -72,6 +70,28 @@ public class ExaminationService implements IExaminationService {
         examination.setPatient(null);
         examinationRepository.save(examination);
         return new ExaminationDTO(examinationRepository.findExaminationById(id));
+    }
+
+    @Override
+    public List<AppointmentDTO> findFutureByPatient(int id) {
+        List<Examination> examinations = examinationRepository.findAllFutureByPatient(id);
+        List<AppointmentDTO> result = new ArrayList<>();
+        for(Examination examination : examinations)
+            result.add(new AppointmentDTO(examination));
+        return result;
+    }
+
+    @Override
+    public List<PreviousAppointmentDTO> getAllPreviousByDermatologist(int id) {
+        List<Examination> examinations = examinationRepository.findAllPreviousByDermatologist(id);
+        List<PreviousAppointmentDTO> result = new ArrayList<>();
+
+        for(Examination examination : examinations)
+        {
+            if(examination.isDone())
+                result.add(new PreviousAppointmentDTO(examination));
+        }
+        return result;
     }
 
     @Override

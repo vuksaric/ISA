@@ -45,4 +45,12 @@ export class ExaminationService {
     return this.http.post(examination_url + `/finish`,body);
   }
 
+  public getFutureByPatient(id): Observable<Examination[]> {
+    return this.http.get<Examination[]>(examination_url+'/getFutureExams'+`/${id}`);
+  }
+
+  public getPreviousByDermatologist(id): Observable<any[]> {
+    return this.http.get<Examination[]>(examination_url+'/getPreviousDermatologist'+`/${id}`);
+  }
+
 }

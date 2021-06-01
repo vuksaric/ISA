@@ -34,6 +34,7 @@ export class ExaminationReportComponent implements OnInit {
 
       this.validateForm = this.fb.group({
         information: ['', [Validators.required]],
+        diagnosis: ['', [Validators.required]],
         days: ['', [Validators.required]]
       })
     }

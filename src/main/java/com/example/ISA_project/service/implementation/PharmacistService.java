@@ -65,10 +65,12 @@ public class PharmacistService implements IPharmacistService {
         List<Period> periods = new ArrayList<>();
         LocalDateTime start = workday.getPeriod().getStart_date();
         LocalDateTime end = workday.getPeriod().getEnd_date();
+        LocalDateTime end_period = start.plusMinutes(30);
         while(!check)
         {
-            periods.add(new Period(start,start.plusMinutes(30)));
-            start.plusMinutes(30);
+            periods.add(new Period(start,end_period));
+             start = start.plusMinutes(30);
+            end_period = end_period.plusMinutes(30);
             check = end.isEqual(start);
         }
         return periods;
@@ -78,14 +80,24 @@ public class PharmacistService implements IPharmacistService {
     public List<Period> freePeriods(int id, LocalDate date) {
         Pharmacist pharmacist = pharmacistRepository.findOneById(id);
         WorkdayPharmacist workday = null;
+        List<Period> periods = new ArrayList<>();
 
         for(WorkdayPharmacist workdayPharmacist : pharmacist.getWorkdays())
         {
             if(workdayPharmacist.getPeriod().getStart_date().toLocalDate().equals(date))
+            {
                 workday = workdayPharmacist;
+                break;
+            }
+
         }
 
-        List<Period> periods = getPeriods(workday);
+        if(workday == null)
+        {
+            return periods;
+        }
+
+         periods = getPeriods(workday);
 
         for(Consultation consultation : workday.getConsultations())
         {

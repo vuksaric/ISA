@@ -1,11 +1,11 @@
 package com.example.ISA_project.service.implementation;
 
 import com.example.ISA_project.model.*;
+import com.example.ISA_project.model.dto.AppointmentDTO;
 import com.example.ISA_project.model.dto.MedicineDTO;
-import com.example.ISA_project.model.dto.PreviousConsultationDTO;
+import com.example.ISA_project.model.dto.PreviousAppointmentDTO;
 import com.example.ISA_project.model.dto.ReportRequest;
 import com.example.ISA_project.repository.ConsultationRepository;
-import com.example.ISA_project.repository.PharmacistRepository;
 import com.example.ISA_project.service.*;
 //import com.example.ISA_project.service.IReportService;
 import org.springframework.stereotype.Service;
@@ -40,14 +40,14 @@ public class ConsultationService implements IConsultationService {
     }
 
     @Override
-    public List<PreviousConsultationDTO> getPreviousByPharmacist(int id) {
+    public List<PreviousAppointmentDTO> getPreviousByPharmacist(int id) {
 
         List<Consultation> consultations= consultationRepository.findAll();
-        List<PreviousConsultationDTO> result = new ArrayList<>();
+        List<PreviousAppointmentDTO> result = new ArrayList<>();
         LocalDateTime today = LocalDateTime.now();
         for(Consultation consultation : consultations) {
             if (consultation.getPharmacist().getId() == id && consultation.getPeriod().getEnd_date().isBefore(today))
-                result.add(new PreviousConsultationDTO(consultation.getPatient().getUser().getId(),consultation.getPatient().getUser().getName(), consultation.getPatient().getUser().getSurname(),
+                result.add(new PreviousAppointmentDTO(consultation.getPatient().getUser().getId(),consultation.getPatient().getUser().getName(), consultation.getPatient().getUser().getSurname(),
                         consultation.getPatient().getUser().getAddress().getFullAdress(), consultation.getPeriod().getStart_date(), consultation.getPharmacy().getName()));
         }
         return result;
@@ -114,6 +114,15 @@ public class ConsultationService implements IConsultationService {
         }
 
         return periods;
+    }
+
+    @Override
+    public List<AppointmentDTO> getFutureByPatient(int id) {
+        List<Consultation> consultations = consultationRepository.findAllFutureByPatient(id);
+        List<AppointmentDTO> result = new ArrayList<>();
+        for(Consultation consultation : consultations)
+            result.add(new AppointmentDTO(consultation));
+        return result;
     }
 
     @Override

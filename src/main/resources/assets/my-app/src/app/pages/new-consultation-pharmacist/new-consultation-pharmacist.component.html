@@ -1,1 +1,5 @@
-<p>new-consultation-pharmacist works!</p>
+<nz-date-picker [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-date-picker>
+
+<nz-select [(ngModel)]="time" >
+    <nz-option *ngFor = "let data of periods" nzValue="{{data}}" nzLabel="{{data.start_date[3]}}:{{data.start_date[4]}} - {{data.end_date[3]}}:{{data.end_date[4]}} "></nz-option>
+  </nz-select>

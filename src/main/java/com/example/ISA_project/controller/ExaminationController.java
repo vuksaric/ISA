@@ -1,10 +1,7 @@
 package com.example.ISA_project.controller;
 
 import com.example.ISA_project.model.Consultation;
-import com.example.ISA_project.model.dto.ExaminationDTO;
-import com.example.ISA_project.model.dto.MedicineDTO;
-import com.example.ISA_project.model.dto.PrescribeRequest;
-import com.example.ISA_project.model.dto.ReportRequest;
+import com.example.ISA_project.model.dto.*;
 import com.example.ISA_project.repository.PatientRepository;
 import com.example.ISA_project.service.IExaminationService;
 import org.springframework.http.HttpStatus;
@@ -68,5 +65,17 @@ public class ExaminationController {
     public ExaminationDTO finish(@RequestBody ReportRequest request){
 
         return examinationService.finish(request);
+    }
+
+    @GetMapping(value="/getFutureExams/{id}")
+    public ResponseEntity<List<AppointmentDTO>> getFutureByPatient(@PathVariable String id){
+        int idPatient= Integer.parseInt(id);
+        return new ResponseEntity<>(examinationService.findFutureByPatient(idPatient), HttpStatus.OK);
+    }
+
+    @GetMapping(value="/getPreviousDermatologist/{id}")
+    public ResponseEntity<List<PreviousAppointmentDTO>> getPreviousByDermatologist(@PathVariable String id){
+        int idDermatologist = Integer.parseInt(id);
+        return new ResponseEntity<>(examinationService.getAllPreviousByDermatologist(idDermatologist), HttpStatus.OK);
     }
 }

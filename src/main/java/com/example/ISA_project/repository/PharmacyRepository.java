@@ -13,4 +13,5 @@ public interface PharmacyRepository extends JpaRepository<Pharmacy, Integer> {
     List<Pharmacy> findAll();
     Pharmacy save(Pharmacy pharmacy);
     Pharmacy findOneById(int id);
+    Pharmacy findOneByName(String name);
 }

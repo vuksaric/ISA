@@ -1,5 +1,6 @@
 package com.example.ISA_project.controller;
 
+import com.example.ISA_project.model.dto.PatientSearchDTO;
 import com.example.ISA_project.model.dto.ProfileDTO;
 import com.example.ISA_project.service.IPatientService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,7 @@ public class PatientController {
     }
 
     @GetMapping(value="/getNames")
-    public List<String> getPatientNames()
+    public List<PatientSearchDTO> getPatientNames()
     {
         return patientService.getPatientNames();
     }
