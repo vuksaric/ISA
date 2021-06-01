@@ -27,6 +27,8 @@ import { ConsultationReportComponent } from './pages/consultation-report/consult
 import { SerachPatientsComponent } from './pages/serach-patients/serach-patients.component';
 import { RegistrationPharmacyComponent } from './pages/registration-pharmacy/registration-pharmacy.component';
 import { RegistrationAdminComponent } from './pages/registration-admin/registration-admin.component';
+import { AddMedicineComponent } from './pages/add-medicine/add-medicine.component';
+
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'pharmacyAdmin' },
@@ -50,6 +52,7 @@ const routes: Routes = [
     { path: 'searchPatients', component:SerachPatientsComponent},
     { path: 'registrationPharmacy', component:RegistrationPharmacyComponent},
     { path: 'registrationAdmin', component:RegistrationAdminComponent},
+    { path: 'addMedicine', component:AddMedicineComponent},
     { path: 'pharmacyAdmin', component: HomePagePharmacyAdministratorComponent, children: [
         { path: 'pharmacy-profile', component: PharmacyProfileComponent},
         { path: 'pharmacy-report', component: PharmacyReportComponent },

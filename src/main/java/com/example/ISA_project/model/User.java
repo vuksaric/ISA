@@ -20,18 +20,18 @@ public class User {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    //private String username;
-    private String password;
     private String name;
     private String surname;
     private String email;
+    private String password;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Address address;
     private String phone;
-    private Gender gender;
     private LocalDateTime dateOfBirth;
+    private Gender gender;
     private UserType userType;
     private boolean passwordChanged;
+    private boolean activated;
 
 
     public String getFullName() { return name + " " + surname;}

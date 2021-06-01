@@ -21,4 +21,13 @@ export class SystemAdminHomePageComponent implements OnInit {
     this.router.navigate(['registrationAdmin']);
   }
 
+  addMedicine = function(){
+    this.router.navigate(['addMedicine']);
+  }
+
+  logOutClick = function(){
+    localStorage.clear();
+    this.router.navigate(['login']);
+  }
+
 }

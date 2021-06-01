@@ -1,5 +1,6 @@
 <div style="background: #ECECEC;padding:30px;">
     <p><b>Welcome system administrator!!!</b></p>
+    <button nz-button nzType="primary" (click)="logOutClick()" id="btn">LogOut</button>
     <div nz-row [nzGutter]="8" style="padding: 20px;">
       <div nz-col [nzSpan]="8">
         <nz-card nzTitle="Register pharmacy">
@@ -8,15 +9,15 @@
         </nz-card>
       </div>
       <div nz-col [nzSpan]="8">
-        <nz-card nzTitle="Register pharmacy admin">
-            <p>You can register new pharmacy admin</p>
-            <button nz-button nzType="primary" (click)="regPhAdminClick()">Register pharmacy admin</button>
+        <nz-card nzTitle="Register user">
+            <p>You can register new pharmacy admin, dermatologist and supplier</p>
+            <button nz-button nzType="primary" (click)="regPhAdminClick()">Register</button>
         </nz-card>
       </div>
       <div nz-col [nzSpan]="8">
-        <nz-card nzTitle="Register dermatologist">
-          <p>You can register new dermatologist</p>
-          <button nz-button nzType="primary" >Register dermatologist</button>
+        <nz-card nzTitle="Add medicine">
+          <p>You can add new medicine in the system</p>
+          <button nz-button nzType="primary" (click)="addMedicine()">Add medicine</button>
         </nz-card>
       </div>
     </div>

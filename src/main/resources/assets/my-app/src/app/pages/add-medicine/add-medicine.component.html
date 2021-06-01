@@ -1,0 +1,86 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>
+        <span>Name</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input medicine name!">
+        <input nz-input id="name" formControlName="name"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="type" nzRequired>
+        <span>Type</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input medicine type!">
+        <input nz-input id="type" formControlName="type" (input)="onSearchChange($event.target.value)"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="shape">Shape</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input medicine shape!">
+        <input nz-input formControlName="shape" id="shape"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="ingredients" nzRequired>Ingredients</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input medicine ingredients!">
+        <input nz-input id="ingredients" formControlName="ingredients"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="manufacturer" nzRequired>
+        <span>Manufacturer</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input medicine manufacturer!">
+        <input nz-input id="manufacturer" formControlName="manufacturer" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="issuingMode" nzRequired>
+        <span>Issuing mode</span>
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input medicine issuing mode!">
+    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a issuing mode" [(ngModel)]="selectedValueIssuingMode" [ngModelOptions]="{standalone: true}">
+      <nz-option nzLabel="WithRecipe" nzValue="WithRecipe"></nz-option>
+      <nz-option nzLabel="WithoutRecipe" nzValue="WithoutRecipe"></nz-option>
+    </nz-select>
+    </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="replacements" nzRequired>
+          <span>Replacements</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input medicine replacements!">
+      <nz-select id="selectId" multiple nzShowSearch nzAllowClear nzPlaceHolder="Select a medicine replacements" [(ngModel)]="selectedValueReplacements" [ngModelOptions]="{standalone: true}">
+        </nz-select>
+      </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="contraindications" nzRequired>
+      <span>Contraindications</span>
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input medicine contraindications!">
+      <input nz-input id="contraindications" formControlName="contraindications" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="therapyPerDay" nzRequired>
+      <span>Therapy per day</span>
+  </nz-form-label>
+  <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input medicine therapy per day!">
+  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a therapy per day" [(ngModel)]="selectedValueTherapy" [ngModelOptions]="{standalone: true}">
+    <nz-option nzLabel="1" nzValue="1"></nz-option>
+    <nz-option nzLabel="2" nzValue="2"></nz-option>
+    <nz-option nzLabel="3" nzValue="3"></nz-option>
+    <nz-option nzLabel="4" nzValue="4"></nz-option>
+    <nz-option nzLabel="5" nzValue="5"></nz-option>
+  </nz-select>
+  </nz-form-control>
+  </nz-form-item>
+    <nz-form-item nz-row class="register-area">
+      <nz-form-control [nzSpan]="14" [nzOffset]="6">
+        <button nz-button nzType="primary" >Add medicine</button>
+      </nz-form-control>
+    </nz-form-item>
+</form>

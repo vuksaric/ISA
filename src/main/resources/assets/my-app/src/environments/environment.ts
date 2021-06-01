@@ -21,7 +21,7 @@ export const environment = {
   reservation_url: 'http://localhost:8080/reservation',
   workdayPharmacist_url: 'http://localhost:8080/workdayPharmacist',
   address_url: 'http://localhost:8080/address',
-  admin_url : 'http://localhost:8080/admin'
+  admin_url : 'http://localhost:8080/admin',
 };
 
 /*

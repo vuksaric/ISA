@@ -42,6 +42,7 @@ import { RegistrationPharmacyComponent } from './pages/registration-pharmacy/reg
 import { RegistrationAdminComponent } from './pages/registration-admin/registration-admin.component';
 
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { AddMedicineComponent } from './pages/add-medicine/add-medicine.component';
 
 registerLocaleData(en);
 
@@ -77,6 +78,7 @@ registerLocaleData(en);
     SerachPatientsComponent,
     RegistrationPharmacyComponent,
     RegistrationAdminComponent,
+    AddMedicineComponent,
   ],
   imports: [
     BrowserModule,
