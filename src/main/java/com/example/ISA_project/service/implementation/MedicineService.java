@@ -88,7 +88,7 @@ public class MedicineService implements IMedicineService {
         System.out.println(type);
         List<Medicine> retVal = new ArrayList<>();
         try{
-            retVal = medicineRepository.getAllByType(type);
+            retVal.addAll(medicineRepository.getAllByType(type));
         }catch(Exception e){
             e.printStackTrace();
         }

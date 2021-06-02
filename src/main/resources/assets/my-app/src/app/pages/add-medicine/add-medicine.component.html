@@ -51,8 +51,13 @@
           <span>Replacements</span>
       </nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input medicine replacements!">
-      <nz-select id="selectId" multiple nzShowSearch nzAllowClear nzPlaceHolder="Select a medicine replacements" [(ngModel)]="selectedValueReplacements" [ngModelOptions]="{standalone: true}">
-        </nz-select>
+      <nz-select nzMode="multiple" formControlName = "items" nzShowSearch nzAllowClear nzPlaceHolder="Select a medicine replacements" [(ngModel)]="selectedValueReplacements">
+        <nz-option
+        *ngFor="let item of items"
+        [nzLabel]="item.name"
+        [nzValue]="item.id">
+        </nz-option>  
+      </nz-select>
       </nz-form-control>
   </nz-form-item>
   <nz-form-item>

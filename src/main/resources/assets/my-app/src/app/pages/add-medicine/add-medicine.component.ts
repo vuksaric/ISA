@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzOptionComponent, NzSelectComponent } from 'ng-zorro-antd/select';
 import { Replacements } from 'src/app/models/replacements';
 import { MedicineService } from 'src/app/services/medicine.service';
 
@@ -10,7 +11,6 @@ import { MedicineService } from 'src/app/services/medicine.service';
 })
 export class AddMedicineComponent implements OnInit {
 
-  containerElement : any;
   validateForm!: FormGroup;
   selectedValueIssuingMode: "WithRecipe";
   selectedValueTherapy: "1";
@@ -23,21 +23,15 @@ export class AddMedicineComponent implements OnInit {
   manufacturer: string;
   contraindications: string;
   replacements: Replacements[];
-  selectReplacements: HTMLSelectElement;
-  optionReplacements: HTMLOptionElement;
+  selectReplacements: NzSelectComponent;
+  optionReplacements: NzOptionComponent;
+  ReplacementsOptions : NzOptionComponent[];
+  items : Replacements[];
+  ids: number[];
 
   onSearchChange(searchValue: string): void {  
-    console.log("tiiiiiiip");
-    console.log(searchValue);
-    this.medicineservice.getByType(searchValue).subscribe(data => { this.replacements = data; console.log(this.replacements) });
-    this.selectReplacements = <HTMLSelectElement>document.getElementById("selectId");
-    //this.optionReplacements = <HTMLOptionElement>this.replacements;
-    for(const i in this.replacements){
-      this.optionReplacements = <HTMLOptionElement><unknown>this.replacements[i].name;
-      this.selectReplacements.appendChild(this.optionReplacements);
-    }
-    //this.selectReplacements.options = this.replacements;
-    //this.replacements.
+    this.selectedValueReplacements = null;
+    this.medicineservice.getByType(searchValue).subscribe(data => { this.items = data;});
   }
 
   submitForm(): void {
@@ -53,9 +47,12 @@ export class AddMedicineComponent implements OnInit {
     this.ingredients = this.validateForm.value.ingredients;
     this.manufacturer = this.validateForm.value.manufacturer;
     this.contraindications = this.validateForm.value.contraindications;
+    this.items = this.validateForm.value.items;
     
     if(this.validateForm.valid){
     this.ingredients_array = this.ingredients.split(",");
+
+    this.ids = this.selectedValueReplacements;
 
     const body = {
       name: this.name,
@@ -64,7 +61,7 @@ export class AddMedicineComponent implements OnInit {
       ingredients: this.ingredients_array,
       manufacturer: this.manufacturer,
       issuingMode: this.selectedValueIssuingMode,
-      replacements: this.replacements,
+      replacements: this.ids,
       notes: this.contraindications,
       therapyPerDay: this.selectedValueTherapy
     }
@@ -87,6 +84,7 @@ export class AddMedicineComponent implements OnInit {
       //replacements: [null, [Validators.required]],
       contraindications: [null, [Validators.required]],
       //issuingMode: [null,[Validators.required]]
+      items: [null,[Validators.required]]
     });
   }
 
