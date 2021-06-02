@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from "../../environments/environment";
 import { Allergy } from '../models/allergy';
 import { Examination } from '../models/examination';
+import { Medicine } from '../models/medicine';
 
 const patientChart_url = environment.patientChart_url;
 
@@ -49,5 +50,15 @@ export class PatientChartService {
     return this.http.get<Examination[]>(patientChart_url+'/previousExaminations'+`/${id}`);
   }
 
+  public getPreviousConsultationsByPatient(id): any {
+    return this.http.get(patientChart_url+'/previousConsultations'+`/${id}`);
+  }
+  public getPatientERecipes(id): any {
+    return this.http.get(patientChart_url+'/eRecipe'+`/${id}`);
+  }
+
+  public getPatientERecipeMedicines(id): Observable<Medicine[]> {
+    return this.http.get<Medicine[]>(patientChart_url+'/eRecipeMedicines'+`/${id}`);
+  }
 
 }

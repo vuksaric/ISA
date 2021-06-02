@@ -16,8 +16,8 @@ public class BillService implements IBillService {
     private final BillRepository billRepository;
     private final IPriceListMedicineService priceListMedicineService;
 
-    public BillService(BillRepository billRepository, IPriceListMedicineService priceListMedicineService)
-    {
+    public BillService(BillRepository billRepository, IPriceListMedicineService priceListMedicineService){
+
         this.billRepository = billRepository;
         this.priceListMedicineService = priceListMedicineService;
     }
@@ -35,6 +35,5 @@ public class BillService implements IBillService {
         LocalDateTime date = LocalDateTime.now();
         return billRepository.save(new Bill(medicine,pharmacy,price,date));
     }
-
 
 }

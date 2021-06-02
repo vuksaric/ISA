@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -23,7 +24,10 @@ public class Patient{
     private User user;
     @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private PatientChart patientChart;
-    private int penaltyPoints;
+    @ElementCollection
+    @CollectionTable(name="penaltyDates", joinColumns=@JoinColumn(name="patient_id"))
+    @Column(name="penaltyDate")
+    private List<LocalDate> penaltyPoints;
     private int loyaltyPoints;
     private PatientCategory patientCategory;
 }

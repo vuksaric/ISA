@@ -1,9 +1,6 @@
 package com.example.ISA_project.controller;
 
-import com.example.ISA_project.model.dto.ExaminationDTO;
-import com.example.ISA_project.model.dto.FutureReservationDTO;
-import com.example.ISA_project.model.dto.MedicineAllergyDTO;
-import com.example.ISA_project.model.dto.ReviewObjectDTO;
+import com.example.ISA_project.model.dto.*;
 import com.example.ISA_project.service.IPatientChartService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,7 +53,7 @@ public class PatientChartController {
     }
 
     @GetMapping(value="/medicine/{id}")
-    public ResponseEntity<List<ReviewObjectDTO>> getPatientMedicine(@PathVariable String id){
+    public ResponseEntity<Set<ReviewObjectDTO>> getPatientMedicine(@PathVariable String id){
         int idPatient = Integer.parseInt(id);
         return new ResponseEntity<>(patientChartService.getPatientMedicine(idPatient), HttpStatus.OK);
     }
@@ -67,9 +64,27 @@ public class PatientChartController {
         return new ResponseEntity<>(patientChartService.getPatientPharmacy(idPatient), HttpStatus.OK);
     }
 
+    @GetMapping(value="/eRecipeMedicines/{id}")
+    public ResponseEntity<Set<MedicineDTO>> getPatientERecipeMedicines(@PathVariable String id){
+        int idPatient = Integer.parseInt(id);
+        return new ResponseEntity<>(patientChartService.getPatientERecipeMedicines(idPatient), HttpStatus.OK);
+    }
+
     @GetMapping(value="/previousExaminations/{id}")
     public ResponseEntity<List<ExaminationDTO>> getPatientsPreviousExaminations(@PathVariable String id){
         int patientId = Integer.parseInt(id);
         return new ResponseEntity<>(patientChartService.getPatientPreviousExaminations(patientId), HttpStatus.OK);
+    }
+
+    @GetMapping(value="/previousConsultations/{id}")
+        public ResponseEntity<List<ConsultationDTO>> getPatientPreviousConsultations(@PathVariable String id){
+        int patientId = Integer.parseInt(id);
+        return new ResponseEntity<>(patientChartService.getPatientPreviousConsultations(patientId), HttpStatus.OK);
+    }
+
+    @GetMapping(value="/eRecipe/{id}")
+    public ResponseEntity<List<ERecipeDTO>> getPatientERecipes(@PathVariable String id){
+        int patientId = Integer.parseInt(id);
+        return new ResponseEntity<>(patientChartService.getPatientERecipes(patientId), HttpStatus.OK);
     }
 }

@@ -25,11 +25,10 @@ public class Bill {
     private float price;
     private LocalDateTime date;
 
-    public Bill(Medicine medicine, Pharmacy pharmacy, float price, LocalDateTime date)
-    {
+    public Bill(Medicine medicine, Pharmacy pharmacy, float price, LocalDateTime date){
         this.medicine = medicine;
         this.pharmacy = pharmacy;
-        this.price = price;
-        this.date = date;
+        this.price=price;
+        this.date=date;
     }
 }

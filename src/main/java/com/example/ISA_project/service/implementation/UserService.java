@@ -20,7 +20,7 @@ public class UserService implements IUserService {
 
     public ProfileDTO editUser(ProfileDTO profile) {
        User user = userRepository.findOneByEmail(profile.getEmail());
-       Address address= user.getAddress(); //clean code??
+       Address address= user.getAddress();
         address.setStreet(profile.getAddress());
         address.setState(profile.getState());
         address.setTown(profile.getTown());

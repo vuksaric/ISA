@@ -14,9 +14,10 @@ import { PatientService } from 'src/app/services/patient.service';
 })
 export class PatientProfileComponent implements OnInit {
   confirmModal?: NzModalRef;
-
+  listOfPoints = [];
   listOfData : Allergy[] = [];
   listOfOptions : Allergy[] =[];
+  isVisiblePoint = false;
  
   
   profile: Profile;
@@ -25,6 +26,7 @@ export class PatientProfileComponent implements OnInit {
   isVisible = false;
   nzVisible = false;
   value : String;
+  points : number;
   
   constructor(private patientService: PatientService, private patientChartService: PatientChartService,
     private medicineService : MedicineService, private modal: NzModalService, private router: Router) { }
@@ -54,6 +56,8 @@ export class PatientProfileComponent implements OnInit {
         {title : 'Allergies', description: names}
       ];
     })
+
+    this.patientService.getPenaltyPoints(1).subscribe(data=>{this.listOfPoints=data; this.points= this.listOfPoints.length});
   }
   
   add(): void {
@@ -90,6 +94,12 @@ export class PatientProfileComponent implements OnInit {
 
   edit(){
     this.router.navigate(['homepage/userProfile']);
+  }
+  viewPoints(){
+    this.isVisiblePoint=true;
+  }
+  handlePoint(): void {
+    this.isVisiblePoint=false;
   }
 
 }

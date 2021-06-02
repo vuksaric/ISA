@@ -28,7 +28,7 @@ export class ViewPharmaciesComponent implements OnInit {
       compare: (a: Pharmacy, b: Pharmacy) => a.town.localeCompare(b.town),
       priority: 1,
       filterMultiple: true,
-      listOfFilter: [
+      listOfFilter:[
         { text: 'Beograd', value: 'Beograd' },
         { text: 'Novi Sad', value: 'Novi Sad' }
       ],
@@ -58,28 +58,12 @@ export class ViewPharmaciesComponent implements OnInit {
   constructor( private pharmacyService: PharmacyService) { }
 
   loadPharmacies(): void{
-    
-     
       this.pharmacyService.getPharmacies().subscribe((pharmacies: Pharmacy[]) => {
-        this.listOfData = pharmacies;
-        /*pharmacies.forEach(element => {
-          var num = this.listOfFilterTown.push({text:element.town, value:element.town});
-          console.log(num);
-          const found = this.listOfColumn.find(item=> item.title=="Town");
-          console.log(found);
-          found.listOfFilter=this.listOfFilterTown;
-          console.log(this.listOfColumn);
-        });*/
-      });
-     
-    
-    
-      //this.pharmacyService.subscribedPharmacies(1).subscribe((pharmacies: Pharmacy[])=>{console.log(pharmacies)}); //promeniti view 
+        this.listOfData = pharmacies;});
   }
 
   ngOnInit(): void {
    
-    
    this.loadPharmacies();
   }
 

@@ -5,9 +5,15 @@ import com.example.ISA_project.model.Consultation;
 import com.example.ISA_project.model.Examination;
 import com.example.ISA_project.model.Patient;
 import com.example.ISA_project.model.Reservation;
+
 import com.example.ISA_project.model.dto.PatientSearchDTO;
+
+import com.example.ISA_project.model.dto.PenaltyDTO;
+
 import com.example.ISA_project.model.dto.ProfileDTO;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IPatientService {
@@ -17,6 +23,11 @@ public interface IPatientService {
     void saveExamination(Examination examination);
     Patient findOneById(int id);
     void addReservation(int id, Reservation reservation);
+
     void saveFutureConsultation(Consultation consultation);
     void saveFutureExamination(Examination examination);
+
+    List<PenaltyDTO> getPatientPenaltyPoints(int id);
+
+
 }

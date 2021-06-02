@@ -1,9 +1,15 @@
 package com.example.ISA_project.service.implementation;
 
+
 import com.example.ISA_project.model.*;
+import com.example.ISA_project.model.Bill;
+import com.example.ISA_project.model.MedicineQuantity;
+import com.example.ISA_project.model.Patient;
+import com.example.ISA_project.model.Pharmacy;
 import com.example.ISA_project.model.dto.MedicineDTO;
 import com.example.ISA_project.model.dto.PharmacyDTO;
 import com.example.ISA_project.repository.PharmacyRepository;
+import com.example.ISA_project.service.IBillService;
 import com.example.ISA_project.service.IMedicineService;
 import com.example.ISA_project.service.IPharmacyService;
 import org.springframework.stereotype.Service;
@@ -15,10 +21,12 @@ import java.util.List;
 public class PharmacyService implements IPharmacyService {
     private final PharmacyRepository pharmacyRepository;
     private final IMedicineService medicineService;
+    private final IBillService billService;
 
-    public PharmacyService(PharmacyRepository pharmacyRepository, IMedicineService medicineService){
+    public PharmacyService(PharmacyRepository pharmacyRepository, IMedicineService medicineService, IBillService billService){
         this.pharmacyRepository=pharmacyRepository;
         this.medicineService = medicineService;
+        this.billService = billService;
     }
     @Override
     public List<PharmacyDTO> findAll() {
@@ -123,9 +131,11 @@ public class PharmacyService implements IPharmacyService {
         for(MedicineQuantity medicineQuantity : pharmacy.getMedicines()){
             if(medicineQuantity.getMedicine().getId()==idMedicine){
                 medicineQuantity.setQuantity(medicineQuantity.getQuantity()-1);
+                Bill bill = billService.newBill(medicineQuantity.getMedicine(), pharmacy);
             }
         }
         pharmacyRepository.save(pharmacy);
+
         return pharmacy;
     }
 

@@ -1,0 +1,23 @@
+<div class="center">
+    <nz-table #basicTable nzBordered nzTitle="List of consultations" [nzData]="listOfData">
+        <thead>
+          <tr>
+            
+            <th>Pharmacist</th>
+            <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" 
+            [nzSortPriority]="column.priority" >{{ column.title }}</th>
+            
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td>{{data.pharmacist}}</td>
+            <td>{{data.date | date:'yyyy-MM-dd'}}</td>
+            <td>{{data.time}}</td>
+            <td>{{data.mark}}</td>
+            <td>{{data.price}}</td>
+          </tr>
+        </tbody>
+    </nz-table>
+    </div>

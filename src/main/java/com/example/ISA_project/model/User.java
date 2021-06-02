@@ -20,10 +20,10 @@ public class User {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String password;
     private String name;
     private String surname;
     private String email;
-    private String password;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Address address;
     private String phone;
