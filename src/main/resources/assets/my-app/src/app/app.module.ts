@@ -42,6 +42,7 @@ import { RegistrationPharmacyComponent } from './pages/registration-pharmacy/reg
 import { RegistrationAdminComponent } from './pages/registration-admin/registration-admin.component';
 
 import { NzTableModule } from 'ng-zorro-antd/table';
+<<<<<<< HEAD
 import { WorkScheduleDermatologistComponent } from './pages/work-schedule-dermatologist/work-schedule-dermatologist.component';
 import { ExaminationFrontpageComponent } from './pages/examination-frontpage/examination-frontpage.component';
 import { ExaminationReportComponent } from './pages/examination-report/examination-report.component';
@@ -57,6 +58,9 @@ import { ViewSubscribedPharmaciesComponent } from './pages/view-subscribed-pharm
 import { PreviousExaminationsComponent } from './pages/previous-examinations/previous-examinations.component';
 import { ViewReviewsComponent } from './pages/view-reviews/view-reviews.component';
 import { ViewPreviousExaminationsComponent } from './pages/view-previous-examinations/view-previous-examinations.component'
+=======
+import { AddMedicineComponent } from './pages/add-medicine/add-medicine.component';
+>>>>>>> sysAdminHomePage
 
 registerLocaleData(en);
 
@@ -92,6 +96,7 @@ registerLocaleData(en);
     SerachPatientsComponent,
     RegistrationPharmacyComponent,
     RegistrationAdminComponent,
+<<<<<<< HEAD
     WorkScheduleDermatologistComponent,
     ExaminationFrontpageComponent,
     ExaminationReportComponent,
@@ -106,6 +111,9 @@ registerLocaleData(en);
 
     ViewReviewsComponent,
     ViewPreviousExaminationsComponent,
+=======
+    AddMedicineComponent,
+>>>>>>> sysAdminHomePage
   ],
   imports: [
     BrowserModule,

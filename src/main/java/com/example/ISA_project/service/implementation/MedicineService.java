@@ -112,5 +112,28 @@ public class MedicineService implements IMedicineService {
         return medicineRepository.getAllByName(name);
     }
 
+    @Override
+    public Boolean addMedicine(Medicine medicine){
+        try{
+            Medicine m = medicineRepository.save(medicine);
+            if (m!=null)
+                return true;
+            else return false;
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 
+    @Override
+    public List<Medicine> getByType(String type){
+        System.out.println(type);
+        List<Medicine> retVal = new ArrayList<>();
+        try{
+            retVal.addAll(medicineRepository.getAllByType(type));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return retVal;
+    }
 }

@@ -9,4 +9,8 @@ export class Profile {
     public  phone : string;
     public type : string;
     public date : Date;
+<<<<<<< HEAD
+=======
+
+>>>>>>> sysAdminHomePage
 }
