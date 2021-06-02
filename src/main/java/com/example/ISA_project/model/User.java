@@ -20,7 +20,6 @@ public class User {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    //private String username;
     private String password;
     private String name;
     private String surname;

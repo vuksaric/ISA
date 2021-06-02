@@ -20,8 +20,8 @@ public class ExaminationDTO {
     private float id;
     private boolean canBeCanceled;
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("HH:mm"); //h:mm a
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("HH:mm"); //h:mm a
 
     public ExaminationDTO(Examination examination){
        this.dermatologist = examination.getDermatologist().getFullName();

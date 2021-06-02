@@ -29,4 +29,7 @@ public class PatientChart {
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="PatientChart_ID")
     private List<Reservation> reservations;
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="PatientChart_ID")
+    private List<ERecipe> eRecipes;
 }

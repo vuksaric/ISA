@@ -1,5 +1,6 @@
 package com.example.ISA_project.controller;
 
+import com.example.ISA_project.model.dto.PenaltyDTO;
 import com.example.ISA_project.model.dto.ProfileDTO;
 import com.example.ISA_project.service.IPatientService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,6 +19,7 @@ public class PatientController {
     public PatientController(IPatientService patientService){
         this.patientService=patientService;
     }
+
     @GetMapping(value="/{id}")
     public ProfileDTO getPatientInfo(@PathVariable String id){
         Integer profileId = Integer.parseInt(id);
@@ -28,4 +31,11 @@ public class PatientController {
     {
         return patientService.getPatientNames();
     }
+
+    @GetMapping(value="/penaltyPoints/{id}")
+    public List<PenaltyDTO> getPatientPenaltyPoints(@PathVariable String id){
+        Integer profileId = Integer.parseInt(id);
+        return patientService.getPatientPenaltyPoints(profileId);
+    }
+
 }

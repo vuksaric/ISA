@@ -1,10 +1,7 @@
 package com.example.ISA_project.service.implementation;
 
 import com.example.ISA_project.model.*;
-import com.example.ISA_project.model.dto.ExaminationDTO;
-import com.example.ISA_project.model.dto.FutureReservationDTO;
-import com.example.ISA_project.model.dto.MedicineAllergyDTO;
-import com.example.ISA_project.model.dto.ReviewObjectDTO;
+import com.example.ISA_project.model.dto.*;
 import com.example.ISA_project.repository.MedicineRepository;
 import com.example.ISA_project.repository.PatientChartRepository;
 import com.example.ISA_project.service.IMedicineService;
@@ -111,19 +108,14 @@ public class PatientChartService implements IPatientChartService {
     }
 
     @Override
-    public List<ReviewObjectDTO> getPatientMedicine(int idPatient) {
+    public Set<ReviewObjectDTO> getPatientMedicine(int idPatient) {
         List<ReviewObjectDTO> reviewObjectDTOS = new ArrayList<>();
         PatientChart patientChart = patientChartRepository.findOneById(findPatientChartId(idPatient));
-        for(Reservation reservation : patientChart.getReservations()){
-            if(reservation.isIssued()){
-                ReviewObjectDTO r = new ReviewObjectDTO(reservation.getMedicine().getId(),
-                        reservation.getMedicine().getMedicineInformation());
-                if(!reviewObjectDTOS.contains(r))
-                    reviewObjectDTOS.add(r);
-            }
 
-        }
-        return reviewObjectDTOS;
+        reviewObjectDTOS.addAll(findReservationMedicine(patientChart.getReservations()));
+        reviewObjectDTOS.addAll(findERecipeMedicine(patientChart.getERecipes()));
+
+        return new HashSet<>(reviewObjectDTOS);
     }
 
     @Override
@@ -134,6 +126,7 @@ public class PatientChartService implements IPatientChartService {
         reviewObjectDTOS.addAll(findReservationPharmacy(patientChart.getReservations()));
         reviewObjectDTOS.addAll(findExaminationPharmacy(patientChart.getPreviousExaminations()));
         reviewObjectDTOS.addAll(findConsultationPharmacy(patientChart.getPreviousConsultations()));
+        reviewObjectDTOS.addAll(findERecipePharmacy(patientChart.getERecipes()));
 
         return new HashSet<>(reviewObjectDTOS);
     }
@@ -150,6 +143,66 @@ public class PatientChartService implements IPatientChartService {
         return examinationDTOS;
     }
 
+    @Override
+    public List<ConsultationDTO> getPatientPreviousConsultations(int id) {
+        List<ConsultationDTO> consultationDTOS = new ArrayList<>();
+        PatientChart patientChart = patientChartRepository.findOneById(findPatientChartId(id));
+
+        for(Consultation consultation : patientChart.getPreviousConsultations()){
+            consultationDTOS.add(new ConsultationDTO(consultation));
+        }
+
+        return consultationDTOS;
+    }
+
+    @Override
+    public List<ERecipeDTO> getPatientERecipes(int id) {
+        List<ERecipeDTO> eRecipeDTOS = new ArrayList<>();
+        PatientChart patientChart = patientChartRepository.findOneById(findPatientChartId(id));
+
+        for(ERecipe eRecipe : patientChart.getERecipes()){
+            eRecipeDTOS.add(new ERecipeDTO(eRecipe));
+        }
+
+        return eRecipeDTOS;
+    }
+
+    @Override
+    public Set<MedicineDTO> getPatientERecipeMedicines(int id) {
+        List<MedicineDTO> medicineDTOS = new ArrayList<>();
+        PatientChart patientChart = patientChartRepository.findOneById(findPatientChartId(id));
+        for(ERecipe eRecipe : patientChart.getERecipes()){
+            for(MedicineQuantity medicineQuantity : eRecipe.getMedicines()) {
+                medicineDTOS.add(new MedicineDTO(medicineQuantity.getMedicine()));
+            }
+        }
+        return new HashSet<>(medicineDTOS);
+    }
+
+    private Set<ReviewObjectDTO> findReservationMedicine(List<Reservation> reservations){
+        List<ReviewObjectDTO> reviewObjectDTOS = new ArrayList<>();
+        for(Reservation reservation : reservations){
+            if(reservation.isIssued()){
+                ReviewObjectDTO r = new ReviewObjectDTO(reservation.getMedicine().getId(),
+                        reservation.getMedicine().getMedicineInformation());
+                reviewObjectDTOS.add(r);
+            }
+        }
+        return new HashSet<>(reviewObjectDTOS);
+    }
+
+    private Set<ReviewObjectDTO> findERecipeMedicine(List<ERecipe> eRecipes){
+        List<ReviewObjectDTO> reviewObjectDTOS = new ArrayList<>();
+        for(ERecipe eRecipe : eRecipes){
+            for(MedicineQuantity medicineQuantity : eRecipe.getMedicines()) {
+                ReviewObjectDTO r = new ReviewObjectDTO(medicineQuantity.getMedicine().getId(),
+                        medicineQuantity.getMedicine().getMedicineInformation());
+                reviewObjectDTOS.add(r);
+            }
+        }
+        return new HashSet<>(reviewObjectDTOS);
+    }
+
     private Set<ReviewObjectDTO> findReservationPharmacy(List<Reservation> reservations){
         List<ReviewObjectDTO> reviewObjectDTOS = new ArrayList<>();
         for(Reservation reservation : reservations){
@@ -158,6 +211,15 @@ public class PatientChartService implements IPatientChartService {
                         reservation.getPharmacy().getName() + "; " + reservation.getPharmacy().getAddress().getFullAdress());
                 reviewObjectDTOS.add(r);
             }
+        }
+        return new HashSet<>(reviewObjectDTOS);
+    }
+    private Set<ReviewObjectDTO> findERecipePharmacy(List<ERecipe> eRecipes){
+        List<ReviewObjectDTO> reviewObjectDTOS = new ArrayList<>();
+        for(ERecipe eRecipe : eRecipes){
+            ReviewObjectDTO r = new ReviewObjectDTO(eRecipe.getPharmacy().getId(),
+                    eRecipe.getPharmacy().getName() + "; " + eRecipe.getPharmacy().getAddress().getFullAdress());
+            reviewObjectDTOS.add(r);
         }
         return new HashSet<>(reviewObjectDTOS);
     }
