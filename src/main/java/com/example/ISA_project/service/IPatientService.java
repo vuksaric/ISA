@@ -17,4 +17,6 @@ public interface IPatientService {
     void saveExamination(Examination examination);
     Patient findOneById(int id);
     void addReservation(int id, Reservation reservation);
+    void saveFutureConsultation(Consultation consultation);
+    void saveFutureExamination(Examination examination);
 }

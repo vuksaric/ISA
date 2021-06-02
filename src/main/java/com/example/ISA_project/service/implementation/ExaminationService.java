@@ -10,6 +10,8 @@ import com.example.ISA_project.service.*;
 import com.example.ISA_project.service.IExaminationService;
 import com.example.ISA_project.service.IPatientService;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,16 +24,23 @@ public class ExaminationService implements IExaminationService {
     private final IReportService reportService;
     private final IMedicineService medicineService;
     private final IPatientService patientService;
+    private final IBillService billService;
+    private final IDermatologistService dermatologistService;
+    private final IPatientChartService patientChartService;
 
 
     public ExaminationService(ExaminationRepository examinationRepository, IPharmacyService pharmacyService, IReportService reportService,
-                              IMedicineService medicineService, IPatientService patientService)
+                              IMedicineService medicineService, IPatientService patientService, IBillService billService,
+                              IDermatologistService dermatologistService, IPatientChartService patientChartService)
     {
         this.examinationRepository=examinationRepository;
         this.pharmacyService = pharmacyService;
         this.reportService = reportService;
         this.medicineService = medicineService;
         this.patientService = patientService;
+        this.billService = billService;
+        this.dermatologistService = dermatologistService;
+        this.patientChartService = patientChartService;
     }
 
 
@@ -94,6 +103,8 @@ public class ExaminationService implements IExaminationService {
         return result;
     }
 
+
+
     @Override
     public List<MedicineDTO> getMedicines(int id) {
         Examination examination = examinationRepository.findExaminationById(id);
@@ -137,24 +148,44 @@ public class ExaminationService implements IExaminationService {
         examination.setDiagnosis(request.getDiagnosis());
         examination.setReport(report);
         examination.setDone(true);
+        billService.newBill(report.getTherapy().getMedicine(),examination.getPharmacy());
         return new ExaminationDTO(examinationRepository.save(examination));
     }
 
+
     @Override
-    public List<Period> freePeriodsPatient(List<Period> periods, int id) {
-        List<Examination> examinations = examinationRepository.findAllFutureByPatient(id);
-        for(Examination examination : examinations)
+    public List<Period> freePeriods(int id, LocalDate date) {
+        Examination examination = examinationRepository.findExaminationById(id);
+        List<Period> periods = dermatologistService.freePeriods(examination.getDermatologist().getId(),date,examination.getPharmacy().getId());
+        periods = patientChartService.freePeriods(periods,examination.getPatient().getPatientChart().getId());
+        return periods;
+    }
+
+    @Override
+    public AppointmentDTO newExaminationDermatologist(AppointmentRequest request) {
+        Examination examination = examinationRepository.findExaminationById(request.getConsultationId());
+        List<Examination> examinations = examinationRepository.findAll();
+        Examination newExamination = null;
+        for(Examination e : examinations)
         {
-            for(Period period : periods)
+            if(e.getDate().getStart_date().equals(request.getPeriod().getStart_date()))
             {
-                if(examination.getDate().getStart_date().equals(period.getStart_date())) {
-                    periods.remove(period);
-                    break;
-                }
+                e.setFree(false);
+                e.setPatient(examination.getPatient());
+                e.setDermatologist(examination.getDermatologist());
+                newExamination = e;
+                break;
             }
         }
 
-        return periods;
+        if(newExamination == null)
+             newExamination = new Examination(request.getPeriod(),examination.getPharmacy(),examination.getDermatologist(),examination.getPatient(),examination.getPrice());
+
+        Examination result = examinationRepository.save(newExamination);
+        dermatologistService.addNewExamination(result);
+        patientService.saveFutureExamination(result);
+        return new AppointmentDTO(result);
     }
+
 
 }

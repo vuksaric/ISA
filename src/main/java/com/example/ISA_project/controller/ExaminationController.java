@@ -1,6 +1,7 @@
 package com.example.ISA_project.controller;
 
 import com.example.ISA_project.model.Consultation;
+import com.example.ISA_project.model.Period;
 import com.example.ISA_project.model.dto.*;
 import com.example.ISA_project.repository.PatientRepository;
 import com.example.ISA_project.service.IExaminationService;
@@ -77,5 +78,17 @@ public class ExaminationController {
     public ResponseEntity<List<PreviousAppointmentDTO>> getPreviousByDermatologist(@PathVariable String id){
         int idDermatologist = Integer.parseInt(id);
         return new ResponseEntity<>(examinationService.getAllPreviousByDermatologist(idDermatologist), HttpStatus.OK);
+    }
+
+    @PostMapping("/freePeriods")
+    public List<Period> freePeriods(@RequestBody PeriodsRequest request){
+        int idExamination = Integer.parseInt(request.getId());
+        return examinationService.freePeriods(idExamination, request.getDate());
+    }
+
+    @PostMapping("/newDermatologist")
+    public AppointmentDTO newConsultationPharmacist(@RequestBody AppointmentRequest request){
+
+        return examinationService.newExaminationDermatologist(request);
     }
 }

@@ -70,5 +70,19 @@ public class PatientService implements IPatientService {
         patientRepository.save(patient);
     }
 
+    @Override
+    public void saveFutureConsultation(Consultation consultation) {
+        Patient patient = patientRepository.findOneById(consultation.getPatient().getId());
+        patient.getPatientChart().getFutureConsultations().add(consultation);
+        patientRepository.save(patient);
+    }
+
+    @Override
+    public void saveFutureExamination(Examination examination) {
+        Patient patient = patientRepository.findOneById(examination.getPatient().getId());
+        patient.getPatientChart().getFutureExaminations().add(examination);
+        patientRepository.save(patient);
+    }
+
 
 }

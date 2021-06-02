@@ -21,6 +21,7 @@ export class ConsultationReportComponent implements OnInit {
   id : String;
   medicineSpecification: any;
   isVisible = false;
+  isVisibleNew = false;
   body : any;
   prescribed  = false;
   medicineId : number;
@@ -33,7 +34,6 @@ export class ConsultationReportComponent implements OnInit {
 
       this.validateForm = this.fb.group({
         information: ['', [Validators.required]],
-        diagnosis: ['', [Validators.required]],
         days: ['', [Validators.required]]
       })
     }
@@ -139,4 +139,12 @@ export class ConsultationReportComponent implements OnInit {
     console.log('Button ok clicked!');
     this.isVisible = false;
   }
+
+  new()
+  {
+    this.finish();
+    this.router.navigate(['newConsultationPharmacist/' + this.id]);
+  }
+
+  
 }

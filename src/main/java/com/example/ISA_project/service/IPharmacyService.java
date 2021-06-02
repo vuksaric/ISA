@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface IPharmacyService {
     List<PharmacyDTO> findAll();
+    List<PharmacyDTO> findAllDermatologist(int id);
     Boolean registerPharmacy(Pharmacy pharmacy);
     boolean prescribeMedicine(int idPharmacy, int idMedicine);
     List<MedicineDTO> getReplacements(int idPharmacy, int idMedicine);

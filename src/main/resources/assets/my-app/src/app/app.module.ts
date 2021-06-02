@@ -56,7 +56,9 @@ import { NewConsultationPatientComponent } from './pages/new-consultation-patien
 import { ViewSubscribedPharmaciesComponent } from './pages/view-subscribed-pharmacies/view-subscribed-pharmacies.component';
 import { PreviousExaminationsComponent } from './pages/previous-examinations/previous-examinations.component';
 import { ViewReviewsComponent } from './pages/view-reviews/view-reviews.component';
-import { ViewPreviousExaminationsComponent } from './pages/view-previous-examinations/view-previous-examinations.component'
+import { ViewPreviousExaminationsComponent } from './pages/view-previous-examinations/view-previous-examinations.component';
+import { NewExaminationDermatologistComponent } from './pages/new-examination-dermatologist/new-examination-dermatologist.component';
+import { ProfilePatientDoctorComponent } from './pages/profile-patient-doctor/profile-patient-doctor.component'
 
 registerLocaleData(en);
 
@@ -106,6 +108,8 @@ registerLocaleData(en);
 
     ViewReviewsComponent,
     ViewPreviousExaminationsComponent,
+    NewExaminationDermatologistComponent,
+    ProfilePatientDoctorComponent,
   ],
   imports: [
     BrowserModule,

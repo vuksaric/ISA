@@ -37,4 +37,10 @@ public class PharmacyController {
         int idPatient = Integer.parseInt(id);
         return pharmacyService.subscribedPharmacies(idPatient);
     }
+
+    @GetMapping(value="/allDermatologist/{id}")
+    public List<PharmacyDTO> findAllDermatologist(@PathVariable String id){
+        int idDermatologist = Integer.parseInt(id);
+        return pharmacyService.findAllDermatologist(idDermatologist);
+    }
 }

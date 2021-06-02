@@ -13,7 +13,7 @@ nz-date-picker {
     width: 300px;
   }
 
-  input
+  nz-select
   {
     margin: auto;
     display: block;

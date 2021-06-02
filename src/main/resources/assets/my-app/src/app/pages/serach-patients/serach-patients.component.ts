@@ -28,7 +28,7 @@ export class SerachPatientsComponent implements OnInit {
     });
 
     this.isVisible = false;
-    this.type = "Dermatologist";
+    this.type = "Pharmacist";
   }
 
   search() : void

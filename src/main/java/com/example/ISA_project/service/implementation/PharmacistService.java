@@ -7,6 +7,8 @@ import com.example.ISA_project.model.dto.ReservationDTO;
 import com.example.ISA_project.model.dto.WorkDayDTO;
 import com.example.ISA_project.repository.ConsultationRepository;
 import com.example.ISA_project.repository.PharmacistRepository;
+import com.example.ISA_project.service.IConsultationService;
+import com.example.ISA_project.service.IExaminationService;
 import com.example.ISA_project.service.IPharmacistService;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +21,13 @@ import java.util.List;
 public class PharmacistService implements IPharmacistService {
 
     private final PharmacistRepository pharmacistRepository;
-    private final ConsultationRepository consultationRepository;
     private final UserService userService;
     private final ReservationService reservationService;
 
 
-    public PharmacistService(PharmacistRepository pharmacistRepository, ConsultationRepository consultationRepository, UserService userService, ReservationService reservationService) {
+
+    public PharmacistService(PharmacistRepository pharmacistRepository, UserService userService, ReservationService reservationService) {
         this.pharmacistRepository = pharmacistRepository;
-        this.consultationRepository = consultationRepository;
         this.userService = userService;
         this.reservationService = reservationService;
     }
@@ -85,22 +86,33 @@ public class PharmacistService implements IPharmacistService {
             }
         }
 
-            if (workday == null) {
-                return periods;
-            }
+        if (workday == null) {
+            return periods;
+        }
 
-            periods = getPeriods(workday, pharmacist.getWorkingHours());
+        periods = getPeriods(workday, pharmacist.getWorkingHours());
 
-            for (Consultation consultation : workday.getConsultations()) {
-                for (Period period : periods) {
-                    if (consultation.getPeriod().getStart_date().equals(period.getStart_date())) {
-                        periods.remove(period);
-                        break;
-                    }
+        for (Consultation consultation : workday.getConsultations()) {
+            for (Period period : periods) {
+                if (consultation.getPeriod().getStart_date().equals(period.getStart_date())) {
+                    periods.remove(period);
+                    break;
                 }
             }
-
-
+        }
         return periods;
+    }
+
+    @Override
+    public void addNewConsultation(Consultation consultation) {
+        Pharmacist pharmacist = pharmacistRepository.findOneById(consultation.getPharmacist().getId());
+        for(WorkdayPharmacist workdayPharmacist : pharmacist.getWorkdays())
+        {
+            if(consultation.getPeriod().getStart_date().toLocalDate().equals(workdayPharmacist.getDate())) {
+                workdayPharmacist.getConsultations().add(consultation);
+                break;
+            }
+        }
+        pharmacistRepository.save(pharmacist);
     }
 }

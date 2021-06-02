@@ -1,4 +1,4 @@
-<h1>New consultation</h1>
+<h1>New examination</h1>
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submit()">
   <nz-form-control>
     <nz-date-picker [(ngModel)]="date" formControlName="date" (ngModelChange)="onChange($event)"></nz-date-picker>
@@ -8,5 +8,5 @@
         <nz-option *ngFor = "let data of periods"  [nzValue]="data" nzLabel="{{data.start_date[3]}}:{{data.start_date[4]}} - {{data.end_date[3]}}:{{data.end_date[4]}} "></nz-option>
     </nz-select>
   </nz-form-control>
-  <button nz-button nzType="default" nzBlock>Schedule consultation</button>
+  <button nz-button nzType="default" nzBlock>Schedule examination</button>
 </form>

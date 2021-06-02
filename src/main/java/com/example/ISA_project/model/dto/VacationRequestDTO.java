@@ -15,6 +15,6 @@ public class VacationRequestDTO {
     private LocalDateTime start_date;
     private LocalDateTime end_date;
     private UserType user_type;
-    private String pharmacy_name;
+    private int pharmacy_id;
     private int user_id;
 }

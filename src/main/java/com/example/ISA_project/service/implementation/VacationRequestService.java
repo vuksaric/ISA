@@ -24,8 +24,8 @@ public class VacationRequestService implements IVacationRequestService {
 
 
     public VacationRequest sendVacationRequestPharmacist(VacationRequestDTO request) {
-        request.setUser_type(UserType.Pharmacist);
-        Pharmacy pharmacy = pharmacyService.getByName(request.getPharmacy_name());
+        //request.setUser_type(UserType.Pharmacist);
+        Pharmacy pharmacy = pharmacyService.findOneById(request.getPharmacy_id());
         VacationRequest vacationRequest = new VacationRequest(request.getStart_date(),request.getEnd_date(),request.getUser_type()
                 ,pharmacy.getId(),request.getUser_id());
         return vacationRequestRepository.save(vacationRequest);

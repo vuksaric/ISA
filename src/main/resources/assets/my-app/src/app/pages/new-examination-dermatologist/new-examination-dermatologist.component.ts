@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConsultationService } from 'src/app/services/consultation.service';
+import { ExaminationService } from 'src/app/services/examination.service';
 
 @Component({
-  selector: 'app-new-consultation-pharmacist',
-  templateUrl: './new-consultation-pharmacist.component.html',
-  styleUrls: ['./new-consultation-pharmacist.component.css']
+  selector: 'app-new-examination-dermatologist',
+  templateUrl: './new-examination-dermatologist.component.html',
+  styleUrls: ['./new-examination-dermatologist.component.css']
 })
-export class NewConsultationPharmacistComponent implements OnInit {
+export class NewExaminationDermatologistComponent implements OnInit {
+
   date = null;
   period : any;
   id : String;
   periods : any[];
   body : any;
   validateForm: FormGroup;
-  constructor(private router: Router,private activatedRoute: ActivatedRoute, private fb: FormBuilder, private consultationService: ConsultationService) { }
+  constructor(private router: Router,private activatedRoute: ActivatedRoute, private fb: FormBuilder, private examinationService: ExaminationService) { }
 
   ngOnInit(): void {
     this.id= this.activatedRoute.snapshot.paramMap.get('id');
@@ -33,7 +34,7 @@ export class NewConsultationPharmacistComponent implements OnInit {
       date : this.date
     }
 
-    this.consultationService.getFreePeriods(this.body).subscribe(data => { console.log(data); 
+    this.examinationService.getFreePeriods(this.body).subscribe(data => { console.log(data); 
       
       if(data.length != 0)
       {
@@ -46,6 +47,8 @@ export class NewConsultationPharmacistComponent implements OnInit {
         
     });
   }
+
+  
 
   submit()
   {
@@ -61,9 +64,9 @@ export class NewConsultationPharmacistComponent implements OnInit {
 
     if(this.validateForm.valid)
     {
-      this.consultationService.newPharmacist(this.body).subscribe(data => { console.log(data); 
+      this.examinationService.newDermatologist(this.body).subscribe(data => { console.log(data); 
       });
-      alert("You have scheduled a follow up a consultation!");
+      alert("You have scheduled a follow up a examination!");
       this.router.navigate(['homePagePharmacist']);
     }
     else
@@ -71,6 +74,7 @@ export class NewConsultationPharmacistComponent implements OnInit {
       alert("All fields must be filled");
     }
   }
+
 
 
 }

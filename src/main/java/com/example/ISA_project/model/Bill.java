@@ -24,4 +24,12 @@ public class Bill {
     private Pharmacy pharmacy;
     private float price;
     private LocalDateTime date;
+
+    public Bill(Medicine medicine, Pharmacy pharmacy, float price, LocalDateTime date)
+    {
+        this.medicine = medicine;
+        this.pharmacy = pharmacy;
+        this.price = price;
+        this.date = date;
+    }
 }

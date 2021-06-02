@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface PriceListMedicineRepository extends JpaRepository<PricelistMedicine, Integer> {
 
-    @Query(nativeQuery = true, value="select p from PriceListMedicine p where p.medicine_id=?1 and p.pharmacy_id=?2")
+    @Query("select m from PricelistMedicine m where m.medicine.id=?1 and m.pharmacy.id = ?2")
     PricelistMedicine find(int medicineId, int pharmacyId);
 }

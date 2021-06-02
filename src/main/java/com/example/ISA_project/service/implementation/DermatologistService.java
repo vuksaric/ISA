@@ -4,9 +4,12 @@ import com.example.ISA_project.model.*;
 import com.example.ISA_project.model.dto.AppointmentDTO;
 import com.example.ISA_project.model.dto.WorkDayDTO;
 import com.example.ISA_project.repository.DermatologistRepository;
+import com.example.ISA_project.service.IConsultationService;
 import com.example.ISA_project.service.IDermatologistService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,5 +35,78 @@ public class DermatologistService implements IDermatologistService {
             result.add(new WorkDayDTO(workday.getId(),workday.getDate(),appointmentDTOS));
         }
         return result;
+    }
+
+    public List<Period> getPeriods(WorkdayDermatologist workday, WorkingHours workingHours) {
+        boolean check = false;
+        List<Period> periods = new ArrayList<>();
+
+        LocalDateTime start = LocalDateTime.of(workday.getDate(), workingHours.getStartTime());
+        LocalDateTime end = LocalDateTime.of(workday.getDate(), workingHours.getEndTime());
+        LocalDateTime end_period = start.plusMinutes(30);
+        while (!check) {
+            periods.add(new Period(start, start.plusMinutes(30)));
+            start = start.plusMinutes(30);
+            end_period = end_period.plusMinutes(30);
+            check = end.isEqual(start);
+        }
+        return periods;
+    }
+
+    @Override
+    public List<Period> freePeriods(int id, LocalDate date, int pharmacyId) {
+        Dermatologist dermatologist = dermatologistRepository.findOneById(id);
+        WorkdayDermatologist workday = null;
+        List<Period> periods = new ArrayList<>();
+
+        for (WorkdayDermatologist workdayDermatologist : dermatologist.getWorkdays()) {
+            if (workdayDermatologist.getDate().equals(date)) {
+                workday = workdayDermatologist;
+                break;
+            }
+        }
+
+        if (workday == null) {
+            return periods;
+        }
+        WorkingHours workingHours = null;
+
+        for(WorkingHours wh : dermatologist.getWorkingHours())
+        {
+            if(wh.getPharmacy().getId() == pharmacyId)
+            {
+                workingHours = wh;
+                break;
+            }
+        }
+
+        if (workingHours == null) {
+            return periods;
+        }
+
+        periods = getPeriods(workday, workingHours);
+
+        for (Examination examination : workday.getExaminations()) {
+            for (Period period : periods) {
+                if (examination.getDate().getStart_date().equals(period.getStart_date())) {
+                    periods.remove(period);
+                    break;
+                }
+            }
+        }
+        return periods;
+    }
+
+    @Override
+    public void addNewExamination(Examination examination) {
+        Dermatologist dermatologist = dermatologistRepository.findOneById(examination.getDermatologist().getId());
+        for(WorkdayDermatologist workdayDermatologist : dermatologist.getWorkdays())
+        {
+            if(examination.getDate().getStart_date().toLocalDate().equals(workdayDermatologist.getDate())) {
+                workdayDermatologist.getExaminations().add(examination);
+                break;
+            }
+        }
+        dermatologistRepository.save(dermatologist);
     }
 }

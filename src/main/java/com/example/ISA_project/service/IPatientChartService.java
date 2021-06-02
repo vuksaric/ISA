@@ -1,5 +1,6 @@
 package com.example.ISA_project.service;
 
+import com.example.ISA_project.model.Period;
 import com.example.ISA_project.model.dto.*;
 
 import java.util.List;
@@ -16,4 +17,5 @@ public interface IPatientChartService {
     List<ReviewObjectDTO> getPatientMedicine(int idPatient);
     Set<ReviewObjectDTO> getPatientPharmacy(int idPatient);
     List<ExaminationDTO> getPatientPreviousExaminations(int id);
+    List<Period> freePeriods(List<Period> periods, int id);
 }

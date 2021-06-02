@@ -1,17 +1,16 @@
 package com.example.ISA_project.model.dto;
 
+
+import com.example.ISA_project.model.Period;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PeriodsRequest {
+public class AppointmentRequest {
 
-    private String id;
-    private LocalDate date;
-    private int pharmacyId;
+    private Period period;
+    private int consultationId;
 }

@@ -29,4 +29,10 @@ public class PatientChart {
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="PatientChart_ID")
     private List<Reservation> reservations;
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="PatientChartFuture_ID")
+    private List<Examination> futureExaminations;
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="PatientChartFuture_ID")
+    private List<Consultation> futureConsultations;
 }

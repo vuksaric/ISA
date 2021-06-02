@@ -63,4 +63,10 @@ public class ConsultationController {
         int idPharmacist= Integer.parseInt(id);
         return consultationService.getFutureByPatient(idPharmacist);
     }
+
+    @PostMapping("/newPharmacist")
+    public AppointmentDTO newConsultationPharmacist(@RequestBody AppointmentRequest request){
+
+        return consultationService.newConsultationPharmacist(request);
+    }
 }

@@ -142,4 +142,11 @@ export class ExaminationReportComponent implements OnInit {
     this.isVisible = false;
   }
 
+  new()
+  {
+    this.finish();
+    this.router.navigate(['newExaminationDermatologist/' + this.id]);
+  }
+
+
 }

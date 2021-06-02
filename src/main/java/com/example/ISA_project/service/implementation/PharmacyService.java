@@ -1,9 +1,6 @@
 package com.example.ISA_project.service.implementation;
 
-import com.example.ISA_project.model.Medicine;
-import com.example.ISA_project.model.MedicineQuantity;
-import com.example.ISA_project.model.Patient;
-import com.example.ISA_project.model.Pharmacy;
+import com.example.ISA_project.model.*;
 import com.example.ISA_project.model.dto.MedicineDTO;
 import com.example.ISA_project.model.dto.PharmacyDTO;
 import com.example.ISA_project.repository.PharmacyRepository;
@@ -31,6 +28,22 @@ public class PharmacyService implements IPharmacyService {
         }
         return pharmacies;
     }
+
+    @Override
+    public List<PharmacyDTO> findAllDermatologist(int id) {
+        List<PharmacyDTO> pharmacies = new ArrayList<PharmacyDTO>();
+        for (Pharmacy pharmacy: pharmacyRepository.findAll()) {
+            for(Dermatologist dermatologist : pharmacy.getDermatologist())
+            {
+                if(dermatologist.getId() == id) {
+                    pharmacies.add(new PharmacyDTO(pharmacy));
+                    break;
+                }
+            }
+        }
+        return pharmacies;
+    }
+
 
     public Boolean registerPharmacy(Pharmacy pharmacy){
         Pharmacy ph = pharmacyRepository.save(pharmacy);

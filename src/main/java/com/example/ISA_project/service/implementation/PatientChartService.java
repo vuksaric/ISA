@@ -150,6 +150,34 @@ public class PatientChartService implements IPatientChartService {
         return examinationDTOS;
     }
 
+    @Override
+    public List<Period> freePeriods(List<Period> periods, int id) {
+        PatientChart patientChart = patientChartRepository.findOneById(id);
+        for(Consultation consultation : patientChart.getFutureConsultations())
+        {
+            for(Period period : periods)
+            {
+                if(consultation.getPeriod().getStart_date().equals(period.getStart_date())) {
+                    periods.remove(period);
+                    break;
+                }
+            }
+        }
+
+        for(Examination examination : patientChart.getFutureExaminations())
+        {
+            for(Period period : periods)
+            {
+                if(examination.getDate().getStart_date().equals(period.getStart_date())) {
+                    periods.remove(period);
+                    break;
+                }
+            }
+        }
+
+        return periods;
+    }
+
     private Set<ReviewObjectDTO> findReservationPharmacy(List<Reservation> reservations){
         List<ReviewObjectDTO> reviewObjectDTOS = new ArrayList<>();
         for(Reservation reservation : reservations){
