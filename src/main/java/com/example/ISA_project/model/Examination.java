@@ -32,4 +32,13 @@ public class Examination {
     private Pharmacy pharmacy;
     private boolean free;
     private boolean done;
+
+    public Examination(Period period,Pharmacy pharmacy,Dermatologist dermatologist,Patient patient, float price)
+    {
+        this.date = period;
+        this.pharmacy = pharmacy;
+        this.dermatologist = dermatologist;
+        this.patient = patient;
+        this.price = price;
+    }
 }

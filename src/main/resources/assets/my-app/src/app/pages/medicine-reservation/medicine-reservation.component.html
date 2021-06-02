@@ -1,14 +1,14 @@
 
 <div class="search">
     <nz-input-group [nzSuffix]="suffixIconSearch" >
-      <input type="text" nz-input placeholder="input medicine name" [(ngModel)]="searchValue"/>
+      <input type="text" nz-input placeholder="input medicine, type or shape" [(ngModel)]="searchValue"/>
     </nz-input-group>
     <ng-template #suffixIconSearch>
       <i nz-icon nzType="search"></i>
     </ng-template>
-    </div>
+</div>
     <div class="center">
-    <nz-table #basicTable nzBordered nzTitle="List of medicines" [nzData]="listOfData">
+    <nz-table #basicTable nzBordered nzTitle="List of medicines" [nzData]="listOfData | searchMedicine: searchValue" >
         <thead>
           <tr>
             <th>Name</th>
@@ -20,7 +20,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let data of basicTable.data"> <!--| searchFilter: searchValue">-->
+          <tr *ngFor="let data of basicTable.data"> 
             <td>{{data.name}}</td>
             <td>{{data.manufacturer}}</td>
             <td>{{data.type}}</td>
@@ -54,4 +54,4 @@
         </form>
       </ng-container>
     </nz-modal>
-    </div>
+  </div>

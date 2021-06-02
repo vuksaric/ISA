@@ -1,11 +1,8 @@
 package com.example.ISA_project.service.implementation;
 
 import com.example.ISA_project.model.*;
-import com.example.ISA_project.model.dto.MedicineDTO;
-import com.example.ISA_project.model.dto.PreviousConsultationDTO;
-import com.example.ISA_project.model.dto.ReportRequest;
+import com.example.ISA_project.model.dto.*;
 import com.example.ISA_project.repository.ConsultationRepository;
-import com.example.ISA_project.repository.PharmacistRepository;
 import com.example.ISA_project.service.*;
 //import com.example.ISA_project.service.IReportService;
 import org.springframework.stereotype.Service;
@@ -24,11 +21,12 @@ public class ConsultationService implements IConsultationService {
     private final IMedicineService medicineService;
     private final IPatientService patientService;
     private final IPharmacistService pharmacistService;
-    private final IExaminationService examinationService;
+    private final IBillService billService;
+    private final IPatientChartService patientChartService;
 
     public ConsultationService(ConsultationRepository consultationRepository, IPharmacyService pharmacyService, IReportService reportService,
                                IMedicineService medicineService,IPatientService patientService, IPharmacistService pharmacistService,
-                               IExaminationService examinationService)
+                               IBillService billService, IPatientChartService patientChartService)
     {
         this.consultationRepository = consultationRepository;
         this.pharmacyService = pharmacyService;
@@ -36,18 +34,19 @@ public class ConsultationService implements IConsultationService {
         this.medicineService = medicineService;
         this.patientService = patientService;
         this.pharmacistService = pharmacistService;
-        this.examinationService = examinationService;
+        this.billService = billService;
+        this.patientChartService = patientChartService;
     }
 
     @Override
-    public List<PreviousConsultationDTO> getPreviousByPharmacist(int id) {
+    public List<PreviousAppointmentDTO> getPreviousByPharmacist(int id) {
 
         List<Consultation> consultations= consultationRepository.findAll();
-        List<PreviousConsultationDTO> result = new ArrayList<>();
+        List<PreviousAppointmentDTO> result = new ArrayList<>();
         LocalDateTime today = LocalDateTime.now();
         for(Consultation consultation : consultations) {
             if (consultation.getPharmacist().getId() == id && consultation.getPeriod().getEnd_date().isBefore(today))
-                result.add(new PreviousConsultationDTO(consultation.getPatient().getUser().getId(),consultation.getPatient().getUser().getName(), consultation.getPatient().getUser().getSurname(),
+                result.add(new PreviousAppointmentDTO(consultation.getPatient().getUser().getId(), consultation.getPatient().getId(),consultation.getPatient().getUser().getName(), consultation.getPatient().getUser().getSurname(),
                         consultation.getPatient().getUser().getAddress().getFullAdress(), consultation.getPeriod().getStart_date(), consultation.getPharmacy().getName()));
         }
         return result;
@@ -96,32 +95,40 @@ public class ConsultationService implements IConsultationService {
         patientService.saveConsultation(consultation);
         consultation.setReport(report);
         consultation.setDone(true);
+        billService.newBill(report.getTherapy().getMedicine(),consultation.getPharmacy());
         return consultationRepository.save(consultation);
     }
 
+
     @Override
-    public List<Period> freePeriodsPatient(List<Period> periods, int id) {
+    public List<AppointmentDTO> getFutureByPatient(int id) {
         List<Consultation> consultations = consultationRepository.findAllFutureByPatient(id);
+        List<AppointmentDTO> result = new ArrayList<>();
         for(Consultation consultation : consultations)
         {
-            for(Period period : periods)
-            {
-                if(consultation.getPeriod().getStart_date().equals(period.getStart_date())) {
-                    periods.remove(period);
-                    break;
-                }
-            }
+
+            result.add(new AppointmentDTO(consultation));
         }
 
-        return periods;
+
+        return result;
+    }
+
+    @Override
+    public AppointmentDTO newConsultationPharmacist(AppointmentRequest request) {
+        Consultation consultation = consultationRepository.findOneById(request.getConsultationId());
+        Consultation newConsultation = new Consultation(request.getPeriod(),consultation.getPharmacy(),consultation.getPharmacist(),consultation.getPatient());
+        Consultation result = consultationRepository.save(newConsultation);
+        pharmacistService.addNewConsultation(result);
+        patientService.saveFutureConsultation(result);
+        return new AppointmentDTO(result);
     }
 
     @Override
     public List<Period> freePeriods(int id, LocalDate date) {
         Consultation consultation = consultationRepository.findOneById(id);
         List<Period> periods = pharmacistService.freePeriods(consultation.getPharmacist().getId(),date);
-        periods = freePeriodsPatient(periods,consultation.getPatient().getId());
-        periods = examinationService.freePeriodsPatient(periods,consultation.getPatient().getId());
+        periods = patientChartService.freePeriods(periods,consultation.getPatient().getPatientChart().getId());
         return periods;
     }
 

@@ -1,0 +1,30 @@
+<div class="search">
+    <nz-input-group [nzSuffix]="suffixIconSearch" >
+      <input type="text" nz-input placeholder="input medicine name, type or shape" [(ngModel)]="searchValue"/>
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+</div>
+<div class="center">
+    <nz-table #basicTable nzBordered nzTitle="List of medicines" [nzData]="listOfData | searchMedicine: searchValue" >
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Manufacturer</th>
+            <th>Type</th>
+            <th>Shape</th>
+            <th>IssuingMode</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data"> 
+            <td>{{data.name}}</td>
+            <td>{{data.manufacturer}}</td>
+            <td>{{data.type}}</td>
+            <td>{{data.shape}}</td>
+            <td>{{data.issuingMode}}</td>
+          </tr>
+        </tbody>
+    </nz-table>
+</div>

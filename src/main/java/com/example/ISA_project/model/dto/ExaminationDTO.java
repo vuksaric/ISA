@@ -19,9 +19,12 @@ public class ExaminationDTO {
     private float price;
     private float id;
     private boolean canBeCanceled;
+    private String diagnosis;
+    private String notes;
+    private String medicine;
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("HH:mm"); //h:mm a
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("HH:mm"); //h:mm a
 
     public ExaminationDTO(Examination examination){
        this.dermatologist = examination.getDermatologist().getFullName();
@@ -31,6 +34,9 @@ public class ExaminationDTO {
        this.mark = examination.getDermatologist().getMark();
        this.price = examination.getPrice();
        this.id = examination.getId();
+       this.diagnosis = examination.getDiagnosis();
+       this.notes = examination.getReport().getInformation();
+       this.medicine = examination.getReport().getTherapy().getMedicine().getName();
 
        if(examination.getDate().getStart_date().isAfter(LocalDateTime.now().plusDays(1))){
            this.canBeCanceled= true;

@@ -34,6 +34,7 @@ export class ExaminationReportComponent implements OnInit {
 
       this.validateForm = this.fb.group({
         information: ['', [Validators.required]],
+        diagnosis: ['', [Validators.required]],
         days: ['', [Validators.required]]
       })
     }
@@ -140,5 +141,12 @@ export class ExaminationReportComponent implements OnInit {
     console.log('Button ok clicked!');
     this.isVisible = false;
   }
+
+  new()
+  {
+    this.finish();
+    this.router.navigate(['newExaminationDermatologist/' + this.id]);
+  }
+
 
 }

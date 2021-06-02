@@ -1,0 +1,28 @@
+<div class="center">
+    <nz-table #basicTable nzBordered nzTitle="List of examinations" [nzData]="listOfData">
+        <thead>
+          <tr>
+            
+            <th>Dermatologist</th>
+            <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" 
+            [nzSortPriority]="column.priority" >{{ column.title }}</th>
+            <th>Diagnosis</th>
+            <th>Dermatologist notes</th>
+            <th>Prescribed medicine</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td>{{data.dermatologist}}</td>
+            <td>{{data.date}}</td>
+            <td>{{data.time}}</td>
+            <td>{{data.mark}}</td>
+            <td>{{data.price}}</td>
+            <td>{{data.diagnosis}}</td>
+            <td>{{data.notes}}</td>
+            <td>{{data.medicine}}</td>
+          </tr>
+        </tbody>
+    </nz-table>
+    <button nz-button nzType="default" (click) = "back()" nzBlock>Back to profile</button>
+    </div>

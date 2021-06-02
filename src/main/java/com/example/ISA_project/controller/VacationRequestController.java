@@ -2,6 +2,7 @@ package com.example.ISA_project.controller;
 
 import com.example.ISA_project.model.VacationRequest;
 import com.example.ISA_project.model.dto.VacationDTO;
+import com.example.ISA_project.model.dto.VacationRequestDTO;
 import com.example.ISA_project.service.IVacationRequestService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class VacationRequestController {
     }
 
     @PostMapping(value = "/vacationRequestPharmacist")
-    public VacationRequest sendVacationRequestPharmacist(@RequestBody VacationRequest request){
+    public VacationRequest sendVacationRequestPharmacist(@RequestBody VacationRequestDTO request){
         return vacationRequestService.sendVacationRequestPharmacist(request);
     }
 

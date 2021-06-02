@@ -60,8 +60,19 @@ import { DatePipe } from '@angular/common';
 import { ViewReservationsComponent } from './pages/view-reservations/view-reservations.component';
 import { NewConsultationPatientComponent } from './pages/new-consultation-patient/new-consultation-patient.component';
 import { ViewSubscribedPharmaciesComponent } from './pages/view-subscribed-pharmacies/view-subscribed-pharmacies.component';
+import { PreviousExaminationsComponent } from './pages/previous-examinations/previous-examinations.component';
 import { ViewReviewsComponent } from './pages/view-reviews/view-reviews.component';
-import { ViewPreviousExaminationsComponent } from './pages/view-previous-examinations/view-previous-examinations.component'
+import { ViewPreviousExaminationsComponent } from './pages/view-previous-examinations/view-previous-examinations.component';
+import { NewExaminationDermatologistComponent } from './pages/new-examination-dermatologist/new-examination-dermatologist.component';
+import { ProfilePatientDoctorComponent } from './pages/profile-patient-doctor/profile-patient-doctor.component';
+import { ViewPreviousConsultationsProfileComponent } from './pages/view-previous-consultations-profile/view-previous-consultations-profile.component';
+import { ViewPreviousExaminationsProfileComponent } from './pages/view-previous-examinations-profile/view-previous-examinations-profile.component'
+import { AddMedicineComponent } from './pages/add-medicine/add-medicine.component';
+import { ViewPreviousConsultationsComponent } from './pages/view-previous-consultations/view-previous-consultations.component';
+import { ViewFutureConsultationsComponent } from './pages/view-future-consultations/view-future-consultations.component';
+import { ViewErecipesComponent } from './pages/view-erecipes/view-erecipes.component';
+import { ViewErecipeMedicinesComponent } from './pages/view-erecipe-medicines/view-erecipe-medicines.component';
+import { SearchMedicinePipe } from './pages/medicine-reservation/search-medicine.pipe';
 
 registerLocaleData(en);
 
@@ -112,8 +123,19 @@ registerLocaleData(en);
     ViewSubscribedPharmaciesComponent,
     PromotionsComponent,
     VacationApprovalComponent,
+    PreviousExaminationsComponent,
     ViewReviewsComponent,
     ViewPreviousExaminationsComponent,
+    NewExaminationDermatologistComponent,
+    ProfilePatientDoctorComponent,
+    ViewPreviousConsultationsProfileComponent,
+    ViewPreviousExaminationsProfileComponent,
+    AddMedicineComponent,
+    ViewPreviousConsultationsComponent,
+    ViewFutureConsultationsComponent,
+    ViewErecipesComponent,
+    ViewErecipeMedicinesComponent,
+    SearchMedicinePipe,
   ],
   imports: [
     BrowserModule,

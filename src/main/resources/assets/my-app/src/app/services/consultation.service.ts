@@ -32,4 +32,16 @@ export class ConsultationService {
     return this.http.post(consultation_url + `/finish`,body);
   }
 
+  public getFreePeriods(body) : Observable<any>{
+    return this.http.post(consultation_url + `/freePeriods`,body);
+  }
+
+  public getFutureByPatient(id): Observable<any>{
+    return this.http.get(consultation_url + `/getFutureByPatient/${id}`);
+  }
+
+  public newPharmacist(body): Observable<any>{
+    return this.http.post(consultation_url + `/newPharmacist`,body);
+  }
+
 }

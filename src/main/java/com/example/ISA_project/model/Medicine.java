@@ -30,8 +30,9 @@ public class Medicine {
     @CollectionTable(name="replacements", joinColumns=@JoinColumn(name="medicine_id"))
     @Column(name="replacement")
     private List<Integer> replacements; //int predstavlja sifru leka
-    private String notes;
     private int points;
+    private String notes; //kontraindikacije na primer
+    private int therapyPerDay;
 
     public String getMedicineInformation(){
         return name + "; " + type +"; " + shape;

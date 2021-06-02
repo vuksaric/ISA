@@ -21,7 +21,7 @@ public class UserController {
         return new ResponseEntity<>(userService.editUser(profile), HttpStatus.OK);
     }
 
-    @PutMapping
+    @PutMapping(value = "/changePassword")
     public ResponseEntity changePassword(@RequestBody PasswordDTO passwordDTO) {
         try {
 
@@ -31,7 +31,7 @@ public class UserController {
         }
     }
 
-    @PutMapping
+    @PutMapping(value = "/edit")
     public ResponseEntity editProfile(@RequestBody ProfileDTO profileDTO) {
         try {
             return new ResponseEntity(userService.editUser(profileDTO),HttpStatus.OK);

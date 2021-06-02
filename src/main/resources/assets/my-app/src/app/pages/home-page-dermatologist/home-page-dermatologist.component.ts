@@ -25,7 +25,7 @@ export class HomePageDermatologistComponent implements OnInit {
 
   previousConsultations()
   {
-    this.router.navigate(['previousConsultations']);
+    this.router.navigate(['previousExaminations']);
   }
 
   vacation()

@@ -25,4 +25,8 @@ export class PatientService {
   public getNames(): Observable<any> {
     return this.http.get(patient_url + `/getNames`);
   }
+
+  public getPenaltyPoints(id): Observable<any> {
+    return this.http.get(patient_url + `/penaltyPoints/${id}`);
+  }
 }

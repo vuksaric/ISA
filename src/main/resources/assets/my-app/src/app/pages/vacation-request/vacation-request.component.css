@@ -12,3 +12,10 @@ nz-date-picker {
     display: block;
     width: 300px;
   }
+
+  nz-select
+  {
+    margin: auto;
+    display: block;
+    width: 300px;
+  }

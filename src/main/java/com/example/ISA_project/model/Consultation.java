@@ -29,4 +29,12 @@ public class Consultation {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Report report;
     private boolean done;
+
+    public Consultation(Period period,Pharmacy pharmacy,Pharmacist pharmacist,Patient patient)
+    {
+        this.period = period;
+        this.pharmacy = pharmacy;
+        this.pharmacist = pharmacist;
+        this.patient = patient;
+    }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Consultation } from 'src/app/models/consultation';
 import { ConsultationService } from 'src/app/services/consultation.service';
 
@@ -32,7 +33,7 @@ export class PreviousConsultationsComponent implements OnInit {
   consultations = [] as DataItem[];
   listOfDisplayData = [] as DataItem[];
 
-  constructor(private consultationService: ConsultationService ) { }
+  constructor(private router: Router, private consultationService: ConsultationService ) { }
 
   ngOnInit(): void {
 
@@ -99,7 +100,7 @@ export class PreviousConsultationsComponent implements OnInit {
 
   viewProfile(id : number) : void
   {
-    alert(id);
+    this.router.navigate(['patientProfileDoctor/' + id]);
   }
 
 }

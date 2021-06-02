@@ -38,7 +38,8 @@ public class ReservationService implements IReservationService {
 
         for(Reservation reservation : reservations)
         {
-            if(reservation.getPharmacy().getName().equalsIgnoreCase(pharmacy) && reservation.getDueDate().isAfter(LocalDateTime.now().plusDays(1)) && !reservation.isIssued())
+            if(reservation.getPharmacy().getName().equalsIgnoreCase(pharmacy) && reservation.getDueDate().isAfter(LocalDateTime.now().plusDays(1))
+                    && !reservation.isIssued() && !reservation.isCanceled())
                 result.add(new ReservationDTO(reservation.getSerialNumber(),reservation.getDueDate(),
                         reservation.getMedicine().getName(),reservation.getPatient().getUser().getFullName()));
         }
