@@ -61,6 +61,7 @@ import { NewExaminationDermatologistComponent } from './pages/new-examination-de
 import { ProfilePatientDoctorComponent } from './pages/profile-patient-doctor/profile-patient-doctor.component';
 import { ViewPreviousConsultationsProfileComponent } from './pages/view-previous-consultations-profile/view-previous-consultations-profile.component';
 import { ViewPreviousExaminationsProfileComponent } from './pages/view-previous-examinations-profile/view-previous-examinations-profile.component'
+import { AddMedicineComponent } from './pages/add-medicine/add-medicine.component';
 
 registerLocaleData(en);
 
@@ -114,6 +115,7 @@ registerLocaleData(en);
     ProfilePatientDoctorComponent,
     ViewPreviousConsultationsProfileComponent,
     ViewPreviousExaminationsProfileComponent,
+    AddMedicineComponent,
   ],
   imports: [
     BrowserModule,

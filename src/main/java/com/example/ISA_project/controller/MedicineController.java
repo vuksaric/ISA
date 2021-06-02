@@ -1,15 +1,16 @@
 package com.example.ISA_project.controller;
 
+import com.example.ISA_project.model.Medicine;
 import com.example.ISA_project.model.dto.MedicineAllergyDTO;
+import com.example.ISA_project.model.dto.MedicineDTO;
+import com.example.ISA_project.model.dto.MedicineIngredientsDTO;
 import com.example.ISA_project.service.IMedicineService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.ISA_project.model.dto.MedicineDTO;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.List;
 
@@ -27,6 +28,17 @@ public class MedicineController {
     @GetMapping("/distinct")
     public ResponseEntity<List<MedicineAllergyDTO>> getDistinctMedicine() {
         return new ResponseEntity<>(medicineService.getDistinctMedicine(), HttpStatus.OK);
+    }
+
+    @GetMapping("/getByType/{type}")
+    public List<Medicine> getByType(@PathVariable String type) {
+        return medicineService.getByType(type);
+    }
+
+    @PostMapping("/add")
+    public Boolean addMedicine(@RequestBody MedicineIngredientsDTO medIng){
+        Medicine medicine = medIng.mapMedicineIngredientsDTOtoMedicine(medIng);
+        return medicineService.addMedicine(medicine);
     }
 
 

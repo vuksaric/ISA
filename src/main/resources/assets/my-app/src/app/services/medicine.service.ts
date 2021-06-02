@@ -38,4 +38,12 @@ export class MedicineService {
   public getAllMedicine() : Observable<Medicine[]> {
     return this.http.get<Medicine[]>(medicine_url+'/getAll');
   }
+  
+  public addMedicine(medicine): Observable<Medicine>{
+    return this.http.post<Medicine>(medicine_url + `/add`,medicine);
+  }
+
+  public getByType(type): Observable<Medicine[]>{
+    return this.http.get<Medicine[]>(medicine_url + `/getByType/${type}`);
+  }
 }

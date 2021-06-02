@@ -7,6 +7,5 @@ import com.example.ISA_project.model.dto.UserResponse;
 
 public interface IAuthService {
     UserResponse login(LoginRequest request);
-
     UserResponse registerSubject(User request);
 }

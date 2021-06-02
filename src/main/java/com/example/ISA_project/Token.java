@@ -40,16 +40,17 @@ public class Token {
         return new Date(new Date().getTime() + EXPIRES_IN);
     }
 
-    public String generateToken(String username) {
-        User user = userService.findUserByEmail(username);
+    public String generateToken(String email) {
+        User user = userService.findUserByEmail(email);
+        System.out.println(user);
 
         return Jwts.builder()
                 .setIssuer(APP_NAME)
-                .setSubject(username)
+                .setSubject(email)
                 .setAudience(AUDIENCE_WEB)
                 .setIssuedAt(new Date())
                 .setExpiration(generateExpirationDate())
-                .claim("username", username)
+                .claim("email", email)
                 .claim("user_id", user.getId())
                 .claim("user_type", user.getUserType())
                 .signWith(SIGNATURE_ALGORITHM, SECRET).compact();

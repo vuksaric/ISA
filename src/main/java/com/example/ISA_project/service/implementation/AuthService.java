@@ -26,19 +26,17 @@ public class AuthService implements IAuthService {
 
     @Override
     public UserResponse login(LoginRequest request) {
-        User user = userRepository.findOneByEmail(request.getUsername());
-
+        User user = userRepository.findOneByEmail(request.getEmail());
         String jwt = "";
         int expiresIn = 0;
-        jwt = token.generateToken(request.getUsername());
+        jwt = token.generateToken(request.getEmail());
         expiresIn = token.getEXPIRES_IN();
 
         UserResponse userResponse = mapUserToUserResponse(user);
         userResponse.setToken(jwt);
         userResponse.setTokenExpiresIn(expiresIn);
-
         if(passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            return mapUserToUserResponse(user);
+            return userResponse;
         }
         else{
             return null;
@@ -55,7 +53,8 @@ public class AuthService implements IAuthService {
     private UserResponse mapUserToUserResponse(User user) {
         UserResponse userResponse = new UserResponse();
         userResponse.setId(user.getId());
-        //userResponse.setUsername(user.getUsername());
+        userResponse.setUserRoles(user.getUserType().toString());
+        userResponse.setEmail(user.getEmail());
         return userResponse;
     }
 }
