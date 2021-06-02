@@ -184,11 +184,6 @@
                     </ng-template>
                 </nz-form-control>
             </nz-form-item>
-            <!--<nz-form-item nz-row class="register-area">
-                <nz-form-control [nzSpan]="14" [nzOffset]="6">
-                    <button nz-button nzType="primary" style="margin-left: 15px;">Register</button>
-                </nz-form-control>
-            </nz-form-item> -->
         </form>
     </ng-container>
 </nz-modal>
@@ -199,12 +194,12 @@
 <nz-table #filterTable [nzData]="pharmacistList" nzTableLayout="fixed">
     <thead>
         <tr>
-            <th *ngFor="let column of listOfColumns" [nzSortOrder]="column.sortOrder"
-                [nzSortFn]="column.sortFn" [nzSortDirections]="column.sortDirections"
-                [nzFilterMultiple]="column.filterMultiple" [nzFilters]="column.listOfFilter"
-                [nzFilterFn]="column.filterFn">
+            <th *ngFor="let column of listOfColumns" [nzSortOrder]="column.sortOrder" [nzSortFn]="column.sortFn"
+                [nzSortDirections]="column.sortDirections" [nzFilterMultiple]="column.filterMultiple"
+                [nzFilters]="column.listOfFilter" [nzFilterFn]="column.filterFn">
                 {{ column.name }}
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -213,37 +208,7 @@
             <td>{{ data.surname }}</td>
             <td>{{ data.mark }}</td>
             <td>{{ data.pharmacy }}</td>
+            <td><button nz-button nzType="dashed" (click)="showDeleteConfirm(data)">Remove</button></td>
         </tr>
     </tbody>
 </nz-table>
-
-<!-- <nz-table #basicTable [nzData]="pharmacistList">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Gender</th>
-            <th>Date of birth</th>
-            <th>Mark</th>
-            <th>Workdays</th>
-            <th>Shift</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let data of basicTable.data">
-            <td>{{ data.name }}</td>
-            <td>{{ data.surname }}</td>
-            <td>{{ data.email }}</td>
-            <td>{{ data.phone }}</td>
-            <td>{{data.gender }}</td>
-            <td>{{data.birthday}}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><button nz-button nzType="dashed" (click)="showDeleteConfirm()">Remove</button></td>
-        </tr>
-    </tbody>
-</nz-table> -->

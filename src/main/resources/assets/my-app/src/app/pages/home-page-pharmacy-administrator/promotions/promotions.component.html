@@ -46,19 +46,19 @@
 
 <br>
 
-<nz-table #basicTable [nzData]="listOfData">
+<nz-table #basicTable [nzData]="listOfPromotions">
     <thead>
         <tr>
-            <th>Note</th>
+            <th>Promotion</th>
             <th>Start</th>
             <th>End</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let data of basicTable.data">
-            <td>{{ data.note }}</td>
-            <td>{{ data.start }}</td>
-            <td>{{ data.end }}</td>
+            <td>{{ data.text }}</td>
+            <td>{{ data.startDate }}</td>
+            <td>{{ data.endDate }}</td>
         </tr>
     </tbody>
 </nz-table>

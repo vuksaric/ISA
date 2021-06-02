@@ -68,6 +68,16 @@ public class PharmacistController {
         }
     }
 
+    @PutMapping(value = "/delete")
+    public ResponseEntity delete(@RequestBody int id){
+        try{
+            pharmacistService.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 
 }

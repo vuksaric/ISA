@@ -179,5 +179,14 @@ public class PharmacistService implements IPharmacistService {
         return pharmacistRepository.findOneById(id);
     }
 
+    @Override
+    public void delete(int id) {
+        try{
+            pharmacistRepository.deleteById(id);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
 }

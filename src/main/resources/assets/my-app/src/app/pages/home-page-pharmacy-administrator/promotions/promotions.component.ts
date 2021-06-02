@@ -1,14 +1,12 @@
+import { Promotion } from './../../../models/Promotion';
+import { PromotionsService } from './../../../services/promotions.service';
 import { Component, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ToastrService } from 'ngx-toastr';
 import { getISOWeek } from 'date-fns';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { resourceUsage } from 'process';
 
-interface Promotion {
-  start: string;
-  end: string;
-  note: string;
-}
 
 @Component({
   selector: 'app-promotions',
@@ -22,8 +20,9 @@ export class PromotionsComponent implements OnInit {
   date = null;
   start : Date;
   end : Date;
+  listOfPromotions : Promotion[] = [];
 
-  constructor(private modal: NzModalService, private toastr: ToastrService, private fb: FormBuilder) { }
+  constructor(private modal: NzModalService, private toastr: ToastrService, private fb: FormBuilder, private promotionService: PromotionsService) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -36,10 +35,24 @@ export class PromotionsComponent implements OnInit {
     this.isVisible = true;
   }
 
+  getAllPromotions(){
+    this.promotionService.getAll().subscribe(result => {
+      this.listOfPromotions = result;
+    })
+  }
+
   handleOk(): void {
     if(this.validateForm.valid){
-      this.toastr.success('Successfully registered!');
-      this.isVisible = false;
+      const body = {
+        startDate: this.start,
+        endDate: this.end,
+        text: this.validateForm.get('text').value
+      }
+      this.promotionService.newPromotion(body).subscribe( result => {
+        this.getAllPromotions();
+        this.toastr.success('Successfully registered!');
+        this.isVisible = false;
+      })
     }
   }
 
@@ -65,7 +78,7 @@ export class PromotionsComponent implements OnInit {
     Promise.resolve().then(() => this.validateForm.controls.text.updateValueAndValidity());
   }
 
-  listOfData: Promotion[] = [
+  /*listOfData: Promotion[] = [
     {
       start: '32',
       end: 'New York No. 1 Lake Park',
@@ -81,6 +94,6 @@ export class PromotionsComponent implements OnInit {
       end: 'New York No. 1 Lake Park',
       note: 'proba'
     }
-  ];
+  ];*/
 
 }

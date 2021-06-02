@@ -24,7 +24,8 @@ export const environment = {
   address_url: 'http://localhost:8080/address',
   admin_url : 'http://localhost:8080/admin',
   review_url : 'http://localhost:8080/review',
-  report_url : 'http://localhost:8080/report'
+  report_url : 'http://localhost:8080/report',
+  promotions_url : 'http://localhost:8080/promotion'
 };
 
 /*

@@ -18,7 +18,7 @@ public class Action {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private LocalDateTime startData;
+    private LocalDateTime startDate;
     private LocalDateTime endDate;
     private String text;
 }

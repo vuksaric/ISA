@@ -15,4 +15,20 @@ export class DermatologistService {
   public getWorkdays(id): Observable<any>{
     return this.http.get(dermatologist_url + `/getWorkdays/${id}`);
   }
+
+  public getAll(): Observable<any>{
+    return this.http.get(dermatologist_url + `/all/`);
+  }
+
+  public search(input : string) : Observable<any>{
+    return this.http.get(dermatologist_url + `/search/` + input);
+  }
+
+  public delete(id : number) : Observable<any>{
+    return this.http.put(dermatologist_url + `/delete`, id);
+  }
+
+  public addDermatologist(id : number):  Observable<any>{
+    return this.http.post(dermatologist_url + `/add`, id);
+  }
 }

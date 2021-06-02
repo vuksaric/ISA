@@ -22,4 +22,5 @@ public interface IPharmacistService {
         List<Period> freePeriods(int id, LocalDate date);
         void addVacation(Vacation vacation);
         Pharmacist getById(int id);
+        void delete(int id);
 }

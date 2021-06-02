@@ -16,6 +16,7 @@ interface Person {
 
 interface DataItem {
   name: string;
+  surname: string;
   mark: number;
   pharmacy: string;
 }
@@ -101,8 +102,6 @@ export class PharmacistListComponent implements OnInit {
           this.surnameFilter.push({ text: element.surname, value: element.surname })
         }
       }
-      //var th = document.getElementById("Name");
-      //th.setAttribute("nzFilters", this.nameFilter.toString);
       this.initListOfColumns();
     }, () => { this.toastr.error("An error has occurred") });
   }
@@ -242,16 +241,23 @@ export class PharmacistListComponent implements OnInit {
     });
   }
 
-  showDeleteConfirm(): void {
+  showDeleteConfirm(data : Pharmaist): void {
     this.modal.confirm({
       nzTitle: 'Are you sure delete this pharmacist?',
       nzOkText: 'Yes',
       nzOkType: 'primary',
       nzOkDanger: true,
-      nzOnOk: () => console.log('OK'),
+      nzOnOk: () => this.deletePharmacist(data.id),
       nzCancelText: 'No',
       nzOnCancel: () => console.log('Cancel')
     });
+  }
+
+  deletePharmacist(id: number){
+    this.pharmacistService.delete(id).subscribe(data => {
+      this.getAllPharmacist();
+      this.toastr.success("Successfully deleted!");
+    })
   }
 
 
