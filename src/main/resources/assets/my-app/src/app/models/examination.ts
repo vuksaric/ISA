@@ -6,4 +6,7 @@ export class Examination{
     public price: number;
     public id: number;
     public canBeCanceled: boolean;
+    public diagnosis : String;
+    public notes : String;
+    public medicine : String;
 }

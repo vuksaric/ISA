@@ -38,10 +38,16 @@ export class ProfilePatientDoctorComponent implements OnInit {
   
   exams() {
 
+    this.router.navigate(['viewPreviousExaminatiosProfile/' + this.id]);
+
   }
 
   cons(){
 
+  }
+
+  back(){
+    this.router.navigate(['previousConsultations']);
   }
 
 
