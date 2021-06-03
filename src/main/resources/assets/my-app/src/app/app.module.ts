@@ -58,6 +58,7 @@ import { PreviousExaminationsComponent } from './pages/previous-examinations/pre
 import { ViewReviewsComponent } from './pages/view-reviews/view-reviews.component';
 import { ViewPreviousExaminationsComponent } from './pages/view-previous-examinations/view-previous-examinations.component';
 import { AddMedicineComponent } from './pages/add-medicine/add-medicine.component';
+import { HomePageSupplierComponent } from './pages/home-page-supplier/home-page-supplier.component';
 
 registerLocaleData(en);
 
@@ -108,6 +109,7 @@ registerLocaleData(en);
     ViewReviewsComponent,
     ViewPreviousExaminationsComponent,
     AddMedicineComponent,
+    HomePageSupplierComponent,
   ],
   imports: [
     BrowserModule,

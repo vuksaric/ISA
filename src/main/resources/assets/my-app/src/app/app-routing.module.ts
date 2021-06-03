@@ -40,6 +40,7 @@ import { PreviousExaminationsComponent } from './pages/previous-examinations/pre
 import { ViewReviewsComponent } from './pages/view-reviews/view-reviews.component';
 import { ViewPreviousExaminationsComponent } from './pages/view-previous-examinations/view-previous-examinations.component';
 import { AddMedicineComponent } from './pages/add-medicine/add-medicine.component';
+import { HomePageSupplierComponent } from './pages/home-page-supplier/home-page-supplier.component';
 
 
 const routes: Routes = [
@@ -85,6 +86,7 @@ const routes: Routes = [
         { path: 'medicine-order', component: MedicineOrderComponent},
         { path: 'pharmacist-list', component: PharmacistListComponent }
     ] },
+    { path: 'supplierHomePage', component: HomePageSupplierComponent},
     
 ]
 

@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Address } from 'src/app/models/address';
@@ -18,7 +19,8 @@ export class RegistrationPharmacyComponent implements OnInit {
   state : string;
   description : string;
   adr : Address
-  //mark: number;
+  longitude : 45.55;
+  latitude : 20.66;
 
   submitForm(): void {
     for (const i in this.validateForm.controls) {
@@ -31,12 +33,16 @@ export class RegistrationPharmacyComponent implements OnInit {
     this.town = this.validateForm.value.town;
     this.state = this.validateForm.value.state;
     this.description = this.validateForm.value.description;
+    this.longitude = this.validateForm.value.longitude;
+    this.latitude = this.validateForm.value.latitude;
     //this.mark = this.validateForm.value.mark;
 
     const address = {
       street : this.street,
       town : this.town,
       state : this.state,
+      latitude : this.latitude,
+      longitude : this.longitude
     }
 
     const body = {
@@ -72,7 +78,9 @@ export class RegistrationPharmacyComponent implements OnInit {
       street : [null, [Validators.required]],
       town : [null, [Validators.required]],
       state : [null, [Validators.required]],
-      description : [null, [Validators.required]]
+      description : [null, [Validators.required]],
+      latitude : [null, [Validators.required]],
+      longitude : [null, [Validators.required]]
     });
   }
 }

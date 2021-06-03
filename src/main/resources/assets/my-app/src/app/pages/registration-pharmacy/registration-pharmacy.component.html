@@ -32,13 +32,29 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="state" nzRequired>
+        <span>Latitude</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input pharmacy latitude!">
+        <input nz-input-number formControlName="latitude" [min]="0" [max]="90" [step]="0.1"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="state" nzRequired>
+        <span>Longitude</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input pharmacy longitude!">
+        <input nz-input-number formControlName="longitude" [min]="0" [max]="90" [step]="0.1" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="description" nzRequired>
           <span>Description</span>
         </nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input description!">
           <input nz-input id="description" formControlName="description" />
         </nz-form-control>
-      </nz-form-item>
+    </nz-form-item>
     <nz-form-item nz-row class="register-area">
       <nz-form-control [nzSpan]="14" [nzOffset]="6">
         <button nz-button nzType="primary">Register</button>
