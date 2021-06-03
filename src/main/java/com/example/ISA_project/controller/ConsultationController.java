@@ -69,4 +69,15 @@ public class ConsultationController {
 
         return consultationService.newConsultationPharmacist(request);
     }
+
+    @PostMapping("/newPatient")
+    public ConsultationDTO newConsultationPatient(@RequestBody ConsultationRequest request){
+        return consultationService.newConsultationPatient(request);
+    }
+
+    @PutMapping(value = "/cancel/{id}")
+    public void cancelConsultation(@PathVariable String id){
+        int pharmacyId = Integer.parseInt(id);
+        consultationService.cancelConsultationPatient(pharmacyId);
+    }
 }

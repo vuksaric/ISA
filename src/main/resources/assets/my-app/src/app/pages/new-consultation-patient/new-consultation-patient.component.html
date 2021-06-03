@@ -2,7 +2,7 @@
     <nz-form-item>
       <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="date" >Date</nz-form-label>
       <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Please pick a date!">
-        <nz-date-picker nzInline  
+        <nz-date-picker nzInline  (ngModelChange)="onChange($event)"
         formControlName="date" id="dates"
         [nzDisabledDate]="disabledDate"></nz-date-picker>
       </nz-form-control>
@@ -12,17 +12,7 @@
         <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Please pick a time!">
             <nz-time-picker  nzFormat="HH:mm" formControlName="time"
             [nzDisabledHours]="disabledHours"
-            [nzMinuteStep]="15"></nz-time-picker>
-        </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="time" >Duration</nz-form-label>
-        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Please pick duration!" >
-            <nz-radio-group  formControlName="duration">
-                <label nz-radio nzValue="60">1 hour</label>
-                <label nz-radio nzValue="45">45 minutes</label>
-                <label nz-radio nzValue="30">30 minutes</label>
-              </nz-radio-group>
+            [nzMinuteStep]="30"></nz-time-picker>
         </nz-form-control>
     </nz-form-item>
     <nz-form-item nz-row class="submit-area">
@@ -31,3 +21,62 @@
         </nz-form-control>
     </nz-form-item>
 </form>
+<div class="search">
+  <nz-input-group [nzSuffix]="suffixIconSearch" >
+    <input type="text" nz-input placeholder="input pharmacy name or town " [(ngModel)]="searchValue"/>
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <i nz-icon nzType="search"></i>
+  </ng-template>
+  </div>
+  <div class="center">
+    <nz-table #basicTable nzBordered nzTitle="List of pharmacies" [nzData]="listOfPharmacies">
+      <thead>
+        <tr>
+          <th>Naziv</th>
+          <th>Adresa</th>
+          <th>Grad</th>
+          <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" 
+          [nzSortPriority]="column.priority" 
+          >{{ column.title }}</th>
+          <th>Choose pharmacy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data | searchFilter: searchValue">
+          <td>{{data.name}}</td>
+          <td>{{data.street}}</td>
+          <td>{{data.town}}</td>
+          <td>{{data.mark}}</td>
+          <td>{{data.price}}</td>
+          <td>
+            <button nz-button nzType="primary" (click)="pickPharmacy(data)">Next step</button>
+          </td>
+        </tr>
+      </tbody>
+  </nz-table>
+</div>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="List of pharmacies with available pharmacists" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <nz-table #tablePharmacist nzBordered nzTitle="List of pharmacists" [nzData]="listOfPharmacists">
+      <thead>
+        <tr>
+          <th>Full name</th>
+          <th *ngFor="let column of listOfColumnPharmacist" [nzSortFn]="column.compare" 
+          [nzSortPriority]="column.priority" 
+          >{{ column.title }}</th>
+          <th>Choose pharmacist</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of tablePharmacist.data">
+          <td>{{data.name}}</td>
+          <td>{{data.grade}}</td>
+          <td>
+            <button nz-button nzType="primary" (click)="pickPharmacist(data)">Schedule consultation</button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </ng-container>
+</nz-modal>

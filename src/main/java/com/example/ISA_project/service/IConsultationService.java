@@ -17,4 +17,6 @@ public interface IConsultationService {
     List<Period> freePeriods(int id, LocalDate date);
     List<AppointmentDTO> getFutureByPatient(int id);
     AppointmentDTO newConsultationPharmacist(AppointmentRequest request);
+    ConsultationDTO newConsultationPatient(ConsultationRequest consultationRequest);
+    void cancelConsultationPatient(int id);
 }

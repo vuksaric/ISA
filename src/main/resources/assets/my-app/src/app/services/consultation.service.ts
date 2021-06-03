@@ -44,4 +44,12 @@ export class ConsultationService {
     return this.http.post(consultation_url + `/newPharmacist`,body);
   }
 
+  public newPatient(body): Observable<any>{
+    return this.http.post(consultation_url + `/newPatient`,body);
+  }
+
+  public cancelConsultation(id): Observable<any>{
+    return this.http.put(consultation_url + `/cancel/${id}`, null);
+  }
+
 }

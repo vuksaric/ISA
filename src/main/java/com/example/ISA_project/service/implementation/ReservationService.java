@@ -65,6 +65,7 @@ public class ReservationService implements IReservationService {
         Reservation reservation = new Reservation(reservationRequest.getSerialNumber(), reservationRequest.getDueDate(),
                 medicine, pharmacy, patient);
         reservationRepository.save(reservation);
+        emailService.makeReservationEmail(reservation);
         patientService.addReservation(reservationRequest.getIdPatient(), reservation);
     }
 

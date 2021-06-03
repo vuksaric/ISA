@@ -3,6 +3,7 @@ package com.example.ISA_project.service;
 
 import com.example.ISA_project.model.Consultation;
 import com.example.ISA_project.model.Period;
+import com.example.ISA_project.model.Pharmacist;
 import com.example.ISA_project.model.dto.ProfileDTO;
 import com.example.ISA_project.model.dto.ReservationDTO;
 import com.example.ISA_project.model.dto.WorkDayDTO;
@@ -18,5 +19,6 @@ public interface IPharmacistService {
         List<ReservationDTO> getReservations(int id);
         List<Period> freePeriods(int id, LocalDate date);
         void addNewConsultation(Consultation consultation);
-
+        void cancelConsultation(Consultation consultation);
+        Pharmacist findOneById(int id);
 }

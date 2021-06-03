@@ -53,6 +53,11 @@ export class PatientChartService {
   public getPreviousConsultationsByPatient(id): any {
     return this.http.get(patientChart_url+'/previousConsultations'+`/${id}`);
   }
+
+  public getUpcomingConsultationsByPatient(id): any {
+    return this.http.get(patientChart_url+'/upcomingConsultations'+`/${id}`);
+  }
+
   public getPatientERecipes(id): any {
     return this.http.get(patientChart_url+'/eRecipe'+`/${id}`);
   }

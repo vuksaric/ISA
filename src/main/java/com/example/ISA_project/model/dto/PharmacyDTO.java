@@ -14,7 +14,7 @@ public class PharmacyDTO {
     private String street;
     private String town;
     private int id;
-    private int price;
+    private float price;
 
     public PharmacyDTO(Pharmacy pharmacy){
         this.name = pharmacy.getName();
@@ -22,5 +22,8 @@ public class PharmacyDTO {
         this.town = pharmacy.getAddress().getTown();
         this.mark = pharmacy.getMark();
         this.id = pharmacy.getId();
+        this.price = pharmacy.getConsultationPrice();
     }
+
+
 }

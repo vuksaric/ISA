@@ -24,8 +24,6 @@ public class PharmacistService implements IPharmacistService {
     private final UserService userService;
     private final ReservationService reservationService;
 
-
-
     public PharmacistService(PharmacistRepository pharmacistRepository, UserService userService, ReservationService reservationService) {
         this.pharmacistRepository = pharmacistRepository;
         this.userService = userService;
@@ -114,5 +112,23 @@ public class PharmacistService implements IPharmacistService {
             }
         }
         pharmacistRepository.save(pharmacist);
+    }
+
+    @Override
+    public void cancelConsultation(Consultation consultation){
+        Pharmacist pharmacist = pharmacistRepository.findOneById(consultation.getPharmacist().getId());
+        for(WorkdayPharmacist workdayPharmacist : pharmacist.getWorkdays())
+        {
+            if(consultation.getPeriod().getStart_date().toLocalDate().equals(workdayPharmacist.getDate())) {
+                workdayPharmacist.getConsultations().remove(consultation);
+                break;
+            }
+        }
+        pharmacistRepository.save(pharmacist);
+    }
+
+    @Override
+    public Pharmacist findOneById(int id) {
+        return pharmacistRepository.findOneById(id);
     }
 }

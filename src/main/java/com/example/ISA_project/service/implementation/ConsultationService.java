@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +24,11 @@ public class ConsultationService implements IConsultationService {
     private final IPharmacistService pharmacistService;
     private final IBillService billService;
     private final IPatientChartService patientChartService;
+    private final IEmailService emailService;
 
     public ConsultationService(ConsultationRepository consultationRepository, IPharmacyService pharmacyService, IReportService reportService,
-                               IMedicineService medicineService,IPatientService patientService, IPharmacistService pharmacistService,
-                               IBillService billService, IPatientChartService patientChartService)
+                               IMedicineService medicineService, IPatientService patientService, IPharmacistService pharmacistService,
+                               IBillService billService, IPatientChartService patientChartService, IEmailService emailService)
     {
         this.consultationRepository = consultationRepository;
         this.pharmacyService = pharmacyService;
@@ -36,6 +38,7 @@ public class ConsultationService implements IConsultationService {
         this.pharmacistService = pharmacistService;
         this.billService = billService;
         this.patientChartService = patientChartService;
+        this.emailService = emailService;
     }
 
     @Override
@@ -122,6 +125,33 @@ public class ConsultationService implements IConsultationService {
         pharmacistService.addNewConsultation(result);
         patientService.saveFutureConsultation(result);
         return new AppointmentDTO(result);
+    }
+
+    @Override
+    public ConsultationDTO newConsultationPatient(ConsultationRequest consultationRequest) {
+        Patient patient = patientService.findOneById(consultationRequest.getPatientId());
+        Pharmacy pharmacy = pharmacyService.findOneById(consultationRequest.getPharmacyId());
+        Pharmacist pharmacist = pharmacistService.findOneById(consultationRequest.getPharmacistId());
+        LocalDateTime start = LocalDateTime.parse(consultationRequest.getDateTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        Period period = new Period(start, start.plusMinutes(30));
+
+        Consultation newConsultation =new Consultation(period, pharmacy, pharmacist, patient);
+        Consultation result = consultationRepository.save(newConsultation);
+        pharmacistService.addNewConsultation(result);
+        patientService.saveFutureConsultation(result);
+        emailService.scheduleConsultationEmail(newConsultation);
+
+        return new ConsultationDTO(result);
+    }
+
+    @Override
+    public void cancelConsultationPatient(int id) {
+        Consultation consultation = consultationRepository.findOneById(id);
+
+        patientService.cancelConsultation(consultation);
+        pharmacistService.cancelConsultation(consultation);
+        consultation.setDone(true);
+        consultationRepository.save(consultation);
     }
 
     @Override

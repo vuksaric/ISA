@@ -82,6 +82,12 @@ public class PatientChartController {
         return new ResponseEntity<>(patientChartService.getPatientPreviousConsultations(patientId), HttpStatus.OK);
     }
 
+    @GetMapping(value="/upcomingConsultations/{id}")
+    public ResponseEntity<List<ConsultationDTO>> getPatientUpcomingConsultations(@PathVariable String id){
+        int patientId = Integer.parseInt(id);
+        return new ResponseEntity<>(patientChartService.getPatientUpcomingConsultations(patientId), HttpStatus.OK);
+    }
+
     @GetMapping(value="/eRecipe/{id}")
     public ResponseEntity<List<ERecipeDTO>> getPatientERecipes(@PathVariable String id){
         int patientId = Integer.parseInt(id);

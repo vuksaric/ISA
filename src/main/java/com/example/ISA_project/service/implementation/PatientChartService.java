@@ -179,6 +179,18 @@ public class PatientChartService implements IPatientChartService {
     }
 
     @Override
+    public List<ConsultationDTO> getPatientUpcomingConsultations(int id) {
+        List<ConsultationDTO> consultationDTOS = new ArrayList<>();
+        PatientChart patientChart = patientChartRepository.findOneById(findPatientChartId(id));
+
+        for(Consultation consultation : patientChart.getFutureConsultations()){
+            consultationDTOS.add(new ConsultationDTO(consultation));
+        }
+
+        return consultationDTOS;
+    }
+
+    @Override
     public List<ERecipeDTO> getPatientERecipes(int id) {
         List<ERecipeDTO> eRecipeDTOS = new ArrayList<>();
         PatientChart patientChart = patientChartRepository.findOneById(findPatientChartId(id));

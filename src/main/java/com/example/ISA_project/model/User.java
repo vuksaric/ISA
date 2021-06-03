@@ -31,6 +31,7 @@ public class User {
     private Gender gender;
     private UserType userType;
     private boolean passwordChanged;
+    @Column(nullable = true)
     private boolean activated;
 
 
