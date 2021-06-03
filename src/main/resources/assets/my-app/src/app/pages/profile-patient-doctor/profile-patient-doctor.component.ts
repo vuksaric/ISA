@@ -44,6 +44,8 @@ export class ProfilePatientDoctorComponent implements OnInit {
 
   cons(){
 
+    this.router.navigate(['viewPreviousConsultationsProfile/' + this.id]);
+
   }
 
   back(){

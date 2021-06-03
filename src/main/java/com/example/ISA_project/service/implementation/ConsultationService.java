@@ -23,10 +23,11 @@ public class ConsultationService implements IConsultationService {
     private final IPharmacistService pharmacistService;
     private final IBillService billService;
     private final IPatientChartService patientChartService;
+    private final IEmailService emailService;
 
     public ConsultationService(ConsultationRepository consultationRepository, IPharmacyService pharmacyService, IReportService reportService,
                                IMedicineService medicineService,IPatientService patientService, IPharmacistService pharmacistService,
-                               IBillService billService, IPatientChartService patientChartService)
+                               IBillService billService, IPatientChartService patientChartService, IEmailService emailService)
     {
         this.consultationRepository = consultationRepository;
         this.pharmacyService = pharmacyService;
@@ -36,6 +37,7 @@ public class ConsultationService implements IConsultationService {
         this.pharmacistService = pharmacistService;
         this.billService = billService;
         this.patientChartService = patientChartService;
+        this.emailService = emailService;
     }
 
     @Override
@@ -121,7 +123,15 @@ public class ConsultationService implements IConsultationService {
         Consultation result = consultationRepository.save(newConsultation);
         pharmacistService.addNewConsultation(result);
         patientService.saveFutureConsultation(result);
+        emailService.newConsultation(result);
         return new AppointmentDTO(result);
+    }
+
+    @Override
+    public void addPenaltyPoint(int id) {
+        Consultation consultation = consultationRepository.findOneById(id);
+        consultation.setDone(true);
+        patientService.addPenaltyPoint(consultation.getPatient().getId());
     }
 
     @Override
@@ -131,6 +141,7 @@ public class ConsultationService implements IConsultationService {
         periods = patientChartService.freePeriods(periods,consultation.getPatient().getPatientChart().getId());
         return periods;
     }
+
 
 
 }

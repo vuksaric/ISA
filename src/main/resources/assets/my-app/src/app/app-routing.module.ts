@@ -48,6 +48,7 @@ import { ViewPreviousConsultationsComponent } from './pages/view-previous-consul
 import { ViewFutureConsultationsComponent } from './pages/view-future-consultations/view-future-consultations.component';
 import { ViewErecipesComponent } from './pages/view-erecipes/view-erecipes.component';
 import { ViewErecipeMedicinesComponent } from './pages/view-erecipe-medicines/view-erecipe-medicines.component';
+import { ViewPreviousConsultationsProfileComponent } from './pages/view-previous-consultations-profile/view-previous-consultations-profile.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'pharmacyAdmin' },
@@ -92,6 +93,7 @@ const routes: Routes = [
     { path: 'registrationAdmin', component:RegistrationAdminComponent},
     { path: 'patientProfileDoctor/:id', component:ProfilePatientDoctorComponent},
     { path: 'viewPreviousExaminatiosProfile/:id', component:ViewPreviousExaminationsProfileComponent},
+    { path: 'viewPreviousConsultationsProfile/:id', component:ViewPreviousConsultationsProfileComponent},
     { path: 'userProfile', component:UserProfileComponent},
     { path: 'addMedicine', component:AddMedicineComponent},
     { path: 'pharmacyAdmin', component: HomePagePharmacyAdministratorComponent, children: [

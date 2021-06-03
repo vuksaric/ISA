@@ -110,6 +110,14 @@ public class PatientService implements IPatientService {
         return penaltyDTOS;
     }
 
+    @Override
+    public void addPenaltyPoint(int id) {
+        Patient patient = patientRepository.findOneById(id);
+        LocalDate today = LocalDate.now();
+        patient.getPenaltyPoints().add(today);
+        patientRepository.save(patient);
+    }
+
     private List<LocalDate> deletePatientPoints(Patient patient) {
        List<LocalDate> penaltyPoints = new ArrayList<>();
        if(LocalDate.now().getDayOfMonth()>=1){

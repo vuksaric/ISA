@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ExaminationService } from 'src/app/services/examination.service';
 
 @Component({
   selector: 'app-examination-frontpage',
@@ -8,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ExaminationFrontpageComponent implements OnInit {
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private examinationService : ExaminationService) { }
   id : String;
 
   ngOnInit(): void {
@@ -21,5 +22,12 @@ export class ExaminationFrontpageComponent implements OnInit {
 
   return() : void{
     this.router.navigate(['workScheduleDermatologist']);
+  }
+
+  point()
+  {
+    this.examinationService.addPoint(this.id).subscribe(data => { console.log("Uspesno"); 
+
+    });
   }
 }

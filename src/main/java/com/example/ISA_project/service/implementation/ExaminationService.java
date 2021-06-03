@@ -27,11 +27,12 @@ public class ExaminationService implements IExaminationService {
     private final IBillService billService;
     private final IDermatologistService dermatologistService;
     private final IPatientChartService patientChartService;
+    private final IEmailService emailService;
 
 
     public ExaminationService(ExaminationRepository examinationRepository, IPharmacyService pharmacyService, IReportService reportService,
                               IMedicineService medicineService, IPatientService patientService, IBillService billService,
-                              IDermatologistService dermatologistService, IPatientChartService patientChartService)
+                              IDermatologistService dermatologistService, IPatientChartService patientChartService, IEmailService emailService)
     {
         this.examinationRepository=examinationRepository;
         this.pharmacyService = pharmacyService;
@@ -41,6 +42,7 @@ public class ExaminationService implements IExaminationService {
         this.billService = billService;
         this.dermatologistService = dermatologistService;
         this.patientChartService = patientChartService;
+        this.emailService = emailService;
     }
 
 
@@ -184,7 +186,15 @@ public class ExaminationService implements IExaminationService {
         Examination result = examinationRepository.save(newExamination);
         dermatologistService.addNewExamination(result);
         patientService.saveFutureExamination(result);
+        emailService.newExamination(result);
         return new AppointmentDTO(result);
+    }
+
+    @Override
+    public void addPenaltyPoint(int id) {
+        Examination examination = examinationRepository.findExaminationById(id);
+        examination.setDone(true);
+        patientService.addPenaltyPoint(examination.getPatient().getId());
     }
 
 
