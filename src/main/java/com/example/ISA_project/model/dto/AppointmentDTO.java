@@ -19,6 +19,7 @@ public class AppointmentDTO {
     private String pharmacyName;
     private String fullName;
     private boolean done;
+    private int patientId;
 
     public AppointmentDTO(Consultation consultation)
     {
@@ -28,6 +29,7 @@ public class AppointmentDTO {
         this.pharmacyName = consultation.getPharmacy().getName();
         this.fullName = consultation.getPatient().getUser().getFullName();
         this.done = consultation.isDone();
+        this.patientId = consultation.getPatient().getId();
     }
 
     public AppointmentDTO(Examination examination)
@@ -38,6 +40,7 @@ public class AppointmentDTO {
         this.pharmacyName = examination.getPharmacy().getName();
         this.fullName = examination.getPatient().getUser().getFullName();
         this.done = examination.isDone();
+        this.patientId = examination.getPatient().getId();
     }
 
 }

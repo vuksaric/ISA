@@ -2,6 +2,7 @@ package com.example.ISA_project.service.implementation;
 
 import com.example.ISA_project.model.*;
 import com.example.ISA_project.model.dto.AppointmentDTO;
+import com.example.ISA_project.model.dto.CheckVacationRequest;
 import com.example.ISA_project.model.dto.WorkDayDTO;
 import com.example.ISA_project.repository.DermatologistRepository;
 import com.example.ISA_project.service.IConsultationService;
@@ -36,6 +37,21 @@ public class DermatologistService implements IDermatologistService {
         }
         return result;
     }
+
+    @Override
+    public void addVacation(Vacation vacation) {
+        Dermatologist dermatologist = dermatologistRepository.getOne(vacation.getUser_id());
+        List<Vacation> vacations = dermatologist.getVacation();
+        vacations.add(vacation);
+        dermatologist.setVacation(vacations);
+        dermatologistRepository.save(dermatologist);
+    }
+
+    @Override
+    public Dermatologist getById(int id) {
+        return dermatologistRepository.findOneById(id);
+    }
+
 
     public List<Period> getPeriods(WorkdayDermatologist workday, WorkingHours workingHours) {
         boolean check = false;
@@ -108,5 +124,23 @@ public class DermatologistService implements IDermatologistService {
             }
         }
         dermatologistRepository.save(dermatologist);
+    }
+
+    @Override
+    public boolean checkVacation(CheckVacationRequest request) {
+        Dermatologist dermatologist = dermatologistRepository.findOneById(request.getId());
+        LocalDate date = request.getDate();
+        for(Vacation vacation : dermatologist.getVacation())
+        {
+            if(date.equals(vacation.getStart_date().toLocalDate()) && request.getPharmacyId() == vacation.getPharmacy_id())
+                return false;
+
+            if(date.equals(vacation.getEnd_date().toLocalDate()) && request.getPharmacyId() == vacation.getPharmacy_id())
+                return false;
+
+            if(date.isAfter(vacation.getStart_date().toLocalDate()) && date.isBefore(vacation.getEnd_date().toLocalDate()) && request.getPharmacyId() == vacation.getPharmacy_id())
+                return false;
+        }
+        return true;
     }
 }

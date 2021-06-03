@@ -57,6 +57,7 @@ public class PatientService implements IPatientService {
     public void saveConsultation(Consultation consultation) {
         Patient patient = patientRepository.findOneById(consultation.getPatient().getId());
         patient.getPatientChart().getPreviousConsultations().add(consultation);
+        patient.getPatientChart().getFutureConsultations().remove(consultation);
         patientRepository.save(patient);
     }
 
@@ -64,6 +65,8 @@ public class PatientService implements IPatientService {
     public void saveExamination(Examination examination) {
         Patient patient = patientRepository.findOneById(examination.getPatient().getId());
         patient.getPatientChart().getPreviousExaminations().add(examination);
+        patient.getPatientChart().getFutureExaminations().remove(examination);
+        patientRepository.save(patient);
     }
 
     public Patient findOneById(int id) {
@@ -117,6 +120,21 @@ public class PatientService implements IPatientService {
         patient.getPenaltyPoints().add(today);
         patientRepository.save(patient);
     }
+
+    @Override
+    public void removeFutureConsultation(Consultation consultation) {
+        Patient patient = patientRepository.findOneById(consultation.getPatient().getId());
+        patient.getPatientChart().getFutureConsultations().remove(consultation);
+        patientRepository.save(patient);
+    }
+
+    @Override
+    public void removeFutureExamination(Examination examination) {
+        Patient patient = patientRepository.findOneById(examination.getPatient().getId());
+        patient.getPatientChart().getFutureExaminations().remove(examination);
+        patientRepository.save(patient);
+    }
+
 
     private List<LocalDate> deletePatientPoints(Patient patient) {
        List<LocalDate> penaltyPoints = new ArrayList<>();

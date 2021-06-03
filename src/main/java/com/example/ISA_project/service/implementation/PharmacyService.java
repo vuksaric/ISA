@@ -10,6 +10,7 @@ import com.example.ISA_project.model.dto.MedicineDTO;
 import com.example.ISA_project.model.dto.PharmacyDTO;
 import com.example.ISA_project.repository.PharmacyRepository;
 import com.example.ISA_project.service.IBillService;
+import com.example.ISA_project.service.IMedicineNotificationService;
 import com.example.ISA_project.service.IMedicineService;
 import com.example.ISA_project.service.IPharmacyService;
 import org.springframework.stereotype.Service;
@@ -22,11 +23,14 @@ public class PharmacyService implements IPharmacyService {
     private final PharmacyRepository pharmacyRepository;
     private final IMedicineService medicineService;
     private final IBillService billService;
+    private final IMedicineNotificationService medicineNotificationService;
 
-    public PharmacyService(PharmacyRepository pharmacyRepository, IMedicineService medicineService, IBillService billService){
+    public PharmacyService(PharmacyRepository pharmacyRepository, IMedicineService medicineService, IBillService billService,
+                           IMedicineNotificationService medicineNotificationService){
         this.pharmacyRepository=pharmacyRepository;
         this.medicineService = medicineService;
         this.billService = billService;
+        this.medicineNotificationService = medicineNotificationService;
     }
     @Override
     public List<PharmacyDTO> findAll() {
@@ -103,6 +107,10 @@ public class PharmacyService implements IPharmacyService {
             if (medicine.getMedicine().getId() == idMedicine) {
                 if (medicine.getQuantity() > 0) {
                     return true;
+                }
+                else
+                {
+                    medicineNotificationService.saveNotification(new MedicineNotification(medicineService.findOneById(idMedicine)));
                 }
             }
         }

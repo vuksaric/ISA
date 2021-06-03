@@ -1,3 +1,8 @@
+import { VacationApprovalComponent } from './pages/home-page-pharmacy-administrator/vacation-approval/vacation-approval.component';
+import { PromotionsComponent } from './pages/home-page-pharmacy-administrator/promotions/promotions.component';
+import { AdminProfileComponent } from './pages/home-page-pharmacy-administrator/admin-profile/admin-profile.component';
+import { PricelistComponent } from './pages/home-page-pharmacy-administrator/pricelist/pricelist.component';
+import { DermatologistListComponent } from './pages/home-page-pharmacy-administrator/dermatologist-list/dermatologist-list.component';
 import { PharmacistListComponent } from './pages/home-page-pharmacy-administrator/pharmacist-list/pharmacist-list.component';
 import { MedicineOrderComponent } from './pages/home-page-pharmacy-administrator/medicine-order/medicine-order.component';
 import { MedicineListComponent } from './pages/home-page-pharmacy-administrator/medicine-list/medicine-list.component';
@@ -101,7 +106,12 @@ const routes: Routes = [
         { path: 'pharmacy-report', component: PharmacyReportComponent },
         { path: 'medicine-list', component: MedicineListComponent },
         { path: 'medicine-order', component: MedicineOrderComponent},
-        { path: 'pharmacist-list', component: PharmacistListComponent }
+        { path: 'pharmacist-list', component: PharmacistListComponent },
+        { path: 'dermatologist-list', component:DermatologistListComponent},
+        { path: 'pricelist', component:PricelistComponent},
+        { path: 'admin-profile', component:AdminProfileComponent},
+        { path: 'promotions', component:PromotionsComponent},
+        { path: 'vacation-approval', component:VacationApprovalComponent}
     ] },
     
 ]

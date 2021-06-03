@@ -29,6 +29,8 @@ public interface IPatientService {
 
     List<PenaltyDTO> getPatientPenaltyPoints(int id);
     void addPenaltyPoint(int id);
+    void removeFutureConsultation(Consultation consultation);
+    void removeFutureExamination(Examination examination);
 
 
 }

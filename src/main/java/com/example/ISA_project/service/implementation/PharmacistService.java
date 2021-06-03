@@ -1,10 +1,7 @@
 package com.example.ISA_project.service.implementation;
 
 import com.example.ISA_project.model.*;
-import com.example.ISA_project.model.dto.AppointmentDTO;
-import com.example.ISA_project.model.dto.ProfileDTO;
-import com.example.ISA_project.model.dto.ReservationDTO;
-import com.example.ISA_project.model.dto.WorkDayDTO;
+import com.example.ISA_project.model.dto.*;
 import com.example.ISA_project.repository.ConsultationRepository;
 import com.example.ISA_project.repository.PharmacistRepository;
 import com.example.ISA_project.service.IConsultationService;
@@ -57,7 +54,74 @@ public class PharmacistService implements IPharmacistService {
         return reservationService.getByPharmacy(pharmacist.getPharmacy().getName());
     }
 
-    public List<Period> getPeriods(WorkdayPharmacist workday, WorkingHours workingHours) {
+    @Override
+    public void newPharmacist(RegistrationDTO registrationDTO) {
+
+        List<Pharmacist> pharmacists = pharmacistRepository.uniqueEmail(registrationDTO.getEmail());
+        if(pharmacists.size() == 0) {
+            Address address = new Address(registrationDTO.getAddress(), registrationDTO.getTown(), registrationDTO.getState());
+            Gender gender;
+            if (registrationDTO.getGender().equalsIgnoreCase("male"))
+                gender = Gender.Male;
+            else if (registrationDTO.getGender().equalsIgnoreCase("female"))
+                gender = Gender.Female;
+            else
+                gender = Gender.NonBinary;
+            User user = new User(registrationDTO.getName(), registrationDTO.getSurname(), registrationDTO.getEmail(), registrationDTO.getPassword(), registrationDTO.getPhone(), address, gender, registrationDTO.getBirthday(), UserType.Pharmacist);
+            Pharmacist pharmacist = new Pharmacist();
+            pharmacist.setUser(user);
+            try {
+                pharmacistRepository.save(pharmacist);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public List<PharmacistDTO> getAll() {
+        ArrayList<Pharmacist> pharmacists = new ArrayList<>();
+        ArrayList<PharmacistDTO> pharmacistDTOS = new ArrayList<>();
+        try{
+            pharmacists = (ArrayList<Pharmacist>) pharmacistRepository.findAll();
+            for(Pharmacist p : pharmacists){
+                pharmacistDTOS.add(new PharmacistDTO(p));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return pharmacistDTOS;
+    }
+
+    @Override
+    public List<PharmacistDTO> search(String input) {
+        List<Pharmacist> pharmacists = new ArrayList<>();
+        ArrayList<PharmacistDTO> pharmacistDTOS = new ArrayList<>();
+        try {
+            if(input.contains(" ")){
+                String[] inputs = input.split(" ");
+                if(inputs.length == 1){
+                    pharmacists = (ArrayList<Pharmacist>) pharmacistRepository.search(inputs[0]);
+
+                }else{
+                    pharmacists = (ArrayList<Pharmacist>) pharmacistRepository.search(inputs[0], inputs[1]);
+                }
+            }else {
+                pharmacists = (ArrayList<Pharmacist>) pharmacistRepository.search(input);
+            }
+                for (Pharmacist p : pharmacists) {
+                    pharmacistDTOS.add(new PharmacistDTO(p));
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return pharmacistDTOS;
+    }
+
+    public List<Period> getPeriods(WorkdayPharmacist workday, WorkingHours workingHours)
+    {
         boolean check = false;
         List<Period> periods = new ArrayList<>();
 
@@ -104,6 +168,29 @@ public class PharmacistService implements IPharmacistService {
     }
 
     @Override
+    public void addVacation(Vacation vacation) {
+        Pharmacist pharmacist = pharmacistRepository.getOne(vacation.getUser_id());
+        List<Vacation> vacations = pharmacist.getVacation();
+        vacations.add(vacation);
+        pharmacist.setVacation(vacations);
+        pharmacistRepository.save(pharmacist);
+    }
+
+    @Override
+    public Pharmacist getById(int id){
+        return pharmacistRepository.findOneById(id);
+    }
+
+    @Override
+    public void delete(int id) {
+        try{
+            pharmacistRepository.deleteById(id);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
     public void addNewConsultation(Consultation consultation) {
         Pharmacist pharmacist = pharmacistRepository.findOneById(consultation.getPharmacist().getId());
         for(WorkdayPharmacist workdayPharmacist : pharmacist.getWorkdays())
@@ -114,5 +201,20 @@ public class PharmacistService implements IPharmacistService {
             }
         }
         pharmacistRepository.save(pharmacist);
+    }
+
+    @Override
+    public boolean checkVacation(CheckVacationRequest request) {
+        Pharmacist pharmacist = pharmacistRepository.findOneById(request.getId());
+        LocalDate date = request.getDate();
+        for(Vacation vacation : pharmacist.getVacation())
+        {
+            if(date.equals(vacation.getStart_date().toLocalDate()) || date.equals(vacation.getEnd_date().toLocalDate()))
+                return false;
+
+            if(date.isAfter(vacation.getStart_date().toLocalDate()) && date.isBefore(vacation.getEnd_date().toLocalDate()))
+                return false;
+        }
+        return true;
     }
 }

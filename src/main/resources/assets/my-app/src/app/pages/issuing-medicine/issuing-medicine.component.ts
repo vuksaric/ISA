@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { PharmacistService } from 'src/app/services/pharmacist.service';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { DOCUMENT } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 interface Reservation {
   serial_number: string;
@@ -20,7 +21,7 @@ export class IssuingMedicineComponent implements OnInit {
   listOfDisplayData : any[];
   listOfData: Reservation[] = [
   ]
-  constructor(private pharmacistService: PharmacistService, private reservationService: ReservationService, @Inject(DOCUMENT) private _document: Document) { }
+  constructor(private pharmacistService: PharmacistService, private reservationService: ReservationService, @Inject(DOCUMENT) private _document: Document, private toastr: ToastrService) { }
 
   ngOnInit(): void {
 
@@ -31,7 +32,6 @@ export class IssuingMedicineComponent implements OnInit {
   }
 
   issue(serial_number : string) : void{
-    alert(serial_number);
     
     this.reservationService.issue(serial_number).subscribe(data => { console.log(data); 
       console.log(data);
@@ -43,7 +43,7 @@ export class IssuingMedicineComponent implements OnInit {
   search() : void {
     this.listOfDisplayData = this.listOfData.filter((item: Reservation) => item.serial_number.toLowerCase() == (this.searchValue.toLowerCase()));
     if(this.listOfDisplayData.length == 0)
-      alert("Reservation doesn't exist or is expired");
+    this.toastr.warning("Reservation doesn't exist or is expired");
 
    
   }

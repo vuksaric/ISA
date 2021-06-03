@@ -33,8 +33,11 @@ public class ConsultationDTO {
         this.mark = consultation.getPharmacist().getMark();
         this.price = consultation.getPharmacy().getConsultationPrice();
         this.id = consultation.getId();
-        this.notes = consultation.getReport().getInformation();
-        this.medicine = consultation.getReport().getTherapy().getMedicine().getName();
+        if(consultation.getReport() != null)
+        {
+            this.notes = consultation.getReport().getInformation();
+            this.medicine = consultation.getReport().getTherapy().getMedicine().getName();
+        }
         if(consultation.getPeriod().getStart_date().isAfter(LocalDateTime.now().plusDays(1))){
             this.canBeCanceled= true;
         }

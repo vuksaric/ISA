@@ -78,4 +78,9 @@ export class SerachPatientsComponent implements OnInit {
       return "Examinations"
   }
 
+  viewProfile(id : number) : void
+  {
+    this.router.navigate(['patientProfileDoctor/' + id]);
+  }
+
 }

@@ -1,0 +1,9 @@
+.adminProfile{
+    width: 35vw;
+    height: 2vw;
+}
+
+nz-date-picker {
+    margin: 0 8px 12px 0;
+    width: 275px;
+  }

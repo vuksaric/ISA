@@ -19,6 +19,13 @@ export class HomePagePharmacyAdministratorComponent implements OnInit {
   pharmacyReport() {
     this.router.navigate(['pharmacyAdmin/pharmacy-report']);
   }
+
+  pharmacyPricelist(){
+    this.router.navigate(['/pharmacyAdmin/pricelist']);
+  }
+  pharmacyVacations(){
+    this.router.navigate(['/pharmacyAdmin/vacation-approval']);
+  }
   medicine() {
     this.router.navigate(['pharmacyAdmin/medicine-list']);
   }
@@ -28,16 +35,23 @@ export class HomePagePharmacyAdministratorComponent implements OnInit {
   medicineAllOrders() {
     //this.router.navigate(['pharmacyAdmin/pharmacist-list']);
   }
-  
   pharmacist() {
     this.router.navigate(['/pharmacyAdmin/pharmacist-list']);
   }
   dermatologist() {
-    this.router.navigate(['/pharmacyAdmin/pharmacy-profile']);
+    this.router.navigate(['/pharmacyAdmin/dermatologist-list']);
   }
   freeAppointments() {
     this.router.navigate(['/pharmacyAdmin/pharmacy-profile']);
   }
+  adminProfile(){
+    this.router.navigate(['/pharmacyAdmin/admin-profile']);
+  }
+  promotions(){
+    this.router.navigate(['/pharmacyAdmin/promotions']);
+  }
+
+
 
 
 }

@@ -28,10 +28,9 @@ public class Pharmacist{
     private Pharmacy pharmacy;
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="PharmacistVacation_ID")
-    private List<Period> vacation;
+    private List<Vacation> vacation;
     @OneToOne(fetch=FetchType.LAZY,  cascade = CascadeType.ALL)
     private WorkingHours workingHours;
-
     public String getFullName(){
         return user.getName() + " "+ user.getSurname();
     }

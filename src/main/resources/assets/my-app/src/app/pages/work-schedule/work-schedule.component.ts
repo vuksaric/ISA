@@ -78,4 +78,9 @@ export class WorkScheduleComponent implements OnInit {
     this.router.navigate(['consultationFrontpage/' + id]);
   }
 
+  viewProfile(id : number) : void
+  {
+    this.router.navigate(['patientProfileDoctor/' + id]);
+  }
+
 }
