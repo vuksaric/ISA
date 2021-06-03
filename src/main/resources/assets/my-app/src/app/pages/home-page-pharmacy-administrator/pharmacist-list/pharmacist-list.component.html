@@ -8,64 +8,180 @@
     </div>
 </div>
 
-<div class="search-input">
-    <nz-input-group [nzSuffix]="suffixIconSearch">
-        <input type="text" nz-input placeholder="Search" nzSize="default" />
-    </nz-input-group>
-    <ng-template #suffixIconSearch>
-        <i nz-icon nzType="search"></i>
-    </ng-template>
+<div nz-row>
+    <div nz-col class="search-input">
+        <nz-input-group [nzSuffix]="suffixIconSearch">
+            <input type="text" nz-input placeholder="Search" nzSize="default" (ngModelChange)="searchPharmacist()"
+                [(ngModel)]="search" />
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+            <button style="background-color: white; border: none;" (click)="searchPharmacist()"><i nz-icon
+                    nzType="search"></i></button>
+        </ng-template>
+    </div>
+    <div nz-col>
+        <button *ngIf=search style="background-color: white; border: none; height: 33px; background-color: #f0f4f8; "
+            (click)="clearSearch()"><i nz-icon nzType="close" nzTheme="outline"></i></button>
+    </div>
 </div>
 
 
-<nz-modal [(nzVisible)]="isVisible" nzTitle="New pharmacist" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="New pharmacist" (nzOnCancel)="handleCancel()" (nzOnOk)="submitForm()"
+    nzOkText="Register">
     <ng-container *nzModalContent>
-        <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+        <form nz-form [formGroup]="validateForm">
             <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">E-mail</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-                    <input nz-input formControlName="email" id="email" />
-                </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>Password</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your password!">
-                    <input nz-input type="password" id="password" formControlName="password"
-                        (ngModelChange)="updateConfirmValidator()" />
-                </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="checkPassword" nzRequired>Confirm Password</nz-form-label>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Name</nz-form-label>
                 <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl">
-                    <input nz-input type="password" formControlName="checkPassword" id="checkPassword" />
+                    <input nz-input id="name" formControlName="name" (ngModelChange)="updateNameValidator()"
+                        style="margin-left:15px;" />
                     <ng-template #errorTpl let-control>
-                        <ng-container *ngIf="control.hasError('required')">
-                            Please confirm your password!
-                        </ng-container>
-                        <ng-container *ngIf="control.hasError('confirm')">
-                            Two passwords that you enter is inconsistent!
+                        <ng-container *ngIf="control.hasError('name')">
+                            <div style="margin-left:15px;">
+                                Name form is not valid.
+                            </div>
                         </ng-container>
                     </ng-template>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" nzRequired>Phone Number</nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="validateForm.controls['phoneNumber']"
-                    nzErrorTip="Please input your phone number!">
-                    <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
-                        <ng-template #addOnBeforeTemplate>
-                            <nz-select formControlName="phoneNumberPrefix" class="phone-select">
-                                <nz-option nzLabel="+86" nzValue="+86"></nz-option>
-                                <nz-option nzLabel="+87" nzValue="+87"></nz-option>
-                            </nz-select>
-                        </ng-template>
-                        <input formControlName="phoneNumber" id="'phoneNumber'" nz-input />
-                    </nz-input-group>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="surname">Surname</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl2">
+                    <input nz-input id="surname" formControlName="surname" (ngModelChange)="updateSurnameValidator()"
+                        style="margin-left:15px;" />
+                    <ng-template #errorTpl2 let-control>
+                        <ng-container *ngIf="control.hasError('surname')">
+                            <div style="margin-left:15px;">
+                                Surname form is not valid.
+                            </div>
+                        </ng-container>
+                    </ng-template>
                 </nz-form-control>
             </nz-form-item>
-            <nz-form-item nz-row class="register-area">
-                <nz-form-control [nzSpan]="14" [nzOffset]="6">
-                    <button nz-button nzType="primary">Register</button>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Gender</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTplG">
+                    <nz-select style="margin-left:15px;" formControlName="gender"
+                        (ngModelChange)="updateGenderValidator()">
+                        <nz-option nzValue="male" nzLabel="Male"></nz-option>
+                        <nz-option nzValue="female" nzLabel="Female"></nz-option>
+                        <nz-option nzValue="non-binary" nzLabel="Non-binary"></nz-option>
+                    </nz-select>
+                    <ng-template #errorTplG let-control>
+                        <ng-container *ngIf="control.hasError()">
+                            <div style="margin-left:15px;">
+                                Gender is empty.
+                            </div>
+                        </ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Date of birth</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid surname!">
+                    <nz-date-picker style="margin-left:15px;" formControlName="birthday"
+                        [nzDisabledDate]="disabledDate"></nz-date-picker>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">E-mail</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTplEmail">
+                    <input nz-input formControlName="email" id="email" style="margin-left:15px;margin-right: 5px;"
+                        (ngModelChange)="updateEmailValidator()" />
+                    <ng-template #errorTplEmail let-control>
+                        <ng-container *ngIf="control.hasError()">
+                            <div style="margin-left:15px;">
+                                Gender is empty.
+                            </div>
+                        </ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>Password</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="20" nzErrorTip="Please input your password!">
+                    <input nz-input type="password" id="password" formControlName="password"
+                        (ngModelChange)="updateConfirmValidator()" style="margin-left:15px;" />
+                    <span *ngIf="validateForm.controls['password'].errors?.required &&
+                    validateForm.controls['password'].touched" style="color: red; margin-left: 0.8vw;"> Enter your
+                        password <br></span>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="checkPassword" nzRequired>Confirm password</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl3">
+                    <input nz-input type="password" formControlName="checkPassword" id="checkPassword"
+                        style="margin-left:15px;" />
+                    <ng-template #errorTpl3 let-control>
+                        <ng-container *ngIf="control.hasError('required')">
+                            <div style="margin-left:15px;">
+                                Please confirm your password!
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="control.hasError('confirm')">
+                            <div style="margin-left:15px;">
+                                Two passwords that you enter is inconsistent!
+                            </div>
+                        </ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Street</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid street!">
+                    <input nz-input id="street" formControlName="street" style="margin-left:15px;margin-right: 5px;" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Town</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid town!">
+                    <input nz-input id="town" formControlName="town" style="margin-left:15px;margin-right: 5px;" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">State</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24">
+                    <nz-select style="margin-left:15px;" formControlName="state">
+                        <nz-option nzValue="Afganistan" nzLabel="Afganistan">Afghanistan</nz-option>
+                        <nz-option nzValue="Albania" nzLabel="Albania">Albania</nz-option>
+                        <nz-option nzValue="Algeria" nzLabel="Algeria">Algeria</nz-option>
+                        <nz-option nzValue="American Samoa" nzLabel="American Samoa">American Samoa</nz-option>
+                        <nz-option nzValue="Andorra" nzLabel="Andorra">Andorra</nz-option>
+                        <nz-option nzValue="Angola" nzLabel="Angola">Angola</nz-option>
+                        <nz-option nzValue="Anguilla" nzLabel="Anguilla">Anguilla</nz-option>
+                        <nz-option nzValue="Antigua & Barbuda" nzLabel="Antigua & Barbuda">Antigua & Barbuda</nz-option>
+                        <nz-option nzValue="Argentina" nzLabel="Argentina">Argentina</nz-option>
+                        <nz-option nzValue="Armenia" nzLabel="Armenia">Armenia</nz-option>
+                        <nz-option nzValue="Aruba" nzLabel="Aruba">Aruba</nz-option>
+                        <nz-option nzValue="Australia" nzLabel="Australia">Australia</nz-option>
+                        <nz-option nzValue="Austria" nzLabel="Austria">Austria</nz-option>
+                        <nz-option nzValue="Azerbaijan" nzLabel="Azerbaijan">Azerbaijan</nz-option>
+                        <nz-option nzValue="Bahamas" nzLabel="Bahamas">Bahamas</nz-option>
+                        <nz-option nzValue="Bahrain" nzLabel="Bahrain">Bahrain</nz-option>
+                        <nz-option nzValue="Bangladesh" nzLabel="Bangladesh">Bangladesh</nz-option>
+                        <nz-option nzValue="Barbados" nzLabel="Barbados">Barbados</nz-option>
+                        <nz-option nzValue="Belarus" nzLabel="Belarus">Belarus</nz-option>
+                        <nz-option nzValue="Belgium" nzLabel="Belgium">Belgium</nz-option>
+                        <nz-option nzValue="Belize" nzLabel="Belize">Belize</nz-option>
+                        <nz-option nzValue="Benin" nzLabel="Benin">Benin</nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" nzRequired>Phone Number</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl4">
+                    <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+                        <input formControlName="phone" (ngModelChange)="updatePhoneValidator()" id="'phoneNumber'"
+                            style="margin-left:15px;" nz-input />
+                    </nz-input-group>
+                    <ng-template #errorTpl4 let-control>
+                        <ng-container *ngIf="control.hasError('numbers')">
+                            <div style="margin-left:15px;">
+                                Phone is not in valid form.
+                            </div>
+                        </ng-container>
+                    </ng-template>
                 </nz-form-control>
             </nz-form-item>
         </form>
@@ -75,37 +191,24 @@
 
 <br>
 
-<nz-table #basicTable [nzData]="listOfData">
+<nz-table #filterTable [nzData]="pharmacistList" nzTableLayout="fixed">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Gender</th>
-            <th>Date of birth</th>
-            <th>Mark</th>
-            <th>Workdays</th>
-            <th>Shift</th>
+            <th *ngFor="let column of listOfColumns" [nzSortOrder]="column.sortOrder" [nzSortFn]="column.sortFn"
+                [nzSortDirections]="column.sortDirections" [nzFilterMultiple]="column.filterMultiple"
+                [nzFilters]="column.listOfFilter" [nzFilterFn]="column.filterFn">
+                {{ column.name }}
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let data of basicTable.data">
-            <td>{{ data.name }}</td>
-            <td>{{ data.age }}</td>
-            <td>{{ data.address }}</td>
-            <td>
-                <a>Action 一 {{ data.name }}</a>
-                <nz-divider nzType="vertical"></nz-divider>
-                <a>Delete</a>
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><button nz-button nzType="dashed" (click)="showDeleteConfirm()">Remove</button></td>
+        <tr *ngFor="let data of filterTable.data">
+            <td>{{ data.name }} </td>
+            <td>{{ data.surname }}</td>
+            <td>{{ data.mark }}</td>
+            <td>{{ data.pharmacy }}</td>
+            <td><button nz-button nzType="dashed" (click)="showDeleteConfirm(data)">Remove</button></td>
         </tr>
     </tbody>
 </nz-table>

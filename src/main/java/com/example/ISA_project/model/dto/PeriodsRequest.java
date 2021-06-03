@@ -13,4 +13,5 @@ public class PeriodsRequest {
 
     private String id;
     private LocalDate date;
+    private int pharmacyId;
 }

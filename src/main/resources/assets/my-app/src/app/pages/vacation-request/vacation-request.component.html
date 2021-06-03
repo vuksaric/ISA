@@ -1,7 +1,9 @@
 <h2>Vacation request</h2>
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submit()">
     <nz-form-control>
-        <input formControlName="name" type="{{visibility()}}"  nz-input placeholder="Pharmacy name" [(ngModel)]="name" />
+        <nz-select [hidden] = "visibility()" formControlName="name" [(ngModel)]="pharmacy_id" >
+            <nz-option *ngFor = "let data of pharmacies"  [nzValue]="data.id" nzLabel="{{data.name}}"></nz-option>
+        </nz-select>
     </nz-form-control>
     <br>
     <nz-form-control>

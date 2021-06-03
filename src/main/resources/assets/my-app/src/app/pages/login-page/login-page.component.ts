@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
 
-
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',

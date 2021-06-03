@@ -31,4 +31,8 @@ export class PharmacyService {
     return this.http.get<Pharmacy[]>(pharmacy_url+`/subscribed/${id}`);
   }
 
+  public getPharmaciesDermatologist(id): Observable<Pharmacy[]> {
+    return this.http.get<Pharmacy[]>(pharmacy_url+`/allDermatologist/${id}`);
+  }
+
 }

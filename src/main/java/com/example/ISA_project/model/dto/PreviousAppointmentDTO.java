@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class PreviousAppointmentDTO {
 
     private int user_id;
+    private int patient_id;
     private String name;
     private String surname;
     private String address;
@@ -22,6 +23,7 @@ public class PreviousAppointmentDTO {
     public PreviousAppointmentDTO(Examination examination)
     {
         user_id = examination.getPatient().getUser().getId();
+        patient_id = examination.getPatient().getId();
         name = examination.getPatient().getUser().getName();
         surname = examination.getPatient().getUser().getSurname();
         address = examination.getPatient().getUser().getAddress().getFullAdress();

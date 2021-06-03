@@ -15,5 +15,8 @@ public class PriceListMedicineService implements IPriceListMedicineService {
         this.priceListMedicineRepository = priceListMedicineRepository;
     }
     @Override
-    public PricelistMedicine find(int medicineId, int pharmacyId) { return priceListMedicineRepository.find(medicineId, pharmacyId); }
+    public PricelistMedicine find(int medicineId, int pharmacyId)
+    {
+        return priceListMedicineRepository.find(medicineId, pharmacyId);
+    }
 }

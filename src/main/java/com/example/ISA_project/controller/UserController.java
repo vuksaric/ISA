@@ -1,5 +1,6 @@
 package com.example.ISA_project.controller;
 
+import com.example.ISA_project.model.dto.PasswordDTO;
 import com.example.ISA_project.model.dto.ProfileDTO;
 import com.example.ISA_project.service.IUserService;
 import org.springframework.http.HttpStatus;
@@ -14,8 +15,29 @@ public class UserController {
     public UserController(IUserService userService){
         this.userService=userService;
     }
+
     @PutMapping (consumes = "application/json")
     public ResponseEntity<ProfileDTO> editUser(@RequestBody ProfileDTO profile){
         return new ResponseEntity<>(userService.editUser(profile), HttpStatus.OK);
     }
+
+    @PutMapping(value = "/changePassword")
+    public ResponseEntity changePassword(@RequestBody PasswordDTO passwordDTO) {
+        try {
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping(value = "/edit")
+    public ResponseEntity editProfile(@RequestBody ProfileDTO profileDTO) {
+        try {
+            return new ResponseEntity(userService.editUser(profileDTO),HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

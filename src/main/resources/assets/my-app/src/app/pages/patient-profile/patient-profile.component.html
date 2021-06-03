@@ -1,4 +1,4 @@
-<nz-card style="width:400px;" nzTitle="Profile" [nzCover]="coverTemplate" [nzActions]="[actionAdd, actionEdit]">
+<nz-card style="width:400px;" nzTitle="Profile" [nzCover]="coverTemplate" [nzActions]="[actionAdd, actionEdit, actionViewPoints]">
     <ng-container *ngFor="let data of data1">
     <nz-card-meta nzTitle="{{data.title}}" nzDescription="{{data.description}}"></nz-card-meta>
     <br>
@@ -34,6 +34,31 @@
       </ng-container>
     </nz-modal>
      
+  </ng-template>
+  <ng-template #actionViewPoints>
+    <div (click)="viewPoints()" class="action-wrapper" nz-tooltip nzTooltipTitle="View penalty points" nzTooltipPlacement="top">
+      <i nz-icon nzType="exclamation-circle" nzTheme="outline"></i>
+    </div>
+    <nz-modal [(nzVisible)]="isVisiblePoint" nzTitle="View penalty points" (nzOnCancel)="handlePoint()" (nzOnOk)="handlePoint()">
+      <ng-container *nzModalContent>
+        <nz-table #basicTable [nzData]="listOfPoints">
+          <thead>
+            <tr>
+              <th>Date of penalty point</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of basicTable.data">
+              <td>{{data.date | date:'yyyy-MM-dd'}}</td>
+              <td>{{data.quantity}}</td>
+            </tr>
+          </tbody>
+         
+        </nz-table>
+        <p>Penalty points in total:<input [(ngModel)]="points" [disabled]="true" ></p>
+      </ng-container>
+    </nz-modal>
   </ng-template>
   <ng-template #actionEdit>
     <div (click)="edit()" class="action-wrapper" nz-tooltip nzTooltipTitle="Edit profile" nzTooltipPlacement="top">

@@ -86,7 +86,7 @@ formControlName="information"
   </ng-template>
   </nz-modal>
 
-  <button nz-button class = "button"  nzType="default">Schedule follow up</button>
+  <button nz-button class = "button" (click)="new()"  nzType="default">Schedule follow up</button>
   <button nz-button class = "button" (click)="finish()"  nzType="default">Finish consultation</button>
   <button nz-button class = "button" (click)="return()"  nzType="default">Go back</button>
   

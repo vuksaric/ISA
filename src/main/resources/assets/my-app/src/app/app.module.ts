@@ -1,3 +1,8 @@
+import { VacationApprovalComponent } from './pages/home-page-pharmacy-administrator/vacation-approval/vacation-approval.component';
+import { PromotionsComponent } from './pages/home-page-pharmacy-administrator/promotions/promotions.component';
+import { AdminProfileComponent } from './pages/home-page-pharmacy-administrator/admin-profile/admin-profile.component';
+import { PricelistComponent } from './pages/home-page-pharmacy-administrator/pricelist/pricelist.component';
+import { DermatologistListComponent } from './pages/home-page-pharmacy-administrator/dermatologist-list/dermatologist-list.component';
 import { PharmacistListComponent } from './pages/home-page-pharmacy-administrator/pharmacist-list/pharmacist-list.component';
 import { MedicineListComponent } from './pages/home-page-pharmacy-administrator/medicine-list/medicine-list.component';
 import { MedicineOrderComponent } from './pages/home-page-pharmacy-administrator/medicine-order/medicine-order.component';
@@ -19,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
 import { AppRoutingModule } from './app-routing.module';
+import { ToastrModule } from 'ngx-toastr';
 
 import { SystemAdminHomePageComponent } from './pages/system-admin-home-page/system-admin-home-page.component';
 import { HomePageUserComponent } from './pages/home-page-user/home-page-user.component';
@@ -57,8 +63,17 @@ import { ViewSubscribedPharmaciesComponent } from './pages/view-subscribed-pharm
 import { PreviousExaminationsComponent } from './pages/previous-examinations/previous-examinations.component';
 import { ViewReviewsComponent } from './pages/view-reviews/view-reviews.component';
 import { ViewPreviousExaminationsComponent } from './pages/view-previous-examinations/view-previous-examinations.component';
+import { NewExaminationDermatologistComponent } from './pages/new-examination-dermatologist/new-examination-dermatologist.component';
+import { ProfilePatientDoctorComponent } from './pages/profile-patient-doctor/profile-patient-doctor.component';
+import { ViewPreviousConsultationsProfileComponent } from './pages/view-previous-consultations-profile/view-previous-consultations-profile.component';
+import { ViewPreviousExaminationsProfileComponent } from './pages/view-previous-examinations-profile/view-previous-examinations-profile.component'
 import { AddMedicineComponent } from './pages/add-medicine/add-medicine.component';
 import { HomePageSupplierComponent } from './pages/home-page-supplier/home-page-supplier.component';
+import { ViewPreviousConsultationsComponent } from './pages/view-previous-consultations/view-previous-consultations.component';
+import { ViewFutureConsultationsComponent } from './pages/view-future-consultations/view-future-consultations.component';
+import { ViewErecipesComponent } from './pages/view-erecipes/view-erecipes.component';
+import { ViewErecipeMedicinesComponent } from './pages/view-erecipe-medicines/view-erecipe-medicines.component';
+import { SearchMedicinePipe } from './pages/medicine-reservation/search-medicine.pipe';
 
 registerLocaleData(en);
 
@@ -94,6 +109,9 @@ registerLocaleData(en);
     SerachPatientsComponent,
     RegistrationPharmacyComponent,
     RegistrationAdminComponent,
+    DermatologistListComponent,
+    PricelistComponent,
+    AdminProfileComponent,
     WorkScheduleDermatologistComponent,
     ExaminationFrontpageComponent,
     ExaminationReportComponent,
@@ -104,12 +122,22 @@ registerLocaleData(en);
     ViewReservationsComponent,
     NewConsultationPatientComponent,
     ViewSubscribedPharmaciesComponent,
+    PromotionsComponent,
+    VacationApprovalComponent,
     PreviousExaminationsComponent,
-
     ViewReviewsComponent,
     ViewPreviousExaminationsComponent,
+    NewExaminationDermatologistComponent,
+    ProfilePatientDoctorComponent,
+    ViewPreviousConsultationsProfileComponent,
+    ViewPreviousExaminationsProfileComponent,
     AddMedicineComponent,
     HomePageSupplierComponent,
+    ViewPreviousConsultationsComponent,
+    ViewFutureConsultationsComponent,
+    ViewErecipesComponent,
+    ViewErecipeMedicinesComponent,
+    SearchMedicinePipe,
   ],
   imports: [
     BrowserModule,
@@ -119,7 +147,8 @@ registerLocaleData(en);
     DemoNgZorroAntdModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    NzTableModule
+    NzTableModule,
+    ToastrModule.forRoot(),
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }, DatePipe],
   bootstrap: [AppComponent]

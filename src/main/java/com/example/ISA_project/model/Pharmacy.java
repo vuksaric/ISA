@@ -30,7 +30,7 @@ public class Pharmacy {
     @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Address address;
     private String description;
-    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name="Pharmacy_ID")
     private List<MedicineQuantity> medicines; // lekovi koji su bazi apoteke
     private float mark;

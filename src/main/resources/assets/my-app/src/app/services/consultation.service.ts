@@ -40,4 +40,8 @@ export class ConsultationService {
     return this.http.get(consultation_url + `/getFutureByPatient/${id}`);
   }
 
+  public newPharmacist(body): Observable<any>{
+    return this.http.post(consultation_url + `/newPharmacist`,body);
+  }
+
 }

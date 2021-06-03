@@ -24,4 +24,10 @@ public class Address {
     private double longitude;
 
     public String getFullAdress() { return street + ", " + town + ", " + state;}
+
+    public Address(String street, String town, String state){
+        this.street = street;
+        this.town = town;
+        this.state = state;
+    }
 }

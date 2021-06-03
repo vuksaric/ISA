@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultationService } from 'src/app/services/consultation.service';
 
 @Component({
@@ -9,14 +10,19 @@ import { ConsultationService } from 'src/app/services/consultation.service';
 })
 export class NewConsultationPharmacistComponent implements OnInit {
   date = null;
-  time : Date;
+  period : any;
   id : String;
   periods : any[];
   body : any;
-  constructor(private activatedRoute: ActivatedRoute, private consultationService: ConsultationService) { }
+  validateForm: FormGroup;
+  constructor(private router: Router,private activatedRoute: ActivatedRoute, private fb: FormBuilder, private consultationService: ConsultationService) { }
 
   ngOnInit(): void {
     this.id= this.activatedRoute.snapshot.paramMap.get('id');
+    this.validateForm = this.fb.group({
+      date: ['', [Validators.required]],
+      period: ['', [Validators.required]],
+    })
   }
 
 
@@ -40,5 +46,31 @@ export class NewConsultationPharmacistComponent implements OnInit {
         
     });
   }
+
+  submit()
+  {
+    this.body = {
+      period : this.period,
+      consultationId : this.id
+    }
+
+    for (const key in this.validateForm.controls) {
+      this.validateForm.controls[key].markAsDirty();
+      this.validateForm.controls[key].updateValueAndValidity();
+    }
+
+    if(this.validateForm.valid)
+    {
+      this.consultationService.newPharmacist(this.body).subscribe(data => { console.log(data); 
+      });
+      alert("You have scheduled a follow up a consultation!");
+      this.router.navigate(['homePagePharmacist']);
+    }
+    else
+    {
+      alert("All fields must be filled");
+    }
+  }
+
 
 }

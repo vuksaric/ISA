@@ -20,10 +20,10 @@ public class User {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String password;
     private String name;
     private String surname;
     private String email;
-    private String password;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Address address;
     private String phone;
@@ -35,6 +35,18 @@ public class User {
 
 
     public String getFullName() { return name + " " + surname;}
+
+    public User(String name, String surname, String email, String password, String phone, Address address, Gender gender, LocalDateTime dateOfBirth, UserType userType){
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.address = address;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.userType = userType;
+    }
 
 
 }

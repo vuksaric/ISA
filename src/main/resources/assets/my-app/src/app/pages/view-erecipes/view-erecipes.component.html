@@ -1,0 +1,45 @@
+<div class="center">
+    <nz-table #basicTable nzBordered nzTitle="List of eRecipes" [nzData]="listOfData">
+        <thead>
+          <tr>
+            <th *ngFor="let column of listOfColumn;" [(nzSortOrder)]="column.sortOrder"
+            [nzSortFn]="column.sortFn">
+                {{ column.title }}
+            </th>
+            <th *ngFor="let column of listOfColumn1;"
+            [nzFilters]="column.listOfFilter"
+            [nzFilterFn]="column.filterFn">
+                {{ column.title }}
+            </th>
+            <th>View medicines</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td>{{data.date | date:'yyyy-MM-dd'}}</td>
+            <td>{{data.status }}</td>
+            <td [nzAlign]="center">
+                <button nz-button nzType="primary"  (click)="medicines(data)">View medicines</button>
+            </td>
+          </tr>
+        </tbody>
+    </nz-table>
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="Medicines in ERecipe" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+      <ng-container *nzModalContent>
+        <nz-table #basicTableMedicine [nzData]="dataSet">
+          <thead>
+            <tr>
+              <th>Medicine</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of basicTableMedicine.data">
+              <td>{{data.medicine}}</td>
+              <td>{{data.quantity}}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </ng-container>
+    </nz-modal>
+</div>

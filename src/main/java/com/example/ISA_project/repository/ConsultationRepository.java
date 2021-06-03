@@ -13,7 +13,7 @@ public interface ConsultationRepository extends JpaRepository<Consultation, Inte
     List<Consultation> findAll();
     Consultation findOneById(int id);
 
-    @Query("select e from Consultation e where e.period.start_date > current_date and e.patient.id = ?1")
+    @Query("select e from Consultation e where e.period.start_date > current_date and e.patient.id = ?1 and done = false")
     List<Consultation> findAllFutureByPatient(int id);
 
 }
