@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from './../../services/auth.service';
 import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
+import { differenceInCalendarDays } from 'date-fns';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration-page',
@@ -10,15 +13,21 @@ import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 })
 export class RegistrationPageComponent implements OnInit {
 
+  selectedValuePhonePrefix = "+381";
+  selectedValueGender = "Male";
+  //selectedValueDate = null;
+  today = new Date();
+
   validateForm!: FormGroup;
   name: string;
   lastname : string;
   email : string;
   password : string;
-  address : string;
+  street : string;
   town : string;
   state : string;
   phone : string;
+  dateOfBirth : Date;
 
   submitForm(): void {
     for (const i in this.validateForm.controls) {
@@ -30,23 +39,40 @@ export class RegistrationPageComponent implements OnInit {
     this.lastname = this.validateForm.value.surname;
     this.email = this.validateForm.value.email;
     this.password = this.validateForm.value.password;
-    this.address = this.validateForm.value.address;
+    this.street = this.validateForm.value.street;
     this.town = this.validateForm.value.town;
     this.state = this.validateForm.value.state;
     this.phone = this.validateForm.value.phone;
+    this.dateOfBirth = this.validateForm.value.dateOfBirth;
+
+    const address ={
+      street : this.street,
+      town : this.town,
+      state : this.state,
+    }
 
     const body = {
       name: this.name,
       surname: this.lastname,
       email : this.email,
       password : this.password,
-      address : this.address,
-      town : this.town,
-      state : this.state,
-      phone : this.phone  
+      address: address,
+      phone : this.selectedValuePhonePrefix + this.phone,
+      dateOfBirth: this.dateOfBirth,
+      gender: this.selectedValueGender,   
+      userType: "Patient"
     }
-    this.authService.registration(body).subscribe(data => { console.log(data) })
+    if(this.validateForm.valid){
+      this.authservice.registration(body).subscribe(data => { console.log(data) 
+        this.toastr.success("You have successfully registered!!!");
+        this.router.navigate(['login']);
+      })
+    }
   }
+
+  disabledDate = (current: Date): boolean => {
+    return differenceInCalendarDays(current, this.today) > 0;
+  };
 
   updateConfirmValidator(): void {
     /** wait for refresh value */
@@ -62,7 +88,7 @@ export class RegistrationPageComponent implements OnInit {
     return {};
   };
 
-  constructor(private fb: FormBuilder,private authService: AuthService) { }
+  constructor(private fb: FormBuilder,private authservice: AuthService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -71,11 +97,12 @@ export class RegistrationPageComponent implements OnInit {
       email: [null, [Validators.email, Validators.required]],
       password: [null, [Validators.required]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]],
-      address : [null, [Validators.required]],
+      street : [null, [Validators.required]],
       town : [null, [Validators.required]],
       state : [null, [Validators.required]],
-      phoneNumberPrefix: ['+86'],
-      phoneNumber: [null, [Validators.required]],
+      phoneNumberPrefix: ['+381'],
+      phone: [null, [Validators.required]],
+      dateOfBirth: [null, [Validators.required]]
     });
   }
 }

@@ -30,4 +30,12 @@ public class Address {
         this.town = town;
         this.state = state;
     }
+
+    public Address(String street, String town, String state, Double latitude, Double longitude){
+        this.street = street;
+        this.town = town;
+        this.state = state;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 }

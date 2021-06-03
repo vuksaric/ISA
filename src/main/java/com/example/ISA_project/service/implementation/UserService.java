@@ -30,6 +30,7 @@ public class UserService implements IUserService {
         user.setPhone(profile.getPhone());
         user.setName(profile.getName());
         user.setSurname(profile.getSurname());
+        user.setEmail(profile.getEmail());
        userRepository.save(user);
        return profile;
     }

@@ -21,4 +21,6 @@ public class Offer {
     private int id;
     private float price;
     private LocalDateTime dueDate;
+    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    private Supplier supplier;
 }

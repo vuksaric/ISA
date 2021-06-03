@@ -54,6 +54,9 @@ import { ViewPreviousConsultationsComponent } from './pages/view-previous-consul
 import { ViewFutureConsultationsComponent } from './pages/view-future-consultations/view-future-consultations.component';
 import { ViewErecipesComponent } from './pages/view-erecipes/view-erecipes.component';
 import { ViewErecipeMedicinesComponent } from './pages/view-erecipe-medicines/view-erecipe-medicines.component';
+import { SupplierProfileComponent } from './pages/supplier-profile/supplier-profile.component';
+import { NewOfferComponent } from './pages/new-offer/new-offer.component';
+import { ViewOffersComponent } from './pages/view-offers/view-offers.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'pharmacyAdmin' },
@@ -112,7 +115,11 @@ const routes: Routes = [
         { path: 'promotions', component:PromotionsComponent},
         { path: 'vacation-approval', component:VacationApprovalComponent}
     ] },
-    { path: 'supplierHomePage', component: HomePageSupplierComponent},
+    { path: 'supplierHomePage', component: HomePageSupplierComponent, children:[
+        { path: 'supplierProfile', component:SupplierProfileComponent},
+        { path: 'newOffer', component:NewOfferComponent},
+        { path: 'viewOffers', component:ViewOffersComponent},
+    ]},
     
 ]
 

@@ -1,0 +1,70 @@
+<nz-layout>
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>
+        <span>Name</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your name!">
+        <input nz-input id="name" formControlName="name"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="surname" nzRequired>
+        <span>Surname</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your surname!">
+        <input nz-input id="surname" formControlName="surname" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">E-mail</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+        <input nz-input formControlName="email" id="email"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="street" nzRequired>
+        <span>Address</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your address!">
+        <input nz-input id="street" formControlName="street" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="town" nzRequired>
+        <span>Town</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your town!">
+        <input nz-input id="town" formControlName="town" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="state" nzRequired>
+        <span>State</span>
+      </nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your state!">
+        <input nz-input id="state" formControlName="state" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phone" nzRequired>Phone Number</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24"
+        nzErrorTip="Please input your phone number!">
+        <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+          <ng-template #addOnBeforeTemplate>
+            <nz-select formControlName="phoneNumberPrefix" class="phone-select" [(ngModel)]="selectedValuePhonePrefix" [ngModelOptions]="{standalone: true}">
+              <nz-option nzLabel="+381" nzValue="+381"></nz-option>
+              <nz-option nzLabel="+387" nzValue="+387"></nz-option>
+            </nz-select>
+          </ng-template>
+          <input formControlName="phone" id="'phone'" nz-input />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item nz-row class="register-area">
+      <nz-form-control [nzSpan]="14" [nzOffset]="6">
+        <button nz-button nzType="primary" >Edit profile</button>
+      </nz-form-control>
+    </nz-form-item>
+</form>
+</nz-layout>
