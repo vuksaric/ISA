@@ -28,6 +28,6 @@ public interface IPatientService {
     void saveFutureExamination(Examination examination);
 
     List<PenaltyDTO> getPatientPenaltyPoints(int id);
-
+    Boolean save(Patient patient);
 
 }
