@@ -23,6 +23,8 @@ public class PharmacistDTO {
     private String town;
     private String phone;
     private String birthday;
+    private float mark;
+    private String role;
 
     public PharmacistDTO(Pharmacist p){
         this.id = p.getId();
@@ -43,6 +45,8 @@ public class PharmacistDTO {
         this.town = p.getUser().getAddress().getTown();
         this.phone = p.getUser().getPhone();
         this.birthday = p.getUser().getDateOfBirth().toString();
+        this.mark = p.getMark();
+        this.role = "Pharmacist";
     }
 }
 

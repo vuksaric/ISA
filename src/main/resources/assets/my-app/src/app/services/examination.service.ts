@@ -61,4 +61,10 @@ export class ExaminationService {
     return this.http.post(examination_url + `/newDermatologist`,body);
   }
 
+  public getAllExaminationByMonth(id, mode): Observable<any> {
+    return this.http.get<any>(examination_url+'/examinationReport'+`/${id}` + `/${mode}`);
+  }
+
+
+
 }

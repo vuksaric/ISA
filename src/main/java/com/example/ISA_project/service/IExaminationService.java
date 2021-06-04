@@ -21,6 +21,7 @@ public interface IExaminationService {
     List<PreviousAppointmentDTO> getAllPreviousByDermatologist(int id);
     List<Period> freePeriods(int id, LocalDate date);
     AppointmentDTO newExaminationDermatologist(AppointmentRequest request);
+    List<Integer> examinationReport(int id, int mode);
 
 
 }

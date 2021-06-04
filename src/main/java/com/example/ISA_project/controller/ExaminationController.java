@@ -91,4 +91,15 @@ public class ExaminationController {
 
         return examinationService.newExaminationDermatologist(request);
     }
+
+    @GetMapping("/examinationReport/{id}/{mode}")
+    public ResponseEntity getReport(@PathVariable String id, @PathVariable String mode){
+        int pharmacyId = Integer.parseInt(id);
+        int mode2 = Integer.parseInt(mode);
+        try{
+            return new ResponseEntity(examinationService.examinationReport(pharmacyId,mode2),HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

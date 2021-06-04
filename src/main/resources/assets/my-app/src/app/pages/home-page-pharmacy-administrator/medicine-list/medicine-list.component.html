@@ -19,15 +19,17 @@
         </ng-template>
     </div>
     <div nz-col>
-        <button *ngIf=search style="background-color: white; border: none; height: 33px; background-color: #f0f4f8; " (click)="clearSearch()"><i nz-icon nzType="close"
-                nzTheme="outline"></i></button>    
+        <button *ngIf=search style="background-color: white; border: none; height: 33px; background-color: #f0f4f8; "
+            (click)="clearSearch()"><i nz-icon nzType="close" nzTheme="outline"></i></button>
     </div>
 </div>
 <br>
 
-<nz-modal [(nzVisible)]="isVisible" nzTitle="New pharmacist" (nzOnCancel)="handleCancel()">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Add medicine" (nzOnCancel)="handleCancel()" (nzOnOk)="addMedicineQuantity()">
     <ng-container *nzModalContent>
-       
+        <nz-select [(ngModel)]="medicineId">
+            <nz-option *ngFor="let item of medicineDifference" [nzLabel]="item.name" [nzValue]="item.id">></nz-option>
+        </nz-select>
     </ng-container>
 </nz-modal>
 
@@ -35,24 +37,22 @@
     <thead>
         <tr>
             <th>Name</th>
-            <th>Type</th>
             <th>Shape</th>
             <th>Manufacturer</th>
             <th>Issuing mode</th>
+            <th>Quantity</th>
             <th>Notes</th>
-            <th>Ingredients</th>
-            <th>Replacements</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let data of basicTable.data">
             <td>{{ data.name }}</td>
-            <td>{{ data.type }}</td>
             <td>{{ data.shape }}</td>
             <td>{{ data.manufacturer }}</td>
-            <td>{{data.mode }}</td>
-            <td>{{data.note}}</td>
+            <td>{{data.issuingMode }}</td>
+            <td>{{data.quantity }}</td>
+            <td>{{data.notes}}</td>
             <td></td>
             <td></td>
             <td><button nz-button nzType="dashed" (click)="showDeleteConfirm()">Remove</button></td>

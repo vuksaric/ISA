@@ -35,4 +35,36 @@ export class PharmacyService {
     return this.http.get<Pharmacy[]>(pharmacy_url+`/allDermatologist/${id}`);
   }
 
+  public getDermatologistsFromPharmacy(id): Observable<any> {
+    return this.http.get<any>(pharmacy_url+`/allDermatologistPharmacy/${id}`);
+  }
+
+  public getPharmacistsFromPharmacy(id): Observable<any> {
+    return this.http.get<any>(pharmacy_url+`/allPharmacistPharmacy/${id}`);
+  }
+
+  public getMedicineFromPharmacy(id): Observable<any>{
+    return this.http.get<any>(pharmacy_url+`/allMedicinesPharmacy/${id}`);
+  }
+
+  public getPharmacyMark(id): Observable<any>{
+    return this.http.get<any>(pharmacy_url+`/getPharmacyMark/${id}`);
+  }
+
+  public getPharmacy(id): Observable<any>{
+    return this.http.get<any>(pharmacy_url+`/getPharmacy/${id}`);
+  }  
+
+  public addMedicineQuantity(medicineId, pharmacyId,body): Observable<any>{
+    return this.http.put<any>(pharmacy_url+`/newMedicineQuantity/${medicineId}/${pharmacyId}`, body);
+  }
+
+  public search(input,id): Observable<any>{
+    return this.http.get<any>(pharmacy_url+`/searchMedicineQuantity/${input}/${id}`);
+  }
+
+  public removeMedicineQuantity(medicineId, pharmacyId): Observable<any>{
+    return this.http.put<any>(pharmacy_url+`/removehMedicineQuantity/${medicineId}/${pharmacyId}`, null);
+  }
+
 }

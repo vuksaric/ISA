@@ -25,7 +25,10 @@ export const environment = {
   admin_url : 'http://localhost:8080/admin',
   review_url : 'http://localhost:8080/review',
   report_url : 'http://localhost:8080/report',
-  promotions_url : 'http://localhost:8080/promotion'
+  promotions_url : 'http://localhost:8080/promotion',
+  order_url : 'http://localhost:8080/order',
+  bill_url : 'http://localhost:8080/bill',
+  medicineQuantity_url : 'http://localhost:8080/medicineQuantity',
 };
 
 /*

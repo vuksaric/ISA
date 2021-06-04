@@ -22,4 +22,9 @@ public class MedicineQuantity {
     private Medicine medicine;
     private int quantity;
 
+    public MedicineQuantity(Medicine medicine, int quantity){
+        this.medicine = medicine;
+        this.quantity = quantity;
+    }
+
 }

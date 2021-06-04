@@ -10,13 +10,66 @@
 <br>
 
 <nz-modal [(nzVisible)]="isVisible" nzTitle="New order" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
-    nzOkText="Register">
+    nzOkText="Send order">
     <ng-container *nzModalContent>
-    
+        <form nz-form [formGroup]="validateForm">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="medicine">Medicine</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl2">
+                    <nz-select ngModel="lucy" formControlName="medicine" (ngModelChange)="updateMedicineValidator()"
+                        style="margin-left:15px;">
+                        <nz-option *ngFor="let element of medicineList" nzValue="element.id" nzLabel="element.name">
+                        </nz-option>
+                    </nz-select>
+                    <!-- <ng-template #errorTpl2 let-control>
+                        <ng-container *ngIf="control.hasError('surname')">
+                            <div style="margin-left:15px;">
+                                Medicine can not be empty.
+                            </div>
+                        </ng-container>
+                    </ng-template> -->
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="surname">Quantity</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl2">
+                    <input nz-input id="quantity" formControlName="quantity" (ngModelChange)="updateQuantityValidator()"
+                        style="margin-left:15px;" />
+                    <!--<ng-template #errorTpl2 let-control>
+                        <ng-container *ngIf="control.hasError('surname')">
+                            <div style="margin-left:15px;">
+                                Quantity form is not valid.
+                            </div>
+                        </ng-container>
+                    </ng-template> -->
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="surname">Due date</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl2">
+                    <nz-date-picker [(ngModel)]="date" formControlName="dueDate" [nzDisabledDate]="disabledDate"
+                        (ngModelChange)="updateDueDateValidator()"></nz-date-picker>
+                    <!--<ng-template #errorTpl2 let-control>
+                        <ng-container *ngIf="control.hasError('surname')">
+                            <div style="margin-left:15px;">
+                                Quantity form is not valid.
+                            </div>
+                        </ng-container>
+                    </ng-template>-->
+                </nz-form-control>
+            </nz-form-item>
+        </form>
     </ng-container>
 </nz-modal>
 
 <br>
+
+<nz-modal [(nzVisible)]="isVisible2" nzTitle="New order" (nzOnCancel)="handleCancel2()" (nzOnOk)="handleOk2()"
+    nzOkText="Send order">
+    <ng-container *nzModalContent>
+    </ng-container>
+</nz-modal>
+
 
 <nz-table #basicTable [nzData]="listOfData">
     <thead>
@@ -25,6 +78,7 @@
             <th>Quantity</th>
             <th>Due date</th>
             <th>Offers</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -32,7 +86,8 @@
             <td>{{ data.medicine }}</td>
             <td>{{ data.quantity }}</td>
             <td>{{ data.dueDate }}</td>
-            <td></td>
+            <td><button nz-button nzType="default" (click)="showModal2(data)">View offers</button></td>
+            <td><button nz-button nzType="default" (click)="deleteOrder(data)" nzDanger>Delete</button></td>
         </tr>
     </tbody>
 </nz-table>

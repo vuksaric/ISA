@@ -46,4 +46,5 @@ export class MedicineService {
   public getByType(type): Observable<Medicine[]>{
     return this.http.get<Medicine[]>(medicine_url + `/getByType/${type}`);
   }
+
 }

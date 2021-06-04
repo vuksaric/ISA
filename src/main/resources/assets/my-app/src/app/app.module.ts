@@ -74,6 +74,11 @@ import { ViewErecipesComponent } from './pages/view-erecipes/view-erecipes.compo
 import { ViewErecipeMedicinesComponent } from './pages/view-erecipe-medicines/view-erecipe-medicines.component';
 import { SearchMedicinePipe } from './pages/medicine-reservation/search-medicine.pipe';
 
+import{AgmCoreModule} from '@agm/core';
+import { GeocoderModule } from 'angular-geocoder';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
+
 registerLocaleData(en);
 
 
@@ -147,6 +152,11 @@ registerLocaleData(en);
     ReactiveFormsModule,
     NzTableModule,
     ToastrModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey:'AIzaSyA_pCEeO_D6a4Cg2MZoacVbSc9v1CJul4k'
+    }),
+    GeocoderModule,
+    NgxChartsModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }, DatePipe],
   bootstrap: [AppComponent]

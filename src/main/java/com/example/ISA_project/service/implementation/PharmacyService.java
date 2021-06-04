@@ -6,8 +6,7 @@ import com.example.ISA_project.model.Bill;
 import com.example.ISA_project.model.MedicineQuantity;
 import com.example.ISA_project.model.Patient;
 import com.example.ISA_project.model.Pharmacy;
-import com.example.ISA_project.model.dto.MedicineDTO;
-import com.example.ISA_project.model.dto.PharmacyDTO;
+import com.example.ISA_project.model.dto.*;
 import com.example.ISA_project.repository.PharmacyRepository;
 import com.example.ISA_project.service.IBillService;
 import com.example.ISA_project.service.IMedicineService;
@@ -114,6 +113,19 @@ public class PharmacyService implements IPharmacyService {
     }
 
     @Override
+    public PharmacyDTO findOneByIdDTO(int id) {
+        PharmacyDTO pharmacyDTO = null;
+       try{
+           Pharmacy pharmacy = pharmacyRepository.findOneById(id);
+           pharmacyDTO = new PharmacyDTO(pharmacy);
+       }catch(Exception e){
+           e.printStackTrace();
+       }
+
+       return pharmacyDTO;
+    }
+
+    @Override
     public List<PharmacyDTO> findPharmacyByMedicineQuantity(int id) {
         List<PharmacyDTO> pharmacies = new ArrayList<PharmacyDTO>();
         for(Pharmacy pharmacy : pharmacyRepository.findAll()){
@@ -167,6 +179,110 @@ public class PharmacyService implements IPharmacyService {
     @Override
     public Pharmacy getByName(String name) {
         return pharmacyRepository.findOneByName(name);
+    }
+
+    @Override
+    public List<PharmacistDTO> getAllPharmacists(int id) {
+        List<Pharmacist> pharmacists;
+        List<PharmacistDTO> pharmacistDTOS = new ArrayList<>();
+        try{
+            Pharmacy pharmacy = pharmacyRepository.findOneById(id);
+            pharmacists = pharmacy.getPharmacists();
+            for(Pharmacist p : pharmacists){
+                pharmacistDTOS.add(new PharmacistDTO(p));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return pharmacistDTOS;
+    }
+
+    @Override
+    public List<DermatologistDTO> getAllDermatologists(int id) {
+        List<Dermatologist> dermatologists;
+        List<DermatologistDTO> dermatologistDTOS = new ArrayList<>();
+        try{
+            Pharmacy pharmacy = pharmacyRepository.findOneById(id);
+            dermatologists = pharmacy.getDermatologist();
+            for(Dermatologist d : dermatologists){
+                dermatologistDTOS.add(new DermatologistDTO(d));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return dermatologistDTOS;
+    }
+
+    @Override
+    public List<MedicineQuantityDTO> getAllMedicines(int id) {
+        List<MedicineQuantityDTO> medicineDTOS = new ArrayList<>();
+        try{
+            Pharmacy p = pharmacyRepository.findOneById(id);
+            for( MedicineQuantity medicineQuantity : p.getMedicines()){
+                if(medicineQuantity.getQuantity() != 0)
+                    medicineDTOS.add(new MedicineQuantityDTO(medicineQuantity));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return medicineDTOS;
+    }
+
+    @Override
+    public float getMark(int id) {
+        float retVal = 0;
+        try{
+            Pharmacy p = pharmacyRepository.findOneById(id);
+            retVal = p.getMark();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return retVal;
+    }
+
+    @Override
+    public void newMedicineQuantity(int medicineId, int pharmacyId) {
+        try{
+            Pharmacy p = pharmacyRepository.findOneById(pharmacyId);
+            Medicine m = medicineService.findOneById(medicineId);
+            List<MedicineQuantity> medicineQuantities = p.getMedicines();
+            medicineQuantities.add(new MedicineQuantity(m,0));
+            p.setMedicines(medicineQuantities);
+            pharmacyRepository.save(p);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<MedicineQuantityDTO> removeMedicineQuantity(int medicineId, int pharmacyId) {
+        List<MedicineQuantity> medicineQuantities = new ArrayList<>();
+        List<MedicineQuantityDTO> medicineQuantityDTOS = new ArrayList<>();
+        try{
+            Pharmacy p = pharmacyRepository.findOneById(pharmacyId);
+            medicineQuantities = p.getMedicines();
+            for(MedicineQuantity mq : medicineQuantities){
+                if(mq.getId() == medicineId){
+                    medicineQuantities.remove(mq);
+                    break;
+                }
+            }
+            p.setMedicines(medicineQuantities);
+            for( MedicineQuantity medicineQuantity : medicineQuantities) {
+                medicineQuantityDTOS.add(new MedicineQuantityDTO(medicineQuantity));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return medicineQuantityDTOS;
+
+    }
+
+    @Override
+    public List<MedicineQuantityDTO> search(String input, int pharmacyId) {
+        return null;
     }
 
 

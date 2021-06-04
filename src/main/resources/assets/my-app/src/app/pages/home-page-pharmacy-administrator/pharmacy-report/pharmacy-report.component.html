@@ -1,1 +1,109 @@
-<p>pharmacy-report works!</p>
+<div nz-row> <label> Pharmacy mark </label></div>
+<div nz-row> <input [(ngModel)]="mark" disabled></div>
+<br>
+
+<nz-table #basicTable [nzData]="listOfWorkers">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th> Surname</th>
+            <th>Email </th>
+            <th>Role </th>
+            <th>Mark </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+            <td>{{ data.name }}</td>
+            <td>{{ data.surname }}</td>
+            <td>{{ data.email }}</td>
+            <td>{{ data.role }}</td>
+            <td>{{ data.mark }}</td>
+            <td></td>
+        </tr>
+    </tbody>
+</nz-table>
+
+<div nz-row>
+    <div nz-col>
+        <label> Monthly report examination</label>
+        <br>
+        <ngx-charts-bar-vertical *ngIf="loaded" [view]="view" [scheme]="colorScheme" [results]="chart"
+            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+    </div>
+    <div nz-col style="margin-left: 5vw;">
+        <label> Quarterly report examination</label>
+        <br>
+        <ngx-charts-bar-vertical *ngIf="loaded" [view]="view" [scheme]="colorScheme" [results]="chart4"
+            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel2"
+            [yAxisLabel]="yAxisLabel2" (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+    </div>
+    <div nz-col>
+        <label> Annual report examination</label>
+        <br>
+        <ngx-charts-bar-vertical *ngIf="loaded" [view]="view" [scheme]="colorScheme" [results]="chart6"
+            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel3"
+            [yAxisLabel]="yAxisLabel3" (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+    </div>
+    <div nz-col>
+        <label> Monthly report medicine</label>
+        <br>
+        <ngx-charts-bar-vertical *ngIf="loaded2" [view]="view" [scheme]="colorScheme" [results]="chart8"
+            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+    </div>
+    <div nz-col style="margin-left: 5vw;">
+        <label> Quarterly report medicine</label>
+        <br>
+        <ngx-charts-bar-vertical *ngIf="loaded2" [view]="view" [scheme]="colorScheme" [results]="chart10"
+            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel2"
+            [yAxisLabel]="yAxisLabel2" (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+    </div>
+    <div nz-col>
+        <label> Annual report medicine</label>
+        <br>
+        <ngx-charts-bar-vertical *ngIf="loaded2" [view]="view" [scheme]="colorScheme" [results]="chart12"
+            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel3"
+            [yAxisLabel]="yAxisLabel3" (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+    </div>
+    <div nz-col>
+        <label> Monthly report income</label>
+        <br>
+        <ngx-charts-bar-vertical *ngIf="loaded3" [view]="view" [scheme]="colorScheme" [results]="chart14"
+            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+    </div>
+    <div nz-col style="margin-left: 5vw;">
+        <label> Quarterly report income</label>
+        <br>
+        <ngx-charts-bar-vertical *ngIf="loaded3" [view]="view" [scheme]="colorScheme" [results]="chart16"
+            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel2"
+            [yAxisLabel]="yAxisLabel2" (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+    </div>
+    <div nz-col>
+        <label> Annual report income</label>
+        <br>
+        <ngx-charts-bar-vertical *ngIf="loaded3" [view]="view" [scheme]="colorScheme" [results]="chart18"
+            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel3"
+            [yAxisLabel]="yAxisLabel3" (select)="onSelect($event)">
+        </ngx-charts-bar-vertical>
+    </div>
+</div>

@@ -16,7 +16,6 @@ interface Person {
 
 interface DataItem {
   name: string;
-  surname: string;
   mark: number;
   pharmacy: string;
 }

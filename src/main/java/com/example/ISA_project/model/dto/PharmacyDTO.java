@@ -13,6 +13,8 @@ public class PharmacyDTO {
     private float mark;
     private String street;
     private String town;
+    private String state;
+    private String description;
     private int id;
     private int price;
 
@@ -20,6 +22,8 @@ public class PharmacyDTO {
         this.name = pharmacy.getName();
         this.street = pharmacy.getAddress().getStreet();
         this.town = pharmacy.getAddress().getTown();
+        this.state = pharmacy.getAddress().getState();
+        this.description = pharmacy.getDescription();
         this.mark = pharmacy.getMark();
         this.id = pharmacy.getId();
     }

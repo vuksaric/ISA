@@ -1,16 +1,9 @@
+import { MedicineQuantityService } from './../../../services/medicine-quantity.service';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { PharmacyService } from 'src/app/services/pharmacy.service';
 
-interface Person {
-  key: string;
-  name: string;
-  type: string;
-  shape: string;
-  manufacturer: string;
-  mode: string;
-  note: string;
-}
 
 @Component({
   selector: 'app-medicine-list',
@@ -20,14 +13,19 @@ interface Person {
 export class MedicineListComponent implements OnInit {
 
   isVisible = false;
-  search : string;
+  search: string;
+  medicineList: any[] = [];
+  medicineDifference: any[] = [];
+  medicineId: number;
 
-  constructor(private modal: NzModalService,private toastr: ToastrService) { }
+  constructor(private modal: NzModalService, private toastr: ToastrService, private pharmacyService: PharmacyService, private medicineQuantityService: MedicineQuantityService) { }
 
   ngOnInit(): void {
+    this.getMedicineDifference();
+    this.getMedicineFromPharmacy();
   }
 
-  searchMedicine(){
+  searchMedicine() {
 
   }
 
@@ -43,6 +41,36 @@ export class MedicineListComponent implements OnInit {
     this.isVisible = false;
   }
 
+  getMedicineFromPharmacy() {
+    this.pharmacyService.getMedicineFromPharmacy('1').subscribe(data => {
+      this.medicineList = data;
+    })
+  }
+
+  addMedicineQuantity() {
+    this.pharmacyService.addMedicineQuantity(this.medicineId, '1', null).subscribe(data => {
+      this.isVisible = false;
+    })
+  }
+
+  getMedicineDifference() {
+    this.medicineQuantityService.getMedicineDifference('1').subscribe(data => {
+      this.medicineDifference = data;
+    })
+  }
+
+  searchMedicineQuantity() {
+    this.pharmacyService.search(this.search, '1').subscribe(data => {
+
+    })
+  }
+
+  removeMedicineQuantity(data) {
+    this.pharmacyService.removeMedicineQuantity(this.search, '1').subscribe(data => {
+
+    })
+  }
+
   showDeleteConfirm(): void {
     this.modal.confirm({
       nzTitle: 'Are you sure delete this pharmacist?',
@@ -54,36 +82,5 @@ export class MedicineListComponent implements OnInit {
       nzOnCancel: () => console.log('Cancel')
     });
   }
-
-
-  medicineList: Person[] = [
-    {
-      key: '1',
-      name: 'John Brown',
-      type: '32',
-      shape: 'New York No. 1 Lake Park',
-      manufacturer: 'proba',
-      mode:'proba',
-      note:'proba'
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      type: '42',
-      shape: 'London No. 1 Lake Park',
-      manufacturer: 'proba',
-      mode:'proba',
-      note:'proba'
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      type: '32',
-      shape: 'Sidney No. 1 Lake Park',
-      manufacturer: 'proba',
-      mode:'proba',
-      note:'proba'
-    }
-  ];
 
 }
