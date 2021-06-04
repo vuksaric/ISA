@@ -53,6 +53,7 @@ const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'pharmacyAdmin' },
     { path: 'login', component: LoginPageComponent },
     { path: 'registration', component: RegistrationPageComponent },
+    { path: 'un', component: UnregisteredUserPageComponent },
     { path: 'sysadminhome', component:SystemAdminHomePageComponent},
     { path: 'homepage', component: HomePageUserComponent, children:[
         { path: 'userProfile', component:UserProfileComponent},

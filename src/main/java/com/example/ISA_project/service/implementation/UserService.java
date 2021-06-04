@@ -41,6 +41,15 @@ public class UserService implements IUserService {
         return profile;
     }
 
+    public ProfileDTO getProfile(String username) {
+        User user = userRepository.findOneByEmail(username);
+        ProfileDTO profile = new ProfileDTO(user.getName(), user.getSurname(),
+                user.getEmail(), user.getAddress().getStreet(), user.getAddress().getState(),
+                user.getAddress().getTown(), user.getPhone(), "GOLD",user.getDateOfBirth());
+
+        return profile;
+    }
+
     public User findUserByEmail(String email){
         return userRepository.findOneByEmail(email);
     }

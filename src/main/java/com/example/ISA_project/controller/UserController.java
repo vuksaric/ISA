@@ -18,4 +18,9 @@ public class UserController {
     public ResponseEntity<ProfileDTO> editUser(@RequestBody ProfileDTO profile){
         return new ResponseEntity<>(userService.editUser(profile), HttpStatus.OK);
     }
+
+    @GetMapping(value="/{username}")
+    public ResponseEntity<ProfileDTO> getPatientInfo(@PathVariable String username){
+        return new ResponseEntity<>(userService.getProfile(username), HttpStatus.OK);
+    }
 }
