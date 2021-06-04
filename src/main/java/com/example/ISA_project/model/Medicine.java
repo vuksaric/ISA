@@ -32,6 +32,7 @@ public class Medicine {
     private List<Integer> replacements; //int predstavlja sifru leka
     private int points;
     private String notes; //kontraindikacije na primer
+    @Column(nullable = true)
     private int therapyPerDay;
 
     public String getMedicineInformation(){

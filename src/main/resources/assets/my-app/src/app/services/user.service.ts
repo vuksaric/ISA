@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from "../../environments/environment";
-import { User } from '../models/user';
+import { environment } from 'src/environments/environment';
+import { Profile } from '../models/profile';
 
 const user_url = environment.userProfile_url;
 
@@ -20,4 +20,8 @@ export class UserService {
   public changePassword(body) : Observable<any>{ 
     return this.http.put(user_url + `/changePassword`, body);
   } 
+
+  public getUserProfile(username) : Observable<Profile>{
+    return this.http.get<Profile>(user_url+`/${username}`);
+  }
 }

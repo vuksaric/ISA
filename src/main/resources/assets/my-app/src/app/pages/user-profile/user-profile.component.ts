@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Profile } from 'src/app/models/profile';
 import { PatientService } from 'src/app/services/patient.service';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class UserProfileComponent implements OnInit {
   phone: string;
   email : string;
 
-  constructor(private fb: FormBuilder, private patientService: PatientService) { }
+  constructor(private fb: FormBuilder, private patientService: PatientService, private userService : UserService) { }
 
 
   submitForm(): void {
@@ -58,7 +59,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.patientService.getProfile(1).subscribe(data => { console.log(data);
+    this.userService.getUserProfile("andja.ptrvc@gmail.com").subscribe(data => { console.log(data);
       this.email = data.email;
     
       console.log(data);

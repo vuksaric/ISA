@@ -1,14 +1,9 @@
 package com.example.ISA_project.model.dto;
-
 import com.example.ISA_project.model.Gender;
 import com.example.ISA_project.model.Pharmacist;
-import com.example.ISA_project.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,6 +18,7 @@ public class PharmacistDTO {
     private String town;
     private String phone;
     private String birthday;
+    private float grade;
 
     public PharmacistDTO(Pharmacist p){
         this.id = p.getId();
@@ -43,6 +39,12 @@ public class PharmacistDTO {
         this.town = p.getUser().getAddress().getTown();
         this.phone = p.getUser().getPhone();
         this.birthday = p.getUser().getDateOfBirth().toString();
+    }
+
+    public PharmacistDTO(String fullName, float grade, int id){
+        this.name=fullName;
+        this.grade= grade;
+        this.id = id;
     }
 }
 

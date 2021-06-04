@@ -7,6 +7,7 @@ import com.example.ISA_project.model.MedicineQuantity;
 import com.example.ISA_project.model.Patient;
 import com.example.ISA_project.model.Pharmacy;
 import com.example.ISA_project.model.dto.MedicineDTO;
+import com.example.ISA_project.model.dto.PharmacistDTO;
 import com.example.ISA_project.model.dto.PharmacyDTO;
 import com.example.ISA_project.repository.PharmacyRepository;
 import com.example.ISA_project.service.IBillService;
@@ -14,8 +15,11 @@ import com.example.ISA_project.service.IMedicineService;
 import com.example.ISA_project.service.IPharmacyService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class PharmacyService implements IPharmacyService {
@@ -169,5 +173,84 @@ public class PharmacyService implements IPharmacyService {
         return pharmacyRepository.findOneByName(name);
     }
 
+    @Override
+    public Set<PharmacyDTO> getPharmaciesWithFreeAppointment(LocalDateTime start) {
+        WorkdayPharmacist workdayPharmacist = null;
+        boolean consultationExistance = false;
+        List<PharmacyDTO> pharmacyDTOS = new ArrayList<>();
+
+        for(Pharmacy pharmacy : pharmacyRepository.findAll()){
+            for(Pharmacist pharmacist : pharmacy.getPharmacists()){
+                if(checkIfPharmacistWorks(pharmacist, start)){
+                    workdayPharmacist = findWorkday(start, pharmacist.getWorkdays());
+                    if (workdayPharmacist == null) {
+                        break;
+                    }
+                    consultationExistance = checkCnocultationExistance(workdayPharmacist.getConsultations(), start);
+                    if(!consultationExistance){
+                        pharmacyDTOS.add(new PharmacyDTO(pharmacy));
+                    }
+                }
+            }
+        }
+        return new HashSet<>(pharmacyDTOS);
+    }
+
+    @Override
+    public List<PharmacistDTO> getAvailablePharmacistsByPharmacy(int id, LocalDateTime start) {
+        Pharmacy pharmacy = pharmacyRepository.findOneById(id);
+        List<PharmacistDTO> pharmacistDTOS = new ArrayList<>();
+        WorkdayPharmacist workdayPharmacist = null;
+        boolean consultationExistance = false;
+
+            for(Pharmacist pharmacist : pharmacy.getPharmacists()){
+                if(checkIfPharmacistWorks(pharmacist, start)){
+                    workdayPharmacist = findWorkday(start, pharmacist.getWorkdays());
+                    if (workdayPharmacist == null) {
+                        break;
+                    }
+                    consultationExistance = checkCnocultationExistance(workdayPharmacist.getConsultations(), start);
+                    if(!consultationExistance){
+                        pharmacistDTOS.add(new PharmacistDTO(pharmacist.getFullName(),pharmacist.getMark(),pharmacist.getId()));
+                    }
+                }
+            }
+        return pharmacistDTOS;
+    }
+
+
+    private boolean checkCnocultationExistance(List<Consultation> consultations, LocalDateTime start){
+        boolean existance = false;
+        for(Consultation consultation : consultations){
+            if(consultation.getPeriod().getStart_date().toLocalTime().equals(start.toLocalTime())){
+                existance = true;
+                break;
+            }
+        }
+        return existance;
+    }
+
+    private WorkdayPharmacist findWorkday(LocalDateTime date, List<WorkdayPharmacist> workdayPharmacists){
+        WorkdayPharmacist workday = null;
+        for(WorkdayPharmacist workdayPharmacist : workdayPharmacists){
+            if(workdayPharmacist.getDate().equals(date.toLocalDate())){
+                workday = workdayPharmacist;
+                break;
+            }
+        }
+        return workday;
+    }
+
+    private boolean checkIfPharmacistWorks(Pharmacist pharmacist, LocalDateTime date){
+        WorkingHours workingHours = pharmacist.getWorkingHours();
+
+        /*dodati proveru da li je na godisnjem*/
+
+        if(date.toLocalTime().isAfter(workingHours.getStartTime()) &&
+                date.toLocalTime().plusMinutes(29).isBefore(workingHours.getEndTime()))
+            return true;
+        else
+            return false;
+    }
 
 }
