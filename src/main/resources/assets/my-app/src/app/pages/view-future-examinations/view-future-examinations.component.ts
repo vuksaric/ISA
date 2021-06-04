@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 import { Examination } from 'src/app/models/examination';
 import { ExaminationService } from 'src/app/services/examination.service';
@@ -24,7 +25,7 @@ export class ViewFutureExaminationsComponent implements OnInit {
     }
   ];
 
-  constructor( private examinationService : ExaminationService) { }
+  constructor( private examinationService : ExaminationService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.examinationService.getFutureExaminationsByPatient(1).subscribe((examinations: Examination[]) => {
@@ -33,7 +34,10 @@ export class ViewFutureExaminationsComponent implements OnInit {
 
   cancel(event): void{
     var idAttr = event.currentTarget.id;
-    this.examinationService.cancelExamination(idAttr).subscribe(data => { console.log(data) });
+    this.examinationService.cancelExamination(idAttr).subscribe(data => {
+       console.log(data);
+       this.toastr.success("You have successfully canceled your examination!");
+      });
     location.reload();
   }
 

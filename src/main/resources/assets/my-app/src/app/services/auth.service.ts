@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from "../../environments/environment";
 import { User } from '../models/user';
+import jwt_decode from 'jwt-decode';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 const auth_url = environment.auth_url;
 
@@ -11,7 +14,7 @@ const auth_url = environment.auth_url;
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router,private toastr: ToastrService) { }
 
   public login(body) : Observable<User>{ 
     return this.http.post<User>(auth_url + `/login`, body);
@@ -20,4 +23,37 @@ export class AuthService {
   public registration(body) : Observable<User>{ 
     return this.http.post<User>(auth_url + `/registration`, body);
   }
+
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    }
+    catch (Error) {
+      return null;
+    }
+  }
+
+
+  checkAuthPatient() : any{
+    let type : any;
+    let token : any;
+    let decoded_token : any;
+    token = localStorage.getItem("token");
+    decoded_token = this.getDecodedAccessToken(token);
+    if(decoded_token.user_type != "Patient")
+    {
+      this.toastr.warning("Restricted access");
+      if(decoded_token.user_type === "SystemAdministrator")
+          this.router.navigate(['sysadminhome']);
+      else if(decoded_token.user_type === "Dermatologist")
+          this.router.navigate(['homePageDermatologist']);
+      else if(decoded_token.user_type === "PharmacyAdministrator")
+          this.router.navigate(['pharmacyAdmin']);
+      else if(decoded_token.user_type === "Pharmacist")
+          this.router.navigate(['homePagePharmacist']);
+      else 
+          this.router.navigate(['sysadminhome']);//supplier
+    }
+  }
+
 }

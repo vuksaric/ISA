@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { ConsultationService } from 'src/app/services/consultation.service';
 import { PatientChartService } from 'src/app/services/patient-chart.service';
 
@@ -21,7 +22,8 @@ export class ViewFutureConsultationsComponent implements OnInit {
       priority: 1
     }
   ];
-  constructor(private patientChartService : PatientChartService, private consultationService: ConsultationService) { }
+  constructor(private patientChartService : PatientChartService, private consultationService: ConsultationService,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.patientChartService.getUpcomingConsultationsByPatient(1).subscribe(data => {
@@ -30,7 +32,10 @@ export class ViewFutureConsultationsComponent implements OnInit {
 
   cancel(event): void{
     var idAttr = event.currentTarget.id;
-    this.consultationService.cancelConsultation(idAttr).subscribe(data=>{console.log(data)});
+    this.consultationService.cancelConsultation(idAttr).subscribe(data=>{
+      console.log(data);
+      this.toastr.success("You have successfully canceled your consultation!");
+    });
     location.reload();
   }
 

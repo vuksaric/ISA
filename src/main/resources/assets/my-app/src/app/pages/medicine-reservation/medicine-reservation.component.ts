@@ -7,6 +7,7 @@ import { differenceInCalendarDays } from 'date-fns';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { ReservationService } from 'src/app/services/reservation.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-medicine-reservation',
@@ -23,17 +24,17 @@ export class MedicineReservationComponent implements OnInit {
   singleValue : string;
   date = null;
   idMedicine : number;
+  bodyToken : any;
 
   constructor(private fb: FormBuilder, private medicineService : MedicineService,
      private pharmacyService : PharmacyService, public datepipe: DatePipe,
-     private reservationService : ReservationService) { }
+     private reservationService : ReservationService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.medicineService.getAllMedicine().subscribe(data=>{console.log(data); this.listOfData=data});
     this.validateForm = this.fb.group({
       pharmacy:[null, [Validators.required]], 
       date: [null, [Validators.required]],
-     
     })
 
   }
@@ -84,6 +85,7 @@ export class MedicineReservationComponent implements OnInit {
       this.reservationService.makeReservation(body).subscribe(data=> console.log(data));
       console.log(this.singleValue + this.datepipe.transform(this.date, 'yyyy-MM-dd HH:mm:ss'));
       this.isVisible=false;
+      this.toastr.success("You have successfully made a medicine reservation!");
     }
 
     

@@ -1,4 +1,4 @@
-<nz-card style="width:400px;" nzTitle="Profile" [nzCover]="coverTemplate" [nzActions]="[actionAdd, actionEdit, actionViewPoints]">
+<nz-card style="width:400px;" nzTitle="Profile" [nzCover]="coverTemplate" [nzActions]="[actionAdd, actionEdit, actionViewPoints, actionEditPassword]">
     <ng-container *ngFor="let data of data1">
     <nz-card-meta nzTitle="{{data.title}}" nzDescription="{{data.description}}"></nz-card-meta>
     <br>
@@ -65,4 +65,55 @@
     <i nz-icon  nzType="edit"></i>
     </div>
   </ng-template>
+  <ng-template #actionEditPassword>
+    <div (click)="editPassword()" class="action-wrapper" nz-tooltip nzTooltipTitle="Edit password" nzTooltipPlacement="top">
+      <i nz-icon nzType="setting" nzTheme="outline"></i>
+    </div>
+    <nz-modal [(nzVisible)]="isVisible2" nzTitle="Change password" (nzOnCancel)="handleCancel2()" (nzOnOk)="submitForm2()"
+    nzOkText="Submit">
+    <ng-container *nzModalContent>
+        <form nz-form [formGroup]="validateForm2">
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>Old password</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="20" nzErrorTip="Please input your old password!">
+                    <input nz-input type="password" id="oldPpassword" formControlName="oldPassword"
+                        style="margin-left:15px;" />
+                    <span *ngIf="validateForm2.controls['password'].errors?.required &&
+                        validateForm2.controls['password'].touched" style="color: red; margin-left: 0.8vw;"> Enter your old
+                            password <br></span>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>New password</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="20" nzErrorTip="Please input your new password!">
+                    <input nz-input type="password" id="password" formControlName="password"
+                        style="margin-left:15px;" />
+                    <span *ngIf="validateForm2.controls['password'].errors?.required &&
+                        validateForm2.controls['password'].touched" style="color: red; margin-left: 0.8vw;"> Enter your
+                            password <br></span> <!--(ngModelChange)="updateConfirmValidator()"-->
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="checkPassword" nzRequired>Confirm password</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl3">
+                    <input nz-input type="password" formControlName="checkPassword" id="checkPassword"
+                        style="margin-left:15px;" />
+                    <ng-template #errorTpl3 let-control>
+                            <ng-container *ngIf="control.hasError('required')">
+                                <div style="margin-left:15px;">
+                                    Please confirm your password!
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('confirm')">
+                                <div style="margin-left:15px;">
+                                    Two passwords that you enter is inconsistent!
+                                </div>
+                            </ng-container>
+                        </ng-template> 
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </ng-container>
+</nz-modal>
+</ng-template>
 

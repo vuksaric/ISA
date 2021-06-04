@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common';
 import { PharmacyService } from 'src/app/services/pharmacy.service';
 import { Pharmacy } from 'src/app/models/pharmacy';
 import { ConsultationService } from 'src/app/services/consultation.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-new-consultation-patient',
@@ -48,7 +49,7 @@ export class NewConsultationPatientComponent implements OnInit {
   ];
 
   constructor(private fb: FormBuilder, private pharmacyService : PharmacyService, private datePipe : DatePipe,
-    private consultationService : ConsultationService) { }
+    private consultationService : ConsultationService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -126,6 +127,8 @@ export class NewConsultationPatientComponent implements OnInit {
     console.log(body)
     this.consultationService.newPatient(body).subscribe(data=>{
       console.log(data);
+      this.toastr.success("You have successfully made a new consultation!");
+      this.isVisible = false;
     });
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { PatientChartService } from 'src/app/services/patient-chart.service';
 import { ReviewService } from 'src/app/services/review.service';
 
@@ -18,7 +19,8 @@ export class ViewReviewsComponent implements OnInit {
   review : any;
   mark: number;
   
-  constructor(private patientChartService : PatientChartService, private reviewService: ReviewService) { }
+  constructor(private patientChartService : PatientChartService, private reviewService: ReviewService, 
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.patientChartService.getPatientDoctors(1).subscribe(data=>{this.listOfDoctors=data; console.log(data)});
@@ -71,10 +73,16 @@ export class ViewReviewsComponent implements OnInit {
     }
     console.log(body);
     if(!this.review.reviewed){
-      this.reviewService.saveReview(body).subscribe(data=>{console.log(data); });
+      this.reviewService.saveReview(body).subscribe(data=>{
+        console.log(data);
+        this.toastr.success("You have successfully made a review!"); 
+      });
     }
     else{
-      this.reviewService.editReview(body).subscribe(data=>{console.log(data); });
+      this.reviewService.editReview(body).subscribe(data=>{
+        console.log(data);
+        this.toastr.success("You have successfully edited your review!"); 
+      });
     }
     this.isVisible = false;
   }

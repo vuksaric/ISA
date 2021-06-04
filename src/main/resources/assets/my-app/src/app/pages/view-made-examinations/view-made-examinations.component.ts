@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Examination } from 'src/app/models/examination';
 import { ExaminationService } from 'src/app/services/examination.service';
 
@@ -23,7 +24,7 @@ export class ViewMadeExaminationsComponent implements OnInit {
     }
   ];
 
-  constructor( private examinationService : ExaminationService) { }
+  constructor( private examinationService : ExaminationService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.examinationService.getFreeExaminations().subscribe((examinations: Examination[]) => {
@@ -33,8 +34,12 @@ export class ViewMadeExaminationsComponent implements OnInit {
   reserve(event): void{
     var idAttr = event.currentTarget.id;
     var patient = 1;
-    this.examinationService.reserveExamination(idAttr, patient).subscribe(data => { console.log(data) });
-    location.reload();
+    this.examinationService.reserveExamination(idAttr, patient).subscribe(data => { 
+      console.log(data);
+      this.toastr.success("You have successfully made a new examination!"); 
+    });
+
+    setTimeout(function(){location.reload()}, 3000);
   }
  
    

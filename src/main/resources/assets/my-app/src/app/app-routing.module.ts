@@ -102,7 +102,7 @@ const routes: Routes = [
     { path: 'registrationAdmin', component:RegistrationAdminComponent},
     { path: 'patientProfileDoctor/:id', component:ProfilePatientDoctorComponent},
     { path: 'viewPreviousExaminatiosProfile/:id', component:ViewPreviousExaminationsProfileComponent},
-    { path: 'userProfile', component:UserProfileComponent},
+
     { path: 'addMedicine', component:AddMedicineComponent},
     { path: 'pharmacyAdmin', component: HomePagePharmacyAdministratorComponent, children: [
         { path: 'pharmacy-profile', component: PharmacyProfileComponent},

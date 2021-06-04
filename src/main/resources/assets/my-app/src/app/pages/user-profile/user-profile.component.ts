@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { Profile } from 'src/app/models/profile';
 import { PatientService } from 'src/app/services/patient.service';
@@ -22,7 +23,8 @@ export class UserProfileComponent implements OnInit {
   phone: string;
   email : string;
 
-  constructor(private fb: FormBuilder, private patientService: PatientService, private userService : UserService) { }
+  constructor(private fb: FormBuilder, private patientService: PatientService, private userService : UserService,
+    private toastr: ToastrService) { }
 
 
   submitForm(): void {
@@ -52,8 +54,10 @@ export class UserProfileComponent implements OnInit {
       console.log(body);
 
       if(this.validateForm.valid){
-        this.patientService.editProfile(body).subscribe(data => { console.log(data) })
-
+        this.patientService.editProfile(body).subscribe(data => { 
+          console.log(data);
+          this.toastr.success("You have successfully edited your user profile!");
+         })
       }
   }
 
