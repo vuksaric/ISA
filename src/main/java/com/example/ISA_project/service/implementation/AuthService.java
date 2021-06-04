@@ -77,8 +77,7 @@ public class AuthService implements IAuthService {
         //points.add(LocalDateTime.of(1998, 5,20));
         patient.setPenaltyPoints(points);
         //System.out.println(patient.getPenaltyPoints());
-        Boolean b = patientService.save(patient);
-        if(b!= null)
+        if(patientService.save(patient)!= null)
             return mapUserToUserResponse(request);
         else return null;
     }

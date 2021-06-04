@@ -32,7 +32,9 @@ public class Patient{
     @Column(name="penaltyDate")
     //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private List<LocalDate> penaltyPoints;
-    //private List<Integer> penali;
+    //@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    //@JoinColumn(name="patient_id")
+    //private List<PenaltyPoints> penaltyPoints;
     private int loyaltyPoints;
     private PatientCategory patientCategory;
 }
