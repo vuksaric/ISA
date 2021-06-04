@@ -21,8 +21,6 @@ public class PharmacistService implements IPharmacistService {
     private final UserService userService;
     private final ReservationService reservationService;
 
-
-
     public PharmacistService(PharmacistRepository pharmacistRepository, UserService userService, ReservationService reservationService) {
         this.pharmacistRepository = pharmacistRepository;
         this.userService = userService;
@@ -207,14 +205,30 @@ public class PharmacistService implements IPharmacistService {
     public boolean checkVacation(CheckVacationRequest request) {
         Pharmacist pharmacist = pharmacistRepository.findOneById(request.getId());
         LocalDate date = request.getDate();
-        for(Vacation vacation : pharmacist.getVacation())
-        {
-            if(date.equals(vacation.getStart_date().toLocalDate()) || date.equals(vacation.getEnd_date().toLocalDate()))
+        for (Vacation vacation : pharmacist.getVacation()) {
+            if (date.equals(vacation.getStart_date().toLocalDate()) || date.equals(vacation.getEnd_date().toLocalDate()))
                 return false;
 
-            if(date.isAfter(vacation.getStart_date().toLocalDate()) && date.isBefore(vacation.getEnd_date().toLocalDate()))
+            if (date.isAfter(vacation.getStart_date().toLocalDate()) && date.isBefore(vacation.getEnd_date().toLocalDate()))
                 return false;
         }
         return true;
+    }
+
+    public void cancelConsultation(Consultation consultation){
+        Pharmacist pharmacist = pharmacistRepository.findOneById(consultation.getPharmacist().getId());
+        for(WorkdayPharmacist workdayPharmacist : pharmacist.getWorkdays())
+        {
+            if(consultation.getPeriod().getStart_date().toLocalDate().equals(workdayPharmacist.getDate())) {
+                workdayPharmacist.getConsultations().remove(consultation);
+                break;
+            }
+        }
+        pharmacistRepository.save(pharmacist);
+    }
+
+    @Override
+    public Pharmacist findOneById(int id) {
+        return pharmacistRepository.findOneById(id);
     }
 }

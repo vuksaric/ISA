@@ -30,6 +30,7 @@ public class UserService implements IUserService {
         user.setPhone(profile.getPhone());
         user.setName(profile.getName());
         user.setSurname(profile.getSurname());
+        user.setEmail(profile.getEmail());
        userRepository.save(user);
        return profile;
     }
@@ -41,6 +42,15 @@ public class UserService implements IUserService {
                 user.getEmail(), user.getAddress().getStreet(), user.getAddress().getState(),
                 user.getAddress().getTown(), user.getPhone(), "GOLD",user.getDateOfBirth());
 
+    }
+
+    public ProfileDTO getProfile(String username) {
+        User user = userRepository.findOneByEmail(username);
+        ProfileDTO profile = new ProfileDTO(user.getName(), user.getSurname(),
+                user.getEmail(), user.getAddress().getStreet(), user.getAddress().getState(),
+                user.getAddress().getTown(), user.getPhone(), "GOLD",user.getDateOfBirth());
+
+        return profile;
     }
 
     public User findUserByEmail(String email){

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,6 +133,32 @@ public class ConsultationService implements IConsultationService {
         Consultation consultation = consultationRepository.findOneById(id);
         consultation.setDone(true);
         patientService.addPenaltyPoint(consultation.getPatient().getId());
+    }
+
+    public ConsultationDTO newConsultationPatient(ConsultationRequest consultationRequest) {
+        Patient patient = patientService.findOneById(consultationRequest.getPatientId());
+        Pharmacy pharmacy = pharmacyService.findOneById(consultationRequest.getPharmacyId());
+        Pharmacist pharmacist = pharmacistService.findOneById(consultationRequest.getPharmacistId());
+        LocalDateTime start = LocalDateTime.parse(consultationRequest.getDateTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        Period period = new Period(start, start.plusMinutes(30));
+
+        Consultation newConsultation =new Consultation(period, pharmacy, pharmacist, patient);
+        Consultation result = consultationRepository.save(newConsultation);
+        pharmacistService.addNewConsultation(result);
+        patientService.saveFutureConsultation(result);
+        emailService.scheduleConsultationEmail(newConsultation);
+
+        return new ConsultationDTO(result);
+    }
+
+    @Override
+    public void cancelConsultationPatient(int id) {
+        Consultation consultation = consultationRepository.findOneById(id);
+
+        patientService.cancelConsultation(consultation);
+        pharmacistService.cancelConsultation(consultation);
+        consultation.setDone(true);
+        consultationRepository.save(consultation);
     }
 
     @Override

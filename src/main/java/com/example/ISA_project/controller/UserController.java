@@ -40,4 +40,8 @@ public class UserController {
         }
     }
 
+    @GetMapping(value="/{username}")
+    public ResponseEntity<ProfileDTO> getPatientInfo(@PathVariable String username){
+        return new ResponseEntity<>(userService.getProfile(username), HttpStatus.OK);
+    }
 }

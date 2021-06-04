@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login-page',
@@ -33,6 +34,11 @@ export class LoginPageComponent implements OnInit {
     }
 
     this.authService.login(body).subscribe(data => {
+      if (data === null){
+        this.errorLogin = true;
+        this.toastr.error("You are not registered!!!");
+        this.ngOnInit();
+      }else{
       const user = data;
       localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('token', JSON.stringify(user.token));
@@ -50,8 +56,9 @@ export class LoginPageComponent implements OnInit {
           this.router.navigate(['homepage']);
       else 
           this.router.navigate(['sysadminhome']);//supplier
-    }, error => {
+    }}, error => {
       this.errorLogin = true;
+      this.toastr.error("You are not registered!!!");
     })
   }
 
@@ -64,7 +71,7 @@ export class LoginPageComponent implements OnInit {
     }
   }
 
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) { }
+  constructor(private toastr: ToastrService, private fb: FormBuilder, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({

@@ -20,6 +20,8 @@ public class Address {
     private String street;
     private String town;
     private String state;
+    private double latitude;
+    private double longitude;
 
     public String getFullAdress() { return street + ", " + town + ", " + state;}
 
@@ -27,5 +29,13 @@ public class Address {
         this.street = street;
         this.town = town;
         this.state = state;
+    }
+
+    public Address(String street, String town, String state, Double latitude, Double longitude){
+        this.street = street;
+        this.town = town;
+        this.state = state;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 }

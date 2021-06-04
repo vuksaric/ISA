@@ -71,6 +71,9 @@ public class ExaminationService implements IExaminationService {
         Patient patient = patientService.findOneById(idPatient);
         examination.setPatient(patient);
         examinationRepository.save(examination);
+        patientService.saveFutureExamination(examination);
+        emailService.scheduleExaminationEmail(examination);
+
         return new ExaminationDTO(examinationRepository.findExaminationById(id));
     }
 
@@ -80,6 +83,7 @@ public class ExaminationService implements IExaminationService {
         examination.setFree(true);
         examination.setPatient(null);
         examinationRepository.save(examination);
+
         return new ExaminationDTO(examinationRepository.findExaminationById(id));
     }
 

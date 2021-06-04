@@ -26,7 +26,14 @@ public class AuthService implements IAuthService {
 
     @Override
     public UserResponse login(LoginRequest request) {
+        if (userRepository.findOneByEmail(request.getEmail()) == null){
+            System.out.println("usaooo");
+            return null;
+        }
         User user = userRepository.findOneByEmail(request.getEmail());
+        if (user == null){
+            return null;
+        }
         String jwt = "";
         int expiresIn = 0;
         jwt = token.generateToken(request.getEmail());

@@ -4,7 +4,7 @@
       <span>Name</span>
     </nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your name!">
-      <input nz-input id="name" formControlName="name" />
+      <input nz-input id="name" formControlName="name"/>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -18,7 +18,7 @@
   <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">E-mail</nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-      <input nz-input formControlName="email" id="email" />
+      <input nz-input formControlName="email" id="email"/>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -43,11 +43,11 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="address" nzRequired>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="street" nzRequired>
       <span>Address</span>
     </nz-form-label>
     <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your address!">
-      <input nz-input id="address" formControlName="address" />
+      <input nz-input id="street" formControlName="street" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -67,23 +67,42 @@
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" nzRequired>Phone Number</nz-form-label>
-    <nz-form-control [nzSm]="14" [nzXs]="24" [nzValidateStatus]="validateForm.controls['phoneNumber']"
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phone" nzRequired>Phone Number</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24"
       nzErrorTip="Please input your phone number!">
       <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
         <ng-template #addOnBeforeTemplate>
-          <nz-select formControlName="phoneNumberPrefix" class="phone-select">
-            <nz-option nzLabel="+86" nzValue="+86"></nz-option>
-            <nz-option nzLabel="+87" nzValue="+87"></nz-option>
+          <nz-select formControlName="phoneNumberPrefix" class="phone-select" [(ngModel)]="selectedValuePhonePrefix" [ngModelOptions]="{standalone: true}">
+            <nz-option nzLabel="+381" nzValue="+381"></nz-option>
+            <nz-option nzLabel="+387" nzValue="+387"></nz-option>
           </nz-select>
         </ng-template>
-        <input formControlName="phoneNumber" id="'phoneNumber'" nz-input />
+        <input formControlName="phone" id="'phone'" nz-input />
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="dateOfBirth" nzRequired>
+      <span>Date of birth</span>
+  </nz-form-label>
+  <nz-form-control [nzSm]="14" [nzXs]="24"  nzErrorTip="Please input date of birth!">
+  <nz-date-picker [nzDisabledDate]="disabledDate" formControlName="dateOfBirth" format='yyyy-MM-dd' ></nz-date-picker><!--id="dateOfBirth" formControlName="dateOfBirth" [(ngModel)]="selectedValueDate" [ngModelOptions]="{standalone: true}"-->
+  </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="gender" nzRequired>
+      <span>Gender</span>
+  </nz-form-label>
+  <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input user gender!">
+  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a user type" [(ngModel)]="selectedValueGender" [ngModelOptions]="{standalone: true}">
+    <nz-option nzLabel="Male" nzValue="Male"></nz-option>
+    <nz-option nzLabel="Female" nzValue="Female"></nz-option>
+  </nz-select>
+  </nz-form-control>
+  </nz-form-item>
   <nz-form-item nz-row class="register-area">
     <nz-form-control [nzSpan]="14" [nzOffset]="6">
-      <button nz-button nzType="primary">Register</button>
+      <button nz-button nzType="primary" >Register</button>
     </nz-form-control>
   </nz-form-item>
 </form>

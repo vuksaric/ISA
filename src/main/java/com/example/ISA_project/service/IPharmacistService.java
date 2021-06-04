@@ -5,6 +5,7 @@ import com.example.ISA_project.model.Vacation;
 import com.example.ISA_project.model.dto.*;
 import com.example.ISA_project.model.Consultation;
 import com.example.ISA_project.model.Period;
+import com.example.ISA_project.model.Pharmacist;
 import com.example.ISA_project.model.dto.ProfileDTO;
 import com.example.ISA_project.model.dto.ReservationDTO;
 import com.example.ISA_project.model.dto.WorkDayDTO;
@@ -27,4 +28,7 @@ public interface IPharmacistService {
         void delete(int id);
         void addNewConsultation(Consultation consultation);
         boolean checkVacation(CheckVacationRequest request);
+        void cancelConsultation(Consultation consultation);
+        Pharmacist findOneById(int id);
+
 }

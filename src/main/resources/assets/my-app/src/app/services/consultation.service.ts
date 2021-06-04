@@ -47,5 +47,12 @@ export class ConsultationService {
   public addPoint(body) : Observable<any>{
     return this.http.put(consultation_url + `/addPoint`,body);
   }
+  public newPatient(body): Observable<any>{
+    return this.http.post(consultation_url + `/newPatient`,body);
+  }
+
+  public cancelConsultation(id): Observable<any>{
+    return this.http.put(consultation_url + `/cancel/${id}`, null);
+  }
 
 }

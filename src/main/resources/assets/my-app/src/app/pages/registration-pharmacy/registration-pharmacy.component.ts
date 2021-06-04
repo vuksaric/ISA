@@ -1,5 +1,8 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+//
+import { ToastrService } from 'ngx-toastr';
 import { Address } from 'src/app/models/address';
 import { AddressService } from 'src/app/services/address.service';
 import { PharmacyService } from 'src/app/services/pharmacy.service';
@@ -18,7 +21,8 @@ export class RegistrationPharmacyComponent implements OnInit {
   state : string;
   description : string;
   adr : Address
-  //mark: number;
+  longitude : number;
+  latitude : number;
 
   submitForm(): void {
     for (const i in this.validateForm.controls) {
@@ -31,12 +35,16 @@ export class RegistrationPharmacyComponent implements OnInit {
     this.town = this.validateForm.value.town;
     this.state = this.validateForm.value.state;
     this.description = this.validateForm.value.description;
+    this.longitude = this.validateForm.value.longitude;
+    this.latitude = this.validateForm.value.latitude;
     //this.mark = this.validateForm.value.mark;
 
     const address = {
       street : this.street,
       town : this.town,
       state : this.state,
+      latitude : this.latitude,
+      longitude : this.longitude
     }
 
     const body = {
@@ -49,7 +57,9 @@ export class RegistrationPharmacyComponent implements OnInit {
     //this.addressService.add(address).subscribe((adr : Address)=>{this.adr =adr})
     //this.addressService.add(address).subscribe(data => { console.log(data) })
     this.pharmacyService.registerPharmacy(body).subscribe(data => { console.log(data)
-      alert("You have successfully registered a pharmacy") })
+      //alert("You have successfully registered a pharmacy") })
+      this.toastr.success("You have successfully registered a pharmacy!");
+    })
     
   }
 
@@ -64,7 +74,7 @@ export class RegistrationPharmacyComponent implements OnInit {
     return {};
   };
 
-  constructor(private fb: FormBuilder,private pharmacyService: PharmacyService, private addressService: AddressService) { }
+  constructor(private fb: FormBuilder,private pharmacyService: PharmacyService, private addressService: AddressService, private toastr : ToastrService) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -72,7 +82,9 @@ export class RegistrationPharmacyComponent implements OnInit {
       street : [null, [Validators.required]],
       town : [null, [Validators.required]],
       state : [null, [Validators.required]],
-      description : [null, [Validators.required]]
+      description : [null, [Validators.required]],
+      latitude : [null, [Validators.required]],
+      longitude : [null, [Validators.required]]
     });
   }
 }

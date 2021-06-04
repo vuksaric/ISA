@@ -35,4 +35,12 @@ export class PharmacyService {
     return this.http.get<Pharmacy[]>(pharmacy_url+`/allDermatologist/${id}`);
   }
 
+  public getPharmaciesWithFreeAppointment(date): Observable<Pharmacy[]>{
+    return this.http.get<Pharmacy[]>(pharmacy_url+`/getPharmaciesWithFreeAppointment/${date}`);
+  }
+
+  public getAvailablePharmacistsByPharmacy(id, date):any{
+    return this.http.get(pharmacy_url+`/getAvailablePharmacistsByPharmacy/${id}/${date}`);
+  }
+
 }

@@ -23,14 +23,13 @@ public interface IPatientService {
     void saveExamination(Examination examination);
     Patient findOneById(int id);
     void addReservation(int id, Reservation reservation);
-
     void saveFutureConsultation(Consultation consultation);
     void saveFutureExamination(Examination examination);
-
     List<PenaltyDTO> getPatientPenaltyPoints(int id);
     void addPenaltyPoint(int id);
     void removeFutureConsultation(Consultation consultation);
     void removeFutureExamination(Examination examination);
+    void cancelConsultation(Consultation consultation);
 
 
 }

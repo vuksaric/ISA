@@ -71,9 +71,19 @@ public class ConsultationController {
     }
 
     @PutMapping(value = "/addPoint")
-    public void addPenaltyPoint(@RequestBody String id){
+    public void addPenaltyPoint(@RequestBody String id) {
 
         int idConsultation = Integer.parseInt(id);
         consultationService.addPenaltyPoint(idConsultation);
+    }
+    @PostMapping("/newPatient")
+    public ConsultationDTO newConsultationPatient(@RequestBody ConsultationRequest request){
+        return consultationService.newConsultationPatient(request);
+    }
+
+    @PutMapping(value = "/cancel/{id}")
+    public void cancelConsultation(@PathVariable String id){
+        int pharmacyId = Integer.parseInt(id);
+        consultationService.cancelConsultationPatient(pharmacyId);
     }
 }

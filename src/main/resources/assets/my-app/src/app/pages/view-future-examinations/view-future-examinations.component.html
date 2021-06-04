@@ -8,7 +8,7 @@
             <th>Examination time</th>
             <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" 
             [nzSortPriority]="column.priority" >{{ column.title }}</th>
-            <th>Reserve</th>
+            <th>Cancel</th>
 
           </tr>
         </thead>

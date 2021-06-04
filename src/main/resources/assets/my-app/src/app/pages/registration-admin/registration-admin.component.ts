@@ -63,7 +63,6 @@ export class RegistrationAdminComponent implements OnInit {
     if(this.validateForm.valid){
       this.authservice.registration(body).subscribe(data => { console.log(data) })
     }
-    //this.authservice.registration(body).subscribe(data => { console.log(data) })
   }
 
   disabledDate = (current: Date): boolean => {

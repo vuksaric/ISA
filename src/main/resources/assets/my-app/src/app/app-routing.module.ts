@@ -48,17 +48,22 @@ import { NewExaminationDermatologistComponent } from './pages/new-examination-de
 import { ProfilePatientDoctorComponent } from './pages/profile-patient-doctor/profile-patient-doctor.component';
 import { ViewPreviousExaminationsProfileComponent } from './pages/view-previous-examinations-profile/view-previous-examinations-profile.component';
 import { AddMedicineComponent } from './pages/add-medicine/add-medicine.component';
+import { HomePageSupplierComponent } from './pages/home-page-supplier/home-page-supplier.component';
 
 import { ViewPreviousConsultationsComponent } from './pages/view-previous-consultations/view-previous-consultations.component';
 import { ViewFutureConsultationsComponent } from './pages/view-future-consultations/view-future-consultations.component';
 import { ViewErecipesComponent } from './pages/view-erecipes/view-erecipes.component';
 import { ViewErecipeMedicinesComponent } from './pages/view-erecipe-medicines/view-erecipe-medicines.component';
 import { ViewPreviousConsultationsProfileComponent } from './pages/view-previous-consultations-profile/view-previous-consultations-profile.component';
+import { SupplierProfileComponent } from './pages/supplier-profile/supplier-profile.component';
+import { NewOfferComponent } from './pages/new-offer/new-offer.component';
+import { ViewOffersComponent } from './pages/view-offers/view-offers.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'pharmacyAdmin' },
     { path: 'login', component: LoginPageComponent },
     { path: 'registration', component: RegistrationPageComponent },
+    { path: 'un', component: UnregisteredUserPageComponent },
     { path: 'sysadminhome', component:SystemAdminHomePageComponent},
     { path: 'homepage', component: HomePageUserComponent, children:[
         { path: 'userProfile', component:UserProfileComponent},
@@ -113,6 +118,11 @@ const routes: Routes = [
         { path: 'promotions', component:PromotionsComponent},
         { path: 'vacation-approval', component:VacationApprovalComponent}
     ] },
+    { path: 'supplierHomePage', component: HomePageSupplierComponent, children:[
+        { path: 'supplierProfile', component:SupplierProfileComponent},
+        { path: 'newOffer', component:NewOfferComponent},
+        { path: 'viewOffers', component:ViewOffersComponent},
+    ]},
     
 ]
 

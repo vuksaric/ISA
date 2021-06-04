@@ -34,9 +34,11 @@ public class ExaminationDTO {
        this.mark = examination.getDermatologist().getMark();
        this.price = examination.getPrice();
        this.id = examination.getId();
-       this.diagnosis = examination.getDiagnosis();
-       this.notes = examination.getReport().getInformation();
-       this.medicine = examination.getReport().getTherapy().getMedicine().getName();
+       if(examination.getReport()!=null){
+           this.diagnosis = examination.getDiagnosis();
+           this.notes = examination.getReport().getInformation();
+           this.medicine = examination.getReport().getTherapy().getMedicine().getName();
+       }
 
        if(examination.getDate().getStart_date().isAfter(LocalDateTime.now().plusDays(1))){
            this.canBeCanceled= true;

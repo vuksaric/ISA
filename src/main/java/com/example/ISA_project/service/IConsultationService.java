@@ -18,4 +18,6 @@ public interface IConsultationService {
     List<AppointmentDTO> getFutureByPatient(int id);
     AppointmentDTO newConsultationPharmacist(AppointmentRequest request);
     void addPenaltyPoint(int id);
+    ConsultationDTO newConsultationPatient(ConsultationRequest consultationRequest);
+    void cancelConsultationPatient(int id);
 }

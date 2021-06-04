@@ -2,11 +2,15 @@ package com.example.ISA_project.controller;
 
 import com.example.ISA_project.model.Pharmacy;
 import com.example.ISA_project.model.VacationRequest;
+import com.example.ISA_project.model.dto.PharmacistDTO;
 import com.example.ISA_project.model.dto.PharmacyDTO;
 import com.example.ISA_project.service.IPharmacyService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/pharmacy")
@@ -43,4 +47,17 @@ public class PharmacyController {
         int idDermatologist = Integer.parseInt(id);
         return pharmacyService.findAllDermatologist(idDermatologist);
     }
+
+    @GetMapping(value="/getPharmaciesWithFreeAppointment/{date}")
+    public Set<PharmacyDTO> getPharmaciesWithFreeAppointment(@PathVariable String date){
+        LocalDateTime dateTime = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        return pharmacyService.getPharmaciesWithFreeAppointment(dateTime);
+    }
+    @GetMapping(value="/getAvailablePharmacistsByPharmacy/{id}/{date}")
+    public List<PharmacistDTO> getAvailablePharmacistsByPharmacy(@PathVariable String id, @PathVariable String date){
+        int pharmacyId = Integer.parseInt(id);
+        LocalDateTime dateTime = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        return pharmacyService.getAvailablePharmacistsByPharmacy(pharmacyId, dateTime);
+    }
+
 }

@@ -21,6 +21,8 @@ public interface IPatientChartService {
     List<Period> freePeriods(List<Period> periods, int id);
 
     List<ConsultationDTO> getPatientPreviousConsultations(int id);
+    List<ConsultationDTO> getPatientUpcomingConsultations(int id);
+
     List<ERecipeDTO> getPatientERecipes(int id);
     Set<MedicineDTO> getPatientERecipeMedicines(int id);
 

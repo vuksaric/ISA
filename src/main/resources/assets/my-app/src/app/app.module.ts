@@ -68,11 +68,15 @@ import { ProfilePatientDoctorComponent } from './pages/profile-patient-doctor/pr
 import { ViewPreviousConsultationsProfileComponent } from './pages/view-previous-consultations-profile/view-previous-consultations-profile.component';
 import { ViewPreviousExaminationsProfileComponent } from './pages/view-previous-examinations-profile/view-previous-examinations-profile.component'
 import { AddMedicineComponent } from './pages/add-medicine/add-medicine.component';
+import { HomePageSupplierComponent } from './pages/home-page-supplier/home-page-supplier.component';
 import { ViewPreviousConsultationsComponent } from './pages/view-previous-consultations/view-previous-consultations.component';
 import { ViewFutureConsultationsComponent } from './pages/view-future-consultations/view-future-consultations.component';
 import { ViewErecipesComponent } from './pages/view-erecipes/view-erecipes.component';
 import { ViewErecipeMedicinesComponent } from './pages/view-erecipe-medicines/view-erecipe-medicines.component';
 import { SearchMedicinePipe } from './pages/medicine-reservation/search-medicine.pipe';
+import { SupplierProfileComponent } from './pages/supplier-profile/supplier-profile.component';
+import { NewOfferComponent } from './pages/new-offer/new-offer.component';
+import { ViewOffersComponent } from './pages/view-offers/view-offers.component';
 
 registerLocaleData(en);
 
@@ -131,11 +135,15 @@ registerLocaleData(en);
     ViewPreviousConsultationsProfileComponent,
     ViewPreviousExaminationsProfileComponent,
     AddMedicineComponent,
+    HomePageSupplierComponent,
     ViewPreviousConsultationsComponent,
     ViewFutureConsultationsComponent,
     ViewErecipesComponent,
     ViewErecipeMedicinesComponent,
     SearchMedicinePipe,
+    SupplierProfileComponent,
+    NewOfferComponent,
+    ViewOffersComponent,
   ],
   imports: [
     BrowserModule,

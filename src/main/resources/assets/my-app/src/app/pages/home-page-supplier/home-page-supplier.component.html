@@ -1,0 +1,36 @@
+<nz-layout>
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+      <div class="logo"></div>
+      <ul nz-menu nzTheme="dark" nzMode="inline">
+        <li nz-menu-item (click)="supplierProfile()">
+            <i nz-icon nzType="user"></i>
+            <span>Profile</span>
+        </li>
+        <li nz-submenu nzTitle="Offers" nzIcon="medicine-box">
+          <ul>
+            <li nz-menu-item (click)="newOffer()">
+                <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+                <span>New offer</span>
+            </li>
+            <li nz-menu-item (click)="viewOffers()">
+                <i nz-icon nzType="unordered-list" nzTheme="outline"></i>
+                <span>View offers</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout>
+      <nz-header>
+        <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></i>
+      </nz-header>
+      <nz-content>
+        <div class="inner-content">
+          <nz-breadcrumb>
+          </nz-breadcrumb>
+          <router-outlet></router-outlet>
+        </div>
+      </nz-content>
+    </nz-layout>
+</nz-layout>
+ 
