@@ -26,4 +26,5 @@ public interface IPharmacistService {
         Pharmacist getById(int id);
         void delete(int id);
         void addNewConsultation(Consultation consultation);
+        Pharmacist getByUserId(int user_id);
 }

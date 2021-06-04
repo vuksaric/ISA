@@ -36,5 +36,10 @@ public class SupplierService implements ISupplierService {
         return supplier;
     }
 
+    @Override
+    public Supplier getByUserId(int user_id) {
+        return supplierRepository.findOneByUserId(user_id);
+    }
+
 
 }

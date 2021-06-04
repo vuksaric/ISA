@@ -202,4 +202,9 @@ public class PharmacistService implements IPharmacistService {
         }
         pharmacistRepository.save(pharmacist);
     }
+
+    @Override
+    public Pharmacist getByUserId(int user_id) {
+        return pharmacistRepository.findOneByUserId(user_id);
+    }
 }

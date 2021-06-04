@@ -29,5 +29,5 @@ public interface IPatientService {
 
     List<PenaltyDTO> getPatientPenaltyPoints(int id);
     Boolean save(Patient patient);
-
+    Patient getByUserId(int user_id);
 }
