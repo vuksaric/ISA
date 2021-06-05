@@ -21,4 +21,6 @@ public interface IDermatologistService {
     List<Period> freePeriods(int id, LocalDate date, int pharmacyId);
     void addNewExamination(Examination examination);
     boolean checkVacation(CheckVacationRequest request);
+    Dermatologist getByUserId(int user_id);
+
 }

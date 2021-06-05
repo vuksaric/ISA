@@ -140,17 +140,20 @@ public class DermatologistService implements IDermatologistService {
     public boolean checkVacation(CheckVacationRequest request) {
         Dermatologist dermatologist = dermatologistRepository.findOneById(request.getId());
         LocalDate date = request.getDate();
-        for(Vacation vacation : dermatologist.getVacation())
-        {
-            if(date.equals(vacation.getStart_date().toLocalDate()) && request.getPharmacyId() == vacation.getPharmacy_id())
+        for (Vacation vacation : dermatologist.getVacation()) {
+            if (date.equals(vacation.getStart_date().toLocalDate()) && request.getPharmacyId() == vacation.getPharmacy_id())
                 return false;
 
-            if(date.equals(vacation.getEnd_date().toLocalDate()) && request.getPharmacyId() == vacation.getPharmacy_id())
+            if (date.equals(vacation.getEnd_date().toLocalDate()) && request.getPharmacyId() == vacation.getPharmacy_id())
                 return false;
 
-            if(date.isAfter(vacation.getStart_date().toLocalDate()) && date.isBefore(vacation.getEnd_date().toLocalDate()) && request.getPharmacyId() == vacation.getPharmacy_id())
+            if (date.isAfter(vacation.getStart_date().toLocalDate()) && date.isBefore(vacation.getEnd_date().toLocalDate()) && request.getPharmacyId() == vacation.getPharmacy_id())
                 return false;
         }
         return true;
+    }
+
+    public Dermatologist getByUserId(int user_id) {
+        return dermatologistRepository.findOneByUserId(user_id);
     }
 }

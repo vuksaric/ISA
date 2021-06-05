@@ -30,6 +30,6 @@ public interface IPatientService {
     void removeFutureConsultation(Consultation consultation);
     void removeFutureExamination(Examination examination);
     void cancelConsultation(Consultation consultation);
+    Boolean save(Patient patient);
+    Patient getByUserId(int user_id);
 
-
-}

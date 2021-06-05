@@ -26,7 +26,8 @@ export const environment = {
   review_url : 'http://localhost:8080/review',
   report_url : 'http://localhost:8080/report',
   promotions_url : 'http://localhost:8080/promotion',
-  supplier_url : 'http://localhost:8080/supplier'
+  supplier_url : 'http://localhost:8080/supplier',
+  offer_url : 'http://localhost:8080/offer',
 };
 
 /*

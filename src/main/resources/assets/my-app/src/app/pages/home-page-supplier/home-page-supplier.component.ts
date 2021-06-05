@@ -19,6 +19,11 @@ export class HomePageSupplierComponent implements OnInit {
     this.router.navigate(['supplierHomePage/viewOffers']);
   }
 
+  logOut(){
+    localStorage.clear();
+    this.router.navigate(['login']);
+  }
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {

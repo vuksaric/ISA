@@ -1,5 +1,6 @@
 package com.example.ISA_project.service;
 
+import com.example.ISA_project.model.PatientChart;
 import com.example.ISA_project.model.Period;
 import com.example.ISA_project.model.dto.*;
 
@@ -25,5 +26,6 @@ public interface IPatientChartService {
 
     List<ERecipeDTO> getPatientERecipes(int id);
     Set<MedicineDTO> getPatientERecipeMedicines(int id);
+    PatientChart save(PatientChart patientChart);
 
 }

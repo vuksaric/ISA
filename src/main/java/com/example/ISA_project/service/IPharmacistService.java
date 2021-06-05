@@ -30,5 +30,5 @@ public interface IPharmacistService {
         boolean checkVacation(CheckVacationRequest request);
         void cancelConsultation(Consultation consultation);
         Pharmacist findOneById(int id);
-
+        Pharmacist getByUserId(int user_id);
 }

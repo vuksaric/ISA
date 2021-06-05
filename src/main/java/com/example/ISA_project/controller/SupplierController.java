@@ -14,8 +14,8 @@ public class SupplierController {
 
     public SupplierController(ISupplierService supplierService){this.supplierService = supplierService;}
 
-    @GetMapping(value="/getByEmail/{email}")
-    public ProfileDTO getSupplierByEmail(@PathVariable String email){
-        return supplierService.getSupplierByEmail(email);
+    @GetMapping("/getByEmail/{email}")
+    public ProfileDTO getByEmail(@PathVariable String email){
+        return supplierService.getByEmail(email);
     }
 }
