@@ -1,1 +1,26 @@
-<p>new-order works hhhhhhhhhhh!</p>
+<div class="center">
+    <nz-table #basicTable nzBordered nzTitle="List of orders" [nzData]="listOfData">
+        <thead>
+          <tr>
+            <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" 
+            [nzSortPriority]="column.priority" 
+            [nzFilterMultiple]="column.filterMultiple"
+            [nzFilters]="column.listOfFilter"
+            [nzFilterFn]="column.filterFn">{{ column.title }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+              <span *ngFor="let medicine in data.medicines">
+                  <td>{{medicine.medicine_name}}</td>
+              </span>
+            <td>{{data.id}}</td>
+            <td>{{data.dueDate}}</td>
+            <!--<td *ngFor="let medicine of toArray(data.medicines)">
+                {{medicine.medicine_name}}</td>-->
+                <td #proba></td>
+          </tr>
+        </tbody>
+    </nz-table>
+    </div>
+    

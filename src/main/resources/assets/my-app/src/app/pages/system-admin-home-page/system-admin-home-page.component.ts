@@ -29,5 +29,8 @@ export class SystemAdminHomePageComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['login']);
   }
+  addAnswer(){
+    this.router.navigate(['viewComplaints']);
+  }
 
 }

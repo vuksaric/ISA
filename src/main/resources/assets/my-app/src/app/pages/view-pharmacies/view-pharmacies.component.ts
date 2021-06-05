@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Pharmacy } from 'src/app/models/pharmacy';
 import { PharmacyService } from 'src/app/services/pharmacy.service';
-
+import { ToastrService } from 'ngx-toastr';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-view-pharmacies',
@@ -10,6 +11,8 @@ import { PharmacyService } from 'src/app/services/pharmacy.service';
 })
 
 export class ViewPharmaciesComponent implements OnInit {
+  token: any;
+  id: number;
   searchValue: string;
   listOfData : Pharmacy[] = [];
   listOfColumn = [
@@ -52,10 +55,13 @@ export class ViewPharmaciesComponent implements OnInit {
         { text: '10', value: '10' },
       ],
       filterFn: (list: string[], item: Pharmacy) => list.some(mark  => (item.mark>=Number(mark) && item.mark < (Number(mark)+1)))
+    },
+    {
+      title: 'Subscribe',
     }
   ];
 
-  constructor( private pharmacyService: PharmacyService) { }
+  constructor(private toastr: ToastrService, private pharmacyService: PharmacyService) { }
 
   loadPharmacies(): void{
       this.pharmacyService.getPharmacies().subscribe((pharmacies: Pharmacy[]) => {
@@ -65,6 +71,33 @@ export class ViewPharmaciesComponent implements OnInit {
   ngOnInit(): void {
    
    this.loadPharmacies();
+  }
+
+  subscribeClick(id){
+    this.token = this.getDecodedAccessToken(localStorage.getItem('token'));
+    this.id = this.token.user_id;
+    const body ={
+      user_id : this.id,
+      pharmacy_id : id
+    }
+    this.pharmacyService.addSubscription(body).subscribe(data =>{
+      console.log(data);  
+      if (data){// vratio je true, vec postoji u subs
+          this.toastr.error("You are already subscribed!");
+        }else{
+          this.toastr.success("You have successfully subscribed!");
+        }
+        
+    });
+  }
+
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    }
+    catch (Error) {
+      return null;
+    }
   }
 
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Pharmacy } from 'src/app/models/pharmacy';
 import { PharmacyService } from 'src/app/services/pharmacy.service';
+import { ToastrService } from 'ngx-toastr';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-view-subscribed-pharmacies',
@@ -8,6 +10,8 @@ import { PharmacyService } from 'src/app/services/pharmacy.service';
   styleUrls: ['./view-subscribed-pharmacies.component.css']
 })
 export class ViewSubscribedPharmaciesComponent implements OnInit {
+  token: any;
+  id: number;
   searchValue: string;
   listOfData : Pharmacy[] = [];
   listOfColumn = [
@@ -50,10 +54,13 @@ export class ViewSubscribedPharmaciesComponent implements OnInit {
         { text: '10', value: '10' },
       ],
       filterFn: (list: string[], item: Pharmacy) => list.some(mark  => (item.mark>=Number(mark) && item.mark < (Number(mark)+1)))
+    },
+    {
+      title: 'Subscribe',
     }
   ];
 
-  constructor( private pharmacyService: PharmacyService) { }
+  constructor(private toastr: ToastrService, private pharmacyService: PharmacyService) { }
 
   loadPharmacies(): void{
       this.pharmacyService.subscribedPharmacies(1).subscribe((pharmacies: Pharmacy[])=>{this.listOfData=pharmacies});  
@@ -63,6 +70,33 @@ export class ViewSubscribedPharmaciesComponent implements OnInit {
    
     
    this.loadPharmacies();
+  }
+
+  subscribeClick(id){
+    this.token = this.getDecodedAccessToken(localStorage.getItem('token'));
+    this.id = this.token.user_id;
+    const body ={
+      user_id : this.id,
+      pharmacy_id : id
+    }
+    this.pharmacyService.deleteSubscription(body).subscribe(data =>{
+      console.log(data);  
+      if (data){
+        this.toastr.success("You have successfully unsubscribed!");
+        }else{
+          this.toastr.error("You are already unsubscribed!");
+        }
+        
+    });
+  }
+
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    }
+    catch (Error) {
+      return null;
+    }
   }
 
 }

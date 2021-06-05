@@ -1,0 +1,20 @@
+<nz-tabset>
+    <nz-tab nzTitle="Complaints">
+      <ul nz-list [nzDataSource]="listOfComplaints" nzBordered nzSize="small">
+        <nz-list-header>List of complaints</nz-list-header>
+        <li nz-list-item *ngFor="let item of listOfComplaints" nzNoFlex>
+          <ul nz-list-item-actions>
+            <nz-list-item-action>
+              <a ng-disabled = "isDisabled(item)" (click)="complaintVis(item)">Write answer</a>
+              <nz-modal [(nzVisible)]="isVisible" nzTitle="Complaint answer" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk(item)">
+                <ng-container *nzModalContent>
+                  <input type="text" nz-input [(ngModel)]="complaint_answer" />
+                </ng-container>
+              </nz-modal>
+            </nz-list-item-action>
+          </ul>
+          {{item.type}}|        {{ item.text}}|           {{item.answer}}
+        </li>
+      </ul>
+    </nz-tab>
+</nz-tabset>

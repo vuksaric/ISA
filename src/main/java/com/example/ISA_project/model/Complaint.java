@@ -22,4 +22,11 @@ public class Complaint {
     private int patientId;
     private String text;
     private String answer;
+
+    public String toString(Complaint c){
+        String answer = "Without answer";
+        if(c.answer != null)
+            answer = c.answer;
+        return "User type: "+ c.type+ "_________"+"Text: "+c.text + "_________" + "Answer: "+answer;
+    }
 }

@@ -2,6 +2,7 @@ package com.example.ISA_project.controller;
 
 import com.example.ISA_project.model.Pharmacy;
 import com.example.ISA_project.model.VacationRequest;
+import com.example.ISA_project.model.dto.CheckSubscriptionDTO;
 import com.example.ISA_project.model.dto.PharmacyDTO;
 import com.example.ISA_project.service.IPharmacyService;
 import org.springframework.web.bind.annotation.*;
@@ -43,4 +44,15 @@ public class PharmacyController {
         int idDermatologist = Integer.parseInt(id);
         return pharmacyService.findAllDermatologist(idDermatologist);
     }
+
+    @PutMapping("/addSubscription")
+    public Boolean addSubscription(@RequestBody CheckSubscriptionDTO ids){
+        return pharmacyService.checkSubscription(ids);
+    }
+
+    @PutMapping("/deleteSubscription")
+    public Boolean deleteSubscription(@RequestBody CheckSubscriptionDTO ids){
+        return pharmacyService.deleteSubscription(ids);
+    }
+
 }

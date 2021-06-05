@@ -4,6 +4,7 @@ package com.example.ISA_project.service;
 import com.example.ISA_project.model.Medicine;
 import com.example.ISA_project.model.MedicineQuantity;
 import com.example.ISA_project.model.Pharmacy;
+import com.example.ISA_project.model.dto.CheckSubscriptionDTO;
 import com.example.ISA_project.model.dto.MedicineDTO;
 import com.example.ISA_project.model.dto.PharmacyDTO;
 
@@ -22,4 +23,6 @@ public interface IPharmacyService {
     Pharmacy addMedicineQuantity(int idMedicine, int idPharmacy);
     List<PharmacyDTO> subscribedPharmacies(int idPatient);
     Pharmacy getByName(String name);
+    Boolean checkSubscription(CheckSubscriptionDTO ids);
+    Boolean deleteSubscription(CheckSubscriptionDTO ids);
 }

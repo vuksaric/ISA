@@ -57,6 +57,8 @@ import { ViewErecipeMedicinesComponent } from './pages/view-erecipe-medicines/vi
 import { SupplierProfileComponent } from './pages/supplier-profile/supplier-profile.component';
 import { NewOfferComponent } from './pages/new-offer/new-offer.component';
 import { ViewOffersComponent } from './pages/view-offers/view-offers.component';
+import { NewComplaintComponent } from './pages/new-complaint/new-complaint.component';
+import { ViewComplaintsComponent } from './pages/view-complaints/view-complaints.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'pharmacyAdmin' },
@@ -78,7 +80,8 @@ const routes: Routes = [
         { path: 'viewPreviousConsultations', component: ViewPreviousConsultationsComponent},
         { path: 'viewFutureConsultations', component: ViewFutureConsultationsComponent},
         { path: 'viewERecipes', component: ViewErecipesComponent},
-        { path: 'viewERecipeMedicines', component: ViewErecipeMedicinesComponent}
+        { path: 'viewERecipeMedicines', component: ViewErecipeMedicinesComponent},
+        { path: 'newComplaint', component: NewComplaintComponent},
 
     ]},
     { path: 'homePagePharmacist', component: HomePagePharmacistComponent },
@@ -120,6 +123,7 @@ const routes: Routes = [
         { path: 'newOffer', component:NewOfferComponent},
         { path: 'viewOffers', component:ViewOffersComponent},
     ]},
+    { path: 'viewComplaints', component:ViewComplaintsComponent},
     
 ]
 

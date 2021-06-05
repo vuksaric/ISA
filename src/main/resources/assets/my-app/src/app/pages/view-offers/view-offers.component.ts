@@ -11,7 +11,7 @@ import jwt_decode from 'jwt-decode';
 })
 export class ViewOffersComponent implements OnInit {
 
-  searchValue: string;
+  searchValue2: string;
   listOfData : Offer[] = [];
   email: string;
   token: any;
@@ -25,13 +25,13 @@ export class ViewOffersComponent implements OnInit {
       title: 'Price',
       compare: (a: Offer, b: Offer) => a.price - b.price,
       priority: false,
-      filterMultiple: true,
+      //filterMultiple: true,
     },
     {
       title: 'Date',
       compare: (a: Offer, b: Offer) => a.dueDate > b.dueDate,
       priority: false,
-      filterMultiple: true,
+      //filterMultiple: true,
     },
   ];
 

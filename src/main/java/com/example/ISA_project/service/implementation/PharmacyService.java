@@ -6,11 +6,13 @@ import com.example.ISA_project.model.Bill;
 import com.example.ISA_project.model.MedicineQuantity;
 import com.example.ISA_project.model.Patient;
 import com.example.ISA_project.model.Pharmacy;
+import com.example.ISA_project.model.dto.CheckSubscriptionDTO;
 import com.example.ISA_project.model.dto.MedicineDTO;
 import com.example.ISA_project.model.dto.PharmacyDTO;
 import com.example.ISA_project.repository.PharmacyRepository;
 import com.example.ISA_project.service.IBillService;
 import com.example.ISA_project.service.IMedicineService;
+import com.example.ISA_project.service.IPatientService;
 import com.example.ISA_project.service.IPharmacyService;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +24,13 @@ public class PharmacyService implements IPharmacyService {
     private final PharmacyRepository pharmacyRepository;
     private final IMedicineService medicineService;
     private final IBillService billService;
+    private final IPatientService patientService;
 
-    public PharmacyService(PharmacyRepository pharmacyRepository, IMedicineService medicineService, IBillService billService){
+    public PharmacyService(PharmacyRepository pharmacyRepository, IMedicineService medicineService, IBillService billService,IPatientService patientService){
         this.pharmacyRepository=pharmacyRepository;
         this.medicineService = medicineService;
         this.billService = billService;
+        this.patientService = patientService;
     }
     @Override
     public List<PharmacyDTO> findAll() {
@@ -167,6 +171,39 @@ public class PharmacyService implements IPharmacyService {
     @Override
     public Pharmacy getByName(String name) {
         return pharmacyRepository.findOneByName(name);
+    }
+
+    @Override
+    public Boolean checkSubscription(CheckSubscriptionDTO ids) {
+        Pharmacy pharmacy = pharmacyRepository.findOneById(ids.getPharmacy_id());
+        Patient patient = patientService.getByUserId(ids.getUser_id());
+        for(Patient p : pharmacy.getSubscribers()){
+            if(p.getId() == ids.getUser_id()){
+                return true;
+            }
+        }
+        List<Patient> plist = new ArrayList<>();
+        plist.addAll(pharmacy.getSubscribers());
+        plist.add(patient);
+        pharmacy.setSubscribers(plist);
+        pharmacyRepository.save(pharmacy);
+        return false;
+    }
+
+    @Override
+    public Boolean deleteSubscription(CheckSubscriptionDTO ids) {
+        Pharmacy pharmacy = pharmacyRepository.findOneById(ids.getPharmacy_id());
+        List<Patient> plist = new ArrayList<>();
+        Boolean check = false;
+        for(Patient p : pharmacy.getSubscribers()) {
+            if (p.getId() != ids.getUser_id()) {
+                plist.add(p);
+            }else
+                check = true;
+        }
+        pharmacy.setSubscribers(plist);
+        pharmacyRepository.save(pharmacy);
+        return check;
     }
 
 

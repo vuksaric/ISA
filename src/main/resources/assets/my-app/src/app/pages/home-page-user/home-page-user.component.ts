@@ -61,5 +61,8 @@ export class HomePageUserComponent implements OnInit {
   viewERecipeMedicines(){
     this.router.navigate(['homepage/viewERecipeMedicines']);
   }
+  newComplaint(){
+    this.router.navigate(['homepage/newComplaint']);
+  }
 }
 

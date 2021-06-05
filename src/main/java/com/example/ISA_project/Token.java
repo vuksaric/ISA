@@ -1,5 +1,6 @@
 package com.example.ISA_project;
 
+import com.example.ISA_project.model.Supplier;
 import com.example.ISA_project.model.User;
 import com.example.ISA_project.service.*;
 import com.example.ISA_project.service.implementation.*;
@@ -64,7 +65,8 @@ public class Token {
         }else if(user.getUserType() == UserType.PharmacyAdministrator){
             user_id = pharmacyAdminService.getByUserId(user.getId()).getId();
         }else if(user.getUserType() == UserType.Supplier){
-            user_id = supplierService.getByUserId(user.getId()).getId();
+            Supplier s = supplierService.getByUserId(user.getId());
+            user_id = s.getId();
         }else
             user_id = user.getId(); //za systemAdmina, on nema drugih polja osim usera
 

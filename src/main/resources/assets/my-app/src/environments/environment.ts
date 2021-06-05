@@ -28,6 +28,8 @@ export const environment = {
   promotions_url : 'http://localhost:8080/promotion',
   supplier_url : 'http://localhost:8080/supplier',
   offer_url : 'http://localhost:8080/offer',
+  orderList_url : 'http://localhost:8080/orderList',
+  complaint_url : 'http://localhost:8080/complaint',
 };
 
 /*

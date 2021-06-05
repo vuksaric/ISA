@@ -35,4 +35,12 @@ export class PharmacyService {
     return this.http.get<Pharmacy[]>(pharmacy_url+`/allDermatologist/${id}`);
   }
 
+  public addSubscription(id): Observable<any>{
+    return this.http.put(pharmacy_url+`/addSubscription`,id);
+  }
+
+  public deleteSubscription(id): Observable<any>{
+    return this.http.put(pharmacy_url+`/deleteSubscription`,id);
+  }
+
 }

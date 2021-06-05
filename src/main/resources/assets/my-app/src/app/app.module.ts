@@ -77,6 +77,9 @@ import { SearchMedicinePipe } from './pages/medicine-reservation/search-medicine
 import { SupplierProfileComponent } from './pages/supplier-profile/supplier-profile.component';
 import { NewOfferComponent } from './pages/new-offer/new-offer.component';
 import { ViewOffersComponent } from './pages/view-offers/view-offers.component';
+import { SupplierPipePipe } from './pages/view-offers/supplier-pipe.pipe';
+import { NewComplaintComponent } from './pages/new-complaint/new-complaint.component';
+import { ViewComplaintsComponent } from './pages/view-complaints/view-complaints.component';
 
 registerLocaleData(en);
 
@@ -144,6 +147,9 @@ registerLocaleData(en);
     SupplierProfileComponent,
     NewOfferComponent,
     ViewOffersComponent,
+    SupplierPipePipe,
+    NewComplaintComponent,
+    ViewComplaintsComponent,
   ],
   imports: [
     BrowserModule,
