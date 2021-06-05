@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-medicine-reservation',
@@ -25,12 +26,16 @@ export class MedicineReservationComponent implements OnInit {
   date = null;
   idMedicine : number;
   bodyToken : any;
+  dataFromToken : any;
 
   constructor(private fb: FormBuilder, private medicineService : MedicineService,
      private pharmacyService : PharmacyService, public datepipe: DatePipe,
-     private reservationService : ReservationService, private toastr: ToastrService) { }
+     private reservationService : ReservationService, private toastr: ToastrService,
+     private authorizationService : AuthService) { }
 
   ngOnInit(): void {
+    this.dataFromToken = this.authorizationService.getDataFromToken();
+
     this.medicineService.getAllMedicine().subscribe(data=>{console.log(data); this.listOfData=data});
     this.validateForm = this.fb.group({
       pharmacy:[null, [Validators.required]], 
@@ -78,7 +83,7 @@ export class MedicineReservationComponent implements OnInit {
       const body = {
         dueDate : this.date,
         serialNumber : r,
-        idPatient : 1,
+        idPatient : this.dataFromToken.id,
         idMedicine : this.idMedicine,
         idPharmacy : this.singleValue
       }

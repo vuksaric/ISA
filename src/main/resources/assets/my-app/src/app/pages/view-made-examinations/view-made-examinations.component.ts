@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Examination } from 'src/app/models/examination';
+import { AuthService } from 'src/app/services/auth.service';
 import { ExaminationService } from 'src/app/services/examination.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { ExaminationService } from 'src/app/services/examination.service';
   styleUrls: ['./view-made-examinations.component.css']
 })
 export class ViewMadeExaminationsComponent implements OnInit {
-  
+  dataFromToken : any;
   listOfData : Examination[] = [];
   listOfColumn = [
     {
@@ -24,17 +25,18 @@ export class ViewMadeExaminationsComponent implements OnInit {
     }
   ];
 
-  constructor( private examinationService : ExaminationService, private toastr: ToastrService) { }
+  constructor( private examinationService : ExaminationService, private toastr: ToastrService,
+    private authorizationService : AuthService) { }
 
   ngOnInit(): void {
+    this.dataFromToken = this.authorizationService.getDataFromToken();
     this.examinationService.getFreeExaminations().subscribe((examinations: Examination[]) => {
       this.listOfData = examinations;});
   }
 
   reserve(event): void{
     var idAttr = event.currentTarget.id;
-    var patient = 1;
-    this.examinationService.reserveExamination(idAttr, patient).subscribe(data => { 
+    this.examinationService.reserveExamination(idAttr, this.dataFromToken.id).subscribe(data => { 
       console.log(data);
       this.toastr.success("You have successfully made a new examination!"); 
     });

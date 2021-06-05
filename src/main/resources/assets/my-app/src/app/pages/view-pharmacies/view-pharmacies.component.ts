@@ -59,10 +59,7 @@ export class ViewPharmaciesComponent implements OnInit {
         compare: (a: Pharmacy, b: Pharmacy) => a.town.localeCompare(b.town),
         priority: 1,
         filterMultiple: true,
-        listOfFilter: this.nameFilter,/*[
-          { text: 'Beograd', value: 'Beograd' },
-          { text: 'Novi Sad', value: 'Novi Sad' }
-        ],*/
+        listOfFilter: this.nameFilter,
         filterFn: (list: string[], item: Pharmacy) => list.some(town => item.town.indexOf(town) !== -1)
       },
       {

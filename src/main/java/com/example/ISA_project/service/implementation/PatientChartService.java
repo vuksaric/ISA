@@ -74,7 +74,7 @@ public class PatientChartService implements IPatientChartService {
         int patientChartId = findPatientChartId(id);
         List<FutureReservationDTO> reservations = new ArrayList<>();
         for(Reservation r : patientChartRepository.findOneById(patientChartId).getReservations()){
-            if(r.getDueDate().isAfter(LocalDateTime.now())) {
+            if(r.getDueDate().isAfter(LocalDateTime.now()) && !r.isIssued()) {
                 reservations.add(new FutureReservationDTO(r));
             }
         }

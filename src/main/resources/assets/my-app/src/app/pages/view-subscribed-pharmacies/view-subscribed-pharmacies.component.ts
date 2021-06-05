@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Pharmacy } from 'src/app/models/pharmacy';
+import { AuthService } from 'src/app/services/auth.service';
 import { PharmacyService } from 'src/app/services/pharmacy.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { PharmacyService } from 'src/app/services/pharmacy.service';
   styleUrls: ['./view-subscribed-pharmacies.component.css']
 })
 export class ViewSubscribedPharmaciesComponent implements OnInit {
+  dataFromToken : any;
   searchValue: string;
   listOfData : Pharmacy[] = [];
   listOfColumn = [
@@ -53,16 +55,16 @@ export class ViewSubscribedPharmaciesComponent implements OnInit {
     }
   ];
 
-  constructor( private pharmacyService: PharmacyService) { }
+  constructor( private pharmacyService: PharmacyService, private authorizationService : AuthService) { }
 
   loadPharmacies(): void{
-      this.pharmacyService.subscribedPharmacies(1).subscribe((pharmacies: Pharmacy[])=>{this.listOfData=pharmacies});  
+      this.pharmacyService.subscribedPharmacies(this.dataFromToken.id).subscribe((pharmacies: Pharmacy[])=>{this.listOfData=pharmacies});  
   }
 
   ngOnInit(): void {
-   
+    this.dataFromToken = this.authorizationService.getDataFromToken();
     
-   this.loadPharmacies();
+    this.loadPharmacies();
   }
 
 }

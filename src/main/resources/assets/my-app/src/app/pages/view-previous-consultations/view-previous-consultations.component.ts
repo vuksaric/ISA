@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 import { PatientChartService } from 'src/app/services/patient-chart.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { PatientChartService } from 'src/app/services/patient-chart.service';
 })
 export class ViewPreviousConsultationsComponent implements OnInit {
   listOfData =[];
-
+  dataFromToken : any;
   listOfColumn = [
     {
       title: 'Consultation date',
@@ -31,10 +32,12 @@ export class ViewPreviousConsultationsComponent implements OnInit {
       priority: 1
     }
   ];
-  constructor(private patientChartService : PatientChartService) { }
+  constructor(private patientChartService : PatientChartService, private authorizationService : AuthService) { }
 
   ngOnInit(): void {
-    this.patientChartService.getPreviousConsultationsByPatient(1).subscribe(data => {
+    this.dataFromToken = this.authorizationService.getDataFromToken();
+
+    this.patientChartService.getPreviousConsultationsByPatient(this.dataFromToken.id).subscribe(data => {
       this.listOfData = data; console.log(data);});
   }
 

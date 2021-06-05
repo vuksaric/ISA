@@ -23,6 +23,21 @@ export class AuthService {
   public registration(body) : Observable<User>{ 
     return this.http.post<User>(auth_url + `/registration`, body);
   }
+  
+  public getDataFromToken() : any
+  {
+    let token : any;
+    let decoded_token : any;
+    let result : any;
+    token = localStorage.getItem("token");
+    decoded_token = this.getDecodedAccessToken(token);
+    result = {
+      email : decoded_token.email,
+      id : decoded_token.user_id, 
+      type : decoded_token.user_type
+    }
+    return result
+  }
 
   getDecodedAccessToken(token: string): any {
     try {

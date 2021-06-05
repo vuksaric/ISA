@@ -6,6 +6,7 @@ import { PharmacyService } from 'src/app/services/pharmacy.service';
 import { Pharmacy } from 'src/app/models/pharmacy';
 import { ConsultationService } from 'src/app/services/consultation.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-new-consultation-patient',
@@ -24,6 +25,8 @@ export class NewConsultationPatientComponent implements OnInit {
   pharmacyId : number;
   today : boolean;
   hour : number;
+  dataFromToken : any;
+ 
 
   listOfColumnPharmacist=[
     {
@@ -49,9 +52,11 @@ export class NewConsultationPatientComponent implements OnInit {
   ];
 
   constructor(private fb: FormBuilder, private pharmacyService : PharmacyService, private datePipe : DatePipe,
-    private consultationService : ConsultationService, private toastr: ToastrService) { }
+    private consultationService : ConsultationService, private toastr: ToastrService, private authorizationService : AuthService) { }
 
   ngOnInit(): void {
+    this.dataFromToken = this.authorizationService.getDataFromToken();
+
     this.validateForm = this.fb.group({
       date:[null, [Validators.required]], 
       time: [null, [Validators.required]]
@@ -122,7 +127,7 @@ export class NewConsultationPatientComponent implements OnInit {
       dateTime: this.datePipe.transform(this.dateTime, 'yyyy-MM-dd HH:mm'),
       pharmacyId : this.pharmacyId,
       pharmacistId: data.id,
-      patientId: 1
+      patientId: this.dataFromToken.id
     }
     console.log(body)
     this.consultationService.newPatient(body).subscribe(data=>{

@@ -5,6 +5,7 @@ import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { ToastrService } from 'ngx-toastr';
 import { Allergy } from 'src/app/models/allergy';
 import { Profile } from 'src/app/models/profile';
+import { AuthService } from 'src/app/services/auth.service';
 import { MedicineService } from 'src/app/services/medicine.service';
 import { PatientChartService } from 'src/app/services/patient-chart.service';
 import { PatientService } from 'src/app/services/patient.service';
@@ -21,6 +22,7 @@ export class PatientProfileComponent implements OnInit {
   listOfData : Allergy[] = [];
   listOfOptions : Allergy[] =[];
   isVisiblePoint = false;
+  dataFromToken : any;
  
   validateForm2 : FormGroup;
   profile: Profile;
@@ -34,11 +36,13 @@ export class PatientProfileComponent implements OnInit {
   
   constructor(private patientService: PatientService, private patientChartService: PatientChartService,
     private medicineService : MedicineService, private modal: NzModalService, private router: Router,
-    private toastr: ToastrService, private fb: FormBuilder, private userService: UserService) { }
+    private toastr: ToastrService, private fb: FormBuilder, private userService: UserService,
+    private authorizationService : AuthService) { }
 
   ngOnInit(): void {
+    this.dataFromToken = this.authorizationService.getDataFromToken();
     
-    this.patientService.getProfile(1).subscribe(data => { console.log(data); 
+    this.patientService.getProfile(this.dataFromToken.id).subscribe(data => { console.log(data); 
       this.data1 = [
       { title: 'Email', description: data.email },
       { title: 'Full name', description: data.name + ' ' + data.surname},
@@ -57,7 +61,7 @@ export class PatientProfileComponent implements OnInit {
     this.medicineService.getMedicines().subscribe(data => { console.log(data); this.listOfOptions=data; });
 
 
-    this.patientChartService.getPatientAllergy(1).subscribe(data => {console.log(data); 
+    this.patientChartService.getPatientAllergy(this.dataFromToken.id).subscribe(data => {console.log(data); 
       var names : String = "";
         data.forEach(element => {
         names = names + element.name + "; ";
@@ -67,7 +71,7 @@ export class PatientProfileComponent implements OnInit {
       ];
     })
 
-    this.patientService.getPenaltyPoints(1).subscribe(data=>{this.listOfPoints=data; this.points= this.listOfPoints.length});
+    this.patientService.getPenaltyPoints(this.dataFromToken.id).subscribe(data=>{this.listOfPoints=data; this.points= this.listOfPoints.length});
   }
   
   add(): void {
@@ -91,7 +95,7 @@ export class PatientProfileComponent implements OnInit {
     const body={
       name : item.name
     }
-    this.patientChartService.addPatientAllergy(body, 1).subscribe(data => { console.log(data);
+    this.patientChartService.addPatientAllergy(body, this.dataFromToken.id).subscribe(data => { console.log(data);
       this.toastr.success("You have successfully made a new allergy!");
       this.medicineService.getMedicines().subscribe(data => { console.log(data); this.listOfOptions=data; });
     });

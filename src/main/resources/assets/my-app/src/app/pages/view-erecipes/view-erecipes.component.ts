@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NzTableSortOrder, NzTableFilterList, NzTableFilterFn, NzTableSortFn } from 'ng-zorro-antd/table';
+import { AuthService } from 'src/app/services/auth.service';
 import { PatientChartService } from 'src/app/services/patient-chart.service';
 
 
@@ -11,6 +12,7 @@ import { PatientChartService } from 'src/app/services/patient-chart.service';
 })
 export class ViewErecipesComponent implements OnInit {
   isVisible = false;
+  dataFromToken : any;
   listOfData =[];
   dataSet=[];
   listOfColumn  = [
@@ -33,10 +35,12 @@ export class ViewErecipesComponent implements OnInit {
     }
   ];
 
-  constructor(private patientChartService: PatientChartService) { }
+  constructor(private patientChartService: PatientChartService, private authorizationService : AuthService) { }
 
   ngOnInit(): void {
-    this.patientChartService.getPatientERecipes(1).subscribe(data=> {this.listOfData=data; console.log(data)})
+    this.dataFromToken = this.authorizationService.getDataFromToken();
+
+    this.patientChartService.getPatientERecipes(this.dataFromToken.id).subscribe(data=> {this.listOfData=data; console.log(data)})
   }
   medicines(data): void{
     this.isVisible = true;

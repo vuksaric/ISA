@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Examination } from 'src/app/models/examination';
+import { AuthService } from 'src/app/services/auth.service';
 import { PatientChartService } from 'src/app/services/patient-chart.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { PatientChartService } from 'src/app/services/patient-chart.service';
   styleUrls: ['./view-previous-examinations.component.css']
 })
 export class ViewPreviousExaminationsComponent implements OnInit {
+  dataFromToken : any;
   listOfData : Examination[] = [];
   listOfColumn = [
     {
@@ -31,10 +33,12 @@ export class ViewPreviousExaminationsComponent implements OnInit {
       priority: 1
     }
   ];
-  constructor(private patientChartService : PatientChartService) { }
+  constructor(private patientChartService : PatientChartService, private authorizationService : AuthService) { }
 
   ngOnInit(): void {
-    this.patientChartService.getPreviousExaminationsByPatient(1).subscribe((examinations: Examination[]) => {
+    this.dataFromToken = this.authorizationService.getDataFromToken();
+
+    this.patientChartService.getPreviousExaminationsByPatient(this.dataFromToken.id).subscribe((examinations: Examination[]) => {
       this.listOfData = examinations;});
   }
 

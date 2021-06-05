@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { Profile } from 'src/app/models/profile';
+import { AuthService } from 'src/app/services/auth.service';
 import { PatientService } from 'src/app/services/patient.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -22,9 +23,10 @@ export class UserProfileComponent implements OnInit {
   state: string;
   phone: string;
   email : string;
+  dataFromToken : any;
 
   constructor(private fb: FormBuilder, private patientService: PatientService, private userService : UserService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService, private authorizationService : AuthService) { }
 
 
   submitForm(): void {
@@ -62,8 +64,9 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.dataFromToken = this.authorizationService.getDataFromToken();
     
-    this.userService.getUserProfile("andja.ptrvc@gmail.com").subscribe(data => { console.log(data);
+    this.userService.getUserProfile(this.dataFromToken.email).subscribe(data => { console.log(data);
       this.email = data.email;
     
       console.log(data);

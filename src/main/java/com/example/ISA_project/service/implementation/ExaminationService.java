@@ -12,6 +12,7 @@ import com.example.ISA_project.service.IPatientService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +51,9 @@ public class ExaminationService implements IExaminationService {
     public List<ExaminationDTO> findAllFree() {
         List<ExaminationDTO> examintaions = new ArrayList<ExaminationDTO>();
         for(Examination examination: examinationRepository.findAllFree()){
-          examintaions.add(new ExaminationDTO((examination)));
+            if(examination.getDate().getStart_date().isAfter(LocalDateTime.now())){
+                examintaions.add(new ExaminationDTO((examination)));
+            }
         }
         return examintaions;
     }
@@ -81,8 +84,10 @@ public class ExaminationService implements IExaminationService {
     public ExaminationDTO cancelExamination(int id) {
         Examination examination = examinationRepository.findExaminationById(id);
         examination.setFree(true);
+        patientService.cancelExamination(examination);
         examination.setPatient(null);
         examinationRepository.save(examination);
+
 
         return new ExaminationDTO(examinationRepository.findExaminationById(id));
     }

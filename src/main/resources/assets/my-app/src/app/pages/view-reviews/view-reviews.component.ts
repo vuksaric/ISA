@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 import { PatientChartService } from 'src/app/services/patient-chart.service';
 import { ReviewService } from 'src/app/services/review.service';
 
@@ -15,23 +16,26 @@ export class ViewReviewsComponent implements OnInit {
   listOfMedicine=[];
   listOfPharmacy=[];
   isVisible = false;
+  dataFromToken : any;
   
   review : any;
   mark: number;
   
   constructor(private patientChartService : PatientChartService, private reviewService: ReviewService, 
-    private toastr: ToastrService) { }
+    private toastr: ToastrService, private authorizationService : AuthService) { }
 
   ngOnInit(): void {
-    this.patientChartService.getPatientDoctors(1).subscribe(data=>{this.listOfDoctors=data; console.log(data)});
-    this.patientChartService.getPatientPharmacist(1).subscribe(data=>{this.listOfPharmacist=data; console.log(data)});
-    this.patientChartService.getPatientMedicine(1).subscribe(data=>{this.listOfMedicine=data; console.log(data)});
-    this.patientChartService.getPatientPharmacy(1).subscribe(data=>{this.listOfPharmacy=data; console.log(data)})
+    this.dataFromToken = this.authorizationService.getDataFromToken();
+
+    this.patientChartService.getPatientDoctors(this.dataFromToken.id).subscribe(data=>{this.listOfDoctors=data; console.log(data)});
+    this.patientChartService.getPatientPharmacist(this.dataFromToken.id).subscribe(data=>{this.listOfPharmacist=data; console.log(data)});
+    this.patientChartService.getPatientMedicine(this.dataFromToken.id).subscribe(data=>{this.listOfMedicine=data; console.log(data)});
+    this.patientChartService.getPatientPharmacy(this.dataFromToken.id).subscribe(data=>{this.listOfPharmacy=data; console.log(data)})
   }
 
   viewGradeDoctor(item){
     this.isVisible = true;
-    this.reviewService.findReview(1, item.idObject, 'Dermatologist').subscribe(data=>{
+    this.reviewService.findReview(this.dataFromToken.id, item.idObject, 'Dermatologist').subscribe(data=>{
       this.review=data;
       console.log(data);
      this.mark = data.mark;
@@ -39,7 +43,7 @@ export class ViewReviewsComponent implements OnInit {
   }
   viewGradePharmacist(item){
     this.isVisible = true;
-    this.reviewService.findReview(1, item.idObject, 'Pharmacist').subscribe(data=>{
+    this.reviewService.findReview(this.dataFromToken.id, item.idObject, 'Pharmacist').subscribe(data=>{
       this.review=data;
       console.log(data);
      this.mark = data.mark;
@@ -47,7 +51,7 @@ export class ViewReviewsComponent implements OnInit {
   }
   viewGradeMedicine(item){
     this.isVisible = true;
-    this.reviewService.findReview(1, item.idObject, 'Medicine').subscribe(data=>{
+    this.reviewService.findReview(this.dataFromToken.id, item.idObject, 'Medicine').subscribe(data=>{
       this.review=data;
       console.log(data);
      this.mark = data.mark;
@@ -55,7 +59,7 @@ export class ViewReviewsComponent implements OnInit {
   }
   viewGradePharmacy(item){
     this.isVisible = true;
-    this.reviewService.findReview(1, item.idObject, 'Pharmacy').subscribe(data=>{
+    this.reviewService.findReview(this.dataFromToken.id, item.idObject, 'Pharmacy').subscribe(data=>{
       this.review=data;
       console.log(data);
      this.mark = data.mark;

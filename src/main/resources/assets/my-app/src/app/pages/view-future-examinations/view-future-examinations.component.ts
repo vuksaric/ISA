@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 import { Examination } from 'src/app/models/examination';
+import { AuthService } from 'src/app/services/auth.service';
 import { ExaminationService } from 'src/app/services/examination.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { ExaminationService } from 'src/app/services/examination.service';
   styleUrls: ['./view-future-examinations.component.css']
 })
 export class ViewFutureExaminationsComponent implements OnInit {
-
+  dataFromToken : any;
   listOfData : Examination[] = [];
   listOfColumn = [
     {
@@ -25,10 +26,13 @@ export class ViewFutureExaminationsComponent implements OnInit {
     }
   ];
 
-  constructor( private examinationService : ExaminationService, private toastr: ToastrService) { }
+  constructor( private examinationService : ExaminationService, private toastr: ToastrService,
+    private authorizationService : AuthService) { }
 
   ngOnInit(): void {
-    this.examinationService.getFutureExaminationsByPatient(1).subscribe((examinations: Examination[]) => {
+    this.dataFromToken = this.authorizationService.getDataFromToken();
+
+    this.examinationService.getFutureExaminationsByPatient(this.dataFromToken.id).subscribe((examinations: Examination[]) => {
       this.listOfData = examinations; console.log(examinations)});
   }
 

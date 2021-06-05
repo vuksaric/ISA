@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 import { ConsultationService } from 'src/app/services/consultation.service';
 import { PatientChartService } from 'src/app/services/patient-chart.service';
 
@@ -9,6 +10,7 @@ import { PatientChartService } from 'src/app/services/patient-chart.service';
   styleUrls: ['./view-future-consultations.component.css']
 })
 export class ViewFutureConsultationsComponent implements OnInit {
+  dataFromToken : any;
   listOfData  = [];
   listOfColumn = [
     {
@@ -23,10 +25,12 @@ export class ViewFutureConsultationsComponent implements OnInit {
     }
   ];
   constructor(private patientChartService : PatientChartService, private consultationService: ConsultationService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService, private authorizationService : AuthService) { }
 
   ngOnInit(): void {
-    this.patientChartService.getUpcomingConsultationsByPatient(1).subscribe(data => {
+    this.dataFromToken = this.authorizationService.getDataFromToken();
+
+    this.patientChartService.getUpcomingConsultationsByPatient(this.dataFromToken.id).subscribe(data => {
       this.listOfData = data; console.log(data);});
   }
 

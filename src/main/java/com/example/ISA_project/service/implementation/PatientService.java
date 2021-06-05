@@ -101,6 +101,13 @@ public class PatientService implements IPatientService {
     }
 
     @Override
+    public void cancelExamination(Examination examination){
+        Patient patient = patientRepository.findOneById(examination.getPatient().getId());
+        patient.getPatientChart().getFutureExaminations().remove(examination);
+        patientRepository.save(patient);
+    }
+
+    @Override
     public List<PenaltyDTO> getPatientPenaltyPoints(int id) {
         List<PenaltyDTO> penaltyDTOS = new ArrayList<>();
         List<LocalDate> penaltyPoints = new ArrayList<>();
