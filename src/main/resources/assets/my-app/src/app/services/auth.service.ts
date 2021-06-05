@@ -40,20 +40,27 @@ export class AuthService {
     let decoded_token : any;
     token = localStorage.getItem("token");
     decoded_token = this.getDecodedAccessToken(token);
-    if(decoded_token.user_type != "Patient")
-    {
-      this.toastr.warning("Restricted access");
-      if(decoded_token.user_type === "SystemAdministrator")
-          this.router.navigate(['sysadminhome']);
-      else if(decoded_token.user_type === "Dermatologist")
-          this.router.navigate(['homePageDermatologist']);
-      else if(decoded_token.user_type === "PharmacyAdministrator")
-          this.router.navigate(['pharmacyAdmin']);
-      else if(decoded_token.user_type === "Pharmacist")
-          this.router.navigate(['homePagePharmacist']);
-      else 
-          this.router.navigate(['sysadminhome']);//supplier
+    if(token!=null){
+      if(decoded_token.user_type != "Patient")
+      {
+        this.toastr.warning("Restricted access");
+        if(decoded_token.user_type === "SystemAdministrator")
+            this.router.navigate(['sysadminhome']);
+        else if(decoded_token.user_type === "Dermatologist")
+            this.router.navigate(['homePageDermatologist']);
+        else if(decoded_token.user_type === "PharmacyAdministrator")
+            this.router.navigate(['pharmacyAdmin']);
+        else if(decoded_token.user_type === "Pharmacist")
+            this.router.navigate(['homePagePharmacist']);
+        else 
+            this.router.navigate(['sysadminhome']);//supplier
+      }
     }
+    else{
+      this.toastr.warning("You are not logged in");
+      this.router.navigate(['login']);
+    }
+    
   }
 
 }

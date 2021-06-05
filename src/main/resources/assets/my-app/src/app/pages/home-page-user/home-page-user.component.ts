@@ -61,5 +61,9 @@ export class HomePageUserComponent implements OnInit {
   viewERecipeMedicines(){
     this.router.navigate(['homepage/viewERecipeMedicines']);
   }
+  logout(){
+    localStorage.clear();
+    this.router.navigate(['login']);
+  }
 }
 
