@@ -221,6 +221,5 @@ public class PharmacistService implements IPharmacistService {
 
     public Pharmacist getByUserId(int user_id) {
         return pharmacistRepository.findOneByUserId(user_id);
-
     }
 }

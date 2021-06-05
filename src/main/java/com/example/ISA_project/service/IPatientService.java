@@ -30,4 +30,3 @@ public interface IPatientService {
     Boolean save(Patient patient);
     Patient getByUserId(int user_id);
 
-}
