@@ -214,6 +214,11 @@ public class PatientChartService implements IPatientChartService {
         return new HashSet<>(medicineDTOS);
     }
 
+    @Override
+    public PatientChart save(PatientChart patientChart) {
+        return patientChartRepository.save(patientChart);
+    }
+
     private Set<ReviewObjectDTO> findReservationMedicine(List<Reservation> reservations){
         List<ReviewObjectDTO> reviewObjectDTOS = new ArrayList<>();
         for(Reservation reservation : reservations){
