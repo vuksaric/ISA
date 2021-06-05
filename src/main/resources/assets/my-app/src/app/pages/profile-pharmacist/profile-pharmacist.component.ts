@@ -18,6 +18,7 @@ export class ProfilePharmacistComponent implements OnInit {
   data: any
   dataToken : any;
   type : String;
+  id : number;
 
   constructor(private pharmacistService: PharmacistService, private router: Router, private authorizationService : AuthService, private dermatologistService : DermatologistService ) {}
 
@@ -25,10 +26,11 @@ export class ProfilePharmacistComponent implements OnInit {
 
     this.dataToken = this.authorizationService.getDataFromToken();
     this.type = this.dataToken.type;
+    this.id = this.dataToken.id;
     console.log(this.type);
     if(this.type == "Pharmacist")
     {
-      this.pharmacistService.getProfile(1).subscribe(data => { console.log(data); 
+      this.pharmacistService.getProfile(this.id).subscribe(data => { console.log(data); 
         this.data1 = [
         { title: 'Email', description: data.email },
         { title: 'Full name', description: data.name + ' ' + data.surname},
@@ -39,7 +41,7 @@ export class ProfilePharmacistComponent implements OnInit {
     }
     else
     {
-      this.dermatologistService.getProfile(1).subscribe(data => { console.log(data); 
+      this.dermatologistService.getProfile(this.id).subscribe(data => { console.log(data); 
         this.data1 = [
         { title: 'Email', description: data.email },
         { title: 'Full name', description: data.name + ' ' + data.surname},
@@ -58,6 +60,26 @@ export class ProfilePharmacistComponent implements OnInit {
     }
     else{
       this.router.navigate(['homePageDermatologist/userProfile']);
+    }
+  }
+
+  change() {
+    if(this.type == "Pharmacist")
+    {
+    this.router.navigate(['homePagePharmacist/changePassword']);
+    }
+    else{
+      this.router.navigate(['homePageDermatologist/changePassword']);
+    }
+  }
+
+  work() {
+    if(this.type == "Pharmacist")
+    {
+    this.router.navigate(['homePagePharmacist/workSchedule']);
+    }
+    else{
+      this.router.navigate(['homePageDermatologist/workScheduleDermatologist']);
     }
   }
 

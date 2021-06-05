@@ -32,4 +32,5 @@ public interface IPatientService {
     void cancelConsultation(Consultation consultation);
     Boolean save(Patient patient);
     Patient getByUserId(int user_id);
+}
 

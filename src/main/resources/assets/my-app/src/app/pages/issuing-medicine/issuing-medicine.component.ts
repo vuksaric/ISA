@@ -22,10 +22,14 @@ export class IssuingMedicineComponent implements OnInit {
   listOfDisplayData : any[];
   listOfData: Reservation[] = [
   ]
+  dataToken : any;
+  id : number;
   constructor(private pharmacistService: PharmacistService, private reservationService: ReservationService, @Inject(DOCUMENT) private _document: Document, private authorizationService : AuthService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.pharmacistService.getReservations(1).subscribe(data => { console.log(data); 
+    this.dataToken = this.authorizationService.getDataFromToken();
+    this.id = this.dataToken.id;
+    this.pharmacistService.getReservations(this.id).subscribe(data => { console.log(data); 
       this.listOfData = data;
     });
 

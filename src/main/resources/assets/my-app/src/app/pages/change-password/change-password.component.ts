@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,11 +12,14 @@ import { UserService } from 'src/app/services/user.service';
 export class ChangePasswordComponent implements OnInit {
 
   validateForm2 : FormGroup;
+  id : number;
+  dataToken;
 
-  constructor( private fb: FormBuilder, private toastr: ToastrService, private userService : UserService) { }
+  constructor( private fb: FormBuilder, private toastr: ToastrService, private userService : UserService, private authorizationService : AuthService) { }
   
   ngOnInit(): void {
-
+    this.dataToken = this.authorizationService.getDataFromToken();
+    this.id = this.dataToken.id;
     this.validateForm2 = this.fb.group({
       oldPassword:[null,[Validators.required]],
       password: [null, [Validators.required]],
@@ -40,9 +44,9 @@ export class ChangePasswordComponent implements OnInit {
   submitForm2(){
     if(this.validateForm2.valid){
       const body = {
+        user_id : this.id,
         oldPassword: this.validateForm2.controls['oldPassword'].value,
-        password: this.validateForm2.controls['password'].value,
-        checkPassword: this.validateForm2.controls['checkPassword'].value,
+        newpassword: this.validateForm2.controls['password'].value,
       }
       this.userService.changePassword(body).subscribe(result => {
         this.toastr.success("Successfully changed");

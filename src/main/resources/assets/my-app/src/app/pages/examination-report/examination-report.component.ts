@@ -136,7 +136,7 @@ export class ExaminationReportComponent implements OnInit {
 
   return(){
 
-    this.router.navigate(['homePageDermatologist/consultationFrontpage/' + this.id]);
+    this.router.navigate(['homePageDermatologist/examinationFrontpage/' + this.id]);
 
   }
 

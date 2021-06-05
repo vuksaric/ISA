@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { WorkdayPharmacist } from 'src/app/models/workday-pharmacist';
+import { AuthService } from 'src/app/services/auth.service';
 import { DermatologistService } from 'src/app/services/dermatologist.service';
 import { PharmacistService } from 'src/app/services/pharmacist.service';
 import { WorkdayPharmacistService } from 'src/app/services/workday-pharmacist.service';
@@ -18,13 +19,16 @@ export class WorkScheduleComponent implements OnInit {
   consultations = [] as any;
   visible = false;
   displayData = [] as any;
+  dataToken : any;
+  id : number;
 
   constructor(private pharmacistService: PharmacistService, private dermatologistService: DermatologistService, 
-    private workdayPharmacistService : WorkdayPharmacistService, private router: Router ) { }
+    private workdayPharmacistService : WorkdayPharmacistService, private router: Router, private authorizationService : AuthService ) { }
 
   ngOnInit(): void {
-
-    this.pharmacistService.getWorkdays(1).subscribe(data => { console.log(data); 
+    this.dataToken = this.authorizationService.getDataFromToken();
+    this.id = this.dataToken.id;
+    this.pharmacistService.getWorkdays(this.id).subscribe(data => { console.log(data); 
       this.workdays = data;
     });
   

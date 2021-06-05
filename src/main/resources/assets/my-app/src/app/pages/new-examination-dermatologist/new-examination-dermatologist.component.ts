@@ -5,6 +5,7 @@ import { ExaminationService } from 'src/app/services/examination.service';
 import { differenceInCalendarDays, setHours } from 'date-fns';
 import { DermatologistService } from 'src/app/services/dermatologist.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-new-examination-dermatologist',
@@ -22,14 +23,18 @@ export class NewExaminationDermatologistComponent implements OnInit {
   validateForm: FormGroup;
   today = new Date();
   check : boolean;
+  dataToken : any;
+  idDermatologist : number;
   disabledDate = (current: Date): boolean => {
     // Can not select days before today and today
     return differenceInCalendarDays(current, this.today) <= 0;
   };
-  constructor(private router: Router,private activatedRoute: ActivatedRoute, private fb: FormBuilder, private examinationService: ExaminationService, 
+  constructor(private authorizationService : AuthService,private router: Router,private activatedRoute: ActivatedRoute, private fb: FormBuilder, private examinationService: ExaminationService, 
     private dermatologistService : DermatologistService , private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.dataToken = this.authorizationService.getDataFromToken();
+    this.idDermatologist = this.dataToken.id;
     this.id= this.activatedRoute.snapshot.paramMap.get('id');
     this.validateForm = this.fb.group({
       date: ['', [Validators.required]],
@@ -47,7 +52,7 @@ export class NewExaminationDermatologistComponent implements OnInit {
 
     this.vacationBody = {
 
-      id : 1,
+      id : this.idDermatologist,
       date : this.date,
       pharmacyId : 1
     }

@@ -41,5 +41,10 @@ export class HomePageDermatologistComponent implements OnInit {
   {
     this.router.navigate(['homePageDermatologist/searchPatients']);
   }
-
+  
+  logout()
+  {
+    localStorage.clear();
+    this.router.navigate(['login']);
+  }
 }

@@ -32,13 +32,13 @@ public class ReservationService implements IReservationService {
     }
 
     @Override
-    public List<ReservationDTO> getByPharmacy(String pharmacy) {
+    public List<ReservationDTO> getByPharmacy(int pharmacy) {
         List<Reservation> reservations = reservationRepository.findAll();
         List<ReservationDTO> result = new ArrayList<>();
 
         for(Reservation reservation : reservations)
         {
-            if(reservation.getPharmacy().getName().equalsIgnoreCase(pharmacy) && reservation.getDueDate().isAfter(LocalDateTime.now().plusDays(1))
+            if(reservation.getPharmacy().getId() == pharmacy && reservation.getDueDate().isAfter(LocalDateTime.now().plusDays(1))
                     && !reservation.isIssued() && !reservation.isCanceled())
                 result.add(new ReservationDTO(reservation.getSerialNumber(),reservation.getDueDate(),
                         reservation.getMedicine().getName(),reservation.getPatient().getUser().getFullName()));

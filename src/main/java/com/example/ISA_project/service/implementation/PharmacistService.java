@@ -47,7 +47,7 @@ public class PharmacistService implements IPharmacistService {
     public List<ReservationDTO> getReservations(int id) {
 
         Pharmacist pharmacist = pharmacistRepository.findOneById(id);
-        return reservationService.getByPharmacy(pharmacist.getPharmacy().getName());
+        return reservationService.getByPharmacy(pharmacist.getPharmacy().getId());
     }
 
     @Override

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Consultation } from 'src/app/models/consultation';
+import { AuthService } from 'src/app/services/auth.service';
 import { ConsultationService } from 'src/app/services/consultation.service';
 import { ExaminationService } from 'src/app/services/examination.service';
 
@@ -34,12 +35,16 @@ export class PreviousExaminationsComponent implements OnInit {
   visiblePharmacy = false;
   examinations = [] as DataItem[];
   listOfDisplayData = [] as DataItem[];
+  dataToken : any;
+  id : number;
 
-  constructor(private router: Router,private examinationService: ExaminationService ) { }
+
+  constructor(private router: Router,private examinationService: ExaminationService , private authorizationService : AuthService ) { }
 
   ngOnInit(): void {
-
-    this.examinationService.getPreviousByDermatologist(1).subscribe(data => { console.log(data); 
+    this.dataToken = this.authorizationService.getDataFromToken();
+    this.id = this.dataToken.id;
+    this.examinationService.getPreviousByDermatologist(this.id).subscribe(data => { console.log(data); 
       this.examinations = data;
       this.listOfDisplayData = this.examinations;
     });
