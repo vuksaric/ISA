@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 import { ExaminationService } from 'src/app/services/examination.service';
 import { MedicineService } from 'src/app/services/medicine.service';
 import { ReportService } from 'src/app/services/report.service';
@@ -30,7 +32,7 @@ export class ExaminationReportComponent implements OnInit {
 
 
   constructor(private activatedRoute: ActivatedRoute,private medicineService: MedicineService,private examinationService: ExaminationService, 
-    private reportService : ReportService, private router: Router, private fb: FormBuilder) { 
+    private reportService : ReportService, private router: Router, private fb: FormBuilder, private authorizationService : AuthService, private toastr: ToastrService) { 
 
       this.validateForm = this.fb.group({
         information: ['', [Validators.required]],
@@ -40,6 +42,7 @@ export class ExaminationReportComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.authorizationService.checkAuthDermatologist();
     this.id= this.activatedRoute.snapshot.paramMap.get('id');
     this.examinationService.getMedicines(this.id).subscribe(data => { console.log(data); 
       this.medicines = data;
@@ -126,14 +129,14 @@ export class ExaminationReportComponent implements OnInit {
       this.router.navigate(['homePageDermatologist']);
     }
     else
-      alert("All fields are required");
+    this.toastr.warning("All fields are required");
 
     
   }
 
   return(){
 
-    this.router.navigate(['consultationFrontpage/' + this.id]);
+    this.router.navigate(['homePageDermatologist/consultationFrontpage/' + this.id]);
 
   }
 
@@ -145,7 +148,7 @@ export class ExaminationReportComponent implements OnInit {
   new()
   {
     this.finish();
-    this.router.navigate(['newExaminationDermatologist/' + this.id]);
+    this.router.navigate(['homePageDermatologist/newExaminationDermatologist/' + this.id]);
   }
 
 

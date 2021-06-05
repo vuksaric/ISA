@@ -38,12 +38,12 @@ export class ViewPreviousConsultationsProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.id= this.activatedRoute.snapshot.paramMap.get('id');
-    this.patientChartService.getPreviousConsultationsByPatient(1).subscribe(data => {
+    this.patientChartService.getPreviousConsultationsByPatient(this.id).subscribe(data => {
       this.listOfData = data; console.log(data);});
   }
 
   back(){
-    this.router.navigate(['patientProfileDoctor/' + this.id]);
+    this.router.navigate(['homePagePharmacist/patientProfileDoctor/' + this.id]);
   }
 
 }

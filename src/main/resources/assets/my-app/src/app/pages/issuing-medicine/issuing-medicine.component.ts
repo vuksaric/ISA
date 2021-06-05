@@ -3,6 +3,7 @@ import { PharmacistService } from 'src/app/services/pharmacist.service';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { DOCUMENT } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 
 interface Reservation {
   serial_number: string;
@@ -21,10 +22,9 @@ export class IssuingMedicineComponent implements OnInit {
   listOfDisplayData : any[];
   listOfData: Reservation[] = [
   ]
-  constructor(private pharmacistService: PharmacistService, private reservationService: ReservationService, @Inject(DOCUMENT) private _document: Document, private toastr: ToastrService) { }
+  constructor(private pharmacistService: PharmacistService, private reservationService: ReservationService, @Inject(DOCUMENT) private _document: Document, private authorizationService : AuthService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-
     this.pharmacistService.getReservations(1).subscribe(data => { console.log(data); 
       this.listOfData = data;
     });

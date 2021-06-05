@@ -4,9 +4,7 @@ import com.example.ISA_project.model.*;
 import com.example.ISA_project.model.dto.*;
 import com.example.ISA_project.repository.ConsultationRepository;
 import com.example.ISA_project.repository.PharmacistRepository;
-import com.example.ISA_project.service.IConsultationService;
-import com.example.ISA_project.service.IExaminationService;
-import com.example.ISA_project.service.IPharmacistService;
+import com.example.ISA_project.service.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -18,10 +16,10 @@ import java.util.List;
 public class PharmacistService implements IPharmacistService {
 
     private final PharmacistRepository pharmacistRepository;
-    private final UserService userService;
-    private final ReservationService reservationService;
+    private final IUserService userService;
+    private final IReservationService reservationService;
 
-    public PharmacistService(PharmacistRepository pharmacistRepository, UserService userService, ReservationService reservationService) {
+    public PharmacistService(PharmacistRepository pharmacistRepository, IUserService userService, IReservationService reservationService) {
         this.pharmacistRepository = pharmacistRepository;
         this.userService = userService;
         this.reservationService = reservationService;

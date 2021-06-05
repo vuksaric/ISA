@@ -1,9 +1,40 @@
 
-<h1 nz-typography>Home page</h1>
-<button nz-button nzType="primary" (click)="previousConsultations()" nzBlock>List of all previous examinatons</button>
-<button nz-button nzType="primary" nzBlock>Examinaton</button>
-<button nz-button nzType="primary" (click)="workSchedule()" nzBlock>Work schedule</button>
-<button nz-button nzType="primary" nzBlock nzBlock (click)="vacation()">Vacation request</button>
-<button nz-button nzType="primary" (click)="profile()" nzBlock>Profile</button>
-<button nz-button nzType="primary" nzBlock>Schedule examinaton</button>
-<button nz-button nzType="primary" (click)="patientSearch()" nzBlock>Patient serach</button>
+<nz-layout>
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+      <div class="logo"></div>
+      <ul nz-menu nzTheme="dark" nzMode="inline">
+        <li nz-menu-item (click)="previousExaminations()">
+            <i nz-icon nzType="user"></i>
+            <span>List of all previous examinations</span>
+        </li>
+        <li nz-menu-item (click)="workSchedule()">
+            <i nz-icon nzType="user"></i>
+            <span>Work schedule</span>
+        </li>
+        <li nz-menu-item (click)="vacation()">
+            <i nz-icon nzType="user"></i>
+            <span>Vacation request</span>
+        </li>
+        <li nz-menu-item (click)="profile()">
+            <i nz-icon nzType="user"></i>
+            <span>Profile</span>
+        </li>
+        <li nz-menu-item (click)="patientSearch()">
+            <i nz-icon nzType="user"></i>
+            <span>Patient serach</span>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout>
+      <nz-header>
+        <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></i>
+      </nz-header>
+      <nz-content>
+        <div class="inner-content">
+          <nz-breadcrumb>
+          </nz-breadcrumb>
+          <router-outlet></router-outlet>
+        </div>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>

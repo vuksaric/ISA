@@ -44,18 +44,37 @@ export class LoginPageComponent implements OnInit {
       localStorage.setItem('token', JSON.stringify(user.token));
       console.log(this.getDecodedAccessToken(data.token));
       this.decoded_token = this.getDecodedAccessToken(data.token);
-      if(this.decoded_token.user_type === "SystemAdministrator")
-          this.router.navigate(['sysadminhome']);
-      else if(this.decoded_token.user_type === "Pharmacist")
-          this.router.navigate(['homePagePharmacist']);
-      else if(this.decoded_token.user_type === "Dermatologist")
-          this.router.navigate(['homePageDermatologist']);
-      else if(this.decoded_token.user_type === "PharmacyAdministrator")
-          this.router.navigate(['pharmacyAdmin']);
-      else if(this.decoded_token.user_type === "Patient")
-          this.router.navigate(['homepage']);
-      else 
-          this.router.navigate(['sysadminhome']);//supplier
+      if(this.decoded_token.user_type != "Patient")
+      {
+        if(user.activated)
+        {
+          if(this.decoded_token.user_type === "SystemAdministrator")
+              this.router.navigate(['sysadminhome']);
+          else if(this.decoded_token.user_type === "Pharmacist")
+              this.router.navigate(['homePagePharmacist']);
+          else if(this.decoded_token.user_type === "Dermatologist")
+              this.router.navigate(['homePageDermatologist']);
+          else if(this.decoded_token.user_type === "PharmacyAdministrator")
+              this.router.navigate(['pharmacyAdmin']);
+          else 
+              this.router.navigate(['sysadminhome']);//supplier
+        }
+        else
+        {
+          if(this.decoded_token.user_type === "SystemAdministrator")
+            this.router.navigate(['sysadminhome/changePassword']);
+          else if(this.decoded_token.user_type === "Pharmacist")
+            this.router.navigate(['homePagePharmacist/changePassword']);
+          else if(this.decoded_token.user_type === "Dermatologist")
+            this.router.navigate(['homePageDermatologist/changePassword']);
+          else if(this.decoded_token.user_type === "PharmacyAdministrator")
+            this.router.navigate(['pharmacyAdmin/changePassword']);
+          else 
+            this.router.navigate(['sysadminhome/changePassword']);//supplier
+      }
+      }
+      else
+        this.router.navigate(['homepage']);
     }}, error => {
       this.errorLogin = true;
       this.toastr.error("You are not registered!!!");

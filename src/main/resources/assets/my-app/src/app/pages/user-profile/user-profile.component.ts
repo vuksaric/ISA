@@ -59,7 +59,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.userService.getUserProfile("andja.ptrvc@gmail.com").subscribe(data => { console.log(data);
+    this.userService.getUserProfile("maja.zalar@gmail.com").subscribe(data => { console.log(data);
       this.email = data.email;
     
       console.log(data);

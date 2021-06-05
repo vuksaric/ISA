@@ -75,12 +75,12 @@ export class WorkScheduleComponent implements OnInit {
   }
 
   consultation(id : number): void {
-    this.router.navigate(['consultationFrontpage/' + id]);
+    this.router.navigate(['homePagePharmacist/consultationFrontpage/' + id]);
   }
 
   viewProfile(id : number) : void
   {
-    this.router.navigate(['patientProfileDoctor/' + id]);
+    this.router.navigate(['homePagePharmacist/patientProfileDoctor/' + id]);
   }
 
 }

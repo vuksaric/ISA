@@ -72,11 +72,11 @@ export class WorkScheduleDermatologistComponent implements OnInit {
   }
 
   examination(id : number): void {
-    this.router.navigate(['examinationFrontpage/' + id]);
+    this.router.navigate(['homePageDermatologist/examinationFrontpage/' + id]);
   }
 
   viewProfile(id : number) : void
   {
-    this.router.navigate(['patientProfileDoctor/' + id]);
+    this.router.navigate(['homePageDermatologist/patientProfileDoctor/' + id]);
   }
 }

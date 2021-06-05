@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Consultation } from 'src/app/models/consultation';
 import { ConsultationService } from 'src/app/services/consultation.service';
 import { ExaminationService } from 'src/app/services/examination.service';
@@ -34,7 +35,7 @@ export class PreviousExaminationsComponent implements OnInit {
   examinations = [] as DataItem[];
   listOfDisplayData = [] as DataItem[];
 
-  constructor(private examinationService: ExaminationService ) { }
+  constructor(private router: Router,private examinationService: ExaminationService ) { }
 
   ngOnInit(): void {
 
@@ -101,7 +102,7 @@ export class PreviousExaminationsComponent implements OnInit {
 
   viewProfile(id : number) : void
   {
-    alert(id);
+    this.router.navigate(['homePageDermatologist/patientProfileDoctor/' + id]);
   }
 
 }

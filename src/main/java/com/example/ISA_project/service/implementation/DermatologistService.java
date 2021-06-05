@@ -3,10 +3,12 @@ package com.example.ISA_project.service.implementation;
 import com.example.ISA_project.model.*;
 import com.example.ISA_project.model.dto.AppointmentDTO;
 import com.example.ISA_project.model.dto.CheckVacationRequest;
+import com.example.ISA_project.model.dto.ProfileDTO;
 import com.example.ISA_project.model.dto.WorkDayDTO;
 import com.example.ISA_project.repository.DermatologistRepository;
 import com.example.ISA_project.service.IConsultationService;
 import com.example.ISA_project.service.IDermatologistService;
+import com.example.ISA_project.service.IUserService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -18,10 +20,18 @@ import java.util.List;
 public class DermatologistService implements IDermatologistService {
 
     private final DermatologistRepository dermatologistRepository;
+    private final IUserService userService;
 
-    public DermatologistService(DermatologistRepository dermatologistRepository)
+    public DermatologistService(DermatologistRepository dermatologistRepository, IUserService userService)
     {
         this.dermatologistRepository = dermatologistRepository;
+        this.userService = userService;
+    }
+
+    @Override
+    public ProfileDTO getProfile(int id) {
+        Dermatologist dermatologist = dermatologistRepository.findOneById(id);
+        return userService.getProfile(dermatologist.getUser().getId());
     }
 
     public List<WorkDayDTO> getWorkdays(int id)

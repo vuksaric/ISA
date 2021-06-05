@@ -99,7 +99,7 @@ export class NewExaminationDermatologistComponent implements OnInit {
       this.examinationService.newDermatologist(this.body).subscribe(data => { console.log(data); 
       });
       this.toastr.success("You have scheduled a follow up a examination!");
-      this.router.navigate(['homePagePharmacist']);
+      this.router.navigate(['homePageDermatologist']);
     }
     else
     {

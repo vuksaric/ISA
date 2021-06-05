@@ -6,6 +6,8 @@ import { differenceInCalendarDays, setHours } from 'date-fns';
 import { PharmacyService } from 'src/app/services/pharmacy.service';
 import { Pharmacy } from 'src/app/models/pharmacy';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-vacation-request',
@@ -21,6 +23,8 @@ export class VacationRequestComponent implements OnInit {
   type : String;
   pharmacy_id : number;
   pharmacies : Pharmacy[];
+  data: any
+  dataToken : any;
   disabledStartDate = (current: Date): boolean => {
     // Can not select days before today and today
     return differenceInCalendarDays(current, this.today) <= 0;
@@ -31,7 +35,8 @@ export class VacationRequestComponent implements OnInit {
     return differenceInCalendarDays(current, this.dateStart) > 0;
   };
 
-  constructor(private router: Router,private vacationRequestService : VacationRequestService, private fb: FormBuilder, private pharmacyService : PharmacyService) { 
+  constructor(private router: Router,private vacationRequestService : VacationRequestService, private fb: FormBuilder, private pharmacyService : PharmacyService, private authorizationService : AuthService
+    , private toastr: ToastrService) { 
     this.validateForm = this.fb.group({
       dateStart: ['', [Validators.required]],
       dateEnd: ['', [Validators.required]],
@@ -40,8 +45,8 @@ export class VacationRequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.type = "Dermatologist";
+    this.dataToken = this.authorizationService.getDataFromToken();
+    this.type = this.dataToken.type;
     this.pharmacyService.getPharmaciesDermatologist(1).subscribe((pharmacies: Pharmacy[]) => {
       this.pharmacies = pharmacies;
       console.log(this.pharmacies)
@@ -90,12 +95,12 @@ export class VacationRequestComponent implements OnInit {
     if(this.validateForm.valid)
     {
       this.vacationRequestService.sendVacationRequest(body).subscribe(data=>{console.log("usao")});
-      alert("You have successfully sent a vacation request!");
+      this.toastr.warning("You have successfully sent a vacation request!");
       this.router.navigate(['homePagePharmacist']);
     }
 
     else
-      alert("All fields are required");
+    this.toastr.warning("All fields are required");
     
   }
 

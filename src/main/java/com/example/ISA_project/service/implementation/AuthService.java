@@ -62,6 +62,7 @@ public class AuthService implements IAuthService {
         userResponse.setId(user.getId());
         userResponse.setUserRoles(user.getUserType().toString());
         userResponse.setEmail(user.getEmail());
+        userResponse.setActivated(user.isActivated());
         return userResponse;
     }
 }
