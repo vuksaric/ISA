@@ -1,1 +1,29 @@
-<p>view-orders works!</p>
+<div class="search">
+    <nz-input-group [nzSuffix]="suffixIconSearch" >
+      <input type="text" nz-input placeholder="input offer status " [(ngModel)]="searchValue"/>
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+    </div>
+    <div class="center">
+    <nz-table #basicTable nzBordered nzTitle="List of your offers" [nzData]="listOfData">
+        <thead>
+          <tr>
+            <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" 
+            [nzSortPriority]="column.priority" 
+            [nzFilterMultiple]="column.filterMultiple"
+            [nzFilters]="column.listOfFilter"
+            [nzFilterFn]="column.filterFn">{{ column.title }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data | searchFilter: searchValue">
+            <td>{{data.status}}</td>
+            <td>{{data.price}}</td>
+            <td>{{data.dueDate}}</td>
+          </tr>
+        </tbody>
+    </nz-table>
+    </div>
+    

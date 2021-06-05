@@ -20,7 +20,7 @@ public class OrderList {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private OrderStatus status;
+    //private OrderStatus status;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="OrderList_ID")
     private List<MedicineQuantity> medicines;

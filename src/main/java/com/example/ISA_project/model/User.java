@@ -1,5 +1,6 @@
 package com.example.ISA_project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class User {
     private String surname;
     private String email;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Address address;
     private String phone;
     private LocalDateTime dateOfBirth;

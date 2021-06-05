@@ -1,7 +1,8 @@
 package com.example.ISA_project;
 
 import com.example.ISA_project.model.User;
-import com.example.ISA_project.service.implementation.UserService;
+import com.example.ISA_project.service.*;
+import com.example.ISA_project.service.implementation.*;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -15,7 +16,12 @@ import java.util.Date;
 @Component
 @Getter
 public class Token {
-    private final UserService userService;
+    private final IUserService userService;
+    private final IDermatologistService dermatologistService;
+    private final IPharmacistService pharmacistService;
+    private final ISupplierService supplierService;
+    private final IPatientService patientService;
+    private final IPharmacyAdminService pharmacyAdminService;
 
     @Value("ISA_project")
     private String APP_NAME;
@@ -32,8 +38,13 @@ public class Token {
 
     private SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
-    public Token(UserService userService) {
+    public Token(IUserService userService, IDermatologistService dermatologistService, IPharmacistService pharmacistService, ISupplierService supplierService, IPatientService patientService, IPharmacyAdminService pharmacyAdminService) {
         this.userService = userService;
+        this.dermatologistService = dermatologistService;
+        this.patientService = patientService;
+        this.pharmacistService = pharmacistService;
+        this.supplierService = supplierService;
+        this.pharmacyAdminService = pharmacyAdminService;
     }
 
     private Date generateExpirationDate() {
@@ -42,7 +53,20 @@ public class Token {
 
     public String generateToken(String email) {
         User user = userService.findUserByEmail(email);
-        System.out.println(user);
+        //System.out.println(user);
+        int user_id;
+        if(user.getUserType() == UserType.Dermatologist){
+            user_id = dermatologistService.getByUserId(user.getId()).getId();
+        }else if(user.getUserType() == UserType.Pharmacist){
+            user_id = pharmacistService.getByUserId(user.getId()).getId();
+        }else if(user.getUserType() == UserType.Patient){
+            user_id = patientService.getByUserId(user.getId()).getId();
+        }else if(user.getUserType() == UserType.PharmacyAdministrator){
+            user_id = pharmacyAdminService.getByUserId(user.getId()).getId();
+        }else if(user.getUserType() == UserType.Supplier){
+            user_id = supplierService.getByUserId(user.getId()).getId();
+        }else
+            user_id = user.getId(); //za systemAdmina, on nema drugih polja osim usera
 
         return Jwts.builder()
                 .setIssuer(APP_NAME)
@@ -51,7 +75,7 @@ public class Token {
                 .setIssuedAt(new Date())
                 .setExpiration(generateExpirationDate())
                 .claim("email", email)
-                .claim("user_id", user.getId())
+                .claim("user_id", user_id)
                 .claim("user_type", user.getUserType())
                 .signWith(SIGNATURE_ALGORITHM, SECRET).compact();
     }

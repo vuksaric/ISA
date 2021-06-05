@@ -1,5 +1,6 @@
 package com.example.ISA_project.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,4 +25,8 @@ public class Supplier {
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="Supplier_ID")
     private List<MedicineQuantity> medicines;
+
+    public String getEmail(){
+        return user.getEmail();
+    }
 }

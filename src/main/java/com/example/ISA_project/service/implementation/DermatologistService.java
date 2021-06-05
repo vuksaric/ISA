@@ -124,4 +124,9 @@ public class DermatologistService implements IDermatologistService {
         }
         dermatologistRepository.save(dermatologist);
     }
+
+    @Override
+    public Dermatologist getByUserId(int user_id) {
+        return dermatologistRepository.findOneByUserId(user_id);
+    }
 }

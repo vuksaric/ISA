@@ -25,4 +25,6 @@ public interface PharmacistRepository extends JpaRepository<Pharmacist, Integer>
 
     @Query("select p from Pharmacist p where p.user.email = ?1")
     List<Pharmacist> uniqueEmail(String email);
+
+    Pharmacist findOneByUserId(int user_id);
 }

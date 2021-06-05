@@ -71,6 +71,10 @@ export class LoginPageComponent implements OnInit {
     }
   }
 
+  register(){
+    this.router.navigate(['registration']);
+  }
+
   constructor(private toastr: ToastrService, private fb: FormBuilder, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {

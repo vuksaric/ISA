@@ -218,4 +218,9 @@ public class PharmacistService implements IPharmacistService {
     public Pharmacist findOneById(int id) {
         return pharmacistRepository.findOneById(id);
     }
+
+    public Pharmacist getByUserId(int user_id) {
+        return pharmacistRepository.findOneByUserId(user_id);
+
+    }
 }
