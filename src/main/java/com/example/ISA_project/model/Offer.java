@@ -23,4 +23,9 @@ public class Offer {
     private LocalDateTime dueDate;
     @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Supplier supplier;
+    private OfferStatus status;
+
+    public String getSupplierMail(){
+        return supplier.getUser().getEmail();
+    }
 }

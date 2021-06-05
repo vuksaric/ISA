@@ -17,4 +17,5 @@ public interface IDermatologistService {
     Dermatologist getById(int id);
     List<Period> freePeriods(int id, LocalDate date, int pharmacyId);
     void addNewExamination(Examination examination);
+    Dermatologist getByUserId(int user_id);
 }
