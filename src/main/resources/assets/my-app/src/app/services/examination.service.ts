@@ -61,4 +61,8 @@ export class ExaminationService {
     return this.http.post(examination_url + `/newDermatologist`,body);
   }
 
+  public addPoint(body) : Observable<any>{
+    return this.http.put(examination_url + `/addPoint`,body);
+  }
+
 }

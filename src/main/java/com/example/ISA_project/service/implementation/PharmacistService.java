@@ -4,9 +4,7 @@ import com.example.ISA_project.model.*;
 import com.example.ISA_project.model.dto.*;
 import com.example.ISA_project.repository.ConsultationRepository;
 import com.example.ISA_project.repository.PharmacistRepository;
-import com.example.ISA_project.service.IConsultationService;
-import com.example.ISA_project.service.IExaminationService;
-import com.example.ISA_project.service.IPharmacistService;
+import com.example.ISA_project.service.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -18,10 +16,10 @@ import java.util.List;
 public class PharmacistService implements IPharmacistService {
 
     private final PharmacistRepository pharmacistRepository;
-    private final UserService userService;
-    private final ReservationService reservationService;
+    private final IUserService userService;
+    private final IReservationService reservationService;
 
-    public PharmacistService(PharmacistRepository pharmacistRepository, UserService userService, ReservationService reservationService) {
+    public PharmacistService(PharmacistRepository pharmacistRepository, IUserService userService, IReservationService reservationService) {
         this.pharmacistRepository = pharmacistRepository;
         this.userService = userService;
         this.reservationService = reservationService;
@@ -49,7 +47,7 @@ public class PharmacistService implements IPharmacistService {
     public List<ReservationDTO> getReservations(int id) {
 
         Pharmacist pharmacist = pharmacistRepository.findOneById(id);
-        return reservationService.getByPharmacy(pharmacist.getPharmacy().getName());
+        return reservationService.getByPharmacy(pharmacist.getPharmacy().getId());
     }
 
     @Override
@@ -202,6 +200,19 @@ public class PharmacistService implements IPharmacistService {
     }
 
     @Override
+    public boolean checkVacation(CheckVacationRequest request) {
+        Pharmacist pharmacist = pharmacistRepository.findOneById(request.getId());
+        LocalDate date = request.getDate();
+        for (Vacation vacation : pharmacist.getVacation()) {
+            if (date.equals(vacation.getStart_date().toLocalDate()) || date.equals(vacation.getEnd_date().toLocalDate()))
+                return false;
+
+            if (date.isAfter(vacation.getStart_date().toLocalDate()) && date.isBefore(vacation.getEnd_date().toLocalDate()))
+                return false;
+        }
+        return true;
+    }
+
     public void cancelConsultation(Consultation consultation){
         Pharmacist pharmacist = pharmacistRepository.findOneById(consultation.getPharmacist().getId());
         for(WorkdayPharmacist workdayPharmacist : pharmacist.getWorkdays())

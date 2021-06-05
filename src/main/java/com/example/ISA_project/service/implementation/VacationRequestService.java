@@ -37,9 +37,20 @@ public class VacationRequestService implements IVacationRequestService {
     @Override
     public VacationRequest sendVacationRequestPharmacist(VacationRequestDTO request) {
         //request.setUser_type(UserType.Pharmacist);
-        Pharmacy pharmacy = pharmacyService.findOneById(request.getPharmacy_id());
-        VacationRequest vacationRequest = new VacationRequest(request.getStart_date(),request.getEnd_date(),request.getUser_type()
-                ,pharmacy.getId(),request.getUser_id());
+        VacationRequest vacationRequest = null;
+        if(request.getUser_type() == UserType.Pharmacist)
+        {
+            Pharmacist pharmacist = pharmacistService.getById(request.getUser_id());
+            vacationRequest = new VacationRequest(request.getStart_date(),request.getEnd_date(),request.getUser_type()
+                    ,pharmacist.getPharmacy().getId(),request.getUser_id());
+        }
+        else
+        {
+            Pharmacy pharmacy = pharmacyService.findOneById(request.getPharmacy_id());
+            vacationRequest = new VacationRequest(request.getStart_date(),request.getEnd_date(),request.getUser_type()
+                    ,pharmacy.getId(),request.getUser_id());
+        }
+
         return vacationRequestRepository.save(vacationRequest);
     }
 

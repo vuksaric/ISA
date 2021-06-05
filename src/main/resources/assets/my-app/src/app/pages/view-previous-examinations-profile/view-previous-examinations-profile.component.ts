@@ -43,7 +43,7 @@ export class ViewPreviousExaminationsProfileComponent implements OnInit {
   }
 
   back(){
-    this.router.navigate(['patientProfileDoctor/' + this.id]);
+    this.router.navigate(['homePageDermatologist/patientProfileDoctor/' + this.id]);
   }
 
 }

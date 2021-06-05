@@ -78,6 +78,10 @@ public class PharmacistController {
         }
     }
 
+    @PostMapping(value = "/checkVacation")
+    public boolean checkVacation(@RequestBody CheckVacationRequest request){
+        return pharmacistService.checkVacation(request);
+    }
 
 
 }

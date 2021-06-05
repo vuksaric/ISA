@@ -54,9 +54,11 @@ import { ViewPreviousConsultationsComponent } from './pages/view-previous-consul
 import { ViewFutureConsultationsComponent } from './pages/view-future-consultations/view-future-consultations.component';
 import { ViewErecipesComponent } from './pages/view-erecipes/view-erecipes.component';
 import { ViewErecipeMedicinesComponent } from './pages/view-erecipe-medicines/view-erecipe-medicines.component';
+import { ViewPreviousConsultationsProfileComponent } from './pages/view-previous-consultations-profile/view-previous-consultations-profile.component';
 import { SupplierProfileComponent } from './pages/supplier-profile/supplier-profile.component';
 import { NewOfferComponent } from './pages/new-offer/new-offer.component';
 import { ViewOffersComponent } from './pages/view-offers/view-offers.component';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'pharmacyAdmin' },
@@ -79,30 +81,47 @@ const routes: Routes = [
         { path: 'viewPreviousConsultations', component: ViewPreviousConsultationsComponent},
         { path: 'viewFutureConsultations', component: ViewFutureConsultationsComponent},
         { path: 'viewERecipes', component: ViewErecipesComponent},
-        { path: 'viewERecipeMedicines', component: ViewErecipeMedicinesComponent}
+        { path: 'viewERecipeMedicines', component: ViewErecipeMedicinesComponent},
+        { path: 'changePassword', component:ChangePasswordComponent},
 
     ]},
-    { path: 'homePagePharmacist', component: HomePagePharmacistComponent },
-    { path: 'profilePharmacist', component: ProfilePharmacistComponent },
-    { path: 'workSchedule', component:WorkScheduleComponent},
-    { path: 'workScheduleDermatologist', component:WorkScheduleDermatologistComponent},
-    { path: 'previousConsultations', component:PreviousConsultationsComponent},
-    { path: 'previousExaminations', component:PreviousExaminationsComponent},
-    { path: 'vacationRequest', component:VacationRequestComponent},
-    { path: 'homePageDermatologist', component:HomePageDermatologistComponent},
-    { path: 'issuingMedicine', component:IssuingMedicineComponent},
-    { path: 'consultationFrontpage/:id', component:ConsultationFrontpageComponent},
-    { path: 'examinationFrontpage/:id', component:ExaminationFrontpageComponent},
-    { path: 'consultationReport/:id', component:ConsultationReportComponent},
-    { path: 'examinationReport/:id', component:ExaminationReportComponent},
-    { path: 'newConsultationPharmacist/:id', component:NewConsultationPharmacistComponent},
-    { path: 'newExaminationDermatologist/:id', component:NewExaminationDermatologistComponent},
-    { path: 'searchPatients', component:SerachPatientsComponent},
+    { path: 'homePagePharmacist', component: HomePagePharmacistComponent, children:[
+        { path: 'profilePharmacist', component: ProfilePharmacistComponent },
+        { path: 'workSchedule', component:WorkScheduleComponent},
+        { path: 'previousConsultations', component:PreviousConsultationsComponent},
+        { path: 'vacationRequest', component:VacationRequestComponent},
+        { path: 'issuingMedicine', component:IssuingMedicineComponent},
+        { path: 'consultationFrontpage/:id', component:ConsultationFrontpageComponent},
+        { path: 'consultationReport/:id', component:ConsultationReportComponent},
+        { path: 'newConsultationPharmacist/:id', component:NewConsultationPharmacistComponent},
+        { path: 'searchPatients', component:SerachPatientsComponent},
+        { path: 'patientProfileDoctor/:id', component:ProfilePatientDoctorComponent},
+        { path: 'viewPreviousConsultationsProfile/:id', component:ViewPreviousConsultationsProfileComponent},
+        { path: 'userProfile', component:UserProfileComponent},
+        { path: 'changePassword', component:ChangePasswordComponent},
+
+    ]},
+
+    { path: 'homePageDermatologist', component:HomePageDermatologistComponent, children:[
+        { path: 'profilePharmacist', component: ProfilePharmacistComponent },
+        { path: 'workScheduleDermatologist', component:WorkScheduleDermatologistComponent},
+        { path: 'previousExaminations', component:PreviousExaminationsComponent},
+        { path: 'examinationFrontpage/:id', component:ExaminationFrontpageComponent},
+        { path: 'examinationReport/:id', component:ExaminationReportComponent},
+        { path: 'newExaminationDermatologist/:id', component:NewExaminationDermatologistComponent},
+        { path: 'viewPreviousExaminatiosProfile/:id', component:ViewPreviousExaminationsProfileComponent},
+        { path: 'vacationRequest', component:VacationRequestComponent},
+        { path: 'searchPatients', component:SerachPatientsComponent},
+        { path: 'userProfile', component:UserProfileComponent},
+        { path: 'patientProfileDoctor/:id', component:ProfilePatientDoctorComponent},
+        { path: 'changePassword', component:ChangePasswordComponent},
+    ]},
+    
+    
     { path: 'registrationPharmacy', component:RegistrationPharmacyComponent},
     { path: 'registrationAdmin', component:RegistrationAdminComponent},
-    { path: 'patientProfileDoctor/:id', component:ProfilePatientDoctorComponent},
-    { path: 'viewPreviousExaminatiosProfile/:id', component:ViewPreviousExaminationsProfileComponent},
-
+    
+       
     { path: 'addMedicine', component:AddMedicineComponent},
     { path: 'pharmacyAdmin', component: HomePagePharmacyAdministratorComponent, children: [
         { path: 'pharmacy-profile', component: PharmacyProfileComponent},
@@ -114,12 +133,14 @@ const routes: Routes = [
         { path: 'pricelist', component:PricelistComponent},
         { path: 'admin-profile', component:AdminProfileComponent},
         { path: 'promotions', component:PromotionsComponent},
-        { path: 'vacation-approval', component:VacationApprovalComponent}
+        { path: 'vacation-approval', component:VacationApprovalComponent},
+        { path: 'changePassword', component:ChangePasswordComponent},
     ] },
     { path: 'supplierHomePage', component: HomePageSupplierComponent, children:[
         { path: 'supplierProfile', component:SupplierProfileComponent},
         { path: 'newOffer', component:NewOfferComponent},
         { path: 'viewOffers', component:ViewOffersComponent},
+        { path: 'changePassword', component:ChangePasswordComponent},
     ]},
     
 ]

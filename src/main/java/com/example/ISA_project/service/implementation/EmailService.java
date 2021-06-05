@@ -43,6 +43,32 @@ public class EmailService implements IEmailService {
     }
 
     @Override
+    public void newExamination(Examination examination) {
+
+        String to = examination.getPatient().getUser().getEmail();
+        String title = "New examination";
+        Context context = new Context();
+        context.setVariable("name", String.format("%s %s", examination.getPatient().getUser().getName(), examination.getPatient().getUser().getSurname()));
+        context.setVariable("date", String.format("%s %s", examination.getDate().getStart_date(), examination.getDate().getEnd_date()));
+        context.setVariable("pharmacy", String.format("%s", examination.getPharmacy().getName()));
+        emailContext.send(to, title, "newExamination", context);
+
+    }
+
+    @Override
+    public void newConsultation(Consultation consultation) {
+
+        String to = consultation.getPatient().getUser().getEmail();
+        String title = "New consultation";
+        Context context = new Context();
+        context.setVariable("name", String.format("%s %s", consultation.getPatient().getUser().getName(), consultation.getPatient().getUser().getSurname()));
+        context.setVariable("date", String.format("%s %s", consultation.getPeriod().getStart_date(), consultation.getPeriod().getEnd_date()));
+        context.setVariable("pharmacy", String.format("%s", consultation.getPharmacy().getName()));
+        emailContext.send(to, title, "newConsultation", context);
+
+    }
+
+
     public void scheduleExaminationEmail(Examination examination) {
         String to = examination.getPatient().getUser().getEmail();
         String title = "Scheduled Examination";

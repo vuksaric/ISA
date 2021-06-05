@@ -1,4 +1,4 @@
-<h1>Previous consultations</h1>
+<h1>Previous examinations</h1>
 <nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed">
     <thead>
       <tr>
@@ -42,7 +42,7 @@
         <td>{{ examination.address }}</td>
         <td>{{ examination.date[2]}}.{{examination.date[1]}}.{{examination.date[0]}}</td>
         <td>{{ examination.pharmacyName }}</td>
-        <td><button nz-button nzType="dashed" (click)="viewProfile(examination.user_id)" nzBlock>View profile</button></td>
+        <td><button nz-button nzType="dashed" (click)="viewProfile(examination.patient_id)" nzBlock>View profile</button></td>
       </tr>
     </tbody>
   </nz-table>

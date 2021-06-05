@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
+import { ConsultationService } from 'src/app/services/consultation.service';
 
 @Component({
   selector: 'app-consultation-frontpage',
@@ -8,7 +11,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ConsultationFrontpageComponent implements OnInit {
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
+
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private consultationService : ConsultationService, private authorizationService : AuthService, private toastr: ToastrService) { }
+
   id : String;
 
   ngOnInit(): void {
@@ -16,11 +21,21 @@ export class ConsultationFrontpageComponent implements OnInit {
   }
 
   start() : void{
-    this.router.navigate(['consultationReport/' + this.id]);
+    this.router.navigate(['homePagePharmacist/consultationReport/' + this.id]);
   }
 
   return() : void{
-    this.router.navigate(['workSchedule']);
+    this.router.navigate(['homePagePharmacist/workSchedule']);
   }
+
+  point()
+  {
+    this.consultationService.addPoint(this.id).subscribe(data => { console.log("Uspesno"); 
+    this.toastr.success("You have added a point");
+    this.router.navigate(['homePagePharmacist/workSchedule']);
+    });
+  }
+
+  
 
 }

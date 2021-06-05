@@ -27,6 +27,7 @@ public interface IPharmacistService {
         Pharmacist getById(int id);
         void delete(int id);
         void addNewConsultation(Consultation consultation);
+        boolean checkVacation(CheckVacationRequest request);
         void cancelConsultation(Consultation consultation);
         Pharmacist findOneById(int id);
         Pharmacist getByUserId(int user_id);

@@ -26,8 +26,12 @@ public interface IPatientService {
     void saveFutureConsultation(Consultation consultation);
     void saveFutureExamination(Examination examination);
     List<PenaltyDTO> getPatientPenaltyPoints(int id);
+    void addPenaltyPoint(int id);
+    void removeFutureConsultation(Consultation consultation);
+    void removeFutureExamination(Examination examination);
     void cancelConsultation(Consultation consultation);
     void cancelExamination(Examination examination);
     Boolean save(Patient patient);
     Patient getByUserId(int user_id);
 }
+

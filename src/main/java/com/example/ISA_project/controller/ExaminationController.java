@@ -91,4 +91,11 @@ public class ExaminationController {
 
         return examinationService.newExaminationDermatologist(request);
     }
+
+    @PutMapping(value = "/addPoint")
+    public void addPenaltyPoint(@RequestBody String id){
+
+        int idExamination= Integer.parseInt(id);
+        examinationService.addPenaltyPoint(idExamination);
+    }
 }

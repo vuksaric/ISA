@@ -195,7 +195,15 @@ public class ExaminationService implements IExaminationService {
         Examination result = examinationRepository.save(newExamination);
         dermatologistService.addNewExamination(result);
         patientService.saveFutureExamination(result);
+        emailService.newExamination(result);
         return new AppointmentDTO(result);
+    }
+
+    @Override
+    public void addPenaltyPoint(int id) {
+        Examination examination = examinationRepository.findExaminationById(id);
+        examination.setDone(true);
+        patientService.addPenaltyPoint(examination.getPatient().getId());
     }
 
 
