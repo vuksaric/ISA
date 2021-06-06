@@ -59,10 +59,13 @@ import { SupplierProfileComponent } from './pages/supplier-profile/supplier-prof
 import { NewOfferComponent } from './pages/new-offer/new-offer.component';
 import { ViewOffersComponent } from './pages/view-offers/view-offers.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
+import { ViewMedicinesComponent } from './pages/view-medicines/view-medicines.component';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'pharmacyAdmin' },
     { path: 'login', component: LoginPageComponent },
+    { path: 'viewPharmacies', component:ViewPharmaciesComponent},
+    { path: 'viewMedicines', component:ViewMedicinesComponent},
     { path: 'registration', component: RegistrationPageComponent },
     { path: 'un', component: UnregisteredUserPageComponent },
     { path: 'sysadminhome', component:SystemAdminHomePageComponent},
@@ -85,6 +88,7 @@ const routes: Routes = [
         { path: 'changePassword', component:ChangePasswordComponent},
 
     ]},
+    { path: 'changePassword', component:ChangePasswordComponent},
     { path: 'homePagePharmacist', component: HomePagePharmacistComponent, children:[
         { path: 'profilePharmacist', component: ProfilePharmacistComponent },
         { path: 'workSchedule', component:WorkScheduleComponent},

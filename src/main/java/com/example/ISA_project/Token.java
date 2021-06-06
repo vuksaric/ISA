@@ -55,14 +55,18 @@ public class Token {
         User user = userService.findUserByEmail(email);
         //System.out.println(user);
         int user_id;
+        int pharmacyId = 0;
         if(user.getUserType() == UserType.Dermatologist){
             user_id = dermatologistService.getByUserId(user.getId()).getId();
+
         }else if(user.getUserType() == UserType.Pharmacist){
             user_id = pharmacistService.getByUserId(user.getId()).getId();
+            pharmacyId = pharmacistService.getByUserId(user.getId()).getPharmacy().getId();
         }else if(user.getUserType() == UserType.Patient){
             user_id = patientService.getByUserId(user.getId()).getId();
         }else if(user.getUserType() == UserType.PharmacyAdministrator){
             user_id = pharmacyAdminService.getByUserId(user.getId()).getId();
+            pharmacyId =pharmacyAdminService.getByUserId(user.getId()).getPharmacy().getId();
         }else if(user.getUserType() == UserType.Supplier){
             user_id = supplierService.getByUserId(user.getId()).getId();
         }else
@@ -77,6 +81,7 @@ public class Token {
                 .claim("email", email)
                 .claim("user_id", user_id)
                 .claim("user_type", user.getUserType())
+                .claim("pharmacyId", pharmacyId)
                 .signWith(SIGNATURE_ALGORITHM, SECRET).compact();
     }
 

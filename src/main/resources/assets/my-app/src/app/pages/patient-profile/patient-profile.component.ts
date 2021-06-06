@@ -119,7 +119,7 @@ export class PatientProfileComponent implements OnInit {
       const body = {
         oldPassword: this.validateForm2.controls['oldPassword'].value,
         password: this.validateForm2.controls['password'].value,
-        checkPassword: this.validateForm2.controls['checkPassword'].value,
+        user_id : this.dataFromToken.email,
       }
       this.userService.changePassword(body).subscribe(result => {
         this.handleCancel();

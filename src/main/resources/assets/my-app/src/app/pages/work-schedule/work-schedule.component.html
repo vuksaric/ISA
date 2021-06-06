@@ -34,7 +34,7 @@
         <td>{{ data.fullName }}</td>
         <td>{{data.start[3]}}:{{data.start[4]}}-{{data.end[3]}}:{{data.end[4]}}</td>
         <td><button nz-button nzType="dashed" (click)="viewProfile(data.patientId)" nzBlock>View profile</button></td>
-        <td><button nz-button nzType="dashed" disabled = "{{data.done}}" (click)="consultation(data.id)" nzBlock>Consultation</button></td>
+        <td><button nz-button nzType="dashed" disabled = "{{disabled(data)}}" (click)="consultation(data.id)" nzBlock>Consultation</button></td>
       </tr>
     </tbody>
   </nz-table>

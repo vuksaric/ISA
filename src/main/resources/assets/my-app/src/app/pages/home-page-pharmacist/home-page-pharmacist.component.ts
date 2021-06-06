@@ -15,6 +15,7 @@ export class HomePagePharmacistComponent implements OnInit {
   isCollapsed = false;
   ngOnInit(): void {
     this.authorizationService.checkAuthPharmacist();
+    console.log(this.authorizationService.getDataFromToken())
   }
 
   profile()

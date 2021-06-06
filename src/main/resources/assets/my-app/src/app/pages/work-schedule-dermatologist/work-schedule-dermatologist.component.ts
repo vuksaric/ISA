@@ -20,6 +20,7 @@ export class WorkScheduleDermatologistComponent implements OnInit {
   displayData = [] as any;
   dataToken : any;
   id : number;
+  today = new Date();
 
   constructor(private dermatologistService: DermatologistService, private workdayDermatologistService : WorkdayDermatologistService, private router: Router
     , private authorizationService : AuthService ) { }
@@ -83,5 +84,18 @@ export class WorkScheduleDermatologistComponent implements OnInit {
   viewProfile(id : number) : void
   {
     this.router.navigate(['homePageDermatologist/patientProfileDoctor/' + id]);
+  }
+
+  disabled(data : any) : boolean{
+    if(data.done)
+      return true;
+
+    if(!this.compareDate(this.today,data.start))
+      return true;
+
+    if(data.fullName == "Free appointment")
+      return true;
+    return false;
+
   }
 }

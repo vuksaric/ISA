@@ -78,6 +78,7 @@ import { SupplierProfileComponent } from './pages/supplier-profile/supplier-prof
 import { NewOfferComponent } from './pages/new-offer/new-offer.component';
 import { ViewOffersComponent } from './pages/view-offers/view-offers.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
+import { ViewMedicinesComponent } from './pages/view-medicines/view-medicines.component';
 
 registerLocaleData(en);
 
@@ -146,6 +147,7 @@ registerLocaleData(en);
     NewOfferComponent,
     ViewOffersComponent,
     ChangePasswordComponent,
+    ViewMedicinesComponent,
   ],
   imports: [
     BrowserModule,

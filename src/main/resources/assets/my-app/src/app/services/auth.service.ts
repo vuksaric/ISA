@@ -37,7 +37,8 @@ export class AuthService {
     result = {
       email : decoded_token.email,
       id : decoded_token.user_id, 
-      type : decoded_token.user_type
+      type : decoded_token.user_type,
+      pharmacyId: decoded_token.pharmacyId
     }
     return result
   }

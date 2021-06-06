@@ -17,10 +17,11 @@ public interface IExaminationService {
     List<ExaminationDTO> findAllFutureByPatient(int id);
     ExaminationDTO reserveExamination(int id, int idPatient);
     ExaminationDTO cancelExamination(int id);
-    List<AppointmentDTO> findFutureByPatient(int id);
+    List<AppointmentDTO> findFutureByPatient(int id, int dermatologist);
     List<PreviousAppointmentDTO> getAllPreviousByDermatologist(int id);
     List<Period> freePeriods(int id, LocalDate date);
     AppointmentDTO newExaminationDermatologist(AppointmentRequest request);
     void addPenaltyPoint(int id);
+    boolean checkVacation(CheckVacationRequest request);
 
 }

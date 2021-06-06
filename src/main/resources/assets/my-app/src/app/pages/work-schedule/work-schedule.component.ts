@@ -21,6 +21,7 @@ export class WorkScheduleComponent implements OnInit {
   displayData = [] as any;
   dataToken : any;
   id : number;
+  today = new Date();
 
   constructor(private pharmacistService: PharmacistService, private dermatologistService: DermatologistService, 
     private workdayPharmacistService : WorkdayPharmacistService, private router: Router, private authorizationService : AuthService ) { }
@@ -86,5 +87,19 @@ export class WorkScheduleComponent implements OnInit {
   {
     this.router.navigate(['homePagePharmacist/patientProfileDoctor/' + id]);
   }
+
+  disabled(data : any) : boolean{
+    if(data.done)
+      return true;
+
+    if(!this.compareDate(this.today,data.start))
+      return true;
+
+    if(data.fullName == "Free appointment")
+      return true;
+    return false;
+
+  }
+
 
 }

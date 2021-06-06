@@ -27,7 +27,7 @@ INSERT INTO public.user_entity(activated, date_of_birth, email, gender, name, pa
 (false, '1960-05-05', 'petar@gmail.com', 0, 'Petar', '$2a$10$2Wnb5XikAHuZH/zNOTI8guCilSoqZNOqJccQapXBd4N1pX9RCYFuO', true, '+38165339485', 'Stefanovic', 4, 13),
 (false, '1997-05-13', 'eva@gmail.com', 1, 'Eva', '$2a$10$2Wnb5XikAHuZH/zNOTI8guCilSoqZNOqJccQapXBd4N1pX9RCYFuO', true, '+38165299485', 'Peric', 4, 17),
 (false, '1991-09-23', 'nikola@gmail.com', 0, 'Nikola', '$2a$10$2Wnb5XikAHuZH/zNOTI8guCilSoqZNOqJccQapXBd4N1pX9RCYFuO', true, '+38165299485', 'Jovanovic', 4, 19),
-(false, '1995-05-23', 'dermatolog', 0, 'Milan', '$2a$10$2Wnb5XikAHuZH/zNOTI8guCilSoqZNOqJccQapXBd4N1pX9RCYFuO', false, '+38165299485', 'Urban', 1, 1),
+(false, '1995-05-23', 'dermatolog@gmail.com', 0, 'Milan', '$2a$10$2Wnb5XikAHuZH/zNOTI8guCilSoqZNOqJccQapXBd4N1pX9RCYFuO', false, '+38165299485', 'Urban', 1, 1),
 (false, '1992-10-15', 'lejla@gmail.com', 1, 'Lejla', '$2a$10$2Wnb5XikAHuZH/zNOTI8guCilSoqZNOqJccQapXBd4N1pX9RCYFuO', false, '+38165299225', 'Maric', 1, 2),
 (false, '1991-01-11', 'ana@gmail.com', 1, 'Ana', '$2a$10$2Wnb5XikAHuZH/zNOTI8guCilSoqZNOqJccQapXBd4N1pX9RCYFuO', false, '+38165299411', 'Djuric', 1, 6),
 (false, '1990-05-03', 'ivan@gmail.com', 0, 'Ivan', '$2a$10$2Wnb5XikAHuZH/zNOTI8guCilSoqZNOqJccQapXBd4N1pX9RCYFuO', false, '+38163499485', 'Ivanovic', 1, 11),
@@ -66,6 +66,15 @@ INSERT INTO public.pharmacy(consultation_price, description, mark, name, address
 ( 1800, 'pharmacy description', 10, 'Apoteka Benu', 2),
 ( 2300, 'pharmacy description', 8, 'Apoteka Jankovic', 9),
 ( 1650, 'pharmacy description', 4, 'Apoteka GalenPharm', 8);
+
+INSERT INTO public.pharmacy_dermatologist(pharmacy_id, dermatologist_id) VALUES
+(1, 1),
+(1, 2),
+( 2, 2),
+(3, 3),
+(3, 4),
+(1, 4),
+( 2, 3);
 
 INSERT INTO public.medicine(issuing_mode, manufacturer, name, notes, points, shape, therapy_per_day, type) VALUES
 (1, 'SANOFI PASTEUR - MARCY L´ETOILE - Francuska', 'Ibuprofen', 'medicine notes', 10, 'pills', 0, 'antiseptic'),
@@ -323,10 +332,11 @@ INSERT INTO public.consultation(done, patient_id, period_id, pharmacist_id, phar
 ( true, 1, 1, 1, 1, 1, 1, 1, null ),
 ( true, 1, 2, 3, 3, 2, 53, 1, null ),
 ( true, 2, 3, 2, 2, 3, 27, 2, null ),
-( false, 1, 5, 1, 1, null, 1, null, 1 ),
+( false, 1, 5, 2, 2, null, 28, null, 1 ),
 ( false, 1, 6, 3, 3, null, 76, null, 1 ),
 ( false, 2, 7, 2, 2, null, 49, null, 2 ),
-( false, 1, 8, 2, 2, null, 51, null, 1 );
+( false, 1, 8, 2, 2, null, 51, null, 1 ),
+( false, 1, 8, 1, 1, null, 25, null, 1 );
 
 
 INSERT INTO public.examination(diagnosis, done, free, price, date_id, dermatologist_id, patient_id,
@@ -391,7 +401,7 @@ INSERT INTO public.pricelist_medicine( price, medicine_id, pharmacy_id, validity
 INSERT INTO public.vacation(end_date, pharmacy_id, start_date, user_id, user_type, pharmacist_vacation_id, dermatologist_vacation_id) VALUES
 ('2021-06-20', 1, '2021-06-16', 1, 0, 1, null ),
 ('2021-06-20', 1, '2021-06-16', 1, 1, null, 1 ),
-('2021-06-20', 1, '2021-06-17', 2, 0, 1, null );
+('2021-06-20', 2, '2021-06-17', 2, 0, 2, null );
 
 INSERT INTO public.pharmacy_patient(pharmacy_id, patient_id) VALUES
 (1, 1),
@@ -405,6 +415,8 @@ INSERT INTO public.penalty_points(patient_id, date) VALUES
 (1, '2021-06-03'),
 (2, '2021-06-03'),
 (2, '2021-06-02');
+
+alter sequence patient_chart_id_seq restart with 7;
 
 
 

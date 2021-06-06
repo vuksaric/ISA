@@ -36,8 +36,8 @@ export class ConsultationService {
     return this.http.post(consultation_url + `/freePeriods`,body);
   }
 
-  public getFutureByPatient(id): Observable<any>{
-    return this.http.get(consultation_url + `/getFutureByPatient/${id}`);
+  public getFutureByPatient(id, pharmacist): Observable<any>{
+    return this.http.get(consultation_url + `/getFutureByPatient/${id}/${pharmacist}`);
   }
 
   public newPharmacist(body): Observable<any>{
