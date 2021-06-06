@@ -27,7 +27,7 @@ public class ConsultationService implements IConsultationService {
     private final IEmailService emailService;
 
     public ConsultationService(ConsultationRepository consultationRepository, IPharmacyService pharmacyService, IReportService reportService,
-                               IMedicineService medicineService, IPatientService patientService, IPharmacistService pharmacistService,
+                               IMedicineService medicineService,IPatientService patientService, IPharmacistService pharmacistService,
                                IBillService billService, IPatientChartService patientChartService, IEmailService emailService)
     {
         this.consultationRepository = consultationRepository;
@@ -124,10 +124,17 @@ public class ConsultationService implements IConsultationService {
         Consultation result = consultationRepository.save(newConsultation);
         pharmacistService.addNewConsultation(result);
         patientService.saveFutureConsultation(result);
+        emailService.newConsultation(result);
         return new AppointmentDTO(result);
     }
 
     @Override
+    public void addPenaltyPoint(int id) {
+        Consultation consultation = consultationRepository.findOneById(id);
+        consultation.setDone(true);
+        patientService.addPenaltyPoint(consultation.getPatient().getId());
+    }
+
     public ConsultationDTO newConsultationPatient(ConsultationRequest consultationRequest) {
         Patient patient = patientService.findOneById(consultationRequest.getPatientId());
         Pharmacy pharmacy = pharmacyService.findOneById(consultationRequest.getPharmacyId());
@@ -161,6 +168,7 @@ public class ConsultationService implements IConsultationService {
         periods = patientChartService.freePeriods(periods,consultation.getPatient().getPatientChart().getId());
         return periods;
     }
+
 
 
 }

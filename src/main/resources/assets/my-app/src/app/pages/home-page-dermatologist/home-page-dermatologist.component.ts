@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home-page-dermatologist',
@@ -8,34 +10,41 @@ import { Router } from '@angular/router';
 })
 export class HomePageDermatologistComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authorizationService : AuthService, private toastr: ToastrService) { }
 
+  isCollapsed = false;
   ngOnInit(): void {
+    this.authorizationService.checkAuthDermatologist();
   }
 
   profile()
   {
-    this.router.navigate(['profilePharmacist']);
+    this.router.navigate(['homePageDermatologist/profilePharmacist']);
   }
 
   workSchedule()
   {
-    this.router.navigate(['workScheduleDermatologist']);
+    this.router.navigate(['homePageDermatologist/workScheduleDermatologist']);
   }
 
-  previousConsultations()
+  previousExaminations()
   {
-    this.router.navigate(['previousExaminations']);
+    this.router.navigate(['homePageDermatologist/previousExaminations']);
   }
 
   vacation()
   {
-    this.router.navigate(['vacationRequest']);
+    this.router.navigate(['homePageDermatologist/vacationRequest']);
   }
 
   patientSearch()
   {
-    this.router.navigate(['searchPatients']);
+    this.router.navigate(['homePageDermatologist/searchPatients']);
   }
-
+  
+  logout()
+  {
+    localStorage.clear();
+    this.router.navigate(['login']);
+  }
 }

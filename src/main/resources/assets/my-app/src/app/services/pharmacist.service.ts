@@ -41,5 +41,8 @@ export class PharmacistService {
     return this.http.put(pharmacist_url + `/delete`, id);
   }
 
+  public checkVacation(body): Observable<any> {
+    return this.http.post(pharmacist_url + `/checkVacation`, body);
+  }
 
 }

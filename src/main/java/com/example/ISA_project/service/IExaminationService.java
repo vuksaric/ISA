@@ -21,6 +21,6 @@ public interface IExaminationService {
     List<PreviousAppointmentDTO> getAllPreviousByDermatologist(int id);
     List<Period> freePeriods(int id, LocalDate date);
     AppointmentDTO newExaminationDermatologist(AppointmentRequest request);
-
+    void addPenaltyPoint(int id);
 
 }

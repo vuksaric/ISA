@@ -70,6 +70,12 @@ public class ConsultationController {
         return consultationService.newConsultationPharmacist(request);
     }
 
+    @PutMapping(value = "/addPoint")
+    public void addPenaltyPoint(@RequestBody String id) {
+
+        int idConsultation = Integer.parseInt(id);
+        consultationService.addPenaltyPoint(idConsultation);
+    }
     @PostMapping("/newPatient")
     public ConsultationDTO newConsultationPatient(@RequestBody ConsultationRequest request){
         return consultationService.newConsultationPatient(request);

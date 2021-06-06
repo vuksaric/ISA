@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Consultation } from 'src/app/models/consultation';
+import { AuthService } from 'src/app/services/auth.service';
 import { ConsultationService } from 'src/app/services/consultation.service';
 
 
@@ -32,11 +33,14 @@ export class PreviousConsultationsComponent implements OnInit {
   visiblePharmacy = false;
   consultations = [] as DataItem[];
   listOfDisplayData = [] as DataItem[];
+  dataToken : any;
+  id : number;
 
-  constructor(private router: Router, private consultationService: ConsultationService ) { }
+  constructor(private router: Router, private consultationService: ConsultationService , private authorizationService : AuthService) { }
 
   ngOnInit(): void {
-
+    this.dataToken = this.authorizationService.getDataFromToken();
+    this.id = this.dataToken.id;
     this.consultationService.getPreviousByPharmacist(1).subscribe(data => { console.log(data); 
       this.consultations = data;
       this.listOfDisplayData = this.consultations;
@@ -100,7 +104,7 @@ export class PreviousConsultationsComponent implements OnInit {
 
   viewProfile(id : number) : void
   {
-    this.router.navigate(['patientProfileDoctor/' + id]);
+    this.router.navigate(['homePagePharmacist/patientProfileDoctor/' + id]);
   }
 
 }

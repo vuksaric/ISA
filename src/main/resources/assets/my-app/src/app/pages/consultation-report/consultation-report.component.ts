@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 import { ConsultationService } from 'src/app/services/consultation.service';
 import { MedicineService } from 'src/app/services/medicine.service';
 import { ReportService } from 'src/app/services/report.service';
@@ -30,7 +32,7 @@ export class ConsultationReportComponent implements OnInit {
   validateForm: FormGroup;
 
   constructor(private activatedRoute: ActivatedRoute,private medicineService: MedicineService,private consultationService: ConsultationService, 
-    private reportService : ReportService, private router: Router, private fb: FormBuilder) { 
+    private reportService : ReportService, private router: Router, private fb: FormBuilder, private toastr: ToastrService, private authorizationService : AuthService) { 
 
       this.validateForm = this.fb.group({
         information: ['', [Validators.required]],
@@ -71,7 +73,7 @@ export class ConsultationReportComponent implements OnInit {
 
       if(!this.prescribed)
       {
-        alert("Medicine is currently out of stock, see replacements below");
+        this.toastr.warning("Medicine is currently out of stock, see replacements below");
         this.consultationService.getReplacements(this.body).subscribe(data => { console.log(data); 
           this.alternatives = data;
           console.log("Lista novih: " + data);
@@ -124,14 +126,14 @@ export class ConsultationReportComponent implements OnInit {
       this.router.navigate(['homePagePharmacist']);
     }
     else
-      alert("All fields are required");
+    this.toastr.warning("All fields are required");
 
     
   }
 
   return(){
 
-    this.router.navigate(['consultationFrontpage/' + this.id]);
+    this.router.navigate(['homePagePharmacist/consultationFrontpage/' + this.id]);
 
   }
 
@@ -143,7 +145,7 @@ export class ConsultationReportComponent implements OnInit {
   new()
   {
     this.finish();
-    this.router.navigate(['newConsultationPharmacist/' + this.id]);
+    this.router.navigate(['homePagePharmacist/newConsultationPharmacist/' + this.id]);
   }
 
   

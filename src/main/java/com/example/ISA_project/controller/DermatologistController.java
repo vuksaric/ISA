@@ -1,9 +1,7 @@
 package com.example.ISA_project.controller;
 
 import com.example.ISA_project.model.Dermatologist;
-import com.example.ISA_project.model.dto.DermatologistDTO;
-import com.example.ISA_project.model.dto.PharmacistDTO;
-import com.example.ISA_project.model.dto.WorkDayDTO;
+import com.example.ISA_project.model.dto.*;
 import com.example.ISA_project.service.IDermatologistService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +18,12 @@ public class DermatologistController {
     public DermatologistController(IDermatologistService dermatologistService)
     {
         this.dermatologistService = dermatologistService;
+    }
+
+    @GetMapping(value = "/getProfile/{id}")
+    public ProfileDTO getProfile(@PathVariable String id){
+        int idDermatologist= Integer.parseInt(id);
+        return dermatologistService.getProfile(idDermatologist);
     }
 
     @GetMapping(value = "/getWorkdays/{id}")
@@ -65,4 +69,13 @@ public class DermatologistController {
     }
 
 
+    @PostMapping(value = "/checkVacation")
+    public ResponseEntity checkVacation(@RequestBody CheckVacationRequest request){
+        try{
+            dermatologistService.checkVacation(request);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

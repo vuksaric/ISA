@@ -77,6 +77,7 @@ import { SearchMedicinePipe } from './pages/medicine-reservation/search-medicine
 import { SupplierProfileComponent } from './pages/supplier-profile/supplier-profile.component';
 import { NewOfferComponent } from './pages/new-offer/new-offer.component';
 import { ViewOffersComponent } from './pages/view-offers/view-offers.component';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 
 registerLocaleData(en);
 
@@ -144,6 +145,7 @@ registerLocaleData(en);
     SupplierProfileComponent,
     NewOfferComponent,
     ViewOffersComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

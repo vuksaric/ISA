@@ -13,4 +13,5 @@ public class UserResponse {
     private String token;
     private int tokenExpiresIn;
     private String userRoles;
+    private boolean activated;
 }
