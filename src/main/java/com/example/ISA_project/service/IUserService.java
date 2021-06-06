@@ -11,6 +11,7 @@ public interface IUserService {
     User findUserByEmail(String email);
     void changePassword(PasswordDTO passwordDTO);
     User save(User user);
+    User getById(int id);
 
 
 }

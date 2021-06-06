@@ -1,5 +1,7 @@
 package com.example.ISA_project.model.dto;
 
+import com.example.ISA_project.model.User;
+import com.example.ISA_project.model.UserType;
 import com.example.ISA_project.model.VacationRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,14 +20,14 @@ public class VacationAllDTO {
     LocalDateTime end_date;
     String name;
     String surname;
-    String user_type;
+    UserType user_type;
 
-    public VacationAllDTO(VacationRequest vacationRequest,ProfileDTO profileDTO){
+    public VacationAllDTO(VacationRequest vacationRequest, User user){
         this.start_date = vacationRequest.getStart_date();
         this.end_date = vacationRequest.getEnd_date();
-        this.name = profileDTO.getName();
-        this.surname = profileDTO.getSurname();
-        this.user_type = profileDTO.getType();
+        this.name = user.getName();
+        this.surname = user.getSurname();
+        this.user_type = user.getUserType();
         this.id = vacationRequest.getId();
         this.pharmacy_id = vacationRequest.getPharmacy_int();
         this.user_id = vacationRequest.getUser_id();

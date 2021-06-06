@@ -92,11 +92,11 @@ public class VacationRequestService implements IVacationRequestService {
     @Override
     public List<VacationAllDTO> getAll(int id) {
         List<VacationAllDTO> vacationRequests = new ArrayList<>();
-        ProfileDTO user = null;
+        User user = null;
         try{
             for(VacationRequest vacationRequest : vacationRequestRepository.findAll()){
                 if(vacationRequest.getPharmacy_int() == id) {
-                    user = userService.getProfile(vacationRequest.getUser_id());
+                    user = userService.getById(vacationRequest.getUser_id());
                     vacationRequests.add(new VacationAllDTO(vacationRequest, user));
                 }
             }
