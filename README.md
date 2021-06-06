@@ -2,6 +2,8 @@
 
 This web application represents a centralized pharmacy information system of pharmacies. Through this system unregistered users are able to look up pharmacies and medicines. Only registered users are able to book appointments with a pharmacist o dermatologist, to reserve medicines and to  subsribe to pharmacy promotions. Dermatologists and pharmacists also have access to the system, and can book new appointments, write appointment reports and prescriptions. The sistem is managed by both system and pharmacy administrators.
 
+Final version of this project is on branch "develop".
+
 Student 1 : Andjela Petrovic RA76/2017 <br> 
 Student 2 : Vuk Saric RA78/2017 <br> 
 Student 3 : Marjana Zalar RA79/2017 <br> 
