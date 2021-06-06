@@ -2,18 +2,18 @@
     <div nz-col>
         <h3> Pharmacy profile </h3>
     </div>
-    <div nz-col style="margin-left: 10px;">
+    <!-- <div nz-col style="margin-left: 10px;">
         <button nz-button nzType="primary" nzShape="circle" (click)="showModal()"><i nz-icon nzType="edit"
                 nzTheme="outline"></i></button>
-    </div>
+    </div> -->
     <br>
 </div>
 
-<nz-modal [(nzVisible)]="isVisible" nzTitle="New order" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+<!-- <nz-modal [(nzVisible)]="isVisible" nzTitle="New order" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
     nzOkText="Send order">
     <ng-container *nzModalContent>
     </ng-container>
-</nz-modal>
+</nz-modal> -->
 
 <div nz-col>
     <div nz-row> <label> Pharmacy name </label></div>
@@ -29,45 +29,65 @@
     <div nz-row> <input class="pharmacyProfile" [(ngModel)]="mark" disabled></div>
     <br>
     <div nz-row> <label> Location </label></div>
-    <agm-map [latitude]="latitude" [longitude]="longitude">
-
-    </agm-map>
-    <br>
-
-    <nz-table #basicTable [nzData]="listOfWorkers">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th> Surname</th>
-                <th>Email </th>
-                <th>Role </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let data of basicTable.data">
-                <td>{{ data.name }}</td>
-                <td>{{ data.surname }}</td>
-                <td>{{ data.email }}</td>
-                <td>{{ data.role }}</td>
-                <td></td>
-            </tr>
-        </tbody>
-    </nz-table>
-
-
-    <nz-table #basicTable2 [nzData]="listOfMedicines">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Quantity</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let data of basicTable2.data">
-                <td>{{ data.medicine }}</td>
-                <td>{{ data.quantity }}</td>
-            </tr>
-        </tbody>
-    </nz-table> 
-
 </div>
+<div nz-col>
+    <div nz-row>
+        <agm-map [latitude]="latitude" [longitude]="longitude">
+
+        </agm-map>
+    </div>
+</div>
+<br>
+
+<nz-table #basicTable [nzData]="listOfWorkers">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th> Surname</th>
+            <th>Email </th>
+            <th>Role </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+            <td>{{ data.name }}</td>
+            <td>{{ data.surname }}</td>
+            <td>{{ data.email }}</td>
+            <td>{{ data.role }}</td>
+            <td></td>
+        </tr>
+    </tbody>
+</nz-table>
+
+
+<nz-table #basicTable2 [nzData]="listOfMedicines">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable2.data">
+            <td>{{ data.medicine }}</td>
+            <td>{{ data.quantity }}</td>
+        </tr>
+    </tbody>
+</nz-table>
+
+<nz-table #basicTable3 [nzData]="listOfFreePeriods">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable3.data">
+            <td>{{ data.dermatologist }}</td>
+            <td>{{ data.date }}</td>
+            <td>{{ data.time }}</td>
+        </tr>
+    </tbody>
+</nz-table>

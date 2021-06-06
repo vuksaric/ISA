@@ -65,6 +65,10 @@ export class ExaminationService {
     return this.http.get<any>(examination_url+'/examinationReport'+`/${id}` + `/${mode}`);
   }
 
+  public freeExaminationsByPharmacy(id): Observable<any> {
+    return this.http.get<any>(examination_url+'/freeExaminationsByPharmacy'+`/${id}`);
+  }
+
 
 
 }

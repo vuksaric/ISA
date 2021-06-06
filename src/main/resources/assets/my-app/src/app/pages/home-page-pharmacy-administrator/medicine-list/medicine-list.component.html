@@ -7,11 +7,12 @@
                 nzTheme="outline"></i></button>
     </div>
 </div>
+<br>
 
 <div nz-row>
     <div nz-col class="search-input">
         <nz-input-group [nzSuffix]="suffixIconSearch">
-            <input type="text" nz-input placeholder="Search" nzSize="default" [(ngModel)]="search" />
+            <input type="text" nz-input placeholder="Search" nzSize="default" [(ngModel)]="search" (ngModelChange)="searchMedicineQuantity()"/>
         </nz-input-group>
         <ng-template #suffixIconSearch>
             <button style="background-color: white; border: none; " (click)="searchMedicine()"><i nz-icon
@@ -55,7 +56,7 @@
             <td>{{data.notes}}</td>
             <td></td>
             <td></td>
-            <td><button nz-button nzType="dashed" (click)="showDeleteConfirm()">Remove</button></td>
+            <td><button nz-button nzType="dashed" (click)="showDeleteConfirm(data)">Remove</button></td>
         </tr>
     </tbody>
 </nz-table>

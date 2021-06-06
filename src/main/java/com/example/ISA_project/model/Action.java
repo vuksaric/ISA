@@ -21,4 +21,10 @@ public class Action {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private String text;
+
+    public Action(LocalDateTime startDate, LocalDateTime endDate, String text){
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.text = text;
+    }
 }

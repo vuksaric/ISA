@@ -1,3 +1,4 @@
+import { PharmacyService } from './../../../services/pharmacy.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PricelistComponent implements OnInit {
 
-  constructor() { }
+  constructor(private pharmacyService : PharmacyService) { }
 
   ngOnInit(): void {
+  }
+
+  getPharmacyMedicine(){
+    this.pharmacyService
   }
 
 }

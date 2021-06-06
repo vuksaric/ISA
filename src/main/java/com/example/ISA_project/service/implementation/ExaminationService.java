@@ -250,5 +250,21 @@ public class ExaminationService implements IExaminationService {
         return  months;
     }
 
+    @Override
+    public List<ExaminationDTO> findAllFreeExaminationByPharmacy(int pharmacyId) {
+        List<ExaminationDTO> examinationDTOS = new ArrayList<>();
+        try{
+            for(Examination e : examinationRepository.findAll()){
+                if(pharmacyId == e.getPharmacy().getId() && !e.isDone()){
+                    examinationDTOS.add(new ExaminationDTO(e));
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return  examinationDTOS;
+    }
+
 
 }

@@ -21,4 +21,5 @@ public class Offer {
     private int id;
     private float price;
     private LocalDateTime dueDate;
+    private int supplierId;
 }

@@ -1,12 +1,9 @@
 package com.example.ISA_project.service.implementation;
 
-import com.example.ISA_project.model.Medicine;
 import com.example.ISA_project.model.MedicineQuantity;
 import com.example.ISA_project.model.Pharmacy;
 import com.example.ISA_project.model.dto.MedicineDTO;
 import com.example.ISA_project.repository.MedicineQuantityRepository;
-import com.example.ISA_project.repository.MedicineRepository;
-import com.example.ISA_project.repository.PharmacyRepository;
 import com.example.ISA_project.service.IMedicineQuantityService;
 import com.example.ISA_project.service.IMedicineService;
 import com.example.ISA_project.service.IPharmacyService;
@@ -14,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MedicineQuantityService implements IMedicineQuantityService {
@@ -46,5 +44,32 @@ public class MedicineQuantityService implements IMedicineQuantityService {
             e.printStackTrace();
         }
         return medicines;
+    }
+
+    @Override
+    public void addMedicineQuantity(int medicineId,int pharmacyId, int quantity) {
+        try{
+            Pharmacy pharmacy = pharmacyService.findOneById(pharmacyId);
+            //List<MedicineQuantity> list = medicineQuantityRepository.findAll();
+            boolean hasMedicine = false;
+            for(MedicineQuantity mq : pharmacy.getMedicines()){
+                if(medicineId == mq.getMedicine().getId()){
+                    mq.setQuantity(mq.getQuantity() + quantity);
+                    pharmacyService.save(pharmacy);
+                    hasMedicine = true;
+                    break;
+                }
+            }
+            if(!hasMedicine){
+                pharmacyService.newMedicineQuantity(medicineId,pharmacyId);
+                //medicineQuantityRepository.save(new MedicineQuantity(medicineService.findOneById(medicineId),quantity));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public MedicineQuantity findOneById(int id){
+        return medicineQuantityRepository.findById(id);
     }
 }

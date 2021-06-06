@@ -18,7 +18,7 @@
                 <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl2">
                     <nz-select ngModel="lucy" formControlName="medicine" (ngModelChange)="updateMedicineValidator()"
                         style="margin-left:15px;">
-                        <nz-option *ngFor="let element of medicineList" nzValue="element.id" nzLabel="element.name">
+                        <nz-option *ngFor="let element of medicineList" [nzValue]="element.id" [nzLabel]="element.name">
                         </nz-option>
                     </nz-select>
                     <!-- <ng-template #errorTpl2 let-control>
@@ -64,14 +64,30 @@
 
 <br>
 
-<nz-modal [(nzVisible)]="isVisible2" nzTitle="New order" (nzOnCancel)="handleCancel2()" (nzOnOk)="handleOk2()"
-    nzOkText="Send order">
+<nz-modal [(nzVisible)]="isVisible2" nzTitle="New order" (nzOnCancel)="handleCancel2()">
     <ng-container *nzModalContent>
+        <nz-table #basicTable [nzData]="listOfOffers">
+            <thead>
+                <tr>
+                    <th>Price</th>
+                    <th>Due date</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of basicTable.data">
+                    <td>{{ data.price }}</td>
+                    <td>{{ data.dueDate }}</td>
+                    <td><button nz-button nzType="default" (click)="acceptOffer(data)">Accept</button></td>
+                </tr>
+            </tbody>
+        </nz-table>
     </ng-container>
 </nz-modal>
 
 
-<nz-table #basicTable [nzData]="listOfData">
+<nz-table #basicTable [nzData]="listOfOrders">
     <thead>
         <tr>
             <th>Medicine</th>
@@ -83,8 +99,8 @@
     </thead>
     <tbody>
         <tr *ngFor="let data of basicTable.data">
-            <td>{{ data.medicine }}</td>
-            <td>{{ data.quantity }}</td>
+            <td>{{ data.medicineName }}</td>
+            <td>{{ data.medicineQuantity }}</td>
             <td>{{ data.dueDate }}</td>
             <td><button nz-button nzType="default" (click)="showModal2(data)">View offers</button></td>
             <td><button nz-button nzType="default" (click)="deleteOrder(data)" nzDanger>Delete</button></td>

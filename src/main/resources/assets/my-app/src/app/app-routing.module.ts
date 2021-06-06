@@ -1,3 +1,6 @@
+import { DermatologistAppointmentsComponent } from './pages/home-page-pharmacy-administrator/dermatologist-appointments/dermatologist-appointments.component';
+import { DermatologistsFilterComponent } from './pages/dermatologists-filter/dermatologists-filter.component';
+import { PharmacistFilterComponent } from './pages/pharmacist-filter/pharmacist-filter.component';
 import { VacationApprovalComponent } from './pages/home-page-pharmacy-administrator/vacation-approval/vacation-approval.component';
 import { PromotionsComponent } from './pages/home-page-pharmacy-administrator/promotions/promotions.component';
 import { AdminProfileComponent } from './pages/home-page-pharmacy-administrator/admin-profile/admin-profile.component';
@@ -99,8 +102,9 @@ const routes: Routes = [
     { path: 'viewPreviousExaminatiosProfile/:id', component:ViewPreviousExaminationsProfileComponent},
     { path: 'userProfile', component:UserProfileComponent},
     { path: 'addMedicine', component:AddMedicineComponent},
+    { path: 'pharmacistList', component:PharmacistFilterComponent},
+    { path: 'dermatologistList', component:DermatologistsFilterComponent},
     { path: 'pharmacyAdmin', component: HomePagePharmacyAdministratorComponent, children: [
-        { path: 'pharmacy-profile', component: PharmacyProfileComponent},
         { path: 'pharmacy-report', component: PharmacyReportComponent },
         { path: 'medicine-list', component: MedicineListComponent },
         { path: 'medicine-order', component: MedicineOrderComponent},
@@ -109,7 +113,9 @@ const routes: Routes = [
         { path: 'pricelist', component:PricelistComponent},
         { path: 'admin-profile', component:AdminProfileComponent},
         { path: 'promotions', component:PromotionsComponent},
-        { path: 'vacation-approval', component:VacationApprovalComponent}
+        { path: 'vacation-approval', component:VacationApprovalComponent},
+        { path: 'pharmacy-profile', component: PharmacyProfileComponent},
+        { path: 'free-appointments', component:DermatologistAppointmentsComponent}
     ] },
     
 ]

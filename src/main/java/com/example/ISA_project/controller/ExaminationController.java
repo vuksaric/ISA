@@ -102,4 +102,14 @@ public class ExaminationController {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/freeExaminationsByPharmacy/{id}")
+    public ResponseEntity getReport(@PathVariable String id){
+        int pharmacyId = Integer.parseInt(id);
+        try{
+            return new ResponseEntity(examinationService.findAllFreeExaminationByPharmacy(pharmacyId),HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

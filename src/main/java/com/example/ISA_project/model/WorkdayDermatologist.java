@@ -25,9 +25,9 @@ public class WorkdayDermatologist {
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="WorkdayDermatologist_ID")
     private List<Period> freeTerms; // brisanje
-    @OneToMany(fetch = FetchType.LAZY)
+    /*@OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name="Dermatologist_ID")
-    private List<WorkingHours> workingHours;
+    private List<WorkingHours> workingHours;*/
     private LocalDate date;
 
 }

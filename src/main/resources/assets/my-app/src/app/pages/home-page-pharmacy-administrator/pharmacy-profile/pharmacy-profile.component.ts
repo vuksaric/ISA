@@ -1,3 +1,4 @@
+import { ExaminationService } from './../../../services/examination.service';
 import { Component, OnInit } from '@angular/core';
 import { GeocoderService } from 'angular-geocoder';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -21,14 +22,16 @@ export class PharmacyProfileComponent implements OnInit {
   listOfWorkers: Worker[];
   list2: Worker[] = [];
   listOfMedicines : any[] = [];
+  listOfFreePeriods : any[] = [];
 
-  constructor(private geocoderService: GeocoderService, private modal: NzModalService, private pharmacyService: PharmacyService) { }
+  constructor(private geocoderService: GeocoderService, private modal: NzModalService, private pharmacyService: PharmacyService, private examinationService : ExaminationService) { }
 
   ngOnInit(): void {
     this.getMedicines();
     this.getMark();
     this.getAllPharmacists();
     this.getPharmacy();
+    this.getFreeExamination();
   }
 
   showModal(): void {
@@ -78,6 +81,12 @@ export class PharmacyProfileComponent implements OnInit {
       this.name = data.name;
       this.address = data.street + ', ' + data.town + ', ' + data.state;
       this.description = data.description;
+    })
+  }
+
+  getFreeExamination(){
+    this.examinationService.freeExaminationsByPharmacy('1').subscribe(data => {
+      this.listOfFreePeriods = data;
     })
   }
 

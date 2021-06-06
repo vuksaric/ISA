@@ -1,5 +1,6 @@
 package com.example.ISA_project.repository;
 
+import com.example.ISA_project.model.MedicineQuantity;
 import com.example.ISA_project.model.Pharmacy;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,4 +15,5 @@ public interface PharmacyRepository extends JpaRepository<Pharmacy, Integer> {
     Pharmacy save(Pharmacy pharmacy);
     Pharmacy findOneById(int id);
     Pharmacy findOneByName(String name);
+
 }

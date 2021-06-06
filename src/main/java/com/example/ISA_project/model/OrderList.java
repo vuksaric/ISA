@@ -1,5 +1,6 @@
 package com.example.ISA_project.model;
 
+import com.example.ISA_project.model.dto.MedicineOrderDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,11 +22,13 @@ public class OrderList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private OrderStatus status;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="OrderList_ID")
-    private List<MedicineQuantity> medicines;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private MedicineQuantity medicine;
     private LocalDateTime dueDate;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="OrderList_ID")
     private List<Offer> offers;
+    private int pharmacyId;
+    private int adminId;
+
 }

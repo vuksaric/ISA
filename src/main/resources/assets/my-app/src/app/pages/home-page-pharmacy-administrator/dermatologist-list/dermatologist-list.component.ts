@@ -1,3 +1,4 @@
+import { PharmacyService } from 'src/app/services/pharmacy.service';
 import { Dermatologist } from './../../../models/Dermatologist';
 import { DermatologistService } from 'src/app/services/dermatologist.service';
 import { Component, OnInit } from '@angular/core';
@@ -39,25 +40,38 @@ interface ColumnItem {
 export class DermatologistListComponent implements OnInit {
 
   isVisible = false;
+  isVisible2 = false;
   search: string;
   dermatologistList: Dermatologist[] = [];
   nameFilter: any[] = [];
-  surnameFilter : any[] = [];
+  surnameFilter: any[] = [];
+  dermatologistId: number;
+  dermatologistDifference: any[] = [];
+  start = new Date();
+  end = new Date();
+  pharmacyList : any[] = [];
 
-  constructor(private modal: NzModalService, private toastr: ToastrService, private dermatologistService: DermatologistService) { }
+  constructor(private modal: NzModalService, private toastr: ToastrService, private dermatologistService: DermatologistService, private pharmacyService: PharmacyService) { }
 
   ngOnInit(): void {
+    this.getAllDermatologist();
+    this.getDifference();
   }
 
   searchDermatologist() {
-    if (this.search === '' || this.search === null || this.search === undefined) {
-      this.toastr.error("Please input search field");
+    if (this.search === '') {
       this.getAllDermatologist();
     } else {
-      this.dermatologistService.search(this.search).subscribe(result => {
+      this.pharmacyService.searchDermatologistInPharmacy(this.search, '1').subscribe(result => {
         this.dermatologistList = result;
       });
     }
+  }
+
+  getDifference() {
+    this.pharmacyService.getDifferenceDermatologist('1').subscribe(data => {
+      this.dermatologistDifference = data;
+    })
   }
 
   clearSearch() {
@@ -65,8 +79,27 @@ export class DermatologistListComponent implements OnInit {
     this.getAllDermatologist();
   }
 
+  addDermatologist() {
+    if (this.dermatologistId != undefined) {
+      const body = {
+        startTime: this.start,
+        endTime: this.end,
+        pharmacyId: 1 
+      }
+      this.pharmacyService.addDermatologistInPharmacy('1', this.dermatologistId, body).subscribe(data => {
+        console.log(this.start);
+        console.log(this.end);
+        this.getAllDermatologist();
+        this.toastr.success("Successfully added!");
+        this.isVisible = false;
+        this.getDifference();
+      })
+    }
+  }
+
   getAllDermatologist() {
-    this.dermatologistService.getAll().subscribe(result => {
+    this.pharmacyService.getDermatologistsFromPharmacy('1').subscribe(result => {
+      console.log(result);
       this.dermatologistList = result;
 
       for (let element of result) {
@@ -98,6 +131,21 @@ export class DermatologistListComponent implements OnInit {
     }, () => { this.toastr.error("An error has occurred") });
   }
 
+  showPharmaciesDialog(data){
+    this.pharmacyList = [];
+    this.pharmacyList.join(data.pharmacyDTOList);
+    console.log(data);
+    for(var e of data.pharmacyDTOList){
+      this.pharmacyList.push(e);
+    }
+    console.log(this.pharmacyList);
+    this.isVisible2 = true;
+  }
+
+  onOk(){
+    this.isVisible2 = false;
+  }
+
   showModal(): void {
     this.isVisible = true;
   }
@@ -110,33 +158,34 @@ export class DermatologistListComponent implements OnInit {
     this.isVisible = false;
   }
 
-  showDeleteConfirm(data : Dermatologist): void {
+  showDeleteConfirm(data): void {
     this.modal.confirm({
       nzTitle: 'Are you sure delete this pharmacist?',
       nzOkText: 'Yes',
       nzOkType: 'primary',
       nzOkDanger: true,
-      nzOnOk: () => console.log('OK'),
+      nzOnOk: () => this.deleteDermatologist(data.id),
       nzCancelText: 'No',
       nzOnCancel: () => console.log('Cancel')
     });
   }
 
-  deleteDermatologist(id: number){
-    this.dermatologistService.delete(id).subscribe(data => {
+  deleteDermatologist(id: number) {
+    this.pharmacyService.removeDermatologistInPharmacy(id, '1').subscribe(data => {
       this.getAllDermatologist();
+      this.getDifference();
       this.toastr.success("Successfully deleted!");
     })
   }
 
   listOfColumns: ColumnItem[] = [];
 
-  initListOfColumns(){
+  initListOfColumns() {
     this.listOfColumns = [
       {
         name: 'Name',
         sortOrder: 'descend',
-        sortFn: (a: DataItem, b: DataItem) => { return a.name.localeCompare(b.name)},
+        sortFn: (a: DataItem, b: DataItem) => { return a.name.localeCompare(b.name) },
         sortDirections: ['ascend', 'descend', null],
         filterMultiple: true,
         listOfFilter: this.nameFilter /* [
@@ -175,7 +224,7 @@ export class DermatologistListComponent implements OnInit {
           { text: '8-9', value: 9 },
           { text: '9-10', value: 10 }
         ],
-        filterFn: (list: number[], item: DataItem) => list.some(mark => Number(item.mark) < mark && Number(item.mark) > mark - 1),
+        filterFn: (list: number[], item: DataItem) => list.some(mark => Number(item.mark) <= mark && Number(item.mark) > mark - 1),
       },
       {
         name: 'Pharmacy',

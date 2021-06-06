@@ -15,10 +15,19 @@ export class AdminProfileComponent implements OnInit {
   isVisible = false;
   isVisible2 = false;
   validateForm!: FormGroup;
-  validateForm2 : FormGroup;
+  validateForm2: FormGroup;
   today = new Date();
+  name: string;
+  surname: string;
+  gender: string;
+  date: string;
+  email: string;
+  phone: string;
+  street: string;
+  town: string;
+  country: string;
 
-  constructor(private modal: NzModalService, private fb: FormBuilder, private toastr: ToastrService, private userService : UserService) { }
+  constructor(private modal: NzModalService, private fb: FormBuilder, private toastr: ToastrService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -31,10 +40,12 @@ export class AdminProfileComponent implements OnInit {
     });
 
     this.validateForm2 = this.fb.group({
-      oldPassword:[null,[Validators.required]],
+      oldPassword: [null, [Validators.required]],
       password: [null, [Validators.required]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]]
     })
+
+    this.getAdminInfo();
   }
 
   validateName = (group: FormControl): { [s: string]: boolean } => {
@@ -63,6 +74,12 @@ export class AdminProfileComponent implements OnInit {
 
   showModal(): void {
     this.isVisible = true;
+    this.validateForm.controls['name'].setValue(this.name);
+    this.validateForm.controls['surname'].setValue(this.surname);
+    this.validateForm.controls['street'].setValue(this.street);
+    this.validateForm.controls['town'].setValue(this.town);
+    this.validateForm.controls['state'].setValue(this.country);
+    this.validateForm.controls['phone'].setValue(this.phone);
   }
 
   showModal2(): void {
@@ -77,39 +94,56 @@ export class AdminProfileComponent implements OnInit {
     this.isVisible2 = false;
   }
 
-  submitForm(){
-    if (this.validateForm.valid) {
-      const body = {
-        name: this.validateForm.controls['name'].value,
-        surname: this.validateForm.controls['surname'].value,
-        address: this.validateForm.controls['street'].value,
-        town: this.validateForm.controls['town'].value,
-        state: this.validateForm.controls['state'].value,
-        phone: this.validateForm.controls['phone'].value
+  submitForm() {
+    if (this.validateForm.valid && this.validateForm.controls['state'].value != null && this.validateForm.controls['state'].value != undefined) {
+      if (this.validateForm.controls['name'].value === this.name && this.validateForm.controls['surname'].value === this.name && this.validateForm.controls['street'].value === this.street && this.validateForm.controls['town'].value === this.town && this.validateForm.controls['state'].value === this.country && this.validateForm.controls['phone'].value === this.phone) {
+
+      } else {
+        const body = {
+          id : 1,
+          name: this.validateForm.controls['name'].value,
+          email : this.email,
+          surname: this.validateForm.controls['surname'].value,
+          address: this.validateForm.controls['street'].value,
+          town: this.validateForm.controls['town'].value,
+          state: this.validateForm.controls['state'].value,
+          phone: this.validateForm.controls['phone'].value
+        }
+        this.userService.editProfile(body).subscribe(result => {
+          this.handleCancel();
+          this.toastr.success("Successfully edited profile");
+          this.getAdminInfo();
+        })
       }
-      this.userService.editProfile(body).subscribe(result => {
-        this.handleCancel();
-        this.toastr.success("Successfully edited");
-      })
     }
   }
 
-  submitForm2(){
-    if(this.validateForm2.valid){
+  submitForm2() {
+    if (this.validateForm2.valid) {
       const body = {
+        user_id : 1,
         oldPassword: this.validateForm2.controls['oldPassword'].value,
-        password: this.validateForm2.controls['password'].value,
-        checkPassword: this.validateForm2.controls['checkPassword'].value,
+        newPassword: this.validateForm2.controls['password'].value,
       }
       this.userService.changePassword(body).subscribe(result => {
         this.handleCancel();
-        this.toastr.success("Successfully changed");
+        this.toastr.success("Successfully changed password");
+        this.getAdminInfo();
       })
     }
   }
 
-  getAdminInfo(){
-
+  getAdminInfo() {
+    this.userService.getProfile('1').subscribe(data => {
+      this.name = data.name;
+      this.surname = data.surname;
+      this.date = data.date;
+      this.email = data.email;
+      this.phone = data.phone;
+      this.street = data.address;
+      this.town = data.town;
+      this.country = data.state;
+    })
   }
 
   confirmationValidator = (control: FormControl): { [s: string]: boolean } => {

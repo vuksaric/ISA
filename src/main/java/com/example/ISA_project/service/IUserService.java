@@ -9,5 +9,7 @@ public interface IUserService {
     ProfileDTO getProfile(int id);
     User findUserByEmail(String email);
     void changePassword(PasswordDTO passwordDTO);
+    User save(User user);
+
 
 }

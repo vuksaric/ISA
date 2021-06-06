@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IMedicineQuantityService {
     List<MedicineDTO> getDifference(int id);
+    void addMedicineQuantity(int medicineId, int pharmacyId, int quantity);
 }

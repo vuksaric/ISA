@@ -7,12 +7,16 @@ import com.example.ISA_project.model.MedicineQuantity;
 import com.example.ISA_project.model.Patient;
 import com.example.ISA_project.model.Pharmacy;
 import com.example.ISA_project.model.dto.*;
-import com.example.ISA_project.repository.PharmacyRepository;
+import com.example.ISA_project.repository.*;
 import com.example.ISA_project.service.IBillService;
 import com.example.ISA_project.service.IMedicineService;
 import com.example.ISA_project.service.IPharmacyService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +25,25 @@ public class PharmacyService implements IPharmacyService {
     private final PharmacyRepository pharmacyRepository;
     private final IMedicineService medicineService;
     private final IBillService billService;
+    private final PharmacistRepository pharmacistRepository;
+    private final UserService userService;
+    private final MedicineQuantityRepository medicineQuantityRepository;
+    private final DermatologistService dermatologistService;
+    private final WorkingHoursService workingHoursService;
+    private final WorkdayDermatologistService workdayDermatologistService;
+    private final ReservationRepository reservationRepository;
 
-    public PharmacyService(PharmacyRepository pharmacyRepository, IMedicineService medicineService, IBillService billService){
+    public PharmacyService(PharmacyRepository pharmacyRepository, IMedicineService medicineService, IBillService billService, PharmacistRepository pharmacistRepository, UserService userService, MedicineQuantityRepository medicineQuantityRepository, DermatologistService dermatologistService, WorkingHoursService workingHoursService, WorkdayDermatologistService workdayDermatologistService, ReservationRepository reservationRepository){
         this.pharmacyRepository=pharmacyRepository;
         this.medicineService = medicineService;
         this.billService = billService;
+        this.pharmacistRepository = pharmacistRepository;
+        this.userService = userService;
+        this.medicineQuantityRepository = medicineQuantityRepository;
+        this.dermatologistService = dermatologistService;
+        this.workingHoursService = workingHoursService;
+        this.workdayDermatologistService = workdayDermatologistService;
+        this.reservationRepository = reservationRepository;
     }
     @Override
     public List<PharmacyDTO> findAll() {
@@ -206,13 +224,30 @@ public class PharmacyService implements IPharmacyService {
             Pharmacy pharmacy = pharmacyRepository.findOneById(id);
             dermatologists = pharmacy.getDermatologist();
             for(Dermatologist d : dermatologists){
-                dermatologistDTOS.add(new DermatologistDTO(d));
+                dermatologistDTOS.add(new DermatologistDTO(d,findAllPharmacies(d.getId())));
             }
         }catch(Exception e){
             e.printStackTrace();
         }
 
         return dermatologistDTOS;
+    }
+
+    public List<PharmacyDTO> findAllPharmacies(int dermatologistId){
+        List<PharmacyDTO> pharmacyDTOS = new ArrayList<>();
+        try{
+            List<Pharmacy> pharmacies = pharmacyRepository.findAll();
+            for(Pharmacy p : pharmacies){
+                for(Dermatologist d : p.getDermatologist()){
+                    if(d.getId() == dermatologistId){
+                        pharmacyDTOS.add(new PharmacyDTO(p));
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return pharmacyDTOS;
     }
 
     @Override
@@ -246,10 +281,8 @@ public class PharmacyService implements IPharmacyService {
     public void newMedicineQuantity(int medicineId, int pharmacyId) {
         try{
             Pharmacy p = pharmacyRepository.findOneById(pharmacyId);
-            Medicine m = medicineService.findOneById(medicineId);
-            List<MedicineQuantity> medicineQuantities = p.getMedicines();
-            medicineQuantities.add(new MedicineQuantity(m,0));
-            p.setMedicines(medicineQuantities);
+            MedicineQuantity mq = medicineQuantityRepository.findById(medicineId);
+            p.getMedicines().add(mq);
             pharmacyRepository.save(p);
         }catch (Exception e){
             e.printStackTrace();
@@ -262,14 +295,20 @@ public class PharmacyService implements IPharmacyService {
         List<MedicineQuantityDTO> medicineQuantityDTOS = new ArrayList<>();
         try{
             Pharmacy p = pharmacyRepository.findOneById(pharmacyId);
+            for(Reservation r : reservationRepository.findAll()){
+                if(r.getMedicine().getId() == medicineId && r.getPharmacy().getId() == pharmacyId && !r.isCanceled() && !r.isIssued()){
+                    return null;
+                }
+            }
             medicineQuantities = p.getMedicines();
             for(MedicineQuantity mq : medicineQuantities){
-                if(mq.getId() == medicineId){
+                if(mq.getMedicine().getId() == medicineId){
                     medicineQuantities.remove(mq);
                     break;
                 }
             }
             p.setMedicines(medicineQuantities);
+            pharmacyRepository.save(p);
             for( MedicineQuantity medicineQuantity : medicineQuantities) {
                 medicineQuantityDTOS.add(new MedicineQuantityDTO(medicineQuantity));
             }
@@ -277,13 +316,314 @@ public class PharmacyService implements IPharmacyService {
             e.printStackTrace();
         }
         return medicineQuantityDTOS;
+    }
 
+    public List<MedicineQuantityDTO> getAllMedicinesInPharmacy(int id) {
+        List<MedicineQuantityDTO> medicineDTOS = new ArrayList<>();
+        try{
+            Pharmacy p = pharmacyRepository.findOneById(id);
+            for( MedicineQuantity medicineQuantity : p.getMedicines()){
+                medicineDTOS.add(new MedicineQuantityDTO(medicineQuantity));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return medicineDTOS;
+    }
+
+    @Override
+    public List<PharmacistDTO> addPharmacistInPharmacy(RegistrationDTO registrationDTO, int pharmacyId) {
+        List<PharmacistDTO> pharmacistDTOS = new ArrayList<>();
+        Address address = new Address(registrationDTO.getAddress(), registrationDTO.getTown(), registrationDTO.getState());
+        Gender gender;
+        if (registrationDTO.getGender().equalsIgnoreCase("male"))
+            gender = Gender.Male;
+        else if (registrationDTO.getGender().equalsIgnoreCase("female"))
+            gender = Gender.Female;
+        else
+            gender = Gender.NonBinary;
+        User user = new User(registrationDTO.getName(), registrationDTO.getSurname(), registrationDTO.getEmail(), registrationDTO.getPassword(), registrationDTO.getPhone(), address, gender, registrationDTO.getBirthday(), UserType.Pharmacist);
+        Pharmacist pharmacist = new Pharmacist();
+        LocalTime start = registrationDTO.getStartShift().toLocalTime();
+        LocalTime end = registrationDTO.getEndShift().toLocalTime();
+        try{
+            Pharmacy pharmacy = pharmacyRepository.findOneById(pharmacyId);
+            User user1 = userService.save(user);
+            WorkingHours workingHours = workingHoursService.saveWorkingHours(new WorkingHours(start,end,pharmacy));
+            pharmacist.setPharmacy(pharmacy);
+            pharmacist.setWorkingHours(workingHours);
+            pharmacist.setUser(user1);
+            Pharmacist pharmacist1 = pharmacistRepository.save(pharmacist);
+            boolean hasEmail = false;
+            for(Pharmacist p : pharmacy.getPharmacists()){
+                if(p.getUser().getEmail().equals(registrationDTO.getEmail()))
+                    hasEmail = true;
+            }
+            if(!hasEmail){
+                List<Pharmacist> pharmacists = pharmacy.getPharmacists();
+                pharmacists.add(pharmacist1);
+                pharmacy.setPharmacists(pharmacists);
+                pharmacyRepository.save(pharmacy);
+            }
+
+            for(Pharmacist p : pharmacy.getPharmacists()){
+                pharmacistDTOS.add(new PharmacistDTO(p,pharmacy));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return pharmacistDTOS;
+    }
+
+    @Override
+    public List<PharmacistDTO> removePharmacistInPharmacy(int pharmacistId, int pharmacyId) {
+        List<PharmacistDTO> pharmacistDTOS = new ArrayList<>();
+        try{
+            Pharmacy pharmacy = pharmacyRepository.findOneById(pharmacyId);
+            List<Pharmacist> pharmacists = pharmacy.getPharmacists();
+            for( Pharmacist p : pharmacists){
+                if(p.getId() == pharmacistId){
+                    for(WorkdayPharmacist wd : p.getWorkdays()){
+                        for(Consultation c : wd.getConsultations()){
+                            if(c.getPeriod().getStart_date().isAfter(LocalDateTime.now())){
+                                return null;
+                            }
+                        }
+                    }
+                    pharmacists.remove(p);
+                    break;
+                }
+            }
+            pharmacy.setPharmacists(pharmacists);
+            pharmacyRepository.save(pharmacy);
+            for(Pharmacist p : pharmacy.getPharmacists()){
+                pharmacistDTOS.add(new PharmacistDTO(p));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return pharmacistDTOS;
+    }
+
+    @Override
+    public List<PharmacistDTO> searchPharmacistInPharmacy(String input, int pharmacyId) {
+        List<PharmacistDTO> pharmacistDTOS = new ArrayList<>();
+        try{
+            Pharmacy pharmacy = pharmacyRepository.findOneById(pharmacyId);
+            List<Pharmacist> pharmacists = pharmacy.getPharmacists();
+            System.out.println(pharmacists.get(0).getFullName());
+            for( Pharmacist p : pharmacists){
+                if(p.getUser().getFullName().toLowerCase().contains(input.toLowerCase())){
+                    pharmacistDTOS.add(new PharmacistDTO(p));
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return pharmacistDTOS;
+    }
+
+    @Override
+    public List<DermatologistDTO> addDermatologistInPharmacy(int dermatologistId, int pharmacyId, WorkingHoursDTO workingHoursDTO) {
+        List<DermatologistDTO> dermatologistDTOS = new ArrayList<>();
+        try{
+            LocalTime start = workingHoursDTO.getStartTime().toLocalTime();
+            LocalTime end = workingHoursDTO.getEndTime().toLocalTime();
+            Pharmacy pharmacy = pharmacyRepository.findOneById(pharmacyId);
+            WorkingHours workingHours = workingHoursService.saveWorkingHours(new WorkingHours(start,end,pharmacy));
+            Dermatologist dermatologist = dermatologistService.getById(dermatologistId);
+            dermatologist.getWorkingHours().add(workingHours);
+            dermatologistService.save(dermatologist);
+            pharmacy.getDermatologist().add(dermatologist);
+            pharmacyRepository.save(pharmacy);
+
+            for(Dermatologist d : pharmacy.getDermatologist()){
+                dermatologistDTOS.add(new DermatologistDTO(d));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return dermatologistDTOS;
+    }
+
+    @Override
+    public List<DermatologistDTO> removeDermatologistInPharmacy(int dermatologistId, int pharmacyId) {
+        List<DermatologistDTO> dermatologistDTOS = new ArrayList<>();
+        try{
+            Dermatologist dermatologist = dermatologistService.getById(dermatologistId);
+            for(WorkdayDermatologist wd : dermatologist.getWorkdays()){
+                for(Examination e : wd.getExaminations()){
+                    if (e.getDate().getStart_date().isAfter(LocalDateTime.now())){
+                        return null;
+                    }
+                }
+            }
+            Pharmacy pharmacy = pharmacyRepository.findOneById(pharmacyId);
+            pharmacy.getDermatologist().remove(dermatologist);
+            pharmacyRepository.save(pharmacy);
+
+            for(Dermatologist d : pharmacy.getDermatologist()){
+                dermatologistDTOS.add(new DermatologistDTO(d));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return dermatologistDTOS;
+    }
+
+    @Override
+    public List<DermatologistDTO> searchDermatologistInPharmacy(String input, int pharmacyId) {
+        List<DermatologistDTO> dermatologistDTOS = new ArrayList<>();
+        try{
+            Pharmacy pharmacy = pharmacyRepository.findOneById(pharmacyId);
+            for(Dermatologist d : pharmacy.getDermatologist()){
+                if(d.getUser().getFullName().toLowerCase().contains(input.toLowerCase())){
+                    dermatologistDTOS.add(new DermatologistDTO(d));
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return dermatologistDTOS;
+    }
+
+    @Override
+    public List<DermatologistDTO> getDermatologistDifference(int pharmacyId) {
+        List<DermatologistDTO> dermatologistDTOS = new ArrayList<>();
+        try{
+            List<Dermatologist> dermatologists = dermatologistService.findAll();
+            Pharmacy p = pharmacyRepository.findOneById(pharmacyId);
+            List<Dermatologist> dermatologists1 = p.getDermatologist();
+            for(Dermatologist d : dermatologists){
+                boolean hasSame = false;
+                for(Dermatologist d2 : dermatologists1){
+                    if(d.getId() == d2.getId()){
+                        hasSame = true;
+                    }
+                }
+                if(!hasSame){
+                    dermatologistDTOS.add(new DermatologistDTO(d));
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return  dermatologistDTOS;
+    }
+
+    @Override
+    public List<WorkingHoursResponseDTO> getDermatologistShift(DermatologistFreePeriodsRequestDTO dto) {
+        List<WorkingHoursResponseDTO> workingHoursResponseDTOS = new ArrayList<>();
+        LocalDateTime dateTime = LocalDateTime.parse(dto.getDate().substring(0,19));
+        WorkingHours workingHours = new WorkingHours();
+        try{
+            Pharmacy p = pharmacyRepository.findOneById(dto.getPharmacyId());
+            for( Dermatologist d : p.getDermatologist()){
+                if(dto.getDermatologistId() == d.getId()){
+                    for(Vacation v : d.getVacation()){
+                        if(ChronoLocalDate.from(v.getStart_date()).isBefore(ChronoLocalDate.from(dateTime)) && ChronoLocalDate.from(v.getEnd_date()).isAfter(ChronoLocalDate.from(dateTime)) || ChronoLocalDate.from(v.getStart_date()).isEqual(ChronoLocalDate.from(dateTime)) || ChronoLocalDate.from(v.getEnd_date()).isEqual(ChronoLocalDate.from(dateTime))){
+                            return null;
+                        }
+                    }
+
+                    for(WorkingHours w : d.getWorkingHours()){
+                        if(w.getPharmacy().getId() == dto.getPharmacyId()){
+                            workingHours = w;
+                        }
+                    }
+
+                    for(WorkdayDermatologist wd : d.getWorkdays()){
+                        if(wd.getDate().isEqual(ChronoLocalDate.from(dateTime))){
+                            LocalTime end = workingHours.getStartTime().plusMinutes(30);
+                            LocalTime start = workingHours.getStartTime();
+                            while(workingHours.getEndTime().isAfter(end)){
+                                boolean hasSame = false;
+                                for(Examination e : wd.getExaminations()){
+                                    Period period = e.getDate();
+                                    if((LocalTime.of(period.getStart_date().getHour(),period.getStart_date().getMinute()).isAfter(start) &&
+                                            LocalTime.of(period.getStart_date().getHour(),period.getStart_date().getMinute()).isBefore(end)) ||
+                                            (LocalTime.of(period.getEnd_date().getHour(),period.getEnd_date().getMinute()).isAfter(start) &&
+                                            LocalTime.of(period.getEnd_date().getHour(),period.getEnd_date().getMinute()).isBefore(end)) ||
+                                            LocalTime.of(period.getStart_date().getHour(),period.getStart_date().getMinute()).compareTo(start) == 0 ||
+                                            LocalTime.of(period.getEnd_date().getHour(),period.getEnd_date().getMinute()).compareTo(end) == 0
+                                    ){
+                                        hasSame = true;
+                                    }
+                                }
+                                if(!hasSame) {
+                                    workingHoursResponseDTOS.add(new WorkingHoursResponseDTO(start, end));
+                                }
+                                start = start.plusMinutes(30);
+                                end = end.plusMinutes(30);
+                            }
+                            return workingHoursResponseDTOS;
+                            }
+                        }
+                    }
+                }
+            }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public void makeReservation(NewExaminationDTO newExaminationDTO) {
+        try{
+            Pharmacy p = pharmacyRepository.findOneById(newExaminationDTO.getPharmacyId());
+            List<Dermatologist> dermatologists = p.getDermatologist();
+            LocalDateTime date = LocalDateTime.parse(newExaminationDTO.getDate().substring(0,19));
+            LocalDate localDate = date.toLocalDate();
+            for(Dermatologist d : dermatologists) {
+                if(d.getId() == newExaminationDTO.getDermatologistId()){
+                    boolean hasWorkday = false;
+                    for(WorkdayDermatologist workdayDermatologist : d.getWorkdays()){
+                        if(localDate.compareTo(workdayDermatologist.getDate()) == 0){
+                            hasWorkday = true;
+                            String start = newExaminationDTO.getDate() + 'T' + newExaminationDTO.getStart();
+                            LocalDateTime dateTimeStart = LocalDateTime.parse(start.substring(0,10) + start.substring(24) + ":00");
+                            String end = newExaminationDTO.getDate() + 'T' + newExaminationDTO.getEnd();
+                            LocalDateTime dateTimeEnd = LocalDateTime.parse(end.substring(0,10) + end.substring(24) + ":00");
+                            Period period = new Period(dateTimeStart,dateTimeEnd);
+                            WorkdayDermatologist wd = workdayDermatologistService.findById(workdayDermatologist.getId());
+                            wd.getExaminations().add(new Examination(period, newExaminationDTO.getPrice(),d,p));
+                            workdayDermatologistService.save(wd);
+                        }
+                    }
+                    if(!hasWorkday){
+                        // pravimo workday
+                    }
+                }
+            }
+
+            }catch(Exception e){
+                e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void save(Pharmacy pharmacy) {
+        pharmacyRepository.save(pharmacy);
     }
 
     @Override
     public List<MedicineQuantityDTO> search(String input, int pharmacyId) {
-        return null;
+        List<MedicineQuantityDTO> medicineDTOS = new ArrayList<>();
+        try{
+            Pharmacy p = pharmacyRepository.findOneById(pharmacyId);
+            for( MedicineQuantity medicineQuantity : p.getMedicines()){
+                if(medicineQuantity.getMedicine().getName().contains(input)) {
+                    medicineDTOS.add(new MedicineQuantityDTO(medicineQuantity));
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return medicineDTOS;
     }
+
+
 
 
 }

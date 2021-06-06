@@ -1,6 +1,8 @@
 package com.example.ISA_project.controller;
 
 import com.example.ISA_project.model.OrderList;
+import com.example.ISA_project.model.dto.AcceptOfferDTO;
+import com.example.ISA_project.model.dto.MedicineOrderDTO;
 import com.example.ISA_project.model.dto.RegistrationDTO;
 import com.example.ISA_project.service.IOrderService;
 import org.springframework.http.HttpStatus;
@@ -17,7 +19,7 @@ public class OrderController {
     }
 
     @PostMapping(value = "/new")
-    public ResponseEntity newOrder (@RequestBody OrderList orderList){
+    public ResponseEntity newOrder (@RequestBody MedicineOrderDTO orderList){
         try{
             orderService.newOrder(orderList);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -36,13 +38,26 @@ public class OrderController {
         }
     }
 
-    @GetMapping(value = "/getAll")
-    public ResponseEntity getAll(){
+    @GetMapping(value = "/getAll/{id}")
+    public ResponseEntity getAll(@PathVariable String id){
+        int pharmacyId= Integer.parseInt(id);
         try{
-            return new ResponseEntity<>(orderService.getAll(),HttpStatus.OK);
+            return new ResponseEntity<>(orderService.getAll(pharmacyId),HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping(value = "/acceptOffer")
+    public ResponseEntity newOrder (@RequestBody AcceptOfferDTO acceptOfferDTO){
+        try{
+            orderService.acceptOffer(acceptOfferDTO);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
 }

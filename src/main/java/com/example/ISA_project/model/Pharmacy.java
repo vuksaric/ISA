@@ -23,7 +23,7 @@ public class Pharmacy {
             joinColumns = { @JoinColumn(name = "Pharmacy_ID") },
             inverseJoinColumns = { @JoinColumn(name = "Dermatologist_ID") })
     private List<Dermatologist> dermatologist;
-    @OneToMany(fetch=FetchType.LAZY)
+    @OneToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name="PharmacyList_ID")
     private List<Pharmacist> pharmacists;
     private String name;

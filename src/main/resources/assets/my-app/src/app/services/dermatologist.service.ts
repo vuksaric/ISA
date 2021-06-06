@@ -17,11 +17,11 @@ export class DermatologistService {
   }
 
   public getAll(): Observable<any>{
-    return this.http.get(dermatologist_url + `/all/`);
+    return this.http.get(dermatologist_url + `/all`);
   }
 
   public search(input : string) : Observable<any>{
-    return this.http.get(dermatologist_url + `/search/` + input);
+    return this.http.get(dermatologist_url + `/search/${input}`);
   }
 
   public delete(id : number) : Observable<any>{

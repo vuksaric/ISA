@@ -20,6 +20,8 @@ public class WorkdayDermatologistService implements IWorkdayDermatologistService
         this.workdayDermatologistRepository = workdayDermatologistRepository;
     }
 
+
+
     @Override
     public List<AppointmentDTO> getExaminations(int id) {
         WorkdayDermatologist workday = workdayDermatologistRepository.findOneById(id);
@@ -30,5 +32,15 @@ public class WorkdayDermatologistService implements IWorkdayDermatologistService
             result.add(new AppointmentDTO(examination));
         }
         return result;
+    }
+
+    @Override
+    public WorkdayDermatologist save(WorkdayDermatologist workdayDermatologist) {
+        return workdayDermatologistRepository.save(workdayDermatologist);
+    }
+
+    @Override
+    public WorkdayDermatologist findById(int id) {
+        return workdayDermatologistRepository.findOneById(id);
     }
 }

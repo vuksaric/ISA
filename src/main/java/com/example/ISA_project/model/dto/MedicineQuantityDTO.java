@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MedicineQuantityDTO {
+    private int id;
     private String medicine;
     private String name;
     private int quantity;
@@ -18,6 +19,7 @@ public class MedicineQuantityDTO {
     private String notes;
 
     public MedicineQuantityDTO(MedicineQuantity medicineQuantity){
+        this.id = medicineQuantity.getId();
         this.medicine = medicineQuantity.getMedicine().getMedicineInformation();
         this.name = medicineQuantity.getMedicine().getName();
         this.quantity = medicineQuantity.getQuantity();

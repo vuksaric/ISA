@@ -1,0 +1,36 @@
+<div nz-col>
+    <div nz-row>
+        <label> Choose doctor </label>
+        <nz-select [(ngModel)]="dermatologistId">
+            <nz-option *ngFor="let item of dermatologist" [nzLabel]="item.name + ' ' + item.surname"
+                [nzValue]="item.id"></nz-option>
+        </nz-select>
+    </div>
+    <div nz-row>
+        <label> Choose date </label>
+        <nz-date-picker [(ngModel)]="date" style="width: 300px;margin-left: 28px;" [nzDisabledDate]="disabledDate"
+            (ngModelChange)="onChange($event)"></nz-date-picker>
+        <br />
+    </div>
+    <div *ngIf="show">
+        <div nz-row>
+            <label style="margin-top: 10px;"> Price </label>
+            <input [(ngModel)]="price" style="width: 300px;margin-left: 75px;margin-top: 12px;">
+            <br />
+        </div>
+        <div nz-row>
+            <label  style="margin-top: 10px;"> Choose time </label>
+            <nz-select [(ngModel)]="appointment"  style="margin-top: 10px;margin-left: 25px;">
+                <nz-option *ngFor="let item2 of freeAppointments" [nzLabel]="item2.startTime + '-' + item2.endTime"
+                    [nzValue]="item2.startTime + ' ' + item2.endTime"></nz-option>
+            </nz-select>
+        </div>
+    </div>
+    <div *ngIf="!show">
+        <button nz-button nzType="default" (click)="getAppointments()" style="margin-left: 260px;margin-top: 15px;"> Get appointments </button> 
+    </div>
+    <div *ngIf="show">
+        <button nz-button nzType="default" (click)="reserve()" style="margin-left: 320px;margin-top: 15px;"> Reserve </button>
+    </div>
+    
+</div>

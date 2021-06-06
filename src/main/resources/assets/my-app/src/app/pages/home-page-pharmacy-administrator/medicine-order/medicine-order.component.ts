@@ -29,6 +29,7 @@ export class MedicineOrderComponent implements OnInit {
   today = new Date();
   listOfOrders : any[] = [];
   listOfOffers : any[] = [];
+  currentOrder : any;
 
   constructor(private modal: NzModalService, private toastr: ToastrService, private fb: FormBuilder, private medicineService : MedicineService,private orderService: OrderService) { }
 
@@ -48,14 +49,31 @@ export class MedicineOrderComponent implements OnInit {
   }
 
   deleteOrder(data : any){
-    this.orderService.deleteOrder(data.id).subscribe(result =>{
+    this.orderService.deleteOrder(data.id,).subscribe(result =>{
       this.toastr.success("Succesfully deleted offer");
       this.getAllOrders();
     })
   }
 
+  acceptOffer(data){
+    console.log(data);
+    const body = {
+      orderListId:data.id,
+      offerId: this.currentOrder.id,
+      pharmacyId: 1
+    }
+    console.log(body);
+    this.orderService.acceptOffer(body).subscribe(result => {
+      this.isVisible2 = false;
+      this.getAllOrders();
+    })
+  }
+
   getAllOrders(){
-    this.orderService.getAll().subscribe(result => {
+    this.orderService.getAll('1').subscribe(result => {
+      for(var element of result){
+        element.dueDate = element.dueDate.toString().split("T",2)[0];
+      }
       this.listOfOrders = result;
     })
   }
@@ -73,6 +91,11 @@ export class MedicineOrderComponent implements OnInit {
   }
 
   showModal2(data : any): void {
+    for(var element of data.offers){
+      element.dueDate = element.dueDate.toString().split("T",2)[0];
+    }
+    this.currentOrder = data;
+    console.log(this.currentOrder);
     this.isVisible2 = true;
     this.listOfOffers = data.offers;
   }
@@ -86,7 +109,23 @@ export class MedicineOrderComponent implements OnInit {
   }
 
   handleOk(): void {
-    this.isVisible = false;
+    if(this.validateForm.valid){
+      const body = {
+        pharmacyId : '1',
+        medicineId : this.validateForm.get('medicine').value,
+        medicineQuantity : this.validateForm.get('quantity').value,
+        dueDate : this.validateForm.get('dueDate').value.toISOString()
+      }
+      this.orderService.newOrder(body).subscribe(data => {
+        this.isVisible = false;
+        this.getAllOrders();
+        this.toastr.success("successfully ordered medicine");
+      })
+    }else{
+      this.toastr.error("Input fields can not be empty");
+    }
+    
+    
   }
 
   handleCancel(): void {
@@ -111,23 +150,5 @@ export class MedicineOrderComponent implements OnInit {
     /** wait for refresh value */
     Promise.resolve().then(() => this.validateForm.controls.dueDate.updateValueAndValidity());
   }
-
-  listOfData: Order[] = [
-    {
-      medicine: '32',
-      quantity: 'New York No. 1 Lake Park',
-      dueDate: 'proba'
-    },
-    {
-      medicine: '32',
-      quantity: 'New York No. 1 Lake Park',
-      dueDate: 'proba'
-    },
-    {
-      medicine: '32',
-      quantity: 'New York No. 1 Lake Park',
-      dueDate: 'proba'
-    }
-  ];
 
 }

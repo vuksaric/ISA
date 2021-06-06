@@ -20,4 +20,6 @@ public class RegistrationDTO {
     private String town;
     private String phone;
     private LocalDateTime birthday;
+    private LocalDateTime startShift;
+    private LocalDateTime endShift;
 }

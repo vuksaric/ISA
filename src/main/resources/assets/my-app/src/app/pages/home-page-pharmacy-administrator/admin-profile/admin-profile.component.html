@@ -108,8 +108,9 @@
                     <input nz-input type="password" id="oldPpassword" formControlName="oldPassword"
                         style="margin-left:15px;" />
                     <span *ngIf="validateForm2.controls['password'].errors?.required &&
-                        validateForm2.controls['password'].touched" style="color: red; margin-left: 0.8vw;"> Enter your old
-                            password <br></span>
+                        validateForm2.controls['password'].touched" style="color: red; margin-left: 0.8vw;"> Enter your
+                        old
+                        password <br></span>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
@@ -119,7 +120,8 @@
                         style="margin-left:15px;" />
                     <span *ngIf="validateForm2.controls['password'].errors?.required &&
                         validateForm2.controls['password'].touched" style="color: red; margin-left: 0.8vw;"> Enter your
-                            password <br></span> <!--(ngModelChange)="updateConfirmValidator()"-->
+                        password <br></span>
+                    <!--(ngModelChange)="updateConfirmValidator()"-->
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
@@ -128,17 +130,17 @@
                     <input nz-input type="password" formControlName="checkPassword" id="checkPassword"
                         style="margin-left:15px;" />
                     <ng-template #errorTpl3 let-control>
-                            <ng-container *ngIf="control.hasError('required')">
-                                <div style="margin-left:15px;">
-                                    Please confirm your password!
-                                </div>
-                            </ng-container>
-                            <ng-container *ngIf="control.hasError('confirm')">
-                                <div style="margin-left:15px;">
-                                    Two passwords that you enter is inconsistent!
-                                </div>
-                            </ng-container>
-                        </ng-template> 
+                        <ng-container *ngIf="control.hasError('required')">
+                            <div style="margin-left:15px;">
+                                Please confirm your password!
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="control.hasError('confirm')">
+                            <div style="margin-left:15px;">
+                                Two passwords that you enter is inconsistent!
+                            </div>
+                        </ng-container>
+                    </ng-template>
                 </nz-form-control>
             </nz-form-item>
         </form>
@@ -149,31 +151,31 @@
 
 <div nz-col>
     <div nz-row> <label> Name </label></div>
-    <div nz-row> <input class="adminProfile" disabled></div>
+    <div nz-row> <input class="adminProfile" [(ngModel)]=name disabled></div>
     <br>
     <div nz-row> <label> Surname </label></div>
-    <div nz-row> <input class="adminProfile" disabled></div>
+    <div nz-row> <input class="adminProfile" [(ngModel)]=surname disabled></div>
     <br>
     <div nz-row> <label> Gender </label></div>
-    <div nz-row> <input class="adminProfile" disabled></div>
+    <div nz-row> <input class="adminProfile" [(ngModel)]=gender disabled></div>
     <br>
     <div nz-row> <label> Date of birth </label></div>
-    <div nz-row> <input class="adminProfile" disabled></div>
+    <div nz-row> <input class="adminProfile" [(ngModel)]=date disabled></div>
     <br>
     <div nz-row> <label> Email </label></div>
-    <div nz-row> <input class="adminProfile" disabled></div>
+    <div nz-row> <input class="adminProfile" [(ngModel)]=email disabled></div>
     <br>
     <div nz-row> <label> Phone </label></div>
-    <div nz-row> <input class="adminProfile" disabled></div>
+    <div nz-row> <input class="adminProfile" [(ngModel)]=phone disabled></div>
     <br>
     <div nz-row> <label> Street </label></div>
-    <div nz-row> <input class="adminProfile" disabled></div>
+    <div nz-row> <input class="adminProfile" [(ngModel)]=street disabled></div>
     <br>
     <div nz-row> <label> Town </label></div>
-    <div nz-row> <input class="adminProfile" disabled></div>
+    <div nz-row> <input class="adminProfile" [(ngModel)]=town disabled></div>
     <br>
     <div nz-row> <label> Country </label></div>
-    <div nz-row> <input class="adminProfile" disabled></div>
+    <div nz-row> <input class="adminProfile" [(ngModel)]=country disabled></div>
     <br>
     <div nz-row>
         <button nz-button nzType="default" (click)="showModal()"> Edit profile </button>

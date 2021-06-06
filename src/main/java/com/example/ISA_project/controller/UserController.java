@@ -24,7 +24,7 @@ public class UserController {
     @PutMapping(value = "/changePassword")
     public ResponseEntity changePassword(@RequestBody PasswordDTO passwordDTO) {
         try {
-
+            userService.changePassword(passwordDTO);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -35,6 +35,16 @@ public class UserController {
     public ResponseEntity editProfile(@RequestBody ProfileDTO profileDTO) {
         try {
             return new ResponseEntity(userService.editUser(profileDTO),HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping(value = "/getProfile/{id}")
+    public ResponseEntity getProfile(@PathVariable String id) {
+        int userId = Integer.parseInt(id);
+        try {
+            return new ResponseEntity(userService.getProfile(userId),HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

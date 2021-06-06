@@ -42,7 +42,7 @@ export class HomePagePharmacyAdministratorComponent implements OnInit {
     this.router.navigate(['/pharmacyAdmin/dermatologist-list']);
   }
   freeAppointments() {
-    this.router.navigate(['/pharmacyAdmin/pharmacy-profile']);
+    this.router.navigate(['/pharmacyAdmin/free-appointments']);
   }
   adminProfile(){
     this.router.navigate(['/pharmacyAdmin/admin-profile']);

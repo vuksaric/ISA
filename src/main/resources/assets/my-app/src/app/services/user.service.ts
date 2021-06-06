@@ -20,4 +20,8 @@ export class UserService {
   public changePassword(body) : Observable<any>{ 
     return this.http.put(user_url + `/changePassword`, body);
   } 
+
+  public getProfile(id):Observable<any>{
+    return this.http.get(user_url + `/getProfile` + `/${id}`);
+  }
 }

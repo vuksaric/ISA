@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface MedicineQuantityRepository extends JpaRepository<MedicineQuantity,Integer> {
     List<MedicineQuantity> findAll();
+    MedicineQuantity findById(int id);
 }

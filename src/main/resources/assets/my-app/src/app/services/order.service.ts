@@ -20,7 +20,11 @@ export class OrderService {
     return this.http.put<any>(order_url + `/delete`,body);
   }
 
-  public getAll():Observable<any>{
-    return this.http.get<any>(order_url + `/getAll`);
+  public getAll(id):Observable<any>{
+    return this.http.get<any>(order_url + `/getAll/${id}`);
+  }
+
+  public acceptOffer(body):Observable<any>{
+    return this.http.post<any>(order_url + `/acceptOffer`,body);
   }
 }

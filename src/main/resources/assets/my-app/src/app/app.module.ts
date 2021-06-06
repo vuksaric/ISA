@@ -1,3 +1,6 @@
+import { DermatologistAppointmentsComponent } from './pages/home-page-pharmacy-administrator/dermatologist-appointments/dermatologist-appointments.component';
+import { DermatologistsFilterComponent } from './pages/dermatologists-filter/dermatologists-filter.component';
+import { PharmacistFilterComponent } from './pages/pharmacist-filter/pharmacist-filter.component';
 import { VacationApprovalComponent } from './pages/home-page-pharmacy-administrator/vacation-approval/vacation-approval.component';
 import { PromotionsComponent } from './pages/home-page-pharmacy-administrator/promotions/promotions.component';
 import { AdminProfileComponent } from './pages/home-page-pharmacy-administrator/admin-profile/admin-profile.component';
@@ -141,6 +144,9 @@ registerLocaleData(en);
     ViewErecipesComponent,
     ViewErecipeMedicinesComponent,
     SearchMedicinePipe,
+    PharmacistFilterComponent,
+    DermatologistsFilterComponent,
+    DermatologistAppointmentsComponent
   ],
   imports: [
     BrowserModule,

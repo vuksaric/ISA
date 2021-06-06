@@ -29,5 +29,16 @@ public interface IPharmacyService {
     void newMedicineQuantity(int medicineId, int pharmacyId);
     List<MedicineQuantityDTO> removeMedicineQuantity(int medicineId, int pharmacyId);
     List<MedicineQuantityDTO> search(String input, int pharmacyId);
+    List<MedicineQuantityDTO> getAllMedicinesInPharmacy(int id);
+    List<PharmacistDTO> addPharmacistInPharmacy(RegistrationDTO pharmacist, int pharmacyId);
+    List<PharmacistDTO> removePharmacistInPharmacy(int pharmacistId, int pharmacyId);
+    List<PharmacistDTO> searchPharmacistInPharmacy(String input, int pharmacyId);
+    List<DermatologistDTO> addDermatologistInPharmacy(int dermatologistId, int pharmacyId, WorkingHoursDTO workingHoursDTO);
+    List<DermatologistDTO> removeDermatologistInPharmacy(int dermatologistId, int pharmacyId);
+    List<DermatologistDTO> searchDermatologistInPharmacy(String input, int pharmacyId);
+    List<DermatologistDTO> getDermatologistDifference(int pharmacyId);
+    List<WorkingHoursResponseDTO> getDermatologistShift(DermatologistFreePeriodsRequestDTO dermatologistFreePeriodsRequestDTO);
+    void makeReservation(NewExaminationDTO newExaminationDTO);
+    void save(Pharmacy pharmacy);
 
 }

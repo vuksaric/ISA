@@ -42,7 +42,7 @@ export class MedicineListComponent implements OnInit {
   }
 
   getMedicineFromPharmacy() {
-    this.pharmacyService.getMedicineFromPharmacy('1').subscribe(data => {
+    this.pharmacyService.getMedicineInPharmacy('1').subscribe(data => {
       this.medicineList = data;
     })
   }
@@ -50,6 +50,8 @@ export class MedicineListComponent implements OnInit {
   addMedicineQuantity() {
     this.pharmacyService.addMedicineQuantity(this.medicineId, '1', null).subscribe(data => {
       this.isVisible = false;
+      this.getMedicineFromPharmacy();
+      this.getMedicineDifference();
     })
   }
 
@@ -60,24 +62,31 @@ export class MedicineListComponent implements OnInit {
   }
 
   searchMedicineQuantity() {
-    this.pharmacyService.search(this.search, '1').subscribe(data => {
+    if(this.search === ''){
+      this.getMedicineFromPharmacy();
+    }
+    else{
+      this.pharmacyService.search(this.search, '1').subscribe(data => {
+        this.medicineList = data;
+      })
+    }
+  }
 
+  removeMedicineQuantity(id) {
+    this.pharmacyService.removeMedicineQuantity(id, '1').subscribe(data => {
+      this.medicineDifference = data;
+      this.getMedicineFromPharmacy();
+      this.getMedicineDifference();
     })
   }
 
-  removeMedicineQuantity(data) {
-    this.pharmacyService.removeMedicineQuantity(this.search, '1').subscribe(data => {
-
-    })
-  }
-
-  showDeleteConfirm(): void {
+  showDeleteConfirm(data): void {
     this.modal.confirm({
       nzTitle: 'Are you sure delete this pharmacist?',
       nzOkText: 'Yes',
       nzOkType: 'primary',
       nzOkDanger: true,
-      nzOnOk: () => console.log('OK'),
+      nzOnOk: () => this.removeMedicineQuantity(data.id),
       nzCancelText: 'No',
       nzOnCancel: () => console.log('Cancel')
     });

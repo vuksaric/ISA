@@ -2,6 +2,7 @@ package com.example.ISA_project.service.implementation;
 
 import com.example.ISA_project.model.*;
 import com.example.ISA_project.model.dto.AppointmentDTO;
+import com.example.ISA_project.model.dto.DermatologistDTO;
 import com.example.ISA_project.model.dto.WorkDayDTO;
 import com.example.ISA_project.repository.DermatologistRepository;
 import com.example.ISA_project.service.IConsultationService;
@@ -22,6 +23,8 @@ public class DermatologistService implements IDermatologistService {
     {
         this.dermatologistRepository = dermatologistRepository;
     }
+
+    public List<Dermatologist> findAll(){return dermatologistRepository.findAll();}
 
     public List<WorkDayDTO> getWorkdays(int id)
     {
@@ -124,4 +127,41 @@ public class DermatologistService implements IDermatologistService {
         }
         dermatologistRepository.save(dermatologist);
     }
+
+    @Override
+    public List<DermatologistDTO> getAll() {
+        List<DermatologistDTO> dermatologistDTOS = new ArrayList<>();
+        try{
+            List<Dermatologist> dermatologists = dermatologistRepository.findAll();
+            for( Dermatologist d : dermatologists){
+                dermatologistDTOS.add(new DermatologistDTO(d));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return  dermatologistDTOS;
+    }
+
+    @Override
+    public List<DermatologistDTO> search(String input) {
+        List<DermatologistDTO> dermatologistDTOS = new ArrayList<>();
+        try{
+            List<Dermatologist> dermatologists = dermatologistRepository.findAll();
+            for( Dermatologist d : dermatologists){
+                if(d.getUser().getFullName().toLowerCase().contains(input.toLowerCase())) {
+                    dermatologistDTOS.add(new DermatologistDTO(d));
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return  dermatologistDTOS;
+    }
+
+    @Override
+    public void save(Dermatologist dermatologist) {
+        dermatologistRepository.save(dermatologist);
+    }
+
+
 }

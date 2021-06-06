@@ -41,4 +41,13 @@ public class Examination {
         this.patient = patient;
         this.price = price;
     }
+
+    public Examination(Period date, float price, Dermatologist dermatologist,Pharmacy pharmacy){
+        this.date = date;
+        this.price = price;
+        this.dermatologist = dermatologist;
+        this.pharmacy = pharmacy;
+        this.free = true;
+        this.done = false;
+    }
 }
