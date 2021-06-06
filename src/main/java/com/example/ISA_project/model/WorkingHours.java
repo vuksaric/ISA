@@ -22,4 +22,10 @@ public class WorkingHours {
     private LocalTime endTime;
     @OneToOne(fetch= FetchType.LAZY)
     private Pharmacy pharmacy;
+
+    public WorkingHours(LocalTime start, LocalTime end, Pharmacy pharmacy) {
+        this.startTime = start;
+        this.endTime = end;
+        this.pharmacy = pharmacy;
+    }
 }

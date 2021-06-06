@@ -71,6 +71,35 @@ export class AuthService {
 
   }
 
+  checkAuthPharmacyAdmin() : any{
+    let type : any;
+    let token : any;
+    let decoded_token : any;
+    token = localStorage.getItem("token");
+    decoded_token = this.getDecodedAccessToken(token);
+    if(token!=null){
+      if(decoded_token.user_type != "PharmacyAdministrator")
+      {
+        this.toastr.warning("Restricted access");
+        if(decoded_token.user_type === "SystemAdministrator")
+            this.router.navigate(['sysadminhome']);
+        else if(decoded_token.user_type === "Dermatologist")
+            this.router.navigate(['homePageDermatologist']);
+        else if(decoded_token.user_type === "Patient")
+            this.router.navigate(['homepage']);
+        else if(decoded_token.user_type === "Pharmacist")
+            this.router.navigate(['homePagePharmacist']);
+        else 
+            this.router.navigate(['sysadminhome']);//supplier
+      }
+    }
+    else{
+      this.toastr.warning("You are not logged in");
+      this.router.navigate(['login']);
+    }
+
+  }
+
   checkAuthPharmacist() : any
   {
     let token : any;

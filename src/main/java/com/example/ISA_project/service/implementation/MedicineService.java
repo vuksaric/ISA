@@ -32,8 +32,6 @@ public class MedicineService implements IMedicineService {
         return allergies;
     }
 
-
-
     @Override
     public MedicineDTO getMedicineById(int id) {
         MedicineDTO retVal = null;
@@ -45,8 +43,6 @@ public class MedicineService implements IMedicineService {
         }
         return retVal;
     }
-
-
 
     @Override
     public List<MedicineDTO> getAllMedicine() {
@@ -84,8 +80,6 @@ public class MedicineService implements IMedicineService {
 
         return result;
     }
-
-
 
     @Override
     public List<Integer> getReplacementIds(int id) {

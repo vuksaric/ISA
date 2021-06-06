@@ -1,3 +1,6 @@
+import { DermatologistAppointmentsComponent } from './pages/home-page-pharmacy-administrator/dermatologist-appointments/dermatologist-appointments.component';
+import { DermatologistsFilterComponent } from './pages/dermatologists-filter/dermatologists-filter.component';
+import { PharmacistFilterComponent } from './pages/pharmacist-filter/pharmacist-filter.component';
 import { VacationApprovalComponent } from './pages/home-page-pharmacy-administrator/vacation-approval/vacation-approval.component';
 import { PromotionsComponent } from './pages/home-page-pharmacy-administrator/promotions/promotions.component';
 import { AdminProfileComponent } from './pages/home-page-pharmacy-administrator/admin-profile/admin-profile.component';
@@ -79,6 +82,11 @@ import { NewOfferComponent } from './pages/new-offer/new-offer.component';
 import { ViewOffersComponent } from './pages/view-offers/view-offers.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 
+import{AgmCoreModule} from '@agm/core';
+import { GeocoderModule } from 'angular-geocoder';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
+
 registerLocaleData(en);
 
 
@@ -146,6 +154,9 @@ registerLocaleData(en);
     NewOfferComponent,
     ViewOffersComponent,
     ChangePasswordComponent,
+    PharmacistFilterComponent,
+    DermatologistsFilterComponent,
+    DermatologistAppointmentsComponent
   ],
   imports: [
     BrowserModule,
@@ -157,6 +168,11 @@ registerLocaleData(en);
     ReactiveFormsModule,
     NzTableModule,
     ToastrModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey:'AIzaSyA_pCEeO_D6a4Cg2MZoacVbSc9v1CJul4k'
+    }),
+    GeocoderModule,
+    NgxChartsModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }, DatePipe],
   bootstrap: [AppComponent]

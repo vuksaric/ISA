@@ -24,7 +24,6 @@ public class Offer {
     @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Supplier supplier;
     private OfferStatus status;
-
     public String getSupplierMail(){
         return supplier.getUser().getEmail();
     }

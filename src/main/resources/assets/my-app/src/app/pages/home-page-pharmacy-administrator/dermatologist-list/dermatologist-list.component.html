@@ -7,11 +7,13 @@
                 nzTheme="outline"></i></button>
     </div>
 </div>
+<br>
 
 <div nz-row>
     <div nz-col class="search-input">
         <nz-input-group [nzSuffix]="suffixIconSearch">
-            <input type="text" nz-input placeholder="Search" nzSize="default" (ngModelChange)="searchDermatologist()" [(ngModel)]="search" />
+            <input type="text" nz-input placeholder="Search" nzSize="default" [(ngModel)]="search"
+                (ngModelChange)="searchDermatologist()" />
         </nz-input-group>
         <ng-template #suffixIconSearch>
             <button style="background-color: white; border: none; " (click)="searchDermatologist()"><i nz-icon
@@ -19,25 +21,60 @@
         </ng-template>
     </div>
     <div nz-col>
-        <button *ngIf=search style="background-color: white; border: none; height: 33px; background-color: #f0f4f8; " (click)="clearSearch()"><i nz-icon nzType="close"
-                nzTheme="outline"></i></button>    
+        <button *ngIf=search style="background-color: white; border: none; height: 33px; background-color: #f0f4f8; "
+            (click)="clearSearch()"><i nz-icon nzType="close" nzTheme="outline"></i></button>
     </div>
 </div>
 <br>
 
-<nz-modal [(nzVisible)]="isVisible" nzTitle="New dermatologist" (nzOnCancel)="handleCancel()">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="New dermatologist" (nzOnCancel)="handleCancel()"
+    (nzOnOk)="addDermatologist()">
     <ng-container *nzModalContent>
-       
+        <label> Doctor </label>
+        <nz-select [(ngModel)]="dermatologistId">
+            <nz-option *ngFor="let item of dermatologistDifference" [nzLabel]="item.name + ' ' + item.surname"
+                [nzValue]="item.id">></nz-option>
+        </nz-select>
+        <div nz-col style="margin-top: 5px;">
+            <div nz-row>
+                <label> Start </label>
+                <nz-time-picker [(ngModel)]="start" style="margin-left: 17px;width: 300px;" nzFormat="HH:mm">
+                </nz-time-picker>
+            </div>
+            <div nz-row style="margin-top: 15px;">
+                <label> End </label>
+                <nz-time-picker [(ngModel)]="end" style="margin-left: 20px;width: 300px;" nzFormat="HH:mm">
+                </nz-time-picker>
+            </div>
+        </div>
+    </ng-container>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isVisible2" nzTitle="All pharmacies" (nzOnOk)="onOk()">
+    <ng-container *nzModalContent>
+        <nz-table #basicTable [nzData]="pharmacyList">
+            <thead>
+                <tr>
+                    <th>Pharmacy name</th>
+                    <th>Pharmacy mark</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of basicTable.data">
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.mark }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
     </ng-container>
 </nz-modal>
 
 <nz-table #filterTable [nzData]="dermatologistList" nzTableLayout="fixed">
     <thead>
         <tr>
-            <th *ngFor="let column of listOfColumns" [nzSortOrder]="column.sortOrder"
-                [nzSortFn]="column.sortFn" [nzSortDirections]="column.sortDirections"
-                [nzFilterMultiple]="column.filterMultiple" [nzFilters]="column.listOfFilter"
-                [nzFilterFn]="column.filterFn">
+            <th *ngFor="let column of listOfColumns" [nzSortOrder]="column.sortOrder" [nzSortFn]="column.sortFn"
+                [nzSortDirections]="column.sortDirections" [nzFilterMultiple]="column.filterMultiple"
+                [nzFilters]="column.listOfFilter" [nzFilterFn]="column.filterFn">
                 {{ column.name }}
             </th>
             <th></th>
@@ -48,9 +85,9 @@
             <td>{{ data.name }} </td>
             <td>{{ data.surname }}</td>
             <td>{{ data.mark }}</td>
-            <td>{{ data.pharmacy }}</td>
+            <td> <button nz-button nzType="default" (click)="showPharmaciesDialog(data)">View all pharmacies </button>
+            </td>
             <td><button nz-button nzType="dashed" (click)="showDeleteConfirm(data)">Remove</button></td>
         </tr>
     </tbody>
 </nz-table>
-

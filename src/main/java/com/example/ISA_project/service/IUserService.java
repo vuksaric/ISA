@@ -10,5 +10,7 @@ public interface IUserService {
     ProfileDTO getProfile(String username);
     User findUserByEmail(String email);
     void changePassword(PasswordDTO passwordDTO);
+    User save(User user);
+
 
 }

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PasswordDTO {
     int user_id;
+    String email;
     String oldPassword;
     String newPassword;
 }

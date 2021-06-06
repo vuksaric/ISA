@@ -7,6 +7,7 @@ import com.example.ISA_project.model.Examination;
 import com.example.ISA_project.model.Period;
 import com.example.ISA_project.model.dto.CheckVacationRequest;
 import com.example.ISA_project.model.dto.ProfileDTO;
+import com.example.ISA_project.model.dto.DermatologistDTO;
 import com.example.ISA_project.model.dto.WorkDayDTO;
 
 import java.time.LocalDate;
@@ -22,5 +23,7 @@ public interface IDermatologistService {
     void addNewExamination(Examination examination);
     boolean checkVacation(CheckVacationRequest request);
     Dermatologist getByUserId(int user_id);
-
+    List<DermatologistDTO> getAll();
+    List<DermatologistDTO> search(String input);
+    void save(Dermatologist dermatologist);
 }

@@ -31,4 +31,6 @@ public interface IPharmacistService {
         void cancelConsultation(Consultation consultation);
         Pharmacist findOneById(int id);
         Pharmacist getByUserId(int user_id);
+        void savePharmacist(Pharmacist pharmacist);
+        Pharmacist save(Pharmacist pharmacist);
 }

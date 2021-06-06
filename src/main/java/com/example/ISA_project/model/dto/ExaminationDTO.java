@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -38,6 +39,14 @@ public class ExaminationDTO {
            this.diagnosis = examination.getDiagnosis();
            this.notes = examination.getReport().getInformation();
            this.medicine = examination.getReport().getTherapy().getMedicine().getName();
+       }
+
+       this.diagnosis = examination.getDiagnosis();
+       try {
+           this.notes = examination.getReport().getInformation();
+           this.medicine = examination.getReport().getTherapy().getMedicine().getName();
+       }catch (NullPointerException nullPointerException){
+           this.medicine = null;
        }
 
        if(examination.getDate().getStart_date().isAfter(LocalDateTime.now().plusDays(1))){

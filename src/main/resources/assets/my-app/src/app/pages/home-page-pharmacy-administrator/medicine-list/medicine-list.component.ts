@@ -1,16 +1,9 @@
+import { MedicineQuantityService } from './../../../services/medicine-quantity.service';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { PharmacyService } from 'src/app/services/pharmacy.service';
 
-interface Person {
-  key: string;
-  name: string;
-  type: string;
-  shape: string;
-  manufacturer: string;
-  mode: string;
-  note: string;
-}
 
 @Component({
   selector: 'app-medicine-list',
@@ -20,14 +13,19 @@ interface Person {
 export class MedicineListComponent implements OnInit {
 
   isVisible = false;
-  search : string;
+  search: string;
+  medicineList: any[] = [];
+  medicineDifference: any[] = [];
+  medicineId: number;
 
-  constructor(private modal: NzModalService,private toastr: ToastrService) { }
+  constructor(private modal: NzModalService, private toastr: ToastrService, private pharmacyService: PharmacyService, private medicineQuantityService: MedicineQuantityService) { }
 
   ngOnInit(): void {
+    this.getMedicineDifference();
+    this.getMedicineFromPharmacy();
   }
 
-  searchMedicine(){
+  searchMedicine() {
 
   }
 
@@ -43,47 +41,55 @@ export class MedicineListComponent implements OnInit {
     this.isVisible = false;
   }
 
-  showDeleteConfirm(): void {
+  getMedicineFromPharmacy() {
+    this.pharmacyService.getMedicineInPharmacy('1').subscribe(data => {
+      this.medicineList = data;
+    })
+  }
+
+  addMedicineQuantity() {
+    this.pharmacyService.addMedicineQuantity(this.medicineId, '1', null).subscribe(data => {
+      this.isVisible = false;
+      this.getMedicineFromPharmacy();
+      this.getMedicineDifference();
+    })
+  }
+
+  getMedicineDifference() {
+    this.medicineQuantityService.getMedicineDifference('1').subscribe(data => {
+      this.medicineDifference = data;
+    })
+  }
+
+  searchMedicineQuantity() {
+    if(this.search === ''){
+      this.getMedicineFromPharmacy();
+    }
+    else{
+      this.pharmacyService.search(this.search, '1').subscribe(data => {
+        this.medicineList = data;
+      })
+    }
+  }
+
+  removeMedicineQuantity(id) {
+    this.pharmacyService.removeMedicineQuantity(id, '1').subscribe(data => {
+      this.medicineDifference = data;
+      this.getMedicineFromPharmacy();
+      this.getMedicineDifference();
+    })
+  }
+
+  showDeleteConfirm(data): void {
     this.modal.confirm({
       nzTitle: 'Are you sure delete this pharmacist?',
       nzOkText: 'Yes',
       nzOkType: 'primary',
       nzOkDanger: true,
-      nzOnOk: () => console.log('OK'),
+      nzOnOk: () => this.removeMedicineQuantity(data.id),
       nzCancelText: 'No',
       nzOnCancel: () => console.log('Cancel')
     });
   }
-
-
-  medicineList: Person[] = [
-    {
-      key: '1',
-      name: 'John Brown',
-      type: '32',
-      shape: 'New York No. 1 Lake Park',
-      manufacturer: 'proba',
-      mode:'proba',
-      note:'proba'
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      type: '42',
-      shape: 'London No. 1 Lake Park',
-      manufacturer: 'proba',
-      mode:'proba',
-      note:'proba'
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      type: '32',
-      shape: 'Sidney No. 1 Lake Park',
-      manufacturer: 'proba',
-      mode:'proba',
-      note:'proba'
-    }
-  ];
 
 }

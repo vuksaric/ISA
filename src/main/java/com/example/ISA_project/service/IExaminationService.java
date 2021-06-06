@@ -22,5 +22,7 @@ public interface IExaminationService {
     List<Period> freePeriods(int id, LocalDate date);
     AppointmentDTO newExaminationDermatologist(AppointmentRequest request);
     void addPenaltyPoint(int id);
+    List<Integer> examinationReport(int id, int mode);
+    List<ExaminationDTO> findAllFreeExaminationByPharmacy(int pharmacyId);
 
 }

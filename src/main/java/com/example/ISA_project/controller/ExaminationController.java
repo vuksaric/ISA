@@ -92,10 +92,32 @@ public class ExaminationController {
         return examinationService.newExaminationDermatologist(request);
     }
 
-    @PutMapping(value = "/addPoint")
-    public void addPenaltyPoint(@RequestBody String id){
 
-        int idExamination= Integer.parseInt(id);
+    @PutMapping(value = "/addPoint")
+    public void addPenaltyPoint(@RequestBody String id) {
+
+        int idExamination = Integer.parseInt(id);
         examinationService.addPenaltyPoint(idExamination);
+    }
+
+    @GetMapping("/examinationReport/{id}/{mode}")
+    public ResponseEntity getReport(@PathVariable String id, @PathVariable String mode){
+        int pharmacyId = Integer.parseInt(id);
+        int mode2 = Integer.parseInt(mode);
+        try{
+            return new ResponseEntity(examinationService.examinationReport(pharmacyId,mode2),HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/freeExaminationsByPharmacy/{id}")
+    public ResponseEntity getReport(@PathVariable String id){
+        int pharmacyId = Integer.parseInt(id);
+        try{
+            return new ResponseEntity(examinationService.findAllFreeExaminationByPharmacy(pharmacyId),HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

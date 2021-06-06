@@ -1,6 +1,8 @@
 package com.example.ISA_project.model.dto;
 import com.example.ISA_project.model.Gender;
 import com.example.ISA_project.model.Pharmacist;
+import com.example.ISA_project.model.Pharmacy;
+import com.example.ISA_project.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +21,9 @@ public class PharmacistDTO {
     private String phone;
     private String birthday;
     private float grade;
+    private float mark;
+    private String role;
+    private String pharmacy;
 
     public PharmacistDTO(Pharmacist p){
         this.id = p.getId();
@@ -39,6 +44,33 @@ public class PharmacistDTO {
         this.town = p.getUser().getAddress().getTown();
         this.phone = p.getUser().getPhone();
         this.birthday = p.getUser().getDateOfBirth().toString();
+        this.mark = p.getMark();
+        this.role = "Pharmacist";
+        this.pharmacy = p.getPharmacy().getName();
+    }
+
+    public PharmacistDTO(Pharmacist p, Pharmacy ph){
+        this.id = p.getId();
+        this.name = p.getUser().getName();
+        this.surname = p.getUser().getSurname();
+        this.email = p.getUser().getEmail();
+        if(p.getUser().getGender() == Gender.Male){
+            this.gender = "Male";
+        }
+        else if(p.getUser().getGender() == Gender.Female){
+            this.gender = "Female";
+        }
+        else{
+            this.gender ="Non-binary";
+        }
+        this.address = p.getUser().getAddress().getStreet();
+        this.state = p.getUser().getAddress().getState();
+        this.town = p.getUser().getAddress().getTown();
+        this.phone = p.getUser().getPhone();
+        this.birthday = p.getUser().getDateOfBirth().toString();
+        this.mark = p.getMark();
+        this.role = "Pharmacist";
+        this.pharmacy = ph.getName();
     }
 
     public PharmacistDTO(String fullName, float grade, int id){

@@ -206,5 +206,82 @@ public class ExaminationService implements IExaminationService {
         patientService.addPenaltyPoint(examination.getPatient().getId());
     }
 
+    public List<Integer> examinationReport(int id, int mode) {
+        List<Integer> months = new ArrayList<>();
+        int jan = 0,feb = 0,mar = 0,apr = 0,may = 0,jun = 0,jul = 0,aug = 0,sep = 0,oct = 0,nov = 0,dec = 0;
+        try{
+            for(Examination e : examinationRepository.findAll()){
+                if(e.getPharmacy().getId() == id && e.isDone() && e.getDate().getStart_date().getYear() == 2021){
+                    if(e.getDate().getStart_date().getMonthValue() == 1)
+                        jan += 1;
+                    if(e.getDate().getStart_date().getMonthValue() == 2)
+                        feb += 1;
+                    if(e.getDate().getStart_date().getMonthValue() == 3)
+                        mar += 1;
+                    if(e.getDate().getStart_date().getMonthValue() == 4)
+                        apr += 1;
+                    if(e.getDate().getStart_date().getMonthValue() == 5)
+                        may += 1;
+                    if(e.getDate().getStart_date().getMonthValue() == 6)
+                        jun += 1;
+                    if(e.getDate().getStart_date().getMonthValue() == 7)
+                        jul += 1;
+                    if(e.getDate().getStart_date().getMonthValue() == 8)
+                        aug += 1;
+                    if(e.getDate().getStart_date().getMonthValue() == 9)
+                        sep += 1;
+                    if(e.getDate().getStart_date().getMonthValue() == 10)
+                        oct += 1;
+                    if(e.getDate().getStart_date().getMonthValue() == 11)
+                        nov += 1;
+                    if(e.getDate().getStart_date().getMonthValue() == 12)
+                        dec += 1;
+                }
+            }
+            if(mode == 12){
+                months.add(jan);
+                months.add(feb);
+                months.add(mar);
+                months.add(apr);
+                months.add(may);
+                months.add(jun);
+                months.add(jul);
+                months.add(aug);
+                months.add(sep);
+                months.add(oct);
+                months.add(nov);
+                months.add(dec);
+            }
+            else if(mode == 4){
+                months.add(jan + feb + mar);
+                months.add(apr + may + jun);
+                months.add(jul + aug + sep);
+                months.add(oct + nov + dec);
+            }
+            else if(mode == 1){
+                months.add(jan + feb + mar + apr + may + jun + jul + aug + sep + oct + nov + dec);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return  months;
+    }
+
+    @Override
+    public List<ExaminationDTO> findAllFreeExaminationByPharmacy(int pharmacyId) {
+        List<ExaminationDTO> examinationDTOS = new ArrayList<>();
+        try{
+            for(Examination e : examinationRepository.findAll()){
+                if(pharmacyId == e.getPharmacy().getId() && !e.isDone()){
+                    examinationDTOS.add(new ExaminationDTO(e));
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return  examinationDTOS;
+    }
+
 
 }

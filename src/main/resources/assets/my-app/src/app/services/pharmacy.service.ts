@@ -43,4 +43,77 @@ export class PharmacyService {
     return this.http.get(pharmacy_url+`/getAvailablePharmacistsByPharmacy/${id}/${date}`);
   }
 
+  public getDermatologistsFromPharmacy(id): Observable<any> {
+    return this.http.get<any>(pharmacy_url+`/allDermatologistPharmacy/${id}`);
+  }
+
+  public getPharmacistsFromPharmacy(id): Observable<any> {
+    return this.http.get<any>(pharmacy_url+`/allPharmacistPharmacy/${id}`);
+  }
+
+  public getMedicineFromPharmacy(id): Observable<any>{
+    return this.http.get<any>(pharmacy_url+`/allMedicinesPharmacy/${id}`);
+  }
+
+  public getPharmacyMark(id): Observable<any>{
+    return this.http.get<any>(pharmacy_url+`/getPharmacyMark/${id}`);
+  }
+
+  public getPharmacy(id): Observable<any>{
+    return this.http.get<any>(pharmacy_url+`/getPharmacy/${id}`);
+  }  
+
+  public addMedicineQuantity(medicineId, pharmacyId,body): Observable<any>{
+    return this.http.put<any>(pharmacy_url+`/newMedicineQuantity/${medicineId}/${pharmacyId}`, body);
+  }
+
+  public search(input,id): Observable<any>{
+    return this.http.get<any>(pharmacy_url+`/searchMedicineQuantity/${input}/${id}`);
+  }
+
+  public removeMedicineQuantity(medicineId, pharmacyId): Observable<any>{
+    return this.http.put<any>(pharmacy_url+`/removehMedicineQuantity/${medicineId}/${pharmacyId}`, null);
+  }
+
+  public getMedicineInPharmacy(id): Observable<any>{
+    return this.http.get<any>(pharmacy_url+`/allMedicinesInPharmacy/${id}`);
+  }
+
+  public searchPharmacistInPharmacy(input,id): Observable<any>{
+    return this.http.get<any>(pharmacy_url+`/pharmacistInPharmacy/${input}/${id}`);
+  }
+
+  public addPharmacistInPharmacy(pharmacyId,body): Observable<any>{
+    return this.http.put<any>(pharmacy_url+`/addPharmacistInPharmacy/${pharmacyId}`, body);
+  }
+
+  public removePharmacistInPharmacy(pharmacistId, pharmacyId): Observable<any>{
+    return this.http.put<any>(pharmacy_url+`/removePharmacistInPharmacy/${pharmacistId}/${pharmacyId}`, null);
+  }
+
+  public searchDermatologistInPharmacy(input,id): Observable<any>{
+    return this.http.get<any>(pharmacy_url+`/dermatologistInPharmacy/${input}/${id}`);
+  }
+
+  public addDermatologistInPharmacy(pharmacyId,dermatologistId, body): Observable<any>{
+    return this.http.put<any>(pharmacy_url+`/addDermatologistInPharmacy/${pharmacyId}/${dermatologistId}`,body );
+  }
+
+  public removeDermatologistInPharmacy(dermatologistId, pharmacyId): Observable<any>{
+    return this.http.put<any>(pharmacy_url+`/removeDermatologistInPharmacy/${dermatologistId}/${pharmacyId}`, null);
+  }
+
+  public getDifferenceDermatologist(id): Observable<any>{
+    return this.http.get<any>(pharmacy_url+`/getDifferenceDermatologist/${id}`);
+  }
+
+  public getWorkingHoursOfDermatologist(body) : Observable<any>{
+    return this.http.post<any>(pharmacy_url+`/getWorkingHours`, body);
+  }
+
+  public makeReservation(body) : Observable<any>{
+    return this.http.post<any>(pharmacy_url+`/makeReservation`, body);
+  }
+
+
 }

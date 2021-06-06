@@ -12,5 +12,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 
     Reservation findBySerialNumber(String serial_number);
     void delete(Reservation reservation);
+    List<Reservation> findAll();
 
 }

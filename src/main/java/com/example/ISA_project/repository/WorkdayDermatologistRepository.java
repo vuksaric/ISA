@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface WorkdayDermatologistRepository extends JpaRepository<WorkdayDermatologist, Integer> {
 
     WorkdayDermatologist findOneById(int id);
+    WorkdayDermatologist save(WorkdayDermatologist workdayDermatologist);
 
 }

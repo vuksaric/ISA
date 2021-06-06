@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -8,9 +9,10 @@ import { Router } from '@angular/router';
 })
 export class HomePagePharmacyAdministratorComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService : AuthService) { }
 
   ngOnInit(): void {
+    this.authService.checkAuthPharmacyAdmin();
   }
 
   pharmacyProfile() {
@@ -42,7 +44,7 @@ export class HomePagePharmacyAdministratorComponent implements OnInit {
     this.router.navigate(['/pharmacyAdmin/dermatologist-list']);
   }
   freeAppointments() {
-    this.router.navigate(['/pharmacyAdmin/pharmacy-profile']);
+    this.router.navigate(['/pharmacyAdmin/free-appointments']);
   }
   adminProfile(){
     this.router.navigate(['/pharmacyAdmin/admin-profile']);

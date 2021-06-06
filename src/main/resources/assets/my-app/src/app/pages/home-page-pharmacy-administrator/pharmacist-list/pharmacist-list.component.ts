@@ -1,3 +1,4 @@
+import { PharmacyService } from 'src/app/services/pharmacy.service';
 import { Pharmaist } from './../../../models/pharmacist';
 import { PharmacistService } from 'src/app/services/pharmacist.service';
 import { Component, OnInit } from '@angular/core';
@@ -16,7 +17,6 @@ interface Person {
 
 interface DataItem {
   name: string;
-  surname: string;
   mark: number;
   pharmacy: string;
 }
@@ -51,9 +51,12 @@ export class PharmacistListComponent implements OnInit {
   pharmacistList: Pharmaist[];
   search: string;
   nameFilter: any[] = [];
-  surnameFilter : any[] = [];
+  surnameFilter: any[] = [];
+  pharmacyFilter: any[] = [];
+  start = new Date();
+  end = new Date();
 
-  constructor(private modal: NzModalService, private fb: FormBuilder, private pharmacistService: PharmacistService, private toastr: ToastrService) { }
+  constructor(private modal: NzModalService, private fb: FormBuilder, private pharmacistService: PharmacistService, private toastr: ToastrService, private pharmacyService: PharmacyService) { }
 
   ngOnInit(): void {
     this.getAllPharmacist();
@@ -69,12 +72,14 @@ export class PharmacistListComponent implements OnInit {
       birthday: [null, [Validators.required]],
       street: [null, [Validators.required]],
       town: [null, [Validators.required]],
-      state: [null, [Validators.required]]
+      state: [null, [Validators.required]],
+      start:[null, [Validators.required]],
+      end:[null, [Validators.required]]
     });
   }
 
   getAllPharmacist() {
-    this.pharmacistService.getAll().subscribe(result => {
+    this.pharmacyService.getPharmacistsFromPharmacy('1').subscribe(result => {
       this.pharmacistList = result;
 
       for (let element of result) {
@@ -85,7 +90,7 @@ export class PharmacistListComponent implements OnInit {
             break;
           }
         }
-        if(hasSame == false){
+        if (hasSame == false) {
           this.nameFilter.push({ text: element.name, value: element.name })
         }
       }
@@ -98,8 +103,21 @@ export class PharmacistListComponent implements OnInit {
             break;
           }
         }
-        if(hasSameSurname == false){
+        if (hasSameSurname == false) {
           this.surnameFilter.push({ text: element.surname, value: element.surname })
+        }
+      }
+
+      for (let element of result) {
+        let hasSamePharmacy = false;
+        for (let element2 of this.pharmacyFilter) {
+          if (element.pharmacy === element2.value) {
+            hasSamePharmacy = true;
+            break;
+          }
+        }
+        if (hasSamePharmacy == false) {
+          this.pharmacyFilter.push({ text: element.pharmacy, value: element.pharmacy })
         }
       }
       this.initListOfColumns();
@@ -107,11 +125,10 @@ export class PharmacistListComponent implements OnInit {
   }
 
   searchPharmacist() {
-    if (this.search === '' || this.search === null || this.search === undefined) {
-      this.toastr.error("Please input search field");
+    if (this.search === '') {
       this.getAllPharmacist();
     } else {
-      this.pharmacistService.search(this.search).subscribe(result => {
+      this.pharmacyService.searchPharmacistInPharmacy(this.search, '1').subscribe(result => {
         this.pharmacistList = result;
       });
     }
@@ -173,10 +190,13 @@ export class PharmacistListComponent implements OnInit {
         town: this.validateForm.controls['town'].value,
         state: this.validateForm.controls['state'].value,
         birthday: this.validateForm.controls['birthday'].value,
-        phone: this.validateForm.controls['phone'].value
+        phone: this.validateForm.controls['phone'].value,
+        startShift: this.validateForm.controls['start'].value,
+        endShift: this.validateForm.controls['end'].value 
       }
 
-      this.pharmacistService.newPharmacist(body).subscribe(data => {
+      //this.pharmacistService.newPharmacist(body).subscribe(data => {
+      this.pharmacyService.addPharmacistInPharmacy('1', body).subscribe(data => {
         this.toastr.success('Successfully registered!');
         this.getAllPharmacist();
         this.isVisible = false;
@@ -241,7 +261,7 @@ export class PharmacistListComponent implements OnInit {
     });
   }
 
-  showDeleteConfirm(data : Pharmaist): void {
+  showDeleteConfirm(data: Pharmaist): void {
     this.modal.confirm({
       nzTitle: 'Are you sure delete this pharmacist?',
       nzOkText: 'Yes',
@@ -253,8 +273,9 @@ export class PharmacistListComponent implements OnInit {
     });
   }
 
-  deletePharmacist(id: number){
-    this.pharmacistService.delete(id).subscribe(data => {
+  deletePharmacist(id: number) {
+    //this.pharmacistService.delete(id).subscribe(data => {
+    this.pharmacyService.removePharmacistInPharmacy(id,'1').subscribe(data => {
       this.getAllPharmacist();
       this.toastr.success("Successfully deleted!");
     })
@@ -263,12 +284,12 @@ export class PharmacistListComponent implements OnInit {
 
   listOfColumns: ColumnItem[] = [];
 
-  initListOfColumns(){
+  initListOfColumns() {
     this.listOfColumns = [
       {
         name: 'Name',
         sortOrder: 'descend',
-        sortFn: (a: DataItem, b: DataItem) => { return a.name.localeCompare(b.name)},
+        sortFn: (a: DataItem, b: DataItem) => { return a.name.localeCompare(b.name) },
         sortDirections: ['ascend', 'descend', null],
         filterMultiple: true,
         listOfFilter: this.nameFilter /* [
@@ -307,7 +328,7 @@ export class PharmacistListComponent implements OnInit {
           { text: '8-9', value: 9 },
           { text: '9-10', value: 10 }
         ],
-        filterFn: (list: number[], item: DataItem) => list.some(mark => Number(item.mark) < mark && Number(item.mark) > mark - 1),
+        filterFn: (list: number[], item: DataItem) => list.some(mark => Number(item.mark) <= mark && Number(item.mark) > mark - 1),
       },
       {
         name: 'Pharmacy',
@@ -315,10 +336,10 @@ export class PharmacistListComponent implements OnInit {
         sortDirections: ['ascend', 'descend', null],
         sortFn: (a: DataItem, b: DataItem) => a.pharmacy.length - b.pharmacy.length,
         filterMultiple: false,
-        listOfFilter: [
+        listOfFilter: this.pharmacyFilter /*[
           { text: 'London', value: 'London' },
           { text: 'Sidney', value: 'Sidney' }
-        ],
+        ]*/,
         filterFn: (address: string, item: DataItem) => item.pharmacy.indexOf(address) !== -1
       }
     ];

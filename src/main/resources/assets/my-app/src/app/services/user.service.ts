@@ -24,4 +24,8 @@ export class UserService {
   public getUserProfile(username) : Observable<Profile>{
     return this.http.get<Profile>(user_url+`/${username}`);
   }
+  
+  public getProfile(id):Observable<any>{
+    return this.http.get(user_url + `/getProfile` + `/${id}`);
+  }
 }

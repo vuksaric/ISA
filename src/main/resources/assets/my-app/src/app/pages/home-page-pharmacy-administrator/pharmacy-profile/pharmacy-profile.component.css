@@ -2,3 +2,8 @@
     width: 35vw;
     height: 2vw;
 }
+
+agm-map {
+    height:300px;
+    width:500px;
+}

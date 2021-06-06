@@ -6,4 +6,5 @@ import java.time.LocalDateTime;
 
 public interface IPriceListMedicineService {
     PricelistMedicine find(int medicineId, int pharmacyId);
+
 }

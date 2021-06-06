@@ -46,7 +46,8 @@ export class PromotionsComponent implements OnInit {
       const body = {
         startDate: this.start,
         endDate: this.end,
-        text: this.validateForm.get('text').value
+        text: this.validateForm.get('text').value,
+        pharmacyId : '1'
       }
       this.promotionService.newPromotion(body).subscribe( result => {
         this.getAllPromotions();
@@ -78,22 +79,5 @@ export class PromotionsComponent implements OnInit {
     Promise.resolve().then(() => this.validateForm.controls.text.updateValueAndValidity());
   }
 
-  /*listOfData: Promotion[] = [
-    {
-      start: '32',
-      end: 'New York No. 1 Lake Park',
-      note: 'proba'
-    },
-    {
-      start: '32',
-      end: 'New York No. 1 Lake Park',
-      note: 'proba'
-    },
-    {
-      start: '32',
-      end: 'New York No. 1 Lake Park',
-      note: 'proba'
-    }
-  ];*/
 
 }

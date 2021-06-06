@@ -60,9 +60,11 @@ public class UserService implements IUserService {
     @Override
     public void changePassword(PasswordDTO passwordDTO) {
         try{
-            User user = userRepository.findOneById(passwordDTO.getUser_id());
+            User user = userRepository.findOneByEmail(passwordDTO.getEmail());
             if(passwordEncoder.matches(passwordDTO.getOldPassword(), user.getPassword())){
                 user.setPassword(passwordEncoder.encode(passwordDTO.getNewPassword()));
+                if(!user.isPasswordChanged())
+                    user.setPasswordChanged(true);
                 userRepository.save(user);
             }
 
@@ -70,5 +72,10 @@ public class UserService implements IUserService {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
     }
 }

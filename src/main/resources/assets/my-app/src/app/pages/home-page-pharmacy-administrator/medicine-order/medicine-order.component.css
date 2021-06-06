@@ -1,0 +1,9 @@
+nz-select {
+    width: 200px;
+  }
+
+  nz-date-picker {
+    margin: 0 8px 12px 0;
+    width: 275px;
+    margin-left: 15px;
+  }

@@ -7,12 +7,13 @@
                 nzTheme="outline"></i></button>
     </div>
 </div>
+<br>
 
 <div nz-row>
     <div nz-col class="search-input">
         <nz-input-group [nzSuffix]="suffixIconSearch">
-            <input type="text" nz-input placeholder="Search" nzSize="default" (ngModelChange)="searchPharmacist()"
-                [(ngModel)]="search" />
+            <input type="text" nz-input placeholder="Search" nzSize="default" [(ngModel)]="search"
+                (ngModelChange)="searchPharmacist()" />
         </nz-input-group>
         <ng-template #suffixIconSearch>
             <button style="background-color: white; border: none;" (click)="searchPharmacist()"><i nz-icon
@@ -183,6 +184,14 @@
                         </ng-container>
                     </ng-template>
                 </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24"  nzRequired>Start shift</nz-form-label>
+                <nz-time-picker [nzSm]="14" [nzXs]="24" style="margin-left:15px; width:276px;" formControlName="start" nzFormat="HH:mm"></nz-time-picker>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24"  nzRequired>End shift</nz-form-label>
+                <nz-time-picker [nzSm]="14" [nzXs]="24" style="margin-left:15px;width:276px;" formControlName="end" nzFormat="HH:mm"></nz-time-picker>
             </nz-form-item>
         </form>
     </ng-container>

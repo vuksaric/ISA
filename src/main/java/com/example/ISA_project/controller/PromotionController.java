@@ -1,6 +1,7 @@
 package com.example.ISA_project.controller;
 
 import com.example.ISA_project.model.Action;
+import com.example.ISA_project.model.dto.ActionDTO;
 import com.example.ISA_project.service.IPromotionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class PromotionController {
     }
 
     @PostMapping(value= "/new")
-    public ResponseEntity addDermatologist(@RequestBody Action action){
+    public ResponseEntity addDermatologist(@RequestBody ActionDTO action){
         try{
             promotionService.newPromotion(action);
             return new ResponseEntity<>(HttpStatus.OK);

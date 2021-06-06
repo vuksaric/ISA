@@ -65,4 +65,14 @@ export class ExaminationService {
     return this.http.put(examination_url + `/addPoint`,body);
   }
 
+  public getAllExaminationByMonth(id, mode): Observable<any> {
+    return this.http.get<any>(examination_url+'/examinationReport'+`/${id}` + `/${mode}`);
+  }
+
+  public freeExaminationsByPharmacy(id): Observable<any> {
+    return this.http.get<any>(examination_url+'/freeExaminationsByPharmacy'+`/${id}`);
+  }
+
+
+
 }

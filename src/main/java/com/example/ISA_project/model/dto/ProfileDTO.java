@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProfileDTO {
+    private int id;
     private String name;
     private String surname;
     private String email;
@@ -20,4 +21,15 @@ public class ProfileDTO {
     private String type;
     private LocalDateTime date;
 
+    public ProfileDTO(String name, String surname, String email, String street, String state, String town, String phone, String gold, LocalDateTime dateOfBirth) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.address = street;
+        this.state = state;
+        this.town = town;
+        this.phone = phone;
+        this.type = gold;
+        this.date = dateOfBirth;
+    }
 }

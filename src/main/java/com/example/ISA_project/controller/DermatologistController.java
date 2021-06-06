@@ -35,16 +35,16 @@ public class DermatologistController {
     @GetMapping(value = "/all")
     public ResponseEntity getAll(){
         try{
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(dermatologistService.getAll(),HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping(value = "/search")
-    public ResponseEntity search(){
+    @GetMapping(value = "/search/{input}")
+    public ResponseEntity search(@PathVariable String input){
         try{
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(dermatologistService.search(input),HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

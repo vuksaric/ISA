@@ -1,3 +1,6 @@
+import { DermatologistAppointmentsComponent } from './pages/home-page-pharmacy-administrator/dermatologist-appointments/dermatologist-appointments.component';
+import { DermatologistsFilterComponent } from './pages/dermatologists-filter/dermatologists-filter.component';
+import { PharmacistFilterComponent } from './pages/pharmacist-filter/pharmacist-filter.component';
 import { VacationApprovalComponent } from './pages/home-page-pharmacy-administrator/vacation-approval/vacation-approval.component';
 import { PromotionsComponent } from './pages/home-page-pharmacy-administrator/promotions/promotions.component';
 import { AdminProfileComponent } from './pages/home-page-pharmacy-administrator/admin-profile/admin-profile.component';
@@ -123,8 +126,9 @@ const routes: Routes = [
     
        
     { path: 'addMedicine', component:AddMedicineComponent},
+    { path: 'pharmacistList', component:PharmacistFilterComponent},
+    { path: 'dermatologistList', component:DermatologistsFilterComponent},
     { path: 'pharmacyAdmin', component: HomePagePharmacyAdministratorComponent, children: [
-        { path: 'pharmacy-profile', component: PharmacyProfileComponent},
         { path: 'pharmacy-report', component: PharmacyReportComponent },
         { path: 'medicine-list', component: MedicineListComponent },
         { path: 'medicine-order', component: MedicineOrderComponent},
@@ -135,6 +139,8 @@ const routes: Routes = [
         { path: 'promotions', component:PromotionsComponent},
         { path: 'vacation-approval', component:VacationApprovalComponent},
         { path: 'changePassword', component:ChangePasswordComponent},
+        { path: 'pharmacy-profile', component: PharmacyProfileComponent},
+        { path: 'free-appointments', component:DermatologistAppointmentsComponent}
     ] },
     { path: 'supplierHomePage', component: HomePageSupplierComponent, children:[
         { path: 'supplierProfile', component:SupplierProfileComponent},
