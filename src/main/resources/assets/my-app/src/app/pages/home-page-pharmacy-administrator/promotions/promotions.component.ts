@@ -42,6 +42,12 @@ export class PromotionsComponent implements OnInit {
 
   getAllPromotions(){
     this.promotionService.getAll().subscribe(result => {
+      for(let el of result){
+          let startSplitted = el.startDate.toString().split(",",3);
+          el.startDate = startSplitted[2] + '.' + startSplitted[1] + '.' + startSplitted[0]; 
+          let endSplitted = el.endDate.toString().split(",",3);
+          el.endDate = endSplitted[2] + '.' + endSplitted[1] + '.' + endSplitted[0]; 
+      }
       this.listOfPromotions = result;
     })
   }

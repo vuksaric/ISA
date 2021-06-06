@@ -17,6 +17,8 @@ public class PharmacyDTO {
     private String description;
     private int id;
     private float price;
+    private double longitude;
+    private double latitude;
 
     public PharmacyDTO(Pharmacy pharmacy){
         this.name = pharmacy.getName();
@@ -27,6 +29,8 @@ public class PharmacyDTO {
         this.mark = pharmacy.getMark();
         this.id = pharmacy.getId();
         this.price = pharmacy.getConsultationPrice();
+        this.longitude = pharmacy.getAddress().getLongitude();
+        this.latitude = pharmacy.getAddress().getLatitude();
     }
 
 

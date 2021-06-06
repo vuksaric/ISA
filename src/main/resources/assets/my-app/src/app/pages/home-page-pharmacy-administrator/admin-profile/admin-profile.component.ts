@@ -28,6 +28,7 @@ export class AdminProfileComponent implements OnInit {
   town: string;
   country: string;
   adminId : any;
+  emailToken : any;
 
   constructor(private modal: NzModalService, private fb: FormBuilder, private toastr: ToastrService, private userService: UserService, private authService : AuthService) { }
 
@@ -47,7 +48,8 @@ export class AdminProfileComponent implements OnInit {
       checkPassword: [null, [Validators.required, this.confirmationValidator]]
     })
     let token = this.authService.getDataFromToken();
-    this.adminId = token.id.toString(); 
+    this.adminId = token.id.toString();
+    this.emailToken = token.email;
     this.getAdminInfo();
    
   }
@@ -143,7 +145,7 @@ export class AdminProfileComponent implements OnInit {
   }
 
   getAdminInfo() {
-    this.userService.getProfile(this.adminId).subscribe(data => {
+    this.userService.getUserProfile(this.emailToken).subscribe(data => {
       this.name = data.name;
       this.surname = data.surname;
       var splitted = data.date.toString().split(",",3);

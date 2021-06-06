@@ -12,18 +12,18 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ChangePasswordComponent implements OnInit {
 
-  validateForm2 : FormGroup;
-  id : number;
+  validateForm2: FormGroup;
+  id: number;
   dataToken;
 
-  constructor( private fb: FormBuilder, private toastr: ToastrService,private router: Router, 
-    private userService : UserService, private authorizationService : AuthService) { }
-  
+  constructor(private fb: FormBuilder, private toastr: ToastrService, private router: Router,
+    private userService: UserService, private authorizationService: AuthService) { }
+
   ngOnInit(): void {
     this.dataToken = this.authorizationService.getDataFromToken();
     this.id = this.dataToken.id;
     this.validateForm2 = this.fb.group({
-      oldPassword:[null,[Validators.required]],
+      oldPassword: [null, [Validators.required]],
       password: [null, [Validators.required]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]]
     })
@@ -43,27 +43,27 @@ export class ChangePasswordComponent implements OnInit {
     Promise.resolve().then(() => this.validateForm2.controls.checkPassword.updateValueAndValidity());
   }
 
-  submitForm2(){
-    if(this.validateForm2.valid){
+  submitForm2() {
+    if (this.validateForm2.valid) {
       const body = {
-        user_id : this.dataToken.email,
+        email: this.dataToken.email,
         oldPassword: this.validateForm2.controls['oldPassword'].value,
-        newpassword: this.validateForm2.controls['password'].value,
+        newPassword: this.validateForm2.controls['password'].value,
       }
       this.userService.changePassword(body).subscribe(result => {
         this.toastr.success("Successfully changed");
-        if(this.dataToken.user_type === "SystemAdministrator")
-              this.router.navigate(['sysadminhome']);
-          else if(this.dataToken.user_type === "Pharmacist")
-              this.router.navigate(['homePagePharmacist']);
-          else if(this.dataToken.user_type === "Dermatologist")
-              this.router.navigate(['homePageDermatologist']);
-          else if(this.dataToken.user_type === "PharmacyAdministrator")
-              this.router.navigate(['pharmacyAdmin']);
-          else 
-              this.router.navigate(['sysadminhome']);
+        if (this.dataToken.type == "SystemAdministrator")
+          this.router.navigate(['sysadminhome']);
+        else if (this.dataToken.type == "Pharmacist")
+          this.router.navigate(['homePagePharmacist']);
+        else if (this.dataToken.type == "Dermatologist")
+          this.router.navigate(['homePageDermatologist']);
+        else if (this.dataToken.type == "PharmacyAdministrator")
+          this.router.navigate(['pharmacyAdmin']);
+        else
+          this.router.navigate(['sysadminhome']);
       })
     }
   }
-  
+
 }

@@ -33,7 +33,7 @@ public class PriceListMedicineService implements IPriceListMedicineService {
                 }
             }
         }catch (Exception e){
-
+            e.printStackTrace();
         }
         return priceListMedicineDTOS;
     }

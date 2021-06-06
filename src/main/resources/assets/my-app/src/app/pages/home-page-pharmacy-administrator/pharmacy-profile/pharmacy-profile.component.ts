@@ -13,8 +13,8 @@ import { PharmacyService } from 'src/app/services/pharmacy.service';
 })
 export class PharmacyProfileComponent implements OnInit {
 
-  latitude = 45.267136;
-  longitude = 19.833549;
+  latitude : any;
+  longitude : any;
   isVisible = false;
   name: string;
   address: string;
@@ -84,6 +84,9 @@ export class PharmacyProfileComponent implements OnInit {
   getPharmacy() {
     this.pharmacyService.getPharmacy(this.pharmacyId).subscribe(data => {
       this.name = data.name;
+      this.latitude = data.latitude;
+      this.longitude = data.longitude;
+      console.log(this.latitude && this.longitude);
       this.address = data.street + ', ' + data.town + ', ' + data.state;
       this.description = data.description;
     })
