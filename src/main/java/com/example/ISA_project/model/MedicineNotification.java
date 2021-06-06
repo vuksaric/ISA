@@ -20,9 +20,12 @@ public class MedicineNotification {
     private int id;
     @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private Medicine medicine;
+    private int pharmacy_id;
 
-    public MedicineNotification(Medicine medicine)
+    public MedicineNotification(Medicine medicine, int pharmacy_id)
     {
         this.medicine = medicine;
+        this.pharmacy_id = pharmacy_id;
     }
+
 }

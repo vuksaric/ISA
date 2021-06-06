@@ -41,7 +41,7 @@ public class OrderService implements IOrderService {
             orderList.setAdminId(1);
             orderList.setDueDate(dateTime);
             orderList.setMedicine(medicineQuantity);
-            orderList.setStatus(OfferStatus.Waiting);
+            orderList.setStatus(OrderStatus.Waiting);
             orderList.setPharmacyId(order.getPharmacyId());
             orderRepository.save(orderList);
         }catch (Exception e){
@@ -54,7 +54,7 @@ public class OrderService implements IOrderService {
         try{
             OrderList orderList = orderRepository.findById(id);
             if(orderList.getOffers().size() == 0){
-                orderList.setStatus(OfferStatus.Rejected);
+                orderList.setStatus(OrderStatus.Processed);
                 orderRepository.save(orderList);
             }
         }catch (Exception e){
@@ -67,7 +67,7 @@ public class OrderService implements IOrderService {
         List<MedicineOrderDTO> retVal = new ArrayList<>();
         try{
             for(OrderList ol : orderRepository.findAll()){
-                if(ol.getPharmacyId() == id && ol.getStatus() == OfferStatus.Waiting){
+                if(ol.getPharmacyId() == id){
                     retVal.add(new MedicineOrderDTO(ol));
                 }
             }
@@ -93,8 +93,8 @@ public class OrderService implements IOrderService {
             }
             medicineQuantityService.addMedicineQuantity(m.getId(),acceptOfferDTO.getPharmacyId(),orderList.getMedicine().getQuantity());
             orderList.getOffers().clear();
-            orderList.setPharmacyId(0);
-            orderList.setStatus(OfferStatus.Accepted);
+            //orderList.setPharmacyId(0);
+            orderList.setStatus(OrderStatus.Processed);
             orderRepository.save(orderList);
             orderRepository.delete(orderList);
 

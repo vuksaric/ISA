@@ -93,6 +93,7 @@
             <th>Medicine</th>
             <th>Quantity</th>
             <th>Due date</th>
+            <th>Status</th>
             <th>Offers</th>
             <th></th>
         </tr>
@@ -102,6 +103,7 @@
             <td>{{ data.medicineName }}</td>
             <td>{{ data.medicineQuantity }}</td>
             <td>{{ data.dueDate }}</td>
+            <td>{{ data.status }}</td>
             <td><button nz-button nzType="default" (click)="showModal2(data)">View offers</button></td>
             <td><button nz-button nzType="default" (click)="deleteOrder(data)" nzDanger>Delete</button></td>
         </tr>

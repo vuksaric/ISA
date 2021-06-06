@@ -16,7 +16,7 @@ public class MedicineOrderDTO {
     private int pharmacyId;
     private int medicineId;
     private int adminId;
-    private OfferStatus status;
+    private OrderStatus status;
     private int medicineQuantityId;
     private String medicineName;
     private int medicineQuantity;

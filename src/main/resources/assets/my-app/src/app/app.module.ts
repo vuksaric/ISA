@@ -1,3 +1,4 @@
+import { MissingDrugsComponent } from './pages/home-page-pharmacy-administrator/missing-drugs/missing-drugs.component';
 import { DermatologistAppointmentsComponent } from './pages/home-page-pharmacy-administrator/dermatologist-appointments/dermatologist-appointments.component';
 import { DermatologistsFilterComponent } from './pages/dermatologists-filter/dermatologists-filter.component';
 import { PharmacistFilterComponent } from './pages/pharmacist-filter/pharmacist-filter.component';
@@ -156,7 +157,8 @@ registerLocaleData(en);
     ChangePasswordComponent,
     PharmacistFilterComponent,
     DermatologistsFilterComponent,
-    DermatologistAppointmentsComponent
+    DermatologistAppointmentsComponent,
+    MissingDrugsComponent
   ],
   imports: [
     BrowserModule,

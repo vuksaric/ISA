@@ -131,7 +131,7 @@ public class PharmacyService implements IPharmacyService {
                 }
                 else
                 {
-                    medicineNotificationService.saveNotification(new MedicineNotification(medicineService.findOneById(idMedicine)));
+                    medicineNotificationService.saveNotification(new MedicineNotification(medicineService.findOneById(idMedicine),idPharmacy));
                 }
             }
         }

@@ -1,3 +1,4 @@
+import { MissingDrugsComponent } from './pages/home-page-pharmacy-administrator/missing-drugs/missing-drugs.component';
 import { DermatologistAppointmentsComponent } from './pages/home-page-pharmacy-administrator/dermatologist-appointments/dermatologist-appointments.component';
 import { DermatologistsFilterComponent } from './pages/dermatologists-filter/dermatologists-filter.component';
 import { PharmacistFilterComponent } from './pages/pharmacist-filter/pharmacist-filter.component';
@@ -140,7 +141,8 @@ const routes: Routes = [
         { path: 'vacation-approval', component:VacationApprovalComponent},
         { path: 'changePassword', component:ChangePasswordComponent},
         { path: 'pharmacy-profile', component: PharmacyProfileComponent},
-        { path: 'free-appointments', component:DermatologistAppointmentsComponent}
+        { path: 'free-appointments', component:DermatologistAppointmentsComponent},
+        { path: 'missing-drugs', component:MissingDrugsComponent}
     ] },
     { path: 'supplierHomePage', component: HomePageSupplierComponent, children:[
         { path: 'supplierProfile', component:SupplierProfileComponent},

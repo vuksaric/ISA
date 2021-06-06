@@ -25,7 +25,7 @@ public class OrderList {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="OrderList_ID")
     private List<MedicineQuantity> medicines;
-    private OfferStatus status;
+    private OrderStatus status;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private MedicineQuantity medicine;
     private LocalDateTime dueDate;

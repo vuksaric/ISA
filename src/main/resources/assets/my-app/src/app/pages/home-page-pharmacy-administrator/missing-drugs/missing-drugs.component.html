@@ -1,0 +1,19 @@
+<label> <h1>Missing drugs</h1> </label>
+<nz-table #basicTable [nzData]="listOfNotifications">
+    <thead>
+        <tr>
+            <th>Medicine</th>
+            <th>Manufacturer</th>
+            <th>Type</th>
+            <th>Shape</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+            <td>{{ data.medicineName }}</td>
+            <td>{{ data.medicineManufacturer }}</td>
+            <td>{{ data.medicineType }}</td>
+            <td>{{ data.medicineShape }}</td>
+        </tr>
+    </tbody>
+</nz-table>

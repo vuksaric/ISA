@@ -75,7 +75,7 @@ insert into public.pharmacy_admin(id,pharmacy_id,user_id) values
 (1,1,1);
 
 insert into public.order_list(id,admin_id,due_date,pharmacy_id,medicine_id,status) values
-(1,1,'2021-06-19 06:30:30',1,1,2);
+(1,1,'2021-06-19 06:30:30',1,1,0);
 
 insert into public.supplier(user_id) values
 (6);
@@ -83,6 +83,10 @@ insert into public.supplier(user_id) values
 insert into public.offer(id,due_date,price,supplier_id,order_list_id) values
 (1,'2021-06-25 06:30:30',150.0,1,1),
 (2,'2021-06-26 06:30:30',140.0,1,1);
+
+insert into public.medicine_notification(pharmacy_id,medicine_id) values
+(1,1),
+(1,2);
 
 alter sequence user_entity_id_seq restart with 7;
 alter sequence address_id_seq restart with 4;

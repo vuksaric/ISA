@@ -35,7 +35,7 @@ export class HomePagePharmacyAdministratorComponent implements OnInit {
     this.router.navigate(['pharmacyAdmin/medicine-order']);
   }
   medicineAllOrders() {
-    //this.router.navigate(['pharmacyAdmin/pharmacist-list']);
+    this.router.navigate(['pharmacyAdmin/missing-drugs']);
   }
   pharmacist() {
     this.router.navigate(['/pharmacyAdmin/pharmacist-list']);
