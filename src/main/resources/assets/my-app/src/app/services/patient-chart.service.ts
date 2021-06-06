@@ -18,7 +18,9 @@ export class PatientChartService {
   public getPatientAllergy(id): Observable<Allergy[]> {
     return this.http.get<Allergy[]>(patientChart_url + `/allergies/${id}`);
   }
-
+  public getNotPatientAllergy(id): Observable<Allergy[]> {
+    return this.http.get<Allergy[]>(patientChart_url + `/notAllergies/${id}`);
+  }
   public addPatientAllergy(body, id): Observable<Allergy[]> {
     return this.http.post<Allergy[]>(patientChart_url + `/addAllergy/${id}`, body);
   }

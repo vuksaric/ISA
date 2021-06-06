@@ -22,6 +22,11 @@ public class PatientChartController {
         int patientId = Integer.parseInt(id);
         return new ResponseEntity<>(patientChartService.getPatientsAllergies(patientId), HttpStatus.OK);
     }
+    @GetMapping(value="/notAllergies/{id}")
+    public ResponseEntity<Set<MedicineAllergyDTO>> getNotPatientAllergies(@PathVariable String id){
+        int patientId = Integer.parseInt(id);
+        return new ResponseEntity<>(patientChartService.getNotPatientsAllergies(patientId), HttpStatus.OK);
+    }
 
     @PostMapping(consumes = "application/json", value="/addAllergy/{id}")
     public ResponseEntity<Set<MedicineAllergyDTO>> addPatientAllergy(@RequestBody MedicineAllergyDTO allergyDTO,@PathVariable String id){

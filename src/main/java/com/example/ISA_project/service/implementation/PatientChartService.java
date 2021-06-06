@@ -39,7 +39,27 @@ public class PatientChartService implements IPatientChartService {
         return  new HashSet<MedicineAllergyDTO>(allergies);
     }
 
-   @Override
+    @Override
+    public Set<MedicineAllergyDTO> getNotPatientsAllergies(int id) {
+        boolean exist;
+        List<MedicineAllergyDTO> allergies = new ArrayList<MedicineAllergyDTO>();
+        PatientChart patientChart = patientChartRepository.findOneById(findPatientChartId(id));
+        for(Medicine medicine : medicineService.findMedicines()){
+            exist = false;
+            for(Medicine allergy : patientChart.getAllergies()){
+                if(medicine.getId()==allergy.getId()){
+                    exist = true;
+                    break;
+                }
+            }
+            if(!exist){
+                allergies.add(new MedicineAllergyDTO(medicine));
+            }
+        }
+        return new HashSet<>(allergies);
+    }
+
+    @Override
     public Set<MedicineAllergyDTO> addPatientAllergy(MedicineAllergyDTO medicineAllergyDTO, int id) {
             List<Medicine> medicines = medicineService.findMedicinesByName(medicineAllergyDTO.getName());
 

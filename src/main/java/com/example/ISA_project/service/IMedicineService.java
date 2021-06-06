@@ -18,7 +18,7 @@ public interface IMedicineService {
     List<MedicineDTO> getAllByName(String name);
     List<Integer> getReplacementIds(int id);
     Medicine findOneById(int id);
-    List<MedicineAllergyDTO> findMedicines();
+    List<Medicine> findMedicines();
     Boolean addMedicine(Medicine medicine);
     List<Medicine> getByType(String type);
     List<Medicine> findMedicinesByName(String  name);

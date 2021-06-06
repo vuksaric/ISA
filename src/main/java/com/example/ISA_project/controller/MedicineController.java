@@ -86,10 +86,5 @@ public class MedicineController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    @GetMapping("/find")
-    public ResponseEntity<List<MedicineAllergyDTO>> getSimilarName() {
-        return new ResponseEntity<>(medicineService.findMedicines(), HttpStatus.OK);
-    }
 }
 

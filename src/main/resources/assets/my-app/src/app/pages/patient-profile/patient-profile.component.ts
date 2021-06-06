@@ -58,7 +58,7 @@ export class PatientProfileComponent implements OnInit {
     })
 
 
-    this.medicineService.getMedicines().subscribe(data => { console.log(data); this.listOfOptions=data; });
+    this.patientChartService.getNotPatientAllergy(this.dataFromToken.id).subscribe(data => { console.log(data); this.listOfOptions=data; });
 
 
     this.patientChartService.getPatientAllergy(this.dataFromToken.id).subscribe(data => {console.log(data); 
@@ -97,7 +97,7 @@ export class PatientProfileComponent implements OnInit {
     }
     this.patientChartService.addPatientAllergy(body, this.dataFromToken.id).subscribe(data => { console.log(data);
       this.toastr.success("You have successfully made a new allergy!");
-      this.medicineService.getMedicines().subscribe(data => { console.log(data); this.listOfOptions=data; });
+      this.patientChartService.getNotPatientAllergy(this.dataFromToken.id).subscribe(data => { console.log(data); this.listOfOptions=data; });
     });
   }
 
