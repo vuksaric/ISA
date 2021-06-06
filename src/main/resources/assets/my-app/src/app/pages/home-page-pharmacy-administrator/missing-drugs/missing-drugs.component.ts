@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { MedicineNotificationService } from './../../../services/medicine-notification.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,11 +10,15 @@ import { Component, OnInit } from '@angular/core';
 export class MissingDrugsComponent implements OnInit {
 
   listOfNotifications : any[] = [];
+  pharmacyId : any;
 
-  constructor(private medicineNotificationService: MedicineNotificationService) { }
+  constructor(private medicineNotificationService: MedicineNotificationService, private authService : AuthService) { }
 
   ngOnInit(): void {
-    this.medicineNotificationService.getMedicineNotifications('1').subscribe(data => {
+    let token = this.authService.getDataFromToken();
+    this.pharmacyId = token.pharmacyId.toString(); 
+
+    this.medicineNotificationService.getMedicineNotifications(this.pharmacyId).subscribe(data => {
       this.listOfNotifications = data;
     })
   }

@@ -17,8 +17,10 @@ public class PatientChart {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="PatientChart_ID")
+    @ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+    @JoinTable(name = "PatientChart_Allergy",
+            joinColumns = { @JoinColumn(name = "PatientChart_ID") },
+            inverseJoinColumns = { @JoinColumn(name = "Allergy_ID") })
     private List<Medicine> allergies;
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="PatientChart_ID")

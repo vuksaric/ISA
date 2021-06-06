@@ -38,7 +38,7 @@ public class OrderService implements IOrderService {
             MedicineQuantity medicineQuantity = new MedicineQuantity(medicine,order.getMedicineQuantity());
             LocalDateTime dateTime = LocalDateTime.parse(order.getDueDate().substring(0,19));
             OrderList orderList = new OrderList();
-            orderList.setAdminId(1);
+            orderList.setAdminId(order.getAdminId());
             orderList.setDueDate(dateTime);
             orderList.setMedicine(medicineQuantity);
             orderList.setStatus(OrderStatus.Waiting);
@@ -82,21 +82,23 @@ public class OrderService implements IOrderService {
         try{
             OrderList orderList = orderRepository.findById(acceptOfferDTO.getOrderListId());
             Medicine m = orderList.getMedicine().getMedicine();
-            for(Offer o : orderList.getOffers()){
-                if(o.getId() == acceptOfferDTO.getOfferId()){
-                    ProfileDTO profileDTO = userService.getProfile(o.getSupplier().getId());
-                    emailService.acceptOffer(profileDTO,orderList);
-                }else{
-                    ProfileDTO profileDTO = userService.getProfile(o.getSupplier().getId());
-                    emailService.rejectOffer(profileDTO,orderList);
+            if(orderList.getAdminId() == acceptOfferDTO.getAdminId()) {
+                for (Offer o : orderList.getOffers()) {
+                    if (o.getId() == acceptOfferDTO.getOfferId()) {
+                        ProfileDTO profileDTO = userService.getProfile(o.getSupplier().getId());
+                        emailService.acceptOffer(profileDTO, orderList);
+                    } else {
+                        ProfileDTO profileDTO = userService.getProfile(o.getSupplier().getId());
+                        emailService.rejectOffer(profileDTO, orderList);
+                    }
                 }
+                medicineQuantityService.addMedicineQuantity(m.getId(), acceptOfferDTO.getPharmacyId(), orderList.getMedicine().getQuantity());
+                orderList.getOffers().clear();
+                //orderList.setPharmacyId(0);
+                orderList.setStatus(OrderStatus.Processed);
+                orderRepository.save(orderList);
+                orderRepository.delete(orderList);
             }
-            medicineQuantityService.addMedicineQuantity(m.getId(),acceptOfferDTO.getPharmacyId(),orderList.getMedicine().getQuantity());
-            orderList.getOffers().clear();
-            //orderList.setPharmacyId(0);
-            orderList.setStatus(OrderStatus.Processed);
-            orderRepository.save(orderList);
-            orderRepository.delete(orderList);
 
         }catch(Exception e){
 

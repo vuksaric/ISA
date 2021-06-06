@@ -58,7 +58,7 @@ export class PatientProfileComponent implements OnInit {
     })
 
 
-    this.medicineService.getMedicines().subscribe(data => { console.log(data); this.listOfOptions=data; });
+    this.patientChartService.getNotPatientAllergy(this.dataFromToken.id).subscribe(data => { console.log(data); this.listOfOptions=data; });
 
 
     this.patientChartService.getPatientAllergy(this.dataFromToken.id).subscribe(data => {console.log(data); 
@@ -97,7 +97,7 @@ export class PatientProfileComponent implements OnInit {
     }
     this.patientChartService.addPatientAllergy(body, this.dataFromToken.id).subscribe(data => { console.log(data);
       this.toastr.success("You have successfully made a new allergy!");
-      this.medicineService.getMedicines().subscribe(data => { console.log(data); this.listOfOptions=data; });
+      this.patientChartService.getNotPatientAllergy(this.dataFromToken.id).subscribe(data => { console.log(data); this.listOfOptions=data; });
     });
   }
 
@@ -119,7 +119,7 @@ export class PatientProfileComponent implements OnInit {
       const body = {
         oldPassword: this.validateForm2.controls['oldPassword'].value,
         password: this.validateForm2.controls['password'].value,
-        checkPassword: this.validateForm2.controls['checkPassword'].value,
+        user_id : this.dataFromToken.email,
       }
       this.userService.changePassword(body).subscribe(result => {
         this.handleCancel();

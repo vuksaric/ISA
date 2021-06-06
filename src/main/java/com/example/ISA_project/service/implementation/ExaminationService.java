@@ -93,8 +93,8 @@ public class ExaminationService implements IExaminationService {
     }
 
     @Override
-    public List<AppointmentDTO> findFutureByPatient(int id) {
-        List<Examination> examinations = examinationRepository.findAllFutureByPatient(id);
+    public List<AppointmentDTO> findFutureByPatient(int id, int dermatologist) {
+        List<Examination> examinations = examinationRepository.findAllFutureByPatientAndDermatologist(id, dermatologist);
         List<AppointmentDTO> result = new ArrayList<>();
         for(Examination examination : examinations)
             result.add(new AppointmentDTO(examination));
@@ -114,6 +114,12 @@ public class ExaminationService implements IExaminationService {
         return result;
     }
 
+    @Override
+    public boolean checkVacation(CheckVacationRequest request) {
+        Examination examination = examinationRepository.findExaminationById(request.getPharmacyId());
+        request.setPharmacyId(examination.getPharmacy().getId());
+        return dermatologistService.checkVacation(request);
+    }
 
 
     @Override

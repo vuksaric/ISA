@@ -70,12 +70,7 @@ public class DermatologistController {
 
 
     @PostMapping(value = "/checkVacation")
-    public ResponseEntity checkVacation(@RequestBody CheckVacationRequest request){
-        try{
-            dermatologistService.checkVacation(request);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }catch(Exception e){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public boolean checkVacation(@RequestBody CheckVacationRequest request){
+            return dermatologistService.checkVacation(request);
     }
 }

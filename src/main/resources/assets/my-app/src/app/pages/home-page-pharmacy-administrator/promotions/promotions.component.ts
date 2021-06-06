@@ -1,5 +1,6 @@
-import { Promotion } from './../../../models/Promotion';
 import { PromotionsService } from './../../../services/promotions.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { Promotion } from './../../../models/Promotion';
 import { Component, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -21,10 +22,14 @@ export class PromotionsComponent implements OnInit {
   start : Date;
   end : Date;
   listOfPromotions : Promotion[] = [];
+  pharmacyId : any;
 
-  constructor(private modal: NzModalService, private toastr: ToastrService, private fb: FormBuilder, private promotionService: PromotionsService) { }
+  constructor(private modal: NzModalService, private toastr: ToastrService, private fb: FormBuilder, private promotionService: PromotionsService, private authService : AuthService) { }
 
   ngOnInit(): void {
+    let token = this.authService.getDataFromToken();
+    this.pharmacyId = token.pharmacyId.toString(); 
+
     this.validateForm = this.fb.group({
       text: [null, [Validators.required]],
       duration: [null, [Validators.required]],
@@ -47,7 +52,7 @@ export class PromotionsComponent implements OnInit {
         startDate: this.start,
         endDate: this.end,
         text: this.validateForm.get('text').value,
-        pharmacyId : '1'
+        pharmacyId : this.pharmacyId
       }
       this.promotionService.newPromotion(body).subscribe( result => {
         this.getAllPromotions();

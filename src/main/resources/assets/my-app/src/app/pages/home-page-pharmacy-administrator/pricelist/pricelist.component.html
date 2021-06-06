@@ -1,1 +1,45 @@
-<p>pricelist works!</p>
+<label>
+    <h3>Pricelist</h3>
+</label>
+<nz-table #basicTable [nzData]="priceList">
+    <thead>
+        <tr>
+            <th>Medicine</th>
+            <th>Price</th>
+            <th>Start</th>
+            <th>End</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+            <td>{{ data.medicineName }}</td>
+            <td>{{ data.price }}</td>
+            <td>{{ data.start }}</td>
+            <td>{{ data.end }}</td>
+            <td><button nz-button nzType="default" (click)="showModal(data)"> Edit price <i nz-icon nzType="edit" nzTheme="outline"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Edit price" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+    nzOkText="Submit">
+    <ng-container *nzModalContent>
+        <div nz-col>
+            <div nz-row>
+                <label> Price:</label>
+                <input [(ngModel)]="price" style="margin-left: 40px; width: 200px; height: 30px;">
+            </div>
+            <div nz-row>
+                <label style="margin-top: 10px;">Duration:</label>
+                <nz-select [(ngModel)]="duration" style="margin-left: 15px; width: 200px; height: 30px;margin-top: 10px">
+                    <nz-option nzValue="15" nzLabel="15"></nz-option>
+                    <nz-option nzValue="30" nzLabel="30"></nz-option>
+                    <nz-option nzValue="45" nzLabel="45" ></nz-option>
+                    <nz-option nzValue="60" nzLabel="60" ></nz-option>
+                  </nz-select>
+            </div>
+        </div>
+    </ng-container>
+</nz-modal>

@@ -1,8 +1,11 @@
 package com.example.ISA_project.controller;
 
 import com.example.ISA_project.model.VacationRequest;
+import com.example.ISA_project.model.dto.ProfileDTO;
+import com.example.ISA_project.model.dto.VacationAllDTO;
 import com.example.ISA_project.model.dto.VacationDTO;
 import com.example.ISA_project.model.dto.VacationRequestDTO;
+import com.example.ISA_project.service.IUserService;
 import com.example.ISA_project.service.IVacationRequestService;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +17,7 @@ import java.util.List;
 public class VacationRequestController {
 
     private final IVacationRequestService vacationRequestService;
+
 
     public VacationRequestController(IVacationRequestService vacationRequestService)
     {
@@ -46,11 +50,12 @@ public class VacationRequestController {
         return null;
     }
 
-    @GetMapping(value = "/allRequests")
-    public List<VacationRequest> allRequests(){
-        List<VacationRequest> vacationRequests = new ArrayList<>();
+    @GetMapping(value = "/allRequests/{id}")
+    public List<VacationAllDTO> allRequests(@PathVariable String id){
+        List<VacationAllDTO> vacationRequests = new ArrayList<>();
         try{
-            vacationRequests = vacationRequestService.getAll();
+            int pharmacyId = Integer.parseInt(id);
+            vacationRequests = vacationRequestService.getAll(pharmacyId);
         }catch(Exception e){
             e.printStackTrace();
         }

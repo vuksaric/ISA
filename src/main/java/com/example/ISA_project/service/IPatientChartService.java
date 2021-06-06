@@ -9,6 +9,7 @@ import java.util.Set;
 
 public interface IPatientChartService {
     Set<MedicineAllergyDTO> getPatientsAllergies(int id);
+    Set<MedicineAllergyDTO> getNotPatientsAllergies(int id);
     Set<MedicineAllergyDTO> addPatientAllergy(MedicineAllergyDTO medicineAllergyDTO, int id);
     int findPatientChartId(int idPatient);
     List<FutureReservationDTO> removeReservation(int id, String serialNumber);

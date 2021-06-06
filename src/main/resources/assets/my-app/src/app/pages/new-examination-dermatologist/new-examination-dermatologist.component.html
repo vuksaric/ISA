@@ -1,7 +1,7 @@
 <h1>New examination</h1>
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submit()">
   <nz-form-control>
-    <nz-date-picker [(ngModel)]="date" formControlName="date" (ngModelChange)="onChange($event)"></nz-date-picker>
+    <nz-date-picker [nzDisabledDate]="disabledDate" [(ngModel)]="date" formControlName="date" (ngModelChange)="onChange($event)"></nz-date-picker>
   </nz-form-control>
   <nz-form-control>
     <nz-select [(ngModel)]="period" formControlName="period">

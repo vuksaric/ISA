@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { MedicineQuantityService } from './../../../services/medicine-quantity.service';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
@@ -17,12 +18,16 @@ export class MedicineListComponent implements OnInit {
   medicineList: any[] = [];
   medicineDifference: any[] = [];
   medicineId: number;
+  pharmacyId : any;
 
-  constructor(private modal: NzModalService, private toastr: ToastrService, private pharmacyService: PharmacyService, private medicineQuantityService: MedicineQuantityService) { }
+  constructor(private modal: NzModalService, private toastr: ToastrService, private pharmacyService: PharmacyService, private medicineQuantityService: MedicineQuantityService, private authService : AuthService) { }
 
   ngOnInit(): void {
+    let token = this.authService.getDataFromToken();
+    this.pharmacyId = token.pharmacyId.toString(); 
     this.getMedicineDifference();
     this.getMedicineFromPharmacy();
+
   }
 
   searchMedicine() {
@@ -42,13 +47,13 @@ export class MedicineListComponent implements OnInit {
   }
 
   getMedicineFromPharmacy() {
-    this.pharmacyService.getMedicineInPharmacy('1').subscribe(data => {
+    this.pharmacyService.getMedicineInPharmacy(this.pharmacyId).subscribe(data => {
       this.medicineList = data;
     })
   }
 
   addMedicineQuantity() {
-    this.pharmacyService.addMedicineQuantity(this.medicineId, '1', null).subscribe(data => {
+    this.pharmacyService.addMedicineQuantity(this.medicineId,this.pharmacyId, null).subscribe(data => {
       this.isVisible = false;
       this.getMedicineFromPharmacy();
       this.getMedicineDifference();
@@ -56,7 +61,7 @@ export class MedicineListComponent implements OnInit {
   }
 
   getMedicineDifference() {
-    this.medicineQuantityService.getMedicineDifference('1').subscribe(data => {
+    this.medicineQuantityService.getMedicineDifference(this.pharmacyId).subscribe(data => {
       this.medicineDifference = data;
     })
   }
@@ -66,14 +71,14 @@ export class MedicineListComponent implements OnInit {
       this.getMedicineFromPharmacy();
     }
     else{
-      this.pharmacyService.search(this.search, '1').subscribe(data => {
+      this.pharmacyService.search(this.search, this.pharmacyId).subscribe(data => {
         this.medicineList = data;
       })
     }
   }
 
   removeMedicineQuantity(id) {
-    this.pharmacyService.removeMedicineQuantity(id, '1').subscribe(data => {
+    this.pharmacyService.removeMedicineQuantity(id, this.pharmacyId).subscribe(data => {
       this.medicineDifference = data;
       this.getMedicineFromPharmacy();
       this.getMedicineDifference();

@@ -104,8 +104,8 @@ public class ConsultationService implements IConsultationService {
 
 
     @Override
-    public List<AppointmentDTO> getFutureByPatient(int id) {
-        List<Consultation> consultations = consultationRepository.findAllFutureByPatient(id);
+    public List<AppointmentDTO> getFutureByPatient(int id, int pharmacist) {
+        List<Consultation> consultations = consultationRepository.findAllFutureByPatient(id, pharmacist);
         List<AppointmentDTO> result = new ArrayList<>();
         for(Consultation consultation : consultations)
         {

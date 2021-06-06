@@ -29,12 +29,8 @@ public class Patient{
     private PatientChart patientChart;
     @ElementCollection
     @CollectionTable(name="penaltyPoints", joinColumns=@JoinColumn(name="patient_id"))
-    @Column(name="penaltyDate")
-    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @Column(name="date")
     private List<LocalDate> penaltyPoints;
-    //@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    //@JoinColumn(name="patient_id")
-    //private List<PenaltyPoints> penaltyPoints;
     private int loyaltyPoints;
     private PatientCategory patientCategory;
 }

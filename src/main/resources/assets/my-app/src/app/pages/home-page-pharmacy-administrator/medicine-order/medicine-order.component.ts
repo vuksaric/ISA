@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { OrderService } from './../../../services/order.service';
 import { MedicineService } from 'src/app/services/medicine.service';
 import { Component, OnInit } from '@angular/core';
@@ -30,10 +31,14 @@ export class MedicineOrderComponent implements OnInit {
   listOfOrders : any[] = [];
   listOfOffers : any[] = [];
   currentOrder : any;
+  pharmacyId : any;
 
-  constructor(private modal: NzModalService, private toastr: ToastrService, private fb: FormBuilder, private medicineService : MedicineService,private orderService: OrderService) { }
+  constructor(private modal: NzModalService, private toastr: ToastrService, private fb: FormBuilder, private medicineService : MedicineService,private orderService: OrderService, private authService : AuthService) { }
 
   ngOnInit(): void {
+    
+    let token = this.authService.getDataFromToken();
+    this.pharmacyId = token.pharmacyId.toString(); 
 
     this.getAllOrders();
 
@@ -60,7 +65,8 @@ export class MedicineOrderComponent implements OnInit {
     const body = {
       orderListId:data.id,
       offerId: this.currentOrder.id,
-      pharmacyId: 1
+      pharmacyId: 1,
+      adminId : this.authService.getDataFromToken().id
     }
     console.log(body);
     this.orderService.acceptOffer(body).subscribe(result => {
@@ -70,7 +76,7 @@ export class MedicineOrderComponent implements OnInit {
   }
 
   getAllOrders(){
-    this.orderService.getAll('1').subscribe(result => {
+    this.orderService.getAll(this.pharmacyId).subscribe(result => {
       for(var element of result){
         element.dueDate = element.dueDate.toString().split("T",2)[0];
       }
@@ -111,10 +117,11 @@ export class MedicineOrderComponent implements OnInit {
   handleOk(): void {
     if(this.validateForm.valid){
       const body = {
-        pharmacyId : '1',
+        pharmacyId : this.pharmacyId,
         medicineId : this.validateForm.get('medicine').value,
         medicineQuantity : this.validateForm.get('quantity').value,
-        dueDate : this.validateForm.get('dueDate').value.toISOString()
+        dueDate : this.validateForm.get('dueDate').value.toISOString(),
+        adminId : this.authService.getDataFromToken().id
       }
       this.orderService.newOrder(body).subscribe(data => {
         this.isVisible = false;

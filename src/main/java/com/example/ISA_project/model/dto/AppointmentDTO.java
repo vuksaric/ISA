@@ -38,9 +38,18 @@ public class AppointmentDTO {
         this.start = examination.getDate().getStart_date();
         this.end = examination.getDate().getEnd_date();
         this.pharmacyName = examination.getPharmacy().getName();
-        this.fullName = examination.getPatient().getUser().getFullName();
+
         this.done = examination.isDone();
-        this.patientId = examination.getPatient().getId();
+
+        if(examination.getPatient() != null)
+        {
+            this.patientId = examination.getPatient().getId();
+            this.fullName = examination.getPatient().getUser().getFullName();
+        }
+        else
+        {
+            this.fullName = "Free appointment";
+        }
     }
 
 }

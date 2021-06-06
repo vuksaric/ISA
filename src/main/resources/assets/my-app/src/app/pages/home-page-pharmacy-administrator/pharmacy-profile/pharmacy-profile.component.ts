@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { ExaminationService } from './../../../services/examination.service';
 import { Component, OnInit } from '@angular/core';
 import { GeocoderService } from 'angular-geocoder';
@@ -23,10 +24,14 @@ export class PharmacyProfileComponent implements OnInit {
   list2: Worker[] = [];
   listOfMedicines : any[] = [];
   listOfFreePeriods : any[] = [];
+  pharmacyId : any;
 
-  constructor(private geocoderService: GeocoderService, private modal: NzModalService, private pharmacyService: PharmacyService, private examinationService : ExaminationService) { }
+  constructor(private geocoderService: GeocoderService, private modal: NzModalService, private pharmacyService: PharmacyService, private examinationService : ExaminationService, private authService : AuthService) { }
 
   ngOnInit(): void {
+    let token = this.authService.getDataFromToken();
+    this.pharmacyId = token.pharmacyId.toString(); 
+
     this.getMedicines();
     this.getMark();
     this.getAllPharmacists();
@@ -47,7 +52,7 @@ export class PharmacyProfileComponent implements OnInit {
   }
 
   getAllPharmacists() {
-    this.pharmacyService.getPharmacistsFromPharmacy('1').subscribe(data => {
+    this.pharmacyService.getPharmacistsFromPharmacy(this.pharmacyId).subscribe(data => {
       for(let element of data){
         this.list2.push(element);
       }
@@ -56,7 +61,7 @@ export class PharmacyProfileComponent implements OnInit {
   }
 
   getAllDermatologists() {
-    this.pharmacyService.getDermatologistsFromPharmacy('1').subscribe(data => {
+    this.pharmacyService.getDermatologistsFromPharmacy(this.pharmacyId).subscribe(data => {
       for(let element of data){
         this.list2.push(element);
       }
@@ -65,19 +70,19 @@ export class PharmacyProfileComponent implements OnInit {
   }
 
   getMark() {
-    this.pharmacyService.getPharmacyMark('1').subscribe(data => {
+    this.pharmacyService.getPharmacyMark(this.pharmacyId).subscribe(data => {
       this.mark = data;
     })
   }
 
   getMedicines() {
-    this.pharmacyService.getMedicineFromPharmacy('1').subscribe(data => {
+    this.pharmacyService.getMedicineFromPharmacy(this.pharmacyId).subscribe(data => {
       this.listOfMedicines = data;
     })
   }
 
   getPharmacy() {
-    this.pharmacyService.getPharmacy('1').subscribe(data => {
+    this.pharmacyService.getPharmacy(this.pharmacyId).subscribe(data => {
       this.name = data.name;
       this.address = data.street + ', ' + data.town + ', ' + data.state;
       this.description = data.description;
@@ -85,7 +90,7 @@ export class PharmacyProfileComponent implements OnInit {
   }
 
   getFreeExamination(){
-    this.examinationService.freeExaminationsByPharmacy('1').subscribe(data => {
+    this.examinationService.freeExaminationsByPharmacy(this.pharmacyId).subscribe(data => {
       this.listOfFreePeriods = data;
     })
   }

@@ -32,6 +32,7 @@ export const environment = {
   bill_url : 'http://localhost:8080/bill',
   medicineQuantity_url : 'http://localhost:8080/medicineQuantity',
   medicineNotification_url : 'http://localhost:8080/notifications',
+  pricelist_url : 'http://localhost:8080/pricelist',
 };
 
 /*

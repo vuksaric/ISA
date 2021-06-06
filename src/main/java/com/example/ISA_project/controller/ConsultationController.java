@@ -58,10 +58,11 @@ public class ConsultationController {
         return consultationService.freePeriods(idConsultation, request.getDate());
     }
 
-    @GetMapping(value = "/getFutureByPatient/{id}")
-    public List<AppointmentDTO> getFutureByPatient(@PathVariable String id){
-        int idPharmacist= Integer.parseInt(id);
-        return consultationService.getFutureByPatient(idPharmacist);
+    @GetMapping(value = "/getFutureByPatient/{id}/{pharmacist}")
+    public List<AppointmentDTO> getFutureByPatient(@PathVariable String id, @PathVariable String pharmacist){
+        int idPatient= Integer.parseInt(id);
+        int idPharmacist= Integer.parseInt(pharmacist);
+        return consultationService.getFutureByPatient(idPatient, idPharmacist);
     }
 
     @PostMapping("/newPharmacist")

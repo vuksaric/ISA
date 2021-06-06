@@ -82,6 +82,7 @@ import { SupplierProfileComponent } from './pages/supplier-profile/supplier-prof
 import { NewOfferComponent } from './pages/new-offer/new-offer.component';
 import { ViewOffersComponent } from './pages/view-offers/view-offers.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
+import { ViewMedicinesComponent } from './pages/view-medicines/view-medicines.component';
 
 import{AgmCoreModule} from '@agm/core';
 import { GeocoderModule } from 'angular-geocoder';
@@ -158,7 +159,8 @@ registerLocaleData(en);
     PharmacistFilterComponent,
     DermatologistsFilterComponent,
     DermatologistAppointmentsComponent,
-    MissingDrugsComponent
+    MissingDrugsComponent,
+    ViewMedicinesComponent,
   ],
   imports: [
     BrowserModule,

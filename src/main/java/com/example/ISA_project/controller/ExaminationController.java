@@ -68,10 +68,11 @@ public class ExaminationController {
         return examinationService.finish(request);
     }
 
-    @GetMapping(value="/getFutureExams/{id}")
-    public ResponseEntity<List<AppointmentDTO>> getFutureByPatient(@PathVariable String id){
+    @GetMapping(value="/getFutureExams/{id}/{dermatologist}")
+    public ResponseEntity<List<AppointmentDTO>> getFutureByPatient(@PathVariable String id, @PathVariable String dermatologist){
         int idPatient= Integer.parseInt(id);
-        return new ResponseEntity<>(examinationService.findFutureByPatient(idPatient), HttpStatus.OK);
+        int idDermatologist = Integer.parseInt(dermatologist);
+        return new ResponseEntity<>(examinationService.findFutureByPatient(idPatient, idDermatologist), HttpStatus.OK);
     }
 
     @GetMapping(value="/getPreviousDermatologist/{id}")
@@ -100,6 +101,7 @@ public class ExaminationController {
         examinationService.addPenaltyPoint(idExamination);
     }
 
+
     @GetMapping("/examinationReport/{id}/{mode}")
     public ResponseEntity getReport(@PathVariable String id, @PathVariable String mode){
         int pharmacyId = Integer.parseInt(id);
@@ -119,5 +121,9 @@ public class ExaminationController {
         }catch(Exception e){
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    @PostMapping(value = "/checkVacation")
+    public boolean checkVacation(@RequestBody CheckVacationRequest request){
+        return examinationService.checkVacation(request);
     }
 }

@@ -43,6 +43,7 @@ export class NewConsultationPharmacistComponent implements OnInit {
 
 
   onChange(result: Date): void {
+    this.periods = [];
     console.log('onChange: ', result);
     this.body = {
       id : this.id,
@@ -54,7 +55,7 @@ export class NewConsultationPharmacistComponent implements OnInit {
 
       id : this.idPharmacist,
       date : this.date,
-      pharmacyId : 1
+      pharmacyId : this.dataToken.pharmacyId
     }
     if(result != null)
     {
@@ -79,6 +80,7 @@ export class NewConsultationPharmacistComponent implements OnInit {
           else
           {
             this.toastr.warning("You are on vacation that day");
+
           }
       });
     }

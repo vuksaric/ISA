@@ -31,15 +31,13 @@
           <th>Date</th>
           <th>Time</th>
           <th></th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let consultation of listConsultations">
           <td>{{ consultation.start[2]}}.{{consultation.start[1]}}.{{consultation.start[0]}}</td>
           <td>{{ consultation.start[3]}}:{{consultation.start[4]}}-{{consultation.end[3]}}:{{consultation.end[4]}}</td>
-          <td><button nz-button nzType="dashed" (click)="viewProfile(consultation.patientId)" nzBlock>View profile</button></td>
-          <td><button nz-button nzType="dashed" disabled = "{{consultation.done}}" (click)="startConsultation(consultation.id)" nzBlock>Start</button></td>
+          <td><button nz-button nzType="dashed" disabled = "{{disabled(consultation)}}"  (click)="startConsultation(consultation.id)" nzBlock>Start</button></td>
         </tr>
       </tbody>
     </nz-table>

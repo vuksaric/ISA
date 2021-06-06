@@ -62,15 +62,15 @@ export class LoginPageComponent implements OnInit {
         else
         {
           if(this.decoded_token.user_type === "SystemAdministrator")
-            this.router.navigate(['sysadminhome/changePassword']);
+            this.router.navigate(['changePassword']);
           else if(this.decoded_token.user_type === "Pharmacist")
-            this.router.navigate(['homePagePharmacist/changePassword']);
+            this.router.navigate(['changePassword']);
           else if(this.decoded_token.user_type === "Dermatologist")
-            this.router.navigate(['homePageDermatologist/changePassword']);
+            this.router.navigate(['changePassword']);
           else if(this.decoded_token.user_type === "PharmacyAdministrator")
-            this.router.navigate(['pharmacyAdmin/changePassword']);
+            this.router.navigate(['changePassword']);
           else 
-            this.router.navigate(['sysadminhome/changePassword']);//supplier
+            this.router.navigate(['changePassword']);//supplier
       }
       }
       else

@@ -93,12 +93,8 @@ public class MedicineService implements IMedicineService {
     }
 
     @Override
-    public List<MedicineAllergyDTO> findMedicines() {
-        List<MedicineAllergyDTO> allergies = new ArrayList<MedicineAllergyDTO>();
-        for (String medicine : medicineRepository.findMedicines()) {
-            allergies.add(new MedicineAllergyDTO(medicine));
-        }
-        return allergies;
+    public List<Medicine> findMedicines() {
+        return medicineRepository.findMedicines();
     }
 
     @Override

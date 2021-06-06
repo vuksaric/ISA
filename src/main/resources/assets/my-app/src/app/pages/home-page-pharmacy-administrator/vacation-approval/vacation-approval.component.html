@@ -42,11 +42,11 @@
     </thead>
     <tbody>
         <tr *ngFor="let data of basicTable.data">
-            <td>{{ data.id }}</td>
+            <td>{{ data.name }}</td>
+            <td>{{ data.surname }}</td>
+            <td>{{ data.user_type }}</td>
             <td>{{ data.start_date }}</td>
             <td>{{ data.end_date }}</td>
-            <td>{{ data.pharmacy_int }}</td>
-            <td>{{ data.user_id }}</td>
             <td> <button nz-button nzType="primary" (click)="approve(data)">Accept</button></td>
             <td><button nz-button nzType="default" (click)="showModal(data)" nzDanger>Reject</button></td>
         </tr>

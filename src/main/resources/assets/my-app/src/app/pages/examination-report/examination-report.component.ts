@@ -108,7 +108,7 @@ export class ExaminationReportComponent implements OnInit {
     
   }
 
-  finish(){
+  finish() : boolean {
     console.log(this.prescribedMedicine);
     this.body = {
       id : this.id,
@@ -127,9 +127,12 @@ export class ExaminationReportComponent implements OnInit {
     {
       this.examinationService.finish(this.body).subscribe(data => { console.log(data) });
       this.router.navigate(['homePageDermatologist']);
+      return true;
     }
-    else
-    this.toastr.warning("All fields are required");
+    else{
+      this.toastr.warning("All fields are required");
+      return false;
+    }
 
     
   }
@@ -147,8 +150,8 @@ export class ExaminationReportComponent implements OnInit {
 
   new()
   {
-    this.finish();
-    this.router.navigate(['homePageDermatologist/newExaminationDermatologist/' + this.id]);
+    if(this.finish())
+      this.router.navigate(['homePageDermatologist/newExaminationDermatologist/' + this.id]);
   }
 
 

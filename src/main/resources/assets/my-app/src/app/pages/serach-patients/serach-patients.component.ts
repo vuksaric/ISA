@@ -22,10 +22,13 @@ export class SerachPatientsComponent implements OnInit {
   type : String;
   data: any;
   dataToken : any;
+  pharmacistId : any;
+  today = new Date();
 
   ngOnInit(): void {
 
     this.dataToken = this.authorizationService.getDataFromToken();
+    this.pharmacistId = this.dataToken.id;
     this.type = this.dataToken.type;
     console.log(this.type);
     this.patientService.getNames().subscribe(data => { console.log(data); 
@@ -47,13 +50,13 @@ export class SerachPatientsComponent implements OnInit {
 
     if(this.type.toLowerCase() == "pharmacist")
     {
-      this.consultationService.getFutureByPatient(id).subscribe(data => { console.log(data); 
+      this.consultationService.getFutureByPatient(id , this.pharmacistId).subscribe(data => { console.log(data); 
         this.listConsultations = data;
       });
     }
     else
     {
-      this.examinationService.getFutureByPatient(id).subscribe(data => { console.log(data); 
+      this.examinationService.getFutureByPatient(id,  this.pharmacistId).subscribe(data => { console.log(data); 
         this.listConsultations = data;
       });
     }
@@ -88,4 +91,24 @@ export class SerachPatientsComponent implements OnInit {
     this.router.navigate(['homePagePharmacist/patientProfileDoctor/' + id]);
   }
 
+
+  disabled(data : any) : boolean{
+    if(data.done)
+      return true;
+
+    if(!this.compareDate(this.today,data.start))
+      return true;
+
+    if(data.fullName == "Free appointment")
+      return true;
+    return false;
+
+  }
+
+
+  compareDate(currentDate, date) : boolean{
+
+    //console.log("Trenutna godina " + currentDate.getFullYear() + " Trenutni dan " + currentDate.getDate() + " Trenutni mesec je " + currentDate.getMonth() +  " Godina " + date[0] + " Datum " + date[2])
+    return currentDate.getFullYear() == date[0] && currentDate.getMonth()+1 == date[1] && currentDate.getDate() == date[2]
+  }
 }

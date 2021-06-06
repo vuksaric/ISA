@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { PharmacyService } from 'src/app/services/pharmacy.service';
 import { Dermatologist } from './../../../models/Dermatologist';
 import { DermatologistService } from 'src/app/services/dermatologist.service';
@@ -50,10 +51,14 @@ export class DermatologistListComponent implements OnInit {
   start = new Date();
   end = new Date();
   pharmacyList : any[] = [];
+  pharmacyId : any;
 
-  constructor(private modal: NzModalService, private toastr: ToastrService, private dermatologistService: DermatologistService, private pharmacyService: PharmacyService) { }
+  constructor(private modal: NzModalService, private toastr: ToastrService, private dermatologistService: DermatologistService, private pharmacyService: PharmacyService, private authService : AuthService) { }
 
   ngOnInit(): void {
+    let token = this.authService.getDataFromToken();
+    this.pharmacyId = token.pharmacyId.toString(); 
+
     this.getAllDermatologist();
     this.getDifference();
   }
@@ -62,14 +67,14 @@ export class DermatologistListComponent implements OnInit {
     if (this.search === '') {
       this.getAllDermatologist();
     } else {
-      this.pharmacyService.searchDermatologistInPharmacy(this.search, '1').subscribe(result => {
+      this.pharmacyService.searchDermatologistInPharmacy(this.search, this.pharmacyId).subscribe(result => {
         this.dermatologistList = result;
       });
     }
   }
 
   getDifference() {
-    this.pharmacyService.getDifferenceDermatologist('1').subscribe(data => {
+    this.pharmacyService.getDifferenceDermatologist(this.pharmacyId).subscribe(data => {
       this.dermatologistDifference = data;
     })
   }
@@ -86,7 +91,7 @@ export class DermatologistListComponent implements OnInit {
         endTime: this.end,
         pharmacyId: 1 
       }
-      this.pharmacyService.addDermatologistInPharmacy('1', this.dermatologistId, body).subscribe(data => {
+      this.pharmacyService.addDermatologistInPharmacy(this.pharmacyId, this.dermatologistId, body).subscribe(data => {
         console.log(this.start);
         console.log(this.end);
         this.getAllDermatologist();
@@ -98,7 +103,7 @@ export class DermatologistListComponent implements OnInit {
   }
 
   getAllDermatologist() {
-    this.pharmacyService.getDermatologistsFromPharmacy('1').subscribe(result => {
+    this.pharmacyService.getDermatologistsFromPharmacy(this.pharmacyId).subscribe(result => {
       console.log(result);
       this.dermatologistList = result;
 
@@ -171,7 +176,7 @@ export class DermatologistListComponent implements OnInit {
   }
 
   deleteDermatologist(id: number) {
-    this.pharmacyService.removeDermatologistInPharmacy(id, '1').subscribe(data => {
+    this.pharmacyService.removeDermatologistInPharmacy(id, this.pharmacyId).subscribe(data => {
       this.getAllDermatologist();
       this.getDifference();
       this.toastr.success("Successfully deleted!");

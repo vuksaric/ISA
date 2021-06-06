@@ -16,6 +16,7 @@ import com.example.ISA_project.service.IBillService;
 import com.example.ISA_project.service.IMedicineNotificationService;
 import com.example.ISA_project.service.IMedicineService;
 import com.example.ISA_project.service.IPharmacyService;
+import com.example.ISA_project.service.*;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
@@ -282,13 +283,27 @@ public class PharmacyService implements IPharmacyService {
     private boolean checkIfPharmacistWorks(Pharmacist pharmacist, LocalDateTime date){
         WorkingHours workingHours = pharmacist.getWorkingHours();
 
-        /*dodati proveru da li je na godisnjem*/
-
-        if(date.toLocalTime().isAfter(workingHours.getStartTime()) &&
-                date.toLocalTime().plusMinutes(29).isBefore(workingHours.getEndTime()))
-            return true;
-        else
+        if(!checkIfPharmacistVacation(pharmacist, date)){
             return false;
+        }
+        else {
+            if (date.toLocalTime().isAfter(workingHours.getStartTime()) &&
+                    date.toLocalTime().plusMinutes(29).isBefore(workingHours.getEndTime()))
+                return true;
+            else
+                return false;
+        }
+    }
+
+    private boolean checkIfPharmacistVacation(Pharmacist pharmacist, LocalDateTime date){
+        for (Vacation vacation : pharmacist.getVacation()) {
+            if (date.equals(vacation.getStart_date()) || date.equals(vacation.getEnd_date()))
+                return false;
+
+            if (date.isAfter(vacation.getStart_date()) && date.isBefore(vacation.getEnd_date()))
+                return false;
+        }
+        return true;
     }
 
     public List<PharmacistDTO> getAllPharmacists(int id) {

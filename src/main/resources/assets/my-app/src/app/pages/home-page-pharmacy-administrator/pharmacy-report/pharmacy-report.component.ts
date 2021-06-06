@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { BillService } from './../../../services/bill.service';
 import { ExaminationService } from 'src/app/services/examination.service';
 import { Component, OnInit, NgModule } from '@angular/core';
@@ -27,6 +28,7 @@ export class PharmacyReportComponent implements OnInit {
   chart: any[] = [];
   chart2: any[] = [];
   loaded = false;
+  pharmacyId : any;
 
   view: any[] = [550, 300];
 
@@ -69,9 +71,11 @@ export class PharmacyReportComponent implements OnInit {
     console.log(event);
   }
 
-  constructor(private pharmacyService: PharmacyService, private examinationService: ExaminationService, private billService: BillService) { }
+  constructor(private pharmacyService: PharmacyService, private examinationService: ExaminationService, private billService: BillService, private authService : AuthService) { }
 
   ngOnInit(): void {
+    let token = this.authService.getDataFromToken();
+    this.pharmacyId = token.pharmacyId.toString(); 
     this.getExaminationReport('12');
     this.getBillReport();
     this.getIncomeReport();
@@ -80,13 +84,13 @@ export class PharmacyReportComponent implements OnInit {
   }
 
   getMark() {
-    this.pharmacyService.getPharmacyMark('1').subscribe(data => {
+    this.pharmacyService.getPharmacyMark(this.pharmacyId).subscribe(data => {
       this.mark = data;
     })
   }
 
   getAllPharmacists() {
-    this.pharmacyService.getPharmacistsFromPharmacy('1').subscribe(data => {
+    this.pharmacyService.getPharmacistsFromPharmacy(this.pharmacyId).subscribe(data => {
       for (let element of data) {
         this.list2.push(element);
       }
@@ -95,7 +99,7 @@ export class PharmacyReportComponent implements OnInit {
   }
 
   getAllDermatologists() {
-    this.pharmacyService.getDermatologistsFromPharmacy('1').subscribe(data => {
+    this.pharmacyService.getDermatologistsFromPharmacy(this.pharmacyId).subscribe(data => {
       for (let element of data) {
         this.list2.push(element);
       }
@@ -104,7 +108,7 @@ export class PharmacyReportComponent implements OnInit {
   }
 
   getExaminationReport(mode) {
-    this.examinationService.getAllExaminationByMonth('1', mode).subscribe(data => {
+    this.examinationService.getAllExaminationByMonth(this.pharmacyId, mode).subscribe(data => {
       console.log(data);
       this.chart2.push({ "name": "January", "value": data[0] })
       this.chart2.push({ "name": "February", "value": data[1] })
@@ -136,7 +140,7 @@ export class PharmacyReportComponent implements OnInit {
   }
 
   getBillReport() {
-    this.billService.getBillReport('1').subscribe(data => {
+    this.billService.getBillReport(this.pharmacyId).subscribe(data => {
       this.chart7.push({ "name": "January", "value": data[0] })
       this.chart7.push({ "name": "February", "value": data[1] })
       this.chart7.push({ "name": "March", "value": data[2] })
@@ -165,7 +169,7 @@ export class PharmacyReportComponent implements OnInit {
   }
 
   getIncomeReport(){
-    this.billService.getIncomeReport('1').subscribe(data=> { 
+    this.billService.getIncomeReport(this.pharmacyId).subscribe(data=> { 
       this.chart13.push({ "name": "January", "value": data[0] })
       this.chart13.push({ "name": "February", "value": data[1] })
       this.chart13.push({ "name": "March", "value": data[2] })

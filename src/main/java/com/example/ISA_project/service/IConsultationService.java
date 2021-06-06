@@ -15,7 +15,7 @@ public interface IConsultationService {
     List<MedicineDTO> getReplacements(int idConsultation, int idMedicine);
     Consultation finish(ReportRequest request);
     List<Period> freePeriods(int id, LocalDate date);
-    List<AppointmentDTO> getFutureByPatient(int id);
+    List<AppointmentDTO> getFutureByPatient(int id, int pharmacist);
     AppointmentDTO newConsultationPharmacist(AppointmentRequest request);
     void addPenaltyPoint(int id);
     ConsultationDTO newConsultationPatient(ConsultationRequest consultationRequest);

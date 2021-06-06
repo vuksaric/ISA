@@ -88,6 +88,13 @@ insert into public.medicine_notification(pharmacy_id,medicine_id) values
 (1,1),
 (1,2);
 
+insert into public.pricelist_medicine(price, medicine_id,pharmacy_id,validity_id) values
+(150.0,1,1,1);
+
+insert into public.vacation_request(pharmacy_int,start_date,end_date,user_id,user_type) values
+(1,'2021-06-25 06:30:30','2021-06-25 06:30:30',2,1),
+(2,'2021-06-25 06:30:30','2021-06-25 06:30:30',3,0);
+
 alter sequence user_entity_id_seq restart with 7;
 alter sequence address_id_seq restart with 4;
 alter sequence pharmacist_id_seq restart with 2;
@@ -98,3 +105,4 @@ alter sequence workday_dermatologist_id_seq restart with 3;
 alter sequence medicine_quantity_id_seq restart with 4;
 alter sequence order_list_id_seq restart with 2;
 alter sequence medicine_id_seq restart with 5;
+

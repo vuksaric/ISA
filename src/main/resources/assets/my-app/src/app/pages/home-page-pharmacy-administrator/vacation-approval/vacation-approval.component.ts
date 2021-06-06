@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { VacationRequestService } from 'src/app/services/vacation-request.service';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
@@ -25,10 +26,14 @@ export class VacationApprovalComponent implements OnInit {
   vacationRequests: VacationRequest[] = [];
   request: VacationRequest;
   dataModal: any;
+  pharmacyId : any;
 
-  constructor(private toastr: ToastrService, private modal: NzModalService, private fb: FormBuilder, private vacationService: VacationRequestService) { }
+  constructor(private toastr: ToastrService, private modal: NzModalService, private fb: FormBuilder, private vacationService: VacationRequestService, private authService : AuthService) { }
 
   ngOnInit(): void {
+    let token = this.authService.getDataFromToken();
+    this.pharmacyId = token.pharmacyId.toString(); 
+
     this.validateForm = this.fb.group({
       text: [null, [Validators.required]],
     });
@@ -38,15 +43,17 @@ export class VacationApprovalComponent implements OnInit {
   }
 
   getAllRequests() {
-    this.vacationService.getAllRequests().subscribe(data => {
+    this.vacationService.getAllRequests(this.pharmacyId).subscribe(data => {
       if (data === null) {
         this.toastr.error("There is no vacation requests");
       }
       else {
-        data.forEach(function (request) {
-          //request.start_date = request.start_date.split(' ')[0];
-          //request.end_date = request.end_date.split(' ')[0];
-        })
+        for(let el of data){
+          //let startSplitted = el.start_date.toString().split(",",3);
+          //el.start_date = startSplitted[2] + '.' + startSplitted[1] + '.' + startSplitted[0]; 
+          //let endSplitted = el.end_date.toString().split(",",3);
+          //el.end_date = endSplitted[2] + '.' + endSplitted[1] + '.' + endSplitted[0]; 
+        }
         this.vacationRequests = data;
       }
     })
@@ -101,29 +108,5 @@ export class VacationApprovalComponent implements OnInit {
     /** wait for refresh value */
     Promise.resolve().then(() => this.validateForm.controls.text.updateValueAndValidity());
   }
-
-  listOfData: Vacation[] = [
-    {
-      name: 'Vuk',
-      surname: 'Saric',
-      type: 'Dermatologist',
-      start: '32',
-      end: 'New York No. 1 Lake Park',
-    },
-    {
-      name: 'Vuk',
-      surname: 'Saric',
-      type: 'Dermatologist',
-      start: '32',
-      end: 'New York No. 1 Lake Park',
-    },
-    {
-      name: 'Vuk',
-      surname: 'Saric',
-      type: 'Dermatologist',
-      start: '32',
-      end: 'New York No. 1 Lake Park',
-    }
-  ];
 
 }

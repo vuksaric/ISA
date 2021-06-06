@@ -54,12 +54,12 @@ export class NewExaminationDermatologistComponent implements OnInit {
 
       id : this.idDermatologist,
       date : this.date,
-      pharmacyId : 1
+      pharmacyId : this.id
     }
     if(result != null)
     {
 
-      this.dermatologistService.checkVacation(this.vacationBody).subscribe(data => { console.log(data);
+      this.examinationService.checkVacation(this.vacationBody).subscribe(data => { console.log(data);
           this.check = data;
           console.log("Check : " + this.check);
           if(this.check)

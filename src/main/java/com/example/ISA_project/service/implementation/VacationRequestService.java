@@ -1,6 +1,8 @@
 package com.example.ISA_project.service.implementation;
 
 import com.example.ISA_project.model.*;
+import com.example.ISA_project.model.dto.ProfileDTO;
+import com.example.ISA_project.model.dto.VacationAllDTO;
 import com.example.ISA_project.model.dto.VacationDTO;
 import com.example.ISA_project.repository.VacationRepository;
 import com.example.ISA_project.model.Pharmacy;
@@ -9,9 +11,11 @@ import com.example.ISA_project.model.VacationRequest;
 import com.example.ISA_project.model.dto.VacationRequestDTO;
 import com.example.ISA_project.repository.VacationRequestRepository;
 import com.example.ISA_project.service.IPharmacyService;
+import com.example.ISA_project.service.IUserService;
 import com.example.ISA_project.service.IVacationRequestService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,8 +27,9 @@ public class VacationRequestService implements IVacationRequestService {
     private final DermatologistService dermatologistService;
     private final EmailService emailService;
     private final IPharmacyService pharmacyService;
+    private final IUserService userService;
 
-    public VacationRequestService(VacationRequestRepository vacationRequestRepository, VacationRepository vacationRepository, PharmacistService pharmacistService, DermatologistService dermatologistService, EmailService emailService, IPharmacyService pharmacyService)
+    public VacationRequestService(VacationRequestRepository vacationRequestRepository, VacationRepository vacationRepository, PharmacistService pharmacistService, DermatologistService dermatologistService, EmailService emailService, IPharmacyService pharmacyService, IUserService userService)
     {
         this.vacationRequestRepository = vacationRequestRepository;
         this.vacationRepository = vacationRepository;
@@ -32,6 +37,7 @@ public class VacationRequestService implements IVacationRequestService {
         this.dermatologistService = dermatologistService;
         this.emailService = emailService;
         this.pharmacyService = pharmacyService;
+        this.userService = userService;
     }
 
     @Override
@@ -84,7 +90,19 @@ public class VacationRequestService implements IVacationRequestService {
     }
 
     @Override
-    public List<VacationRequest> getAll() {
-        return vacationRequestRepository.findAll();
+    public List<VacationAllDTO> getAll(int id) {
+        List<VacationAllDTO> vacationRequests = new ArrayList<>();
+        ProfileDTO user = null;
+        try{
+            for(VacationRequest vacationRequest : vacationRequestRepository.findAll()){
+                if(vacationRequest.getPharmacy_int() == id) {
+                    user = userService.getProfile(vacationRequest.getUser_id());
+                    vacationRequests.add(new VacationAllDTO(vacationRequest, user));
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return vacationRequests;
     }
 }

@@ -15,6 +15,11 @@ export class HomePagePharmacyAdministratorComponent implements OnInit {
     this.authService.checkAuthPharmacyAdmin();
   }
 
+  logout(){
+    this.router.navigate(['login']);
+    localStorage.clear();
+  }
+
   pharmacyProfile() {
     this.router.navigate(['pharmacyAdmin/pharmacy-profile']);
   }

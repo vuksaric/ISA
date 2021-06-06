@@ -45,8 +45,8 @@ export class ExaminationService {
     return this.http.post(examination_url + `/finish`,body);
   }
 
-  public getFutureByPatient(id): Observable<Examination[]> {
-    return this.http.get<Examination[]>(examination_url+'/getFutureExams'+`/${id}`);
+  public getFutureByPatient(id, dermatologist): Observable<Examination[]> {
+    return this.http.get<Examination[]>(examination_url+'/getFutureExams'+`/${id}/${dermatologist}`);
   }
 
   public getPreviousByDermatologist(id): Observable<any[]> {
@@ -75,4 +75,7 @@ export class ExaminationService {
 
 
 
+  public checkVacation(body): Observable<any> {
+    return this.http.post(examination_url + '/checkVacation', body);
+  }
 }

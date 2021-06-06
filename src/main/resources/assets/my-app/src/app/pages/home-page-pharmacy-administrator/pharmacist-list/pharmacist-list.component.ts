@@ -1,5 +1,6 @@
-import { PharmacyService } from 'src/app/services/pharmacy.service';
 import { Pharmaist } from './../../../models/pharmacist';
+import { AuthService } from 'src/app/services/auth.service';
+import { PharmacyService } from 'src/app/services/pharmacy.service';
 import { PharmacistService } from 'src/app/services/pharmacist.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -55,10 +56,14 @@ export class PharmacistListComponent implements OnInit {
   pharmacyFilter: any[] = [];
   start = new Date();
   end = new Date();
+  pharmacyId : any;
 
-  constructor(private modal: NzModalService, private fb: FormBuilder, private pharmacistService: PharmacistService, private toastr: ToastrService, private pharmacyService: PharmacyService) { }
+  constructor(private modal: NzModalService, private fb: FormBuilder, private pharmacistService: PharmacistService, private toastr: ToastrService, private pharmacyService: PharmacyService, private authService : AuthService) { }
 
   ngOnInit(): void {
+    let token = this.authService.getDataFromToken();
+    this.pharmacyId = token.pharmacyId.toString(); 
+
     this.getAllPharmacist();
 
     this.validateForm = this.fb.group({
@@ -79,7 +84,7 @@ export class PharmacistListComponent implements OnInit {
   }
 
   getAllPharmacist() {
-    this.pharmacyService.getPharmacistsFromPharmacy('1').subscribe(result => {
+    this.pharmacyService.getPharmacistsFromPharmacy(this.pharmacyId).subscribe(result => {
       this.pharmacistList = result;
 
       for (let element of result) {
@@ -128,7 +133,7 @@ export class PharmacistListComponent implements OnInit {
     if (this.search === '') {
       this.getAllPharmacist();
     } else {
-      this.pharmacyService.searchPharmacistInPharmacy(this.search, '1').subscribe(result => {
+      this.pharmacyService.searchPharmacistInPharmacy(this.search, this.pharmacyId).subscribe(result => {
         this.pharmacistList = result;
       });
     }
@@ -196,7 +201,7 @@ export class PharmacistListComponent implements OnInit {
       }
 
       //this.pharmacistService.newPharmacist(body).subscribe(data => {
-      this.pharmacyService.addPharmacistInPharmacy('1', body).subscribe(data => {
+      this.pharmacyService.addPharmacistInPharmacy(this.pharmacyId, body).subscribe(data => {
         this.toastr.success('Successfully registered!');
         this.getAllPharmacist();
         this.isVisible = false;
@@ -275,7 +280,7 @@ export class PharmacistListComponent implements OnInit {
 
   deletePharmacist(id: number) {
     //this.pharmacistService.delete(id).subscribe(data => {
-    this.pharmacyService.removePharmacistInPharmacy(id,'1').subscribe(data => {
+    this.pharmacyService.removePharmacistInPharmacy(id,this.pharmacyId).subscribe(data => {
       this.getAllPharmacist();
       this.toastr.success("Successfully deleted!");
     })

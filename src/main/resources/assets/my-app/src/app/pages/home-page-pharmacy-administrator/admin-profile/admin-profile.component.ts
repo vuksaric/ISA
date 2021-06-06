@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from './../../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -26,8 +27,9 @@ export class AdminProfileComponent implements OnInit {
   street: string;
   town: string;
   country: string;
+  adminId : any;
 
-  constructor(private modal: NzModalService, private fb: FormBuilder, private toastr: ToastrService, private userService: UserService) { }
+  constructor(private modal: NzModalService, private fb: FormBuilder, private toastr: ToastrService, private userService: UserService, private authService : AuthService) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
@@ -44,8 +46,10 @@ export class AdminProfileComponent implements OnInit {
       password: [null, [Validators.required]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]]
     })
-
+    let token = this.authService.getDataFromToken();
+    this.adminId = token.id.toString(); 
     this.getAdminInfo();
+   
   }
 
   validateName = (group: FormControl): { [s: string]: boolean } => {
@@ -139,7 +143,7 @@ export class AdminProfileComponent implements OnInit {
   }
 
   getAdminInfo() {
-    this.userService.getProfile('1').subscribe(data => {
+    this.userService.getProfile(this.adminId).subscribe(data => {
       this.name = data.name;
       this.surname = data.surname;
       var splitted = data.date.toString().split(",",3);

@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { PharmacyService } from 'src/app/services/pharmacy.service';
 import { Component, OnInit } from '@angular/core';
 import { differenceInCalendarDays } from 'date-fns';
@@ -18,15 +19,18 @@ export class DermatologistAppointmentsComponent implements OnInit {
   freeAppointments: any[] = [];
   appointment: string;
   show = false;
+  pharmacyId : any;
 
-  constructor(private pharmacyService: PharmacyService, private toastr: ToastrService) { }
+  constructor(private pharmacyService: PharmacyService, private toastr: ToastrService, private authService : AuthService) { }
 
   ngOnInit(): void {
-    this.getDermatologists()
+    let token = this.authService.getDataFromToken();
+    this.pharmacyId = token.pharmacyId.toString(); 
+    this.getDermatologists();
   }
 
   getDermatologists() {
-    this.pharmacyService.getDermatologistsFromPharmacy('1').subscribe(data => {
+    this.pharmacyService.getDermatologistsFromPharmacy(this.pharmacyId).subscribe(data => {
       this.dermatologist = data;
     })
   }
@@ -37,7 +41,7 @@ export class DermatologistAppointmentsComponent implements OnInit {
     } else {
       const body = {
         date: this.date.toISOString(),
-        pharmacyId: '1',
+        pharmacyId: this.pharmacyId,
         dermatologistId: this.dermatologistId
       }
       this.pharmacyService.getWorkingHoursOfDermatologist(body).subscribe(data => {
@@ -56,7 +60,7 @@ export class DermatologistAppointmentsComponent implements OnInit {
       var start1 = splitted[0];
       var end1 = splitted[1];
       const body = {
-        pharmacyId: '1',
+        pharmacyId: this.pharmacyId,
         dermatologistId: this.dermatologistId,
         date: this.date.toISOString,
         start: start1.toString,

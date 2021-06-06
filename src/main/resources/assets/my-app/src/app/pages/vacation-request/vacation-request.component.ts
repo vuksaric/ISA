@@ -107,8 +107,13 @@ export class VacationRequestComponent implements OnInit {
     if(this.validateForm.valid)
     {
       this.vacationRequestService.sendVacationRequest(body).subscribe(data=>{console.log("usao")});
-      this.toastr.warning("You have successfully sent a vacation request!");
-      this.router.navigate(['homePagePharmacist']);
+      this.toastr.success("You have successfully sent a vacation request!");
+      if(this.type.toLowerCase() == "pharmacist")
+        {
+          this.router.navigate(['homePagePharmacist']);
+        }
+      else
+          this.router.navigate(['homePageDermatologist']);
     }
 
     else
